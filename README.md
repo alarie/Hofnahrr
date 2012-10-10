@@ -8,6 +8,9 @@ Hofna'
 Eingesetzte Technologien
 ------------------------
 
+### Frameworks ###
+* [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
+
 ### JS-Libs ###
 * [Backbone](http://backbonejs.org/)
 * [Underscore](http://documentcloud.github.com/underscore/)
