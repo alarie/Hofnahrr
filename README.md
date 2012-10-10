@@ -7,3 +7,22 @@ Hofna'
 
 Eingesetzte Technologien
 ------------------------
+
+### JS-Libs ###
+* [Backbone](http://backbonejs.org/)
+* [Underscore](http://documentcloud.github.com/underscore/)
+
+### PHP-Libs ###
+* [Propel](http://www.propelorm.org/)
+
+### Testing ###
+* [Testem](https://github.com/airportyh/testem)
+* [Jasmin](http://pivotal.github.com/jasmine/)
+
+### SCSS ###
+* [SCSS](http://sass-lang.com/)
+
+### Tools ###
+* [jshint](https://github.com/jshint/jshint)
+* [PHPLint](http://www.icosaedro.it/phplint/)
+* [yeoman](http://yeoman.io/)
