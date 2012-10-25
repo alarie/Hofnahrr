@@ -10,8 +10,11 @@ Abhhängigkeiten
 
 * Backbone, Underscore, jQuery:
 
-        cd mosaic
         jam install backbone
+
+* Handlebars
+
+        jam install handlebars
 
 Test
 ----
