@@ -13,6 +13,8 @@ Abhhängigkeiten
         cd mosaic
         jam install backbone
 
+Test
+----
 * Jasmine [http://pivotal.github.com/jasmine/]
 * Testem [https://github.com/airportyh/testem]
 
