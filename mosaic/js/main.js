@@ -3,6 +3,9 @@ require(['handlebars', '../js/mosaic'], function (Handlebars, mosaic) {
     var lang = {
         history_item_remove : 'Löschen',
         history_item_toggle : 'Ein-/Ausblenden',
+        mosaic_headline : 'Mosaik',
+        mosaic_save : 'Speichern',
+        mosaic_edit : 'Bearbeiten'
     };
 
     Handlebars.registerHelper('i18n', function (textId) {
@@ -54,20 +57,25 @@ require(['handlebars', '../js/mosaic'], function (Handlebars, mosaic) {
                 description : ''
             }
         ],
-        range = $('input[type="range"]'),
-        mosaicRenderer = new mosaic.MosaicRenderer({
-            canvas : $('#container'),
-            width : 1000,
-            height: 600,
-            minOpacity : 0.7
-        }),
+        range,
+        mosaicRenderer,
         max, step, 
-        template = Handlebars.compile($('#list-item').text()),
 
-        historyTemplate = Handlebars.compile($('#hb-history-item').text()),
-        
-        layers = $('ul.layers'),
-        history = $('ul.history');
+        template, historyTemplate, layers, history;
+
+    $('body').append(Handlebars.compile($('#main-template').text()));
+    template = Handlebars.compile($('#list-item').text());
+    historyTemplate = Handlebars.compile($('#history-item').text());
+    layers = $('ul.layers');
+    history = $('ul.history');
+
+    range = $('input[type="range"]');
+    mosaicRenderer  = new mosaic.MosaicRenderer({
+        canvas : $('#container'),
+        width : 1000,
+        height: 600,
+        minOpacity : 0.7
+    });
 
     var composer = new mosaic.MosaicComposer();
     $('#edit').click(function () {

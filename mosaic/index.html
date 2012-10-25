@@ -8,25 +8,31 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
 </head>
 <body class="container-fluid">
-    <div class="row-fluid" id="main">
-        <div class="span9">
-            <input type="range" min="0" max="20000" value="0" />
-            <div class="v-align-container">
-                <div class="v-align-cell">
-                    <div id="container"></div>
+    <script type="text/javascript" id="main-template">
+        <div class="row-fluid" id="main">
+            <div class="span9">
+                <input type="range" min="0" max="20000" value="0" />
+                <div class="v-align-container">
+                    <div class="v-align-cell">
+                        <div id="container"></div>
+                    </div>
                 </div>
+                <ul class="history unstyled">
+                    
+                </ul>
             </div>
-            <ul class="history unstyled">
-                
-            </ul>
+            <aside class="span3">
+                <h1>Bundestag</h1>
+                <ul class="unstyled layers"></ul>
+                <br />
+                <h2>{{i18n "mosaic_headline"}}</h2>
+                <span class="btn-group">
+                <button class="btn" id="edit"><i class="icon-pencil"></i> {{i18n "mosaic_edit"}}</button>
+                <button class="btn btn-primary" id="save"><i class="icon-hdd icon-white"></i> {{i18n "mosaic_save"}}</button>
+                </span>
+            </aside>
         </div>
-        <aside class="span3">
-            <h1>Bundestag</h1>
-            <ul class="unstyled layers"></ul>
-            <button class="btn" id="edit"><i class="icon-pencil"></i> Edit</button>
-            <button class="btn btn-primary" id="save"><i class="icon-hdd icon-white"></i> Save</button>
-        </aside>
-    </div>
+    </script>
 
     <script type="text/javascript" id="list-item">
         <li>
@@ -38,7 +44,7 @@
         </li>'
     </script>
 
-    <script id="hb-history-item" type="text/x-handlebars-template">
+    <script id="history-item" type="text/x-handlebars-template">
         <li>
             <label>
                 <input name="hostory-elem" type="radio" />
