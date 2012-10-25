@@ -27,6 +27,38 @@
             <button class="btn btn-primary" id="save"><i class="icon-hdd icon-white"></i> Save</button>
         </aside>
     </div>
+
+    <script type="text/javascript" id="list-item">
+        <li>
+            <label>
+            <input type="checkbox" {{isChecked active}}/>
+            </label>
+            <a class="title" style="background-image:url({{url}})">{{title}}</a>
+            <a class="del"><i class="icon-remove"></i></a>
+        </li>'
+    </script>
+
+    <script id="hb-history-item" type="text/x-handlebars-template">
+        <li>
+            <label>
+                <input name="hostory-elem" type="radio" />
+                <a href="#{{title}}">
+                    <span style="background-image:url({{url}})" />{{year date}}
+                </a>
+                <div class="tools">
+                    <span class="btn-group">
+                        <button class="btn btn-mini toggle" title="{{i18n "history_item_toggle"}}">
+                            <i class="icon-eye-close"></i>
+                        </button/>
+                        <button class="btn btn-danger btn-mini remove" title="{{i18n "history_item_remove"}}">
+                            <i class="icon-remove icon-white"></i>
+                        </button>
+                    </span>
+                </div>
+            </label>
+        </li>
+    </script>
+
     <script data-main="js/main" src="js/jam/require.js"></script>
 </body>
 </html>

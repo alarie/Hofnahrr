@@ -1,5 +1,11 @@
 var jam = {
+    baseDir : "js",
     "packages": [
+        {
+            "name": "handlebars",
+            "location": "jam/handlebars",
+            "main": "handlebars.js"
+        },
         {
             "name": "backbone",
             "location": "jam/backbone",
@@ -16,7 +22,7 @@ var jam = {
             "main": "underscore.js"
         }
     ],
-    "version": "0.2.10",
+    "version": "0.1.4",
     "shim": {}
 };
 
@@ -29,4 +35,4 @@ else {
 
 if (typeof exports !== "undefined" && typeof module !== "undefined") {
     module.exports = jam;
-}
+};

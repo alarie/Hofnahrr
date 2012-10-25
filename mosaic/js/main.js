@@ -1,4 +1,23 @@
-require(['../js/mosaic'], function (mosaic) {
+require(['handlebars', '../js/mosaic'], function (Handlebars, mosaic) {
+
+    var lang = {
+        history_item_remove : 'Löschen',
+        history_item_toggle : 'Ein-/Ausblenden',
+    };
+
+    Handlebars.registerHelper('i18n', function (textId) {
+        return lang[textId] || '';
+    }); 
+
+    Handlebars.registerHelper('isChecked', function (checked) {
+        return checked ? 'checked="checked"' : '';
+    });
+
+    Handlebars.registerHelper('year', function (date) {
+        return (new Date(date)).getFullYear();
+    }); 
+
+
     var images = window.localStorage.images ? JSON.parse(window.localStorage.images) : [{
                 x : 0, 
                 y: 0, 
@@ -43,9 +62,9 @@ require(['../js/mosaic'], function (mosaic) {
             minOpacity : 0.7
         }),
         max, step, 
-        template = _.template('<li><label><input type="checkbox" <%= active ? \'checked="checked"\' : \'\' %>/></label><a class="title" style="background-image:url(<%= url %>)"><%= title %></a><a class="del"><i class="icon-remove"></i></a></li>'),
+        template = Handlebars.compile($('#list-item').text()),
 
-        historyTemplate = _.template('<li><label><input name="hostory-elem" type="radio" /><a href="#<%= title %>"><span style="background-image:url(<%= url %>)" /><%= (new Date(date)).getFullYear() %></a></label></li>'),
+        historyTemplate = Handlebars.compile($('#hb-history-item').text()),
         
         layers = $('ul.layers'),
         history = $('ul.history');
@@ -84,17 +103,22 @@ require(['../js/mosaic'], function (mosaic) {
             step = range[0].value / max;
             mosaicRenderer.goToPercent(step, true);
         });
-        el.on('change', 'input[type="checkbox"]', function (e) {
-            if (e.target.checked) {
+
+        el2.on('click', '.remove', function () {
+            mosaicRenderer.removeTile(tile);
+            el2.remove();
+        });
+        el2.on('click', '.toggle', function (e) {
+            var target = $(e.target); 
+            if (target.hasClass('pressed')) {
                 tile.activate();
+                target.removeClass('pressed');
             }
             else {
                 tile.deactivate();
+                target.addClass('pressed');
             }
-        })
-        .on('click', '.del', function () {
-            mosaicRenderer.removeTile(tile);
-            el.remove();
+
         });
     });
 
