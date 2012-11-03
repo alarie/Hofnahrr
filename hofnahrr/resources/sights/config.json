@@ -1,0 +1,61 @@
+{
+	"type": "Collection",
+	"properties": {
+		"speakingId": {
+			"name": "speakingId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "speakingId",
+			"order": 0
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "name",
+			"order": 1
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 2
+		},
+		"location": {
+			"name": "location",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "location",
+			"order": 3
+		},
+		"links": {
+			"name": "links",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "links",
+			"order": 4
+		},
+		"tags": {
+			"name": "tags",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "tags",
+			"order": 5
+		},
+		"pictures": {
+			"name": "pictures",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "pictures",
+			"order": 6
+		}
+	}
+}

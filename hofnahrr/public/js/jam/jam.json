@@ -1,0 +1,10 @@
+{
+    "jam_version": "0.1.4",
+    "dependencies": {
+        "backbone": null,
+        "handlebars": null,
+        "jquery": null,
+        "bootstrap-sass": null,
+        "hbt": null
+    }
+}

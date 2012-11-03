@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
 </head>
 <body class="container-fluid">
-    <script type="text/javascript" id="main-template">
-        <div class="row-fluid" id="main">
+    <script type="text/x-handlebars-template" id="main-template">
+        <div class="row-fluid main">
             <div class="span9">
                 <input type="range" min="0" max="20000" value="0" />
                 <div class="v-align-container">
                     <div class="v-align-cell">
-                        <div id="container"></div>
+                        <div class="mosaic-container"></div>
                     </div>
                 </div>
                 <ul class="history unstyled">
@@ -26,7 +26,7 @@
                 <ul class="unstyled layers"></ul>
                 <br />
                 <h2>{{i18n "mosaic_headline"}}</h2>
-                <span class="btn-group">
+                <span class="btn-group pull-right">
                 <button class="btn" id="edit"><i class="icon-pencil"></i> {{i18n "mosaic_edit"}}</button>
                 <button class="btn btn-primary" id="save"><i class="icon-hdd icon-white"></i> {{i18n "mosaic_save"}}</button>
                 </span>
@@ -34,14 +34,14 @@
         </div>
     </script>
 
-    <script type="text/javascript" id="list-item">
+    <script type="text/x-handlebars-template" id="list-item">
         <li>
             <label>
             <input type="checkbox" {{isChecked active}}/>
             </label>
             <a class="title" style="background-image:url({{url}})">{{title}}</a>
             <a class="del"><i class="icon-remove"></i></a>
-        </li>'
+        </li>
     </script>
 
     <script id="history-item" type="text/x-handlebars-template">
@@ -64,7 +64,7 @@
             </label>
         </li>
     </script>
-
+    
     <script data-main="js/main" src="js/jam/require.js"></script>
 </body>
 </html>

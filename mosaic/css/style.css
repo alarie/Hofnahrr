@@ -1,349 +1,438 @@
+/*---------------------------------------------------
+    LESS Prefixer
+  ---------------------------------------------------
+    
+    All of the CSS3 fun, none of the prefixes!
+
+    As a rule, you can use the CSS properties you
+    would expect just by adding a '.':
+
+    box-shadow => @mixin box-shadow($args)
+
+    Also, when shorthand is available, arguments are
+    not parameterized. Learn CSS, not LESS Prefixer.
+
+    -------------------------------------------------
+    TABLE OF CONTENTS
+    (*) denotes a syntax-sugar helper
+    -------------------------------------------------
+
+        @mixin animation($args)
+            @mixin animation-delay($delay)
+            @mixin animation-direction($direction)
+            @mixin animation-duration($duration)
+            @mixin animation-iteration-count($count)
+            @mixin animation-name($name)
+            @mixin animation-play-state$state)
+            @mixin animation-timing-function($function)
+        @mixin background-size($args)
+        @mixin border-radius($args)
+        @mixin box-shadow($args)
+            @mixin inner-shadow($args) *
+        @mixin box-sizing($args)
+            @mixin border-box() *
+            @mixin content-box() *
+        @mixin columns($args)
+            @mixin column-count($count)
+            @mixin column-gap($gap)
+            @mixin column-rule($args)
+            @mixin column-width($width)
+        @mixin gradient($default,$start,$stop) *
+            @mixin linear-gradient-top($default,$color1,$stop1,$color2,$stop2,[$color3,$stop3,$color4,$stop4])*
+            @mixin linear-gradient-left($default,$color1,$stop1,$color2,$stop2,[$color3,$stop3,$color4,$stop4])*
+        @mixin opacity($factor)
+        @mixin perspective($factor)
+        @mixin transform($args)
+            @mixin rotate($deg)
+            @mixin scale($factor)
+            @mixin translate($x,$y)
+            @mixin translate3d($x,$y,$z)
+            @mixin translateHardware($x,$y) *
+        @mixin text-shadow($args)
+        @mixin transition($args)
+            @mixin transition-delay($delay)
+            @mixin transition-duration($duration)
+            @mixin transition-property($property)
+            @mixin transition-timing-function($function)
+
+
+
+    Credit to LESS Elements for the motivation and
+    to CSS3Please.com for implementation.
+
+    Copyright (c) 2012 Joel Sutherland
+    MIT Licensed:
+    http://www.opensource.org/licenses/mit-license.php
+
+-----------------------------------------------------*/
+/* Animation */
+/* Background Size */
+/* Border Radius */
+/* Box Shadows */
+/* Box Sizing */
+/* Columns */
+/* Gradients */
+/* Opacity */
+/* Text Shadow */
+/* Transforms */
+/* Transitions */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\000033}}
 body {
-    font-family: Arial;
-}
+  font-family: Arial; }
 
-
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\000038}}
 h1 {
-    margin-bottom: 20px;
-    border: 0;
-    border-bottom: 1px solid #E5E5E5;
-}
+  margin-bottom: 20px;
+  border: 0;
+  border-bottom: 1px solid #E5E5E5; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000314}}
+.main {
+  padding: 10px; }
 
-#main {
-    padding: 10px;
-}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000317}}
 input[type="range"] {
-    margin-bottom: 20px;
-}
-#main aside {
-    background-color: #F9F9F9;
-    padding: 10px;
-}
+  margin-bottom: 20px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000320}}
+.main aside {
+  background-color: #F9F9F9;
+  padding: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000324}}
 .v-align-container {
-    width: 100%;
-    height: 500px;
-    margin: 0;
-    padding:0;
-    display: table;
-}
+  width: 100%;
+  height: 500px;
+  margin: 0;
+  padding: 0;
+  display: table; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000331}}
 .v-align-cell {
-    margin: 0;
-    padding:0;
-    display: table-cell;
-    vertical-align: middle;
-}
-#container{
-    position: relative;
-    margin: auto auto;
-    border-radius: 0px;
-    width: 0px;
-    height: 0px;
-    overflow: hidden;
-    -webkit-perspective: 1000px;
-    -webkit-transform-origin: 50% 50% 0;
-    -webkit-transition: width 0.3s ease-in-out, 
-        height 0.3s ease-in-out, 
-        border-width 0.3s ease-in-out, 
-        border-radius 0.3s ease-in-out,
-        -webkit-transform 0.5s ease-in-out,
-        box-shadow 0.3s ease-in-out 0.2s;
-    background-color: #eee;
-    background-image: -webkit-linear-gradient(-20deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.0));
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 0 0 4px white, 0 1px 3px rgba(0, 0, 0, 0.1);
-    -webkit-transform: rotate(0deg) translateZ(0);
-}
-#container.initializing {
-    border: 100px solid black;
-    border-radius: 100px;
-    overflow: visible;
-    box-shadow: 0;
-    -webkit-animation: pulse 2s infinite ease-in-out;
-    -webkit-transition: width 0.3s ease-in-out, 
-        height 0.3s ease-in-out, 
-        border-width 0.3s ease-in-out, 
-        border-radius 0.3s ease-in-out,
-        box-shadow 0s linear;
-    -webkit-transform: rotate(45deg) translateZ(0);
-}
-#container.initializing:before {
-    color: white;
-    content:"loading...";
-    font-size: 2em;
-    width: 200px;
-    text-align: center;
-    left: -100px;
-    position: absolute;
-    top: 0px;
-}
+  padding: 0;
+  display: table-cell;
+  vertical-align: middle; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000336}}
+.mosaic-container {
+  position: relative;
+  margin: auto auto;
+  border-radius: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  -o-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform-origin: 50% 50% 0;
+  -moz-transform-origin: 50% 50% 0;
+  -ms-transform-origin: 50% 50% 0;
+  -o-transform-origin: 50% 50% 0;
+  transform-origin: 50% 50% 0;
+  background-color: #cccccc;
+  background-image: -webkit-linear-gradient(-20deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 0 4px white, 0 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-transform: rotate(0deg) translateZ(0);
+  -moz-transform: rotate(0deg) translateZ(0);
+  -ms-transform: rotate(0deg) translateZ(0);
+  -o-transform: rotate(0deg) translateZ(0);
+  transform: rotate(0deg) translateZ(0); }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000351}}
+.mosaic-container.initializing {
+  border: 100px solid black;
+  border-radius: 100px;
+  overflow: visible;
+  box-shadow: none;
+  -webkit-animation: pulse 2s infinite ease-in-out;
+  -webkit-transition: width 0.3s ease-in-out, height 0.3s ease-in-out, border-width 0.3s ease-in-out, border-radius 0.3s ease-in-out, box-shadow 0s linear;
+  -webkit-transform: rotate(45deg) translateZ(0); }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000364}}
+.mosaic-container.initializing:before {
+  color: white;
+  content: "loading...";
+  font-size: 2em;
+  width: 200px;
+  text-align: center;
+  left: -100px;
+  position: absolute;
+  top: 0px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000375}}
 .panel {
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.9);
-    position: absolute;
-    display: inline-block;
-    background-color: transparent;
-    background-size: contain;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    /*-webkit-transition: opacity 0.5s ease-in-out 0.3s, -webkit-transform 0s;*/
-}
-.panel.anim-out{
-    -webkit-transition: all 0.5s ease-in;
-       -moz-transition: all 0.5s ease-in;
-        -ms-transition: all 0.5s ease-in;
-         -o-transition: all 0.5s ease-in;
-            transition: all 0.5s ease-in;
-}
-.panel.anim-in {
-    -webkit-transition: all 0.5s ease-out;
-       -moz-transition: all 0.5s ease-out;
-        -ms-transition: all 0.5s ease-out;
-         -o-transition: all 0.5s ease-out;
-            transition: all 0.5s ease-out;
-}
-.panel.editing {
-    opacity: 0.6;
-    -webkit-transition:none;
-       -moz-transition:none;
-        -ms-transition:none;
-         -o-transition:none;
-            transition:none;
-}
-#container.initializing .panel {
-    opacity: 0!important;
-}
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.9);
+  position: absolute;
+  display: inline-block;
+  background-color: transparent;
+  background-size: contain;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  /*-webkit-transition: opacity 0.5s ease-in-out 0.3s, -webkit-transform 0s;*/ }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000385}}
+.panel.anim-out {
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -ms-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000392}}
+.panel.anim-in {
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -ms-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\0000399}}
+.panel.editing {
+  opacity: 0.6;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003107}}
+.mosaic-container.initializing .panel {
+  opacity: 0!important; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003111}}
 .layers {
-    border-bottom: 1px solid #E5E5E5;
-}
+  border-bottom: 1px solid #E5E5E5; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003114}}
 .layers li {
-    position: relative;
-    line-height: 50px;
-    border-top: 1px solid #E5E5E5;
-}
+  position: relative;
+  line-height: 50px;
+  border-top: 1px solid #E5E5E5; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003119}}
 .layers li label {
-    width: 40px;
-    text-align: center;
-}
+  width: 40px;
+  text-align: center; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003124}}
 .layers li label,
 .layers li a.title {
-    display: inline-block;
-    vertical-align: middle;
-}
+  display: inline-block;
+  vertical-align: middle; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003128}}
 .layers li a.title {
-    padding-left: 60px;
-    position: relative;
-    white-space: nowrap;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-size: 50px auto;
-    background-repeat: no-repeat;
-    background-position: left center;
-}
+  padding-left: 60px;
+  position: relative;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-size: 50px auto;
+  background-repeat: no-repeat;
+  background-position: left center; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003139}}
 .resizers {
-    border: 1px solid black;
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-}
+  border: 1px solid black;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003147}}
 .resizers span {
-    position: absolute;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 1px;
-    z-index:1;
-}
+  position: absolute;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 1px;
+  z-index: 1; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003158}}
 .resizers span.br {
-    right:-5px;
-    bottom: -5px;
-}
+  right: -5px;
+  bottom: -5px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003163}}
 .del {
-    position: absolute;
-    right: 0;
-    width: 20px;
+  position: absolute;
+  right: 0;
+  width: 20px; }
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003175}}
 .history {
-    margin: 80px 0 20px 0;
-    text-align: center;
-    
-}
+  margin: 90px 0 60px 0;
+  text-align: center; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003180}}
 .history li {
-    position: relative;
-    display: inline-block;
-    color:#bcbcbc;
-    margin: 0 25px;
-    padding: 0 10px;
-    width: 70px;
-    text-align: center;
-}
+  position: relative;
+  display: inline-block;
+  color: #bcbcbc;
+  margin: 0 25px;
+  padding: 0 10px;
+  width: 70px;
+  text-align: center; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003190}}
 .history li:before,
 .history li:after {
-    position: absolute;
-    top: 50%;
-    margin-top: -3px;
-    display: inline-block;
-    width: 25px;
-    height: 3px;
-    background-color: #dedede;
-    content: "\0020";
-}
+  position: absolute;
+  top: 50%;
+  margin-top: -3px;
+  display: inline-block;
+  width: 25px;
+  height: 3px;
+  background-color: #dedede;
+  content: "\0020"; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003201}}
 .history li:before {
-    left: -25px;
-}
+  left: -25px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003204}}
 .history li:after {
-    right: -25px;
-}
+  right: -25px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003208}}
 .history li label {
-    margin-bottom: 0;
-}
+  margin-bottom: 0; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003212}}
 .history li input[type="radio"] {
-    display: none;
-}
+  display: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003216}}
 .history li a {
-    font-size:26px;
-}
+  font-size: 26px;
+  opacity: 0.8; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003221}}
 .history li a span {
-    width: 60px;
-    height: 50px;
-    background-size:cover;
-    background-position: center center;
-    display: inline-block;
-    top: -75px;
-    position: absolute;
-    left: 50%;
-    margin-left: -27px;
-    border: 2px solid #cccccc;
-    border-bottom-width: 7px;
-    border-radius: 1px;
-    z-index: 1;
-    box-shadow:inset 0 0 1px black, 0 0 4px rgba(0, 0, 0, 0.3);
-    -webkit-transition: all 0.3s ease-in-out;
-}
+  width: 60px;
+  height: 50px;
+  background-size: cover;
+  background-position: center center;
+  display: inline-block;
+  top: -75px;
+  position: absolute;
+  left: 50%;
+  margin-left: -25px;
+  border: 0px solid #cccccc;
+  border-bottom-width: 7px;
+  border-radius: 2px;
+  z-index: 1;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5), inset 0 0px 2px rgba(255, 255, 255, 0.8);
+  -webkit-transition: all 0.3s ease-in-out; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003241}}
 .history li a span:before {
-    background-color: #cccccc;
-    width: 10px;
-    height: 10px;
-    -webkit-transform: rotateZ(45deg);
-    display: inline-block;
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    margin-left: -5px;
-    z-index:0;
-    content: "\0020";
-}
+  background-color: #cccccc;
+  width: 10px;
+  height: 10px;
+  -webkit-transform: rotateZ(45deg);
+  display: inline-block;
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  margin-left: -5px;
+  z-index: 0;
+  content: "\0020"; }
 
-.history li input[type="radio"]:checked+a>span{
-    width: 100px;
-    height: 83px;
-    margin-left: -52px;
-    top:-108px;
-}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003255}}
+.history li input[type="radio"]:checked + a {
+  opacity: 1.0; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003259}}
+.history li input[type="radio"]:checked + a > span {
+  width: 100px;
+  height: 83px;
+  margin-left: -52px;
+  top: -108px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003266}}
 .history li .tools {
-    position: absolute;
-    padding: 2px 5px;
-    background-color: #efefef;
-    border: 1px solid #cdcdcd;
-    border-radius: 6px;
-    width: 80px;
-    left: 50%;
-    margin-left: -40px;
-    display: none;
-    text-align: center;
-    top: 45px;
-    opacity: 0.6;
+  position: absolute;
+  padding: 2px 5px;
+  background-color: #efefef;
+  border: 1px solid #cdcdcd;
+  border-radius: 6px;
+  width: 80px;
+  left: 50%;
+  margin-left: -40px;
+  display: none;
+  text-align: center;
+  top: 45px;
+  opacity: 0.6;
+  box-sizing: border-box;
+  -webkit-transition: opacity 0.1s ease-in; }
 
-    -webkit-transition: opacity 0.1s ease-in;
-}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003282}}
 .history li .tools:hover {
-    opacity: 1.0;
-}
-.history li input[type="radio"]:checked~.tools{
-    display: block;
-}
+  opacity: 1.0; }
 
-
-
-
-
-
-
-
-
-
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003285}}
+.history li input[type="radio"]:checked ~ .tools {
+  display: block; }
 
 @-webkit-keyframes pulse {
-    0%   { -webkit-transform:translateY(0px); }
-    15%  { -webkit-transform:translateY(10px); }
-    25%  { -webkit-transform:translateY(0px); }
-    40%  { -webkit-transform:translateY(10px); }
-    50%  { -webkit-transform:translateY(0px); }
-    100% { -webkit-transform:translateY(0px); }
-}
+  0% {
+    -webkit-transform: translateY(0px); }
 
+  15% {
+    -webkit-transform: translateY(10px); }
 
+  25% {
+    -webkit-transform: translateY(0px); }
+
+  40% {
+    -webkit-transform: translateY(10px); }
+
+  50% {
+    -webkit-transform: translateY(0px); }
+
+  100% {
+    -webkit-transform: translateY(0px); } }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003309}}
 input[type="range"] {
-    width: 100%;
-    background-color: #F7F7F9;
-    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.0) 50%, rgba(255, 255, 255, 0.2)); 
-    border: 1px solid #666;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    height: 6px;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-        -ms-appearance: none;
-         -o-appearance: none;
-            appearance: none;
-}
+  width: 100%;
+  background-color: #F7F7F9;
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2));
+  border: 1px solid #666;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  height: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003325}}
 input[type='range']::-webkit-slider-thumb,
 input[type='range']::-moz-slider-thumb {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border-radius: 12px;
-    border: 1px solid #666;
-    background-color: #efefef;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4), inset 0px 1px 2px 1px white;
-    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 50%); 
-    -webkit-appearance: none;
-       -moz-appearance: none;
-        -ms-appearance: none;
-         -o-appearance: none;
-            appearance: none;
-}
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 12px;
+  border: 1px solid #666;
+  background-color: #efefef;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4), inset 0px 1px 2px 1px white;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 50%);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofna-h-rr\/mosaic\/scss\/style\.scss}line{font-family:\00003341}}
 .no-transition {
-    -webkit-transition: none!important;
-}
+  -webkit-transition: none!important; }

@@ -1,4 +1,29 @@
 /*global describe, it, expect, beforeEach, spyOn, runs, waitsFor */
+requirejs.config({
+    baseDir : '../js',
+    packages : [
+        {
+            "name": "handlebars",
+            "location": "../js/jam/handlebars",
+            "main": "handlebars.js"
+        },
+        {
+            "name": "backbone",
+            "location": "../js/jam/backbone",
+            "main": "backbone.js"
+        },
+        {
+            "name": "jquery",
+            "location": "../js/jam/jquery",
+            "main": "jquery.js"
+        },
+        {
+            "name": "underscore",
+            "location": "../js/jam/underscore",
+            "main": "underscore.js"
+        }
+    ]
+});
 require(['../js/mosaic'], function (mosaic) {
     var images = [{
             x : 0, 

@@ -1,12 +1,15 @@
-require(['handlebars', '../js/mosaic'], function (Handlebars, mosaic) {
+/*global require */
+require(['handlebars', '../js/lang', '../js/data', '../js/mosaic'], function (Handlebars, lang, data, mosaic) {
 
-    var lang = {
-        history_item_remove : 'Löschen',
-        history_item_toggle : 'Ein-/Ausblenden',
-        mosaic_headline : 'Mosaik',
-        mosaic_save : 'Speichern',
-        mosaic_edit : 'Bearbeiten'
-    };
+    var images,
+        range,
+        mosaicRenderer,
+        composer,
+        max, step, 
+        template, 
+        historyTemplate, 
+        layers, 
+        history;
 
     Handlebars.registerHelper('i18n', function (textId) {
         return lang[textId] || '';
@@ -21,47 +24,7 @@ require(['handlebars', '../js/mosaic'], function (Handlebars, mosaic) {
     }); 
 
 
-    var images = window.localStorage.images ? JSON.parse(window.localStorage.images) : [{
-                x : 0, 
-                y: 0, 
-                url : 'http://germanhistorydocs.ghi-dc.org/images/vor%20dem%20Reichstag.jpg',
-                title : 'Vor 1945',
-                date : '1919-05-15',
-                description : ''
-            },
-            {
-                x : -2, 
-                y: 19.5, 
-                scale : 1.1, 
-                url : 'http://iconicphotos.files.wordpress.com/2009/12/09_wrapped_reichstag_02.jpg',
-                title : 'Christos Verhüllter Reichstag 1995',
-                date : '1995-01-01',
-                description : ''
-            },
-            {
-                x : 30, 
-                y: 21.5, 
-                scale : 1.19, 
-                url : 'http://www.berliner.de/sites/default/files/orte/bilder/Reichstag.jpg',
-                title : 'Nach 1999: Die Kuppel',
-                date : '1999-01-01',
-                description : ''
-            },
-            {
-                x : -10,
-                y : -13,
-                scale : 0.52,
-                url : 'http://abenteuerinberlin.files.wordpress.com/2010/03/reichstag1.jpg',
-                title : 'Nach 1999: Die Kuppel bei Nacht',
-                date : '2000-01-01',
-                description : ''
-            }
-        ],
-        range,
-        mosaicRenderer,
-        max, step, 
-
-        template, historyTemplate, layers, history;
+    images = data;
 
     $('body').append(Handlebars.compile($('#main-template').text()));
     template = Handlebars.compile($('#list-item').text());
@@ -71,13 +34,13 @@ require(['handlebars', '../js/mosaic'], function (Handlebars, mosaic) {
 
     range = $('input[type="range"]');
     mosaicRenderer  = new mosaic.MosaicRenderer({
-        canvas : $('#container'),
+        canvas : $('.mosaic-container'),
         width : 1000,
         height: 600,
         minOpacity : 0.7
     });
 
-    var composer = new mosaic.MosaicComposer();
+    composer = new mosaic.MosaicComposer();
     $('#edit').click(function () {
         if (composer.renderer) {
             composer.uninstall();
@@ -121,22 +84,23 @@ require(['handlebars', '../js/mosaic'], function (Handlebars, mosaic) {
             if (target.hasClass('pressed')) {
                 tile.activate();
                 target.removeClass('pressed');
+                target.closest('li').removeClass('disabled');
             }
             else {
                 tile.deactivate();
                 target.addClass('pressed');
+                target.closest('li').addClass('disabled');
             }
 
         });
     });
-
 
     mosaicRenderer.addTiles(images);
     
     max = range[0].max * 1;
     step = 0;
 
-    range.on('change', function (e) {
+    range.on('change', function () {
         var step = range[0].value / max;
         mosaicRenderer.goToPercent(step);
     });

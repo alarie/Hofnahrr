@@ -1,0 +1,43 @@
+<form id="sights-form" class="form-horizontal">
+    <fieldset>
+        <legend>{{#if id}}{{i18n "sights_edit_sight"}}: {{name}}{{else}}{{i18n "sights_new_sight"}}{{/if}}</legend>
+        <div class="control-group">
+            <label class="control-label" for="sight-name">{{i18n "sight_name"}}</label>
+            <div class="controls">
+                <input class="input-large" required="true" type="text" name="name" value="{{name}}" id="sight-name">   
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="sight-description">{{i18n "sight_description"}}</label>
+            <div class="controls">
+                <input class="input-large" required="true" type="text" name="description" value="{{description}}" id="sight-description">   
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="sight-tags">{{i18n "sight_tags"}}</label>
+            <div class="controls">
+                <input class="input-large" name="tags" id="sight-tags" value="{{tags}}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="sight-links">{{i18n "sight_links"}}</label>
+            <div class="controls">
+                <div class="block">
+                    <input class="input-large" name="links" id="sight-links" value="{{links}}">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="sight-location">{{i18n "sight_location"}}</label>
+            <div class="controls controls-row">
+                <input class="input-small" type="text" id="lat" name="lat" placeholder="{{i18n "sight_latitude"}}" value="{{location.latitude}}">&nbsp;&nbsp;
+                <input class="input-small" type="text" id="lng" name="lng" placeholder="{{i18n "sight_longitude"}}" value="{{location.longitude}}">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn btn-primary" value="{{#if id}}{{i18n "sight_update"}}{{else}}{{i18n "sight_create"}}{{/if}}" />
+            </div>
+        </div>
+    </fieldset>
+</form> 
