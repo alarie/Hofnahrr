@@ -11,8 +11,7 @@ define([
 
         this.formData = new FormData();
 
-        this.onProgress = this.onProgress.bind(this);
-        this.onLoaded = this.onLoaded.bind(this);
+        _.bindAll(this);
     };
 
     FileUpload.prototype = {
@@ -29,9 +28,10 @@ define([
 
         prepareUpload : function () {
             var xhr = new XMLHttpRequest();
-            xhr.upload.addEventListener('progress', this.onProgress);
-            xhr.upload.addEventListener('load', this.onLoaded);
-            xhr.addEventListener('load', this.onLoaded);
+
+            //xhr.upload.addEventListener('progress', this.onProgress);
+            //xhr.upload.addEventListener('load', onLoad);
+            xhr.addEventListener('readystatechange', this.onLoad);
             return xhr;
         },
 
@@ -41,8 +41,17 @@ define([
             }
         },
 
-        onLoaded : function (e) {
-            this.trigger('loaded', e);
+        onLoad : function (e) {
+            var xhr = e.target;
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    this.trigger('loaded', JSON.parse(xhr.responseText));
+                }
+            }
+            else {
+                this.onProgress(e);
+            }
+
         }
     };
 

@@ -21,11 +21,11 @@ define([
                 this.model.on('change', this.render);
             }
 
-            this._compileTemplate();
+            this._compiledTemplate = this._compileTemplate();
         },
 
-        _compileTemplate : function () {
-            this._compiledTemplate = Templater.compile(this.template);
+        _compileTemplate : function (tmpl) {
+            return Templater.compile(tmpl || this.template);
         },
 
         beforeRender : function () {},
@@ -36,7 +36,6 @@ define([
             var data = this.model ? this.model.toJSON() : {};
             
             this.$el.empty().append(this._compiledTemplate(data));
-
 
             this.afterRender();
             return this;

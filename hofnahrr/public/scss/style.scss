@@ -33,3 +33,70 @@
 .modal-backdrop {
     background-color: #dedede;
 }
+
+
+
+
+#upload-preview {
+    position: absolute;
+    top:0;
+    width: 60%;
+    left:20%;
+    background-color: white;
+    z-index: 2000;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom-left-radius:2px;
+    border-bottom-right-radius:2px;
+    min-height:20px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    @include transition(height 0.3s ease-in);
+
+    .justifier {
+        padding-left: 100%;
+        display: inline-block;
+        float: none;
+    }
+
+
+    .thumbnails {
+        text-align: justify;
+        margin-left: 0;
+        max-height: 400px;
+        overflow-y: scroll;
+
+        & > li[class*="span"] {
+            position: relative;
+            overflow: hidden;
+            margin-left:0;
+            float: none;
+            display: inline-block;
+        }
+    }
+
+    .thumbnail {
+        height: 180px;
+        position: relative;
+        overflow: hidden;
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left:0;
+            right: 0;
+            background-color: white;
+            padding: 2px 5px;
+            box-sizing: border-box;
+            margin-bottom: 0;
+            padding-bottom: 4px;
+
+            h5 {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+}

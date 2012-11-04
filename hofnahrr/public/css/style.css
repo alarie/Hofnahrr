@@ -77,39 +77,31 @@
 /* Transforms */
 /* Transitions */
 /* BOOSTRAT EXTENDS */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/style\.scss}line{font-family:\000035}}
 .fixed-fluid {
   margin-left: 300px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/style\.scss}line{font-family:\000038}}
 .fluid-fixed {
   margin-right: 300px;
   margin-left: auto !important; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/style\.scss}line{font-family:\0000312}}
 .fixed-fixed {
   margin: 0 300px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/style\.scss}line{font-family:\0000316}}
 .row-fluid > .sidebar-nav {
   position: relative;
   top: 0;
   left: auto;
   width: 280px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/style\.scss}line{font-family:\0000323}}
 .sidebar-nav {
   padding: 9px 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/style\.scss}line{font-family:\0000327}}
 .right {
   float: right; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\000031}}
 div.tagsinput {
   height: 100px;
   overflow-y: auto; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\000035}}
   div.tagsinput span.tag {
     border: 1px solid #c9c9c9;
     border-radius: 2px;
@@ -128,7 +120,6 @@ div.tagsinput {
     text-shadow: 0 1px 0 white;
     position: relative;
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.9), 0px 1px 1px rgba(0, 0, 0, 0.1); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\0000325}}
     div.tagsinput span.tag:before, div.tagsinput span.tag::before {
       content: '\0020';
       border-bottom-left-radius: 4px;
@@ -146,11 +137,9 @@ div.tagsinput {
       -ms-transform: translateX(-14px) translateY(1px) rotateZ(45deg);
       -o-transform: translateX(-14px) translateY(1px) rotateZ(45deg);
       transform: translateX(-14px) translateY(1px) rotateZ(45deg); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\0000340}}
     div.tagsinput span.tag span {
       position: relative;
       z-index: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\0000345}}
     div.tagsinput span.tag a {
       position: absolute;
       font-weight: bold;
@@ -159,25 +148,73 @@ div.tagsinput {
       font-size: 11px;
       right: 5px;
       text-align: center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\0000356}}
   div.tagsinput div {
     clear: both;
     display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\0000360}}
     div.tagsinput div input.not_valid {
       background: #FBD8DB !important;
       color: #90111A !important; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\0000366}}
   div.tagsinput .tags_clear {
     clear: both;
     width: 100%;
     height: 0px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/_tagsinput\.scss}line{font-family:\0000377}}
 input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
   display: block;
   float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/dpd\/hello\/public\/scss\/style\.scss}line{font-family:\0000333}}
 .modal-backdrop {
   background-color: #dedede; }
+
+#upload-preview {
+  position: absolute;
+  top: 0;
+  width: 60%;
+  left: 20%;
+  background-color: white;
+  z-index: 2000;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  min-height: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+  -webkit-transition: height 0.3s ease-in;
+  -moz-transition: height 0.3s ease-in;
+  -o-transition: height 0.3s ease-in;
+  transition: height 0.3s ease-in; }
+  #upload-preview .justifier {
+    padding-left: 100%;
+    display: inline-block;
+    float: none; }
+  #upload-preview .thumbnails {
+    text-align: justify;
+    margin-left: 0;
+    max-height: 400px;
+    overflow-y: scroll; }
+    #upload-preview .thumbnails > li[class*="span"] {
+      position: relative;
+      overflow: hidden;
+      margin-left: 0;
+      float: none;
+      display: inline-block; }
+  #upload-preview .thumbnail {
+    height: 180px;
+    position: relative;
+    overflow: hidden; }
+    #upload-preview .thumbnail .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      padding: 2px 5px;
+      box-sizing: border-box;
+      margin-bottom: 0;
+      padding-bottom: 4px; }
+      #upload-preview .thumbnail .caption h5 {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }

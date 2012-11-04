@@ -26,6 +26,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
                       'delegateEvents');
             
             this.el = $(this.el);
+
             
             if (this.options.template) {
                 this._template = this.options.template;
@@ -37,7 +38,11 @@ define(['underscore', 'backbone'], function (_, Backbone) {
          */
         setModel : function (model) {
             if (this.model !== model) {
+                if (this.model) {
+                    this.model.off('change', this.render);
+                }
                 this.model = model;
+                this.model.on('change', this.render);
                 return this.render();
             }
         },

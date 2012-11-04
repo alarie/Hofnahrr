@@ -1,22 +1,28 @@
-<form id="picture-form" class="form-horizontal">
-    <fieldset>
-        <legend>{{i18n "picture_add_pictures"}}</legend>
-        <div class="well well-large muted">
-            Drop images here
+<div class="well well-large muted">
+    Drop images here
+</div>
+<ul class="thumbnails">
+    {{#each pictures}}
+    <li class="span4">
+        <div class="thumbnail">
+            <img src="{{this.url}}" alt="">
+            <h5>{{this.name}}</h5>
         </div>
-        <!--
-        <div class="control-group">
-            <label class="control-label" for="picture-name">{{i18n "picture_name"}}</label>
-            <div class="controls controls-row">
-                <input class="input-large" type="text" id="picture-name" name="name" value="{{name}}">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="picture-description">{{i18n "picture_description"}}</label>
-            <div class="controls controls-row">
-                <input class="input-large" type="text" id="picture-description" name="name" value="{{description}}">
-            </div>
-        </div>
-        -->
-    </fieldset>
-</form> 
+    </li>
+    {{/each}}
+    <li style="padding-left: 100%; margin: 0;"></li>
+</ul>
+<!--
+<div class="control-group">
+    <label class="control-label" for="picture-name">{{i18n "picture_name"}}</label>
+    <div class="controls controls-row">
+        <input class="input-large" type="text" id="picture-name" name="name" value="{{name}}">
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="picture-description">{{i18n "picture_description"}}</label>
+    <div class="controls controls-row">
+        <input class="input-large" type="text" id="picture-description" name="name" value="{{description}}">
+    </div>
+</div>
+-->

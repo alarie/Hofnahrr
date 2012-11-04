@@ -59,7 +59,12 @@ define([
         },
 
         setContentViews : function (contentViews, selected) {
+            var container = this.$('.modal-body');
             this.contentViews = contentViews;
+
+            _.each(contentViews, function (view) {
+                container.append(view.$el.hide());
+            });
 
             this.openContentView(selected || 0);
             
@@ -72,14 +77,14 @@ define([
                 var view = this.contentViews[selected];
                 this.closeCurrentView();
                 this.selectedView = selected;
-                this.$('.modal-body').append(view.el);
+                view.$el.show();
                 view.render();
             }
         },
 
         closeCurrentView : function () {
             if (this.selectedView !== null) {
-                this.contentViews[this.selectedView].$el.detach();
+                this.contentViews[this.selectedView].$el.hide();
             }
         },
 

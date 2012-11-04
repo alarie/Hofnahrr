@@ -22,6 +22,8 @@ define([
     'text!tmpl/sight-link.tmpl',
     'text!tmpl/modal.tmpl',
     'text!tmpl/picture-form.tmpl',
+    'text!tmpl/upload.tmpl',
+    'text!tmpl/image.tmpl'
 ], function (
     $, _, Backbone, Templater, lang, DataRetriever, 
 
@@ -32,7 +34,7 @@ define([
     HofnahrrRouter,
             
     tmplSightForm, tmplSightsList, tmplSightLink, tmplModal,
-    tmplPictureForm
+    tmplPictureForm, tmplUpload, tmplImage
 ) {
 
 
@@ -51,7 +53,11 @@ define([
 
         this.selectedSight = null;
 
-        _.bindAll(this, 'onEditSight', 'onOpenSight', 'onCreateSight', 'start', 'onCreateNewSight');
+        _.bindAll(this, 
+                  'onEditSight', 
+                  'onOpenSight', 
+                  'onCreateSight', 
+                  'onCreateNewSight');
 
         this.collection = new SightsCollection();
         this.createSightFormView();
@@ -71,8 +77,12 @@ define([
     AppController.prototype = {
         createFileDropView : function () {
             this.fileDropView = new FileDropView({
-                el : $('body')
+                el : $('<div/>'),
+                template : tmplUpload,
+                fileTemplate : tmplImage,
+                uploadToPath : 'http://localhost:2403/pictures'
             });
+            $('body').append(this.fileDropView.render().el);
         },
 
         createSightFormView : function () {
@@ -121,7 +131,7 @@ define([
 
         createPictureFormView : function () {
             this.pictureFormView = new TemplatedBridgeView({
-                el : $('<div/>'),
+                el : $('<div class="row-fluid"/>'),
                 template : tmplPictureForm,
                 events : function () {
                     return {
@@ -184,10 +194,10 @@ define([
             
             this.sightFormView.on('create-sight', this.onCreateSight);
 
-            this.fileDropView.on('drag-over', this.onDragOver);
-            this.fileDropView.on('drag-end', this.onDragEnd);
-            this.fileDropView.on('drop', this.onDragEnd);
-            this.fileDropView.on('files-dropped', this.onFilesDropped);
+            this.fileDropView.on('drag-over', this.onFileDragOver);
+            this.fileDropView.on('drag-end', this.onFileDragEnd);
+            this.fileDropView.on('drop', this.onFileDragEnd);
+            this.fileDropView.on('files-dropped', this.onFileDropped);
 
 
             this.router.on('route:open-sight', this.onOpenSight);
@@ -198,23 +208,11 @@ define([
 
         },
 
-
-        onDragOver : function (e) {
-            // do some highlighting
-        },
-
-        onDragEnd : function (e) {
-            // undo the highlighting
-        },
-
-        onFilesDropped : function (files) {
-            console.log(files);
-        },
-
         onCreateNewSight : function () {
             this.selectedSight = null;
             this.createSightModal();
             this.sightFormView.setModel(null);
+            this.pictureFormView.setModel(null);
             this.sightModal.show();
         },
 
@@ -230,6 +228,7 @@ define([
                 if (this.selectedSight) {
                     this.createSightModal();
                     this.sightFormView.setModel(this.selectedSight);
+                    this.pictureFormView.setModel(this.selectedSight);
                     this.sightModal.show();
                 }
             }

@@ -21,6 +21,8 @@ define([], function () {
             'picture_add_pictures' : 'Bilder hinzufügen',
             'picture_name' : 'Name',
             'picture_description' : 'Beschreibung',
+            'picture_upload' : 'hochladen',
+            'picture_start_upload' : 'Hochladen starten',
 
             'wizard_close' : 'Schließen',
             'wizard_next' : 'Weiter',
@@ -48,6 +50,8 @@ define([], function () {
             'picture_add_pictures' : 'Add pictures',
             'picture_name' : 'Name',
             'picture_description' : 'Description',
+            'picture_upload' : 'upload',
+            'picture_start_upload' : 'Start upload',
 
             'wizard_close' : 'Close',
             'wizard_next' : 'Next',

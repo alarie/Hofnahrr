@@ -9,30 +9,36 @@ define([
     SightModel = Backbone.Model.extend({
         defaults : {
             name : '',
-            description : ''
+            description : '',
+            location : {},
+            tags : [],
+            links : [],
+            pictures : []
         },
 
-        initialize : function () {
-            _.bindAll(this, 'setPictureCollectionURL');
-            this.pictures = new PictureCollection({
-                sightId : this.id,
-                url : this.url()
-            });
-            
-            this.change({'id' : this.setPictureCollectionURL});
-        },
-
-        setPictureCollectionURL : function () {
-            this.pictures.setURL(this.url());
-        },
-
-        addImages : function (files) {
-            var that = this;
-            _.each(files, function (file) {
-                that.pictures.create({
-                    file : file
+        addImage : function (file) {
+            console.log(file);
+            var pictures = this.attributes.pictures,
+                picture = _.find(pictures, function (p) {
+                    return p.name === file.name; 
                 });
-            });
+
+            if (picture) {
+                // update this picture
+                console.log('updating: ' + picture.name);
+                picture.url = file.url;
+            }
+            else {
+                picture = {
+                    title : file.title,
+                    name : file.name,
+                    url : file.url
+                };
+                pictures.push(picture);
+            }
+
+            this.trigger('change:pictures');
+            this.trigger('change');
         }
     });
 
