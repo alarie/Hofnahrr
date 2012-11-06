@@ -14,6 +14,7 @@ define([
     'views/file-drop',
 
     'models/sight',
+    'models/user',
 
     'router/hofnahrr',
 
@@ -29,7 +30,7 @@ define([
 
     ListView, TemplateView, TemplatedBridgeView, ModalView, FileDropView,
 
-    SightModel,
+    SightModel, UserModel,
 
     HofnahrrRouter,
             
@@ -57,9 +58,21 @@ define([
                   'onEditSight', 
                   'onOpenSight', 
                   'onCreateSight', 
-                  'onCreateNewSight');
+                  'onCreateNewSight',
+                  'onUserLoggedIn', 
+                  'onShowLogin', 
+                  'onLogout', 
+                  'onLogin', 
+                  'onSignup');
+
+        this.currentUser = new UserModel({}, {
+            url : 'users'
+        });
 
         this.collection = new SightsCollection();
+
+        this.initTemplateHelpers();
+
         this.createSightFormView();
         this.createPictureFormView();
         this.createListView();
@@ -69,12 +82,23 @@ define([
 
         this.addEventListeners();
 
-        this.collection.fetch({
-            success : this.start
-        });
+        
+        this.currentUser.isLoggedIn(this.onUserLoggedIn, this.onShowLogin);
     };
 
     AppController.prototype = {
+        initTemplateHelpers : function () {
+            var that = this;
+            Templater.registerHelper('sightsOptions', function (current, options) {
+                var html = '<option value="-1">' + Templater.i18n('sight_dont_know') + '</opion>';
+                that.collection.each(function (item) {
+                    var selected = current === item.id ? 'selected="selected"' : '';
+                    html += options.fn(_.extend({selected : selected}, item.attributes));
+                }); 
+                return html;
+            });
+        },
+
         createFileDropView : function () {
             this.fileDropView = new FileDropView({
                 el : $('<div/>'),
@@ -82,7 +106,13 @@ define([
                 fileTemplate : tmplImage,
                 uploadToPath : 'http://localhost:2403/pictures'
             });
+
+            this.fileDropView.files.on('uploaded', this.onFileUploaded);
             $('body').append(this.fileDropView.render().el);
+        },
+
+        onFileUploaded : function (file) {
+            console.log(file);
         },
 
         createSightFormView : function () {
@@ -136,7 +166,7 @@ define([
                 events : function () {
                     return {
                         'submit' : function (e) {
-
+                            // TODO
                         }
                     };
                 }
@@ -206,6 +236,33 @@ define([
 
             this.router.on('route:create-new-sight', this.onCreateNewSight);
 
+            this.router.on('route:login', this.onShowLogin);
+            this.router.on('route:logout', this.onLogout);
+
+        },
+
+        onShowLogin : function () {
+            var that = this;
+            require(['views/login'], function (LoginView) {
+                var loginView = new LoginView();
+                $('body').append(loginView.render().el);
+                loginView.on('login-user', that.onLogin);
+                loginView.on('signup-user', that.onSignup);
+            });
+        },
+
+        onLogin : function (data) {
+            this.currentUser.login(data, {
+                success : this.onUserLoggedIn
+            });
+        },
+
+        onLogout : function (data) {
+            this.currentUser.logout();
+        },
+
+        onSignup : function (data) {
+            this.currentUser.signup(data);
         },
 
         onCreateNewSight : function () {
@@ -217,6 +274,7 @@ define([
         },
 
         onOpenSight : function (id) {
+            // TODO
             
         },
 
@@ -253,9 +311,15 @@ define([
         },
 
 
-        start : function () {
+        start : function (isLoggedIn) {
             Backbone.history.start();
-        }
+        },
+
+        onUserLoggedIn : function () {
+            this.collection.fetch({
+                success : this.start
+            });
+        },
     };
 
     _.extend(AppController, Backbone.Events);

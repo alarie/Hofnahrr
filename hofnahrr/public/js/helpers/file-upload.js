@@ -35,23 +35,42 @@ define([
             return xhr;
         },
 
+        onLoad : function (e) {
+            var xhr = e.target,
+                response;
+
+            if (xhr.readyState === 4) {
+                response = this.getResponse(xhr);
+                if (xhr.status === 200) {
+                    this.trigger('success', response, xhr.statusText, xhr);
+                }
+                else {
+                    this.trigger('error', xhr, xhr.statusText);
+                }
+            }
+            else {
+                this.onProgress(e);
+            }
+        },
+
         onProgress : function (e) {
             if (e.lengthComputable) {
                 this.trigger('progress', e.loaded, e.total);
             }
         },
 
-        onLoad : function (e) {
-            var xhr = e.target;
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    this.trigger('loaded', JSON.parse(xhr.responseText));
-                }
-            }
-            else {
-                this.onProgress(e);
-            }
+        getResponse : function (xhr) {
+            var mimeType = xhr.getResponseHeader('content-type'),
+                response = xhr.responseText;
 
+            if (mimeType === 'application/json') {
+                response = JSON.parse(response);
+            }
+            else if (mimeType === 'text/xml' && xhr.responseXML) {
+                response = xhr.responseXML;
+            }
+            
+            return response;
         }
     };
 

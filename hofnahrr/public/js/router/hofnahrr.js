@@ -10,7 +10,10 @@ define([
         routes : {
             'sight/create' : 'create-new-sight',
             'sight/:id' : 'open-sight',
-            'sight/:id/edit' : 'edit-sight'
+            'sight/:id/edit' : 'edit-sight',
+
+            'login' : 'login',
+            'logout' : 'logout'
         }
     });
 

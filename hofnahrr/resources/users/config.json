@@ -1,21 +1,13 @@
 {
 	"type": "UserCollection",
 	"properties": {
-		"email": {
-			"name": "email",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "email",
-			"order": 0
-		},
 		"firstname": {
 			"name": "firstname",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "firstname",
-			"order": 1
+			"order": 0
 		},
 		"surname": {
 			"name": "surname",
@@ -23,7 +15,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "surname",
-			"order": 2
+			"order": 1
 		},
 		"network": {
 			"name": "network",
@@ -31,7 +23,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "network",
-			"order": 3
+			"order": 2
 		},
 		"isAdmin": {
 			"name": "isAdmin",
@@ -39,7 +31,7 @@
 			"typeLabel": "boolean",
 			"required": false,
 			"id": "isAdmin",
-			"order": 4
+			"order": 3
 		},
 		"registeredAt": {
 			"name": "registeredAt",
@@ -47,7 +39,7 @@
 			"typeLabel": "date",
 			"required": false,
 			"id": "registeredAt",
-			"order": 5
+			"order": 4
 		},
 		"lastVisitAt": {
 			"name": "lastVisitAt",
@@ -55,7 +47,7 @@
 			"typeLabel": "date",
 			"required": false,
 			"id": "lastVisitAt",
-			"order": 6
+			"order": 5
 		},
 		"rank": {
 			"name": "rank",
@@ -63,7 +55,7 @@
 			"typeLabel": "number",
 			"required": false,
 			"id": "rank",
-			"order": 7
+			"order": 6
 		},
 		"pictureUrl": {
 			"name": "pictureUrl",
@@ -71,7 +63,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "pictureUrl",
-			"order": 8
+			"order": 7
 		},
 		"location": {
 			"name": "location",
@@ -79,7 +71,7 @@
 			"typeLabel": "object",
 			"required": false,
 			"id": "location",
-			"order": 9
+			"order": 8
 		},
 		"title": {
 			"name": "title",
@@ -87,7 +79,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "title",
-			"order": 10
+			"order": 9
 		}
 	}
 }

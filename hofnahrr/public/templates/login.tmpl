@@ -1,0 +1,50 @@
+<div>
+    <button class="btn login">{{i18n "login_login"}}</button>
+    <button class="btn signup">{{i18n "login_signup"}}</button>
+</div>
+<form class="form-horizontal signup-form hide">
+    <div class="control-group">
+        <label class="control-label" for="login-name">{{i18n "login_name"}}</label>
+        <div class="controls controls-row">
+            <input class="input-large" type="text" id="login-name" name="username" value="{{username}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="login-password">{{i18n "login_password"}}</label>
+        <div class="controls controls-row">
+            <input class="input-large" type="password" id="login-password" name="password" value="{{password}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="login_firstname">{{i18n "login_firstname"}}</label>
+        <div class="controls controls-row">
+            <input class="input-large" type="text" id="login_firstname" name="firstname" value="{{firstname}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="login_surname">{{i18n "login_surname"}}</label>
+        <div class="controls controls-row">
+            <input class="input-large" type="text" id="login_surname" name="surname" value="{{surname}}">
+        </div>
+    </div>    
+    <div class="control-group">
+        <button class="pull-right btn btn-primary">{{i18n "login_signup"}}</button>
+    </div>
+</form>
+<form class="form-horizontal login-form hide">
+    <div class="control-group">
+        <label class="control-label" for="login-name">{{i18n "login_name"}}</label>
+        <div class="controls controls-row">
+            <input class="input-large" type="text" id="login-name" name="username" value="{{username}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="login-password">{{i18n "login_password"}}</label>
+        <div class="controls controls-row">
+            <input class="input-large" type="password" id="login-password" name="password" value="{{password}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <button class="pull-right btn btn-primary">{{i18n "login_login"}}</button>
+    </div>
+</form>

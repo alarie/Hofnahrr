@@ -14,11 +14,17 @@ define([
         compile : function (template) {
             return Handlebars.compile(template);
         },
+
         setLanguage : function (lang) {
             Handlebars.initLang(lang);
         },
+
         i18n : function (id) {
             return Handlebars.helpers.i18n(id);
+        },
+
+        registerHelper : function (name, helper) {
+            return Handlebars.registerHelper(name, helper);
         }
     };
 

@@ -23,6 +23,7 @@ define([], function () {
             'picture_description' : 'Beschreibung',
             'picture_upload' : 'hochladen',
             'picture_start_upload' : 'Hochladen starten',
+            'picture_close' : 'Schließen',
 
             'wizard_close' : 'Schließen',
             'wizard_next' : 'Weiter',
@@ -52,6 +53,7 @@ define([], function () {
             'picture_description' : 'Description',
             'picture_upload' : 'upload',
             'picture_start_upload' : 'Start upload',
+            'picture_close' : 'Close',
 
             'wizard_close' : 'Close',
             'wizard_next' : 'Next',

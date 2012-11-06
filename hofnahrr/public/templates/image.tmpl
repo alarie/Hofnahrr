@@ -1,13 +1,19 @@
-<li class="span2">
-    <div class="thumbnail">
-        <img src="{{url}}" alt="">
-        <div class="caption">
-            <h5>{{title}}</h5>
-            <label>
-                <input class="upload-file" value="{{name}}" type="checkbox" checked="checked" /> 
-                {{i18n "picture_upload"}}
-            </label>
-        </div>
+<div class="thumbnail {{#if uploaded}}uploaded{{/if}}">
+    <img src="{{url}}" alt="">
+    <div class="caption">
+        <h5>{{title}}</h5>
+        <label>
+            <input class="upload-file" 
+                value="{{name}}" 
+                type="checkbox" 
+                {{#if doUpload}}checked="checked"{{/if}} 
+                {{#if uploaded}}disabled="disabled"{{/if}}/> 
+            {{i18n "picture_upload"}}
+        </label>
+        <select>
+            {{#sightsOptions sightId}}
+            <option value="{{id}}" {{selected}}>{{name}}</option>
+            {{/sightsOptions}}
+        </select>
     </div>
-</li>
-
+</div>

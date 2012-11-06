@@ -6,7 +6,11 @@ define([
 
     var TemplateView = Backbone.View.extend({
         initialize : function (options) {
-            this.template = options.template;
+            options || (options = {});
+
+            if (options.template) {
+                this.template = options.template;
+            }
 
             _.bindAll(this, 'render');
 

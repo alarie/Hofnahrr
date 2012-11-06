@@ -17,7 +17,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
          * @param {Object} options The options object, that can specify further
          * data for this view.
          */
-        initialize : function (options) {
+        initialize : function () {
             _.bindAll(this,
                       'setModel',
                       'getModel',
@@ -42,7 +42,9 @@ define(['underscore', 'backbone'], function (_, Backbone) {
                     this.model.off('change', this.render);
                 }
                 this.model = model;
-                this.model.on('change', this.render);
+                if (this.model) {
+                    this.model.on('change', this.render);
+                }
                 return this.render();
             }
         },
@@ -50,7 +52,7 @@ define(['underscore', 'backbone'], function (_, Backbone) {
         /**
          * Get the model that is currently attached to this view.
          */
-		getModel : function (model) {
+		getModel : function () {
             return this.model;
         },
         
