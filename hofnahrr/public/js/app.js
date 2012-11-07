@@ -6,87 +6,153 @@ define([
     'templater',
     'lang',
     'data-retriever',
+    'user-access-handler',
 
     'views/list',
     'views/template',
     'views/templated-bridge',
     'views/modal',
     'views/file-drop',
+    'views/login',
 
     'models/sight',
     'models/user',
 
     'router/hofnahrr',
 
-    'text!tmpl/sight-form.tmpl',
+    'text!tmpl/navigation.tmpl',
+    'text!tmpl/sight-info.tmpl',
     'text!tmpl/sights-list.tmpl',
     'text!tmpl/sight-link.tmpl',
     'text!tmpl/modal.tmpl',
-    'text!tmpl/picture-form.tmpl',
     'text!tmpl/upload.tmpl',
-    'text!tmpl/image.tmpl'
+    'text!tmpl/image.tmpl',
+    'text!tmpl/sight-form.tmpl',
+    'text!tmpl/picture-form.tmpl',
 ], function (
-    $, _, Backbone, Templater, lang, DataRetriever, 
+    $, _, Backbone, Templater, lang, DataRetriever, UserAccessHandler,
 
-    ListView, TemplateView, TemplatedBridgeView, ModalView, FileDropView,
+    ListView, TemplateView, TemplatedBridgeView, ModalView, FileDropView, LoginView,
 
     SightModel, UserModel,
 
     HofnahrrRouter,
-            
-    tmplSightForm, tmplSightsList, tmplSightLink, tmplModal,
-    tmplPictureForm, tmplUpload, tmplImage
+    
+    navigationTmpl,
+    tmplSightInfo,
+    tmplSightsList, tmplSightLink, tmplModal,
+    tmplUpload, tmplImage,
+
+    tmplSightForm,
+    tmplPictureForm
 ) {
-
-
-    var AppController,
-        SightsCollection = Backbone.Collection.extend({
-            url : 'sights/',
-            model : SightModel,
-            initialize : function () {
-                
-            }
-        });
+    /* use strict */
+    
+    var AppController;
 
     AppController = function () {
-        lang = lang.de;
-        Templater.setLanguage(lang);
+        // set the defaul language for everything that is rendered, before the
+        // actual is identified
+        // TODO: check browser language and use that instead
+        Templater.setLanguage(lang.en);
 
-        this.selectedSight = null;
-
+        // bind the this pointer in all of the following functions to the
+        // current AppController instance
         _.bindAll(this, 
+                  'start',
                   'onEditSight', 
                   'onOpenSight', 
                   'onCreateSight', 
                   'onCreateNewSight',
-                  'onUserLoggedIn', 
-                  'onShowLogin', 
+                  'onUserLoggedIn',
+                  'onUserNotLoggedIn',
                   'onLogout', 
                   'onLogin', 
                   'onSignup');
 
-        this.currentUser = new UserModel({}, {
-            url : 'users'
-        });
+        this._started = false;
 
-        this.collection = new SightsCollection();
+        this.createUser();
 
-        this.initTemplateHelpers();
-
-        this.createSightFormView();
-        this.createPictureFormView();
-        this.createListView();
-        this.createFileDropView();
-
+        // create the HofnahrrRouter instance
         this.createRouter();
 
-        this.addEventListeners();
+        // -- TODO: Put this in a SightAppController mixin
+        // no sight is selected now
+        this.selectedSight = null;
 
-        
-        this.currentUser.isLoggedIn(this.onUserLoggedIn, this.onShowLogin);
+        // create a new Sight Collection
+        this.collection = new Backbone.Collection({
+            model : SightModel,
+        });
+        this.collection.url = 'sights/';
+            
+        // --
+
+        this.createLoginView();
+        this.currentUser.isLoggedIn(this.onUserLoggedIn, 
+                                    this.onUserNotLoggedIn);
     };
 
     AppController.prototype = {
+        createUser : function () {
+            // create a new UserModel
+            this.currentUser = new UserModel({}, {
+                url : 'users'
+            });
+        },
+
+        createRouter : function () {
+            this.router = new HofnahrrRouter();
+        },
+
+        createLoginView : function () {
+            this.loginView = new LoginView({
+                model : this.currentUser
+            });
+            this.currentUser.on('change', this.loginView.render);
+            this.loginView.on('login-user', this.onLogin);
+            this.loginView.on('signup-user', this.onSignup);
+            this.loginView.on('logout-user', this.onLogout);
+
+            $('#user').append(this.loginView.render().el);
+        },
+
+        onUserLoggedIn : function () {
+            this.setUserLanguage();
+
+            if (!this._started) {
+                this._started = true;
+                this.collection.fetch({
+                    success : this.start
+                });
+            }
+        },
+
+        setUserLanguage : function () {
+            var l = null;
+            if (this.currentUser && 
+                (l = this.currentUser.get('language')) &&
+                l in lang) {
+                Templater.setLanguage(lang[l]);
+            }
+        },
+
+        onUserNotLoggedIn : function () {
+            this.onUserLoggedIn();
+        },
+
+        start : function () {
+            this.initTemplateHelpers();
+            this.createViews();
+            this.addEventListeners();
+
+            // let all lsiteners know that collection has been updated
+            this.collection.trigger('reset', this.collection);
+
+            Backbone.history.start();
+        },
+
         initTemplateHelpers : function () {
             var that = this;
             Templater.registerHelper('sightsOptions', function (current, options) {
@@ -97,7 +163,57 @@ define([
                 }); 
                 return html;
             });
+            Templater.registerHelper('hasLocation', function () {
+                return this.location.latitude && this.location.longitude;
+            });
         },
+
+        createViews : function () {
+            this.createNav();
+            this.createSightInfoView();
+            this.createListView();
+        },
+
+        addEventListeners : function () {
+
+            // sight collection events
+            this.collection.on('add', this.listView.onAdd);
+            this.collection.on('reset', this.listView.onAddAll);
+
+            // routing events 
+            // CALL Backbone.history.start() ONLY AFTER THIS SETUP
+            this.router.on('route:open-sight', this.onOpenSight);
+            this.router.on('route:edit-sight', this.onEditSight);
+            this.router.on('route:create-new-sight', this.onCreateNewSight);
+            this.router.on('route:login', this.loginView.onShowLogin);
+            this.router.on('route:logout', this.onLogout);
+
+        },
+
+        createNav : function () {
+            $('#main-nav #user')
+                .before((Templater.compile(navigationTmpl))());
+        },
+
+        createSightInfoView : function () {
+            this.sightInfoView = new TemplatedBridgeView({
+                el : $('#main'),
+                template : tmplSightInfo
+            });
+        },
+
+        createListView : function () {
+            this.listView = new ListView({
+                el : $('#sidebar'),
+                template : tmplSightsList,
+                listItemTemplate : tmplSightLink
+            });
+
+            this.listView.render();
+        },
+
+
+        // from now on: stuff that happens on demand 
 
         createFileDropView : function () {
             this.fileDropView = new FileDropView({
@@ -107,7 +223,13 @@ define([
                 uploadToPath : 'http://localhost:2403/pictures'
             });
 
+            // upload events
+            this.fileDropView.on('drag-over', this.onFileDragOver);
+            this.fileDropView.on('drag-end', this.onFileDragEnd);
+            this.fileDropView.on('drop', this.onFileDragEnd);
+            this.fileDropView.on('files-dropped', this.onFileDropped);
             this.fileDropView.files.on('uploaded', this.onFileUploaded);
+
             $('body').append(this.fileDropView.render().el);
         },
 
@@ -115,7 +237,120 @@ define([
             console.log(file);
         },
 
+
+
+        createSightModal : function () {
+            var that = this;
+
+            if (!this.sightModal) {
+                this.sightModal = new ModalView({
+                    template : tmplModal,
+                    modalOptions : {
+                        show : false,
+                        backdrop : true
+                    },
+                    modalData : {
+                        modalId : 'sights-modal',
+                        modalHeadline : Templater.i18n('sight_wizard'),
+                        modalClose : Templater.i18n('wizard_close'),
+                        modalNext : Templater.i18n('sight_add_photos'),
+                        modalPrev : Templater.i18n('sights_edit_sight'),
+                    }
+                });
+
+                this.createSightFormView();
+                this.createPictureFormView();
+
+
+                // TODO create views on the fly
+                this.sightModal
+                    .render()
+                    .setContentViews([this.sightFormView, this.pictureFormView]);
+
+                this.sightModal.on('hide', function () {
+                    that.router.navigate('sights');
+                });
+            }
+        },
+
+        onLogin : function (data) {
+            this.currentUser.login(data, {
+                success : this.onUserLoggedIn
+            });
+        },
+
+        onLogout : function () {
+            this.currentUser.logout({
+                success : function () {
+                    window.location.reload();
+                }
+            });
+        },
+
+        onSignup : function (data) {
+            this.currentUser.signup(data);
+        },
+
+        onCreateNewSight : function () {
+            this.selectedSight = null;
+            this.createSightModal();
+            this.sightFormView.setModel(null);
+            this.pictureFormView.setModel(null);
+            this.sightModal.show();
+        },
+
+        setSelectedSight : function (id) {
+            if (id) {
+                this.selectedSight = this.collection.find(function (model) {
+                    return id === model.get('speakingId');
+                });
+            }
+            else {
+                this.selectedSight = null;
+            }
+        },
+
+        onOpenSight : function (id) {
+            this.setSelectedSight(id);
+            if (this.selectedSight) {
+                this.sightInfoView.setModel(this.selectedSight);
+            }
+        },
+
+
+        onCreateSight : function (data) {
+            var that = this;
+            if (this.selectedSight) {
+                this.selectedSight.save(data, {
+                    success : function () {
+                        that.sightFormView.render();
+                    }
+                });
+            }
+            else {
+                this.collection.create(data, {
+                    success : function () {
+                        that.sightFormView.setModel(null);
+                    }
+                });
+            }
+        },
+
+        onEditSight : function (id) {
+            this.setSelectedSight(id);
+            if (this.selectedSight) {
+                this.createSightModal();
+                this.sightFormView.setModel(this.selectedSight);
+                this.pictureFormView.setModel(this.selectedSight);
+                this.sightModal.show();
+            }
+        },
+
         createSightFormView : function () {
+            if (this.sightFormView) {
+                return;
+            }
+
             this.sightFormView = new TemplatedBridgeView({
                 el : $('<div/>'),
                 template : tmplSightForm,
@@ -147,6 +382,9 @@ define([
                 }
             });
 
+            // sight form events
+            this.sightFormView.on('create-sight', this.onCreateSight);
+
             this.sightFormView.afterRender = function () {
                 this.$('#sight-tags').tagsInput({
                     height : '50px;',
@@ -160,12 +398,16 @@ define([
         },
 
         createPictureFormView : function () {
+            if (this.pictureFormView) {
+                return;
+            }
+
             this.pictureFormView = new TemplatedBridgeView({
                 el : $('<div class="row-fluid"/>'),
                 template : tmplPictureForm,
                 events : function () {
                     return {
-                        'submit' : function (e) {
+                        'submit' : function () {
                             // TODO
                         }
                     };
@@ -173,153 +415,6 @@ define([
             });
         },
 
-        createSightModal : function () {
-            var that = this;
-            if (!this.sightModal) {
-                this.sightModal = new ModalView({
-                    template : tmplModal,
-                    modalOptions : {
-                        show : false,
-                        backdrop : true
-                    },
-                    modalData : {
-                        modalId : 'sights-modal',
-                        modalHeadline : Templater.i18n('sight_wizard'),
-                        modalClose : Templater.i18n('wizard_close'),
-                        modalNext : Templater.i18n('sight_add_photos'),
-                        modalPrev : Templater.i18n('sights_edit_sight'),
-                    }
-                });
-
-                this.sightModal
-                    .render()
-                    .setContentViews([this.sightFormView, this.pictureFormView]);
-
-                this.sightModal.on('hide', function () {
-                    that.router.navigate('sights');
-                });
-
-            }
-        },
-        
-        createListView : function () {
-            this.listView = new ListView({
-                el : $('#sidebar'),
-                template : tmplSightsList,
-                listItemTemplate : tmplSightLink
-            });
-
-            this.listView.render();
-        },
-
-        createRouter : function () {
-            this.router = new HofnahrrRouter();
-        },
-
-        addEventListeners : function () {
-
-            this.collection.on('add', this.listView.onAdd);
-            
-            this.collection.on('reset', this.listView.onAddAll);
-            
-            this.sightFormView.on('create-sight', this.onCreateSight);
-
-            this.fileDropView.on('drag-over', this.onFileDragOver);
-            this.fileDropView.on('drag-end', this.onFileDragEnd);
-            this.fileDropView.on('drop', this.onFileDragEnd);
-            this.fileDropView.on('files-dropped', this.onFileDropped);
-
-
-            this.router.on('route:open-sight', this.onOpenSight);
-
-            this.router.on('route:edit-sight', this.onEditSight);
-
-            this.router.on('route:create-new-sight', this.onCreateNewSight);
-
-            this.router.on('route:login', this.onShowLogin);
-            this.router.on('route:logout', this.onLogout);
-
-        },
-
-        onShowLogin : function () {
-            var that = this;
-            require(['views/login'], function (LoginView) {
-                var loginView = new LoginView();
-                $('body').append(loginView.render().el);
-                loginView.on('login-user', that.onLogin);
-                loginView.on('signup-user', that.onSignup);
-            });
-        },
-
-        onLogin : function (data) {
-            this.currentUser.login(data, {
-                success : this.onUserLoggedIn
-            });
-        },
-
-        onLogout : function (data) {
-            this.currentUser.logout();
-        },
-
-        onSignup : function (data) {
-            this.currentUser.signup(data);
-        },
-
-        onCreateNewSight : function () {
-            this.selectedSight = null;
-            this.createSightModal();
-            this.sightFormView.setModel(null);
-            this.pictureFormView.setModel(null);
-            this.sightModal.show();
-        },
-
-        onOpenSight : function (id) {
-            // TODO
-            
-        },
-
-        onEditSight : function (id) {
-            if (id) {
-                this.selectedSight = this.collection.find(function (model) {
-                    return id === model.get('speakingId');
-                });
-                if (this.selectedSight) {
-                    this.createSightModal();
-                    this.sightFormView.setModel(this.selectedSight);
-                    this.pictureFormView.setModel(this.selectedSight);
-                    this.sightModal.show();
-                }
-            }
-        },
-
-        onCreateSight : function (data) {
-            var that = this;
-            if (this.selectedSight) {
-                this.selectedSight.save(data, {
-                    success : function () {
-                        that.sightFormView.render();
-                    }
-                });
-            }
-            else {
-                this.collection.create(data, {
-                    success : function () {
-                        that.sightFormView.setModel(null);
-                    }
-                });
-            }
-        },
-
-
-        start : function (isLoggedIn) {
-            Backbone.history.start();
-        },
-
-        onUserLoggedIn : function () {
-            this.collection.fetch({
-                success : this.start
-            });
-        },
     };
 
     _.extend(AppController, Backbone.Events);

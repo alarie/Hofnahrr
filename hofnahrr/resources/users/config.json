@@ -80,6 +80,14 @@
 			"required": false,
 			"id": "title",
 			"order": 9
+		},
+		"language": {
+			"name": "language",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "language",
+			"order": 10
 		}
 	}
 }

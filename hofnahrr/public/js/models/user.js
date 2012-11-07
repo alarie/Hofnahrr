@@ -26,6 +26,7 @@ define([
             options || (options = {});
             this.attributes = {};
             this.save(null, _.extend({url : url}, options));
+            this.trigger('change');
         },
 
         signup : function (data, options) {
@@ -39,13 +40,15 @@ define([
             this.fetch({
                 url : url,
                 success : function (result) {
-                    console.log(result);
                     if (result.get('username')) {
-                        onTrue();
+                        (onTrue || function () {})();
                     }
                     else {
-                        onFalse();
+                        (onFalse || function () {})();
                     }
+                },
+                error : function () {
+                    console.log(arguments);
                 }
             });
         }

@@ -56,6 +56,14 @@
 			"required": false,
 			"id": "pictures",
 			"order": 6
+		},
+		"language": {
+			"name": "language",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "language",
+			"order": 7
 		}
 	}
 }

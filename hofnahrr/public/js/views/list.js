@@ -18,7 +18,7 @@ define([
                     template : this.options.listItemTemplate,
                     model : item
                 });
-            this.$el.find('ul').append(view.render().el);
+            this.$el.find('ul #sight-list-header').after(view.render().el);
         },
         onAddAll : function (collection) {
             collection.each(this.onAdd);

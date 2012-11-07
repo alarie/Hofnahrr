@@ -18,14 +18,14 @@ define([
                 'submit .login-form ' : 'onLogin',
                 'submit .signup-form' : 'onSignup',
                 'click .login' : 'onShowLogin',
-                'click .signup' : 'onShowSignup'
+                'click .signup' : 'onShowSignup',
+                'click .logout' : 'onLogout'
             };
         },
 
         initialize : function () {
             TemplateView.prototype.initialize.apply(this, arguments);
-
-            _.bindAll(this, 'onLogin');
+            _.bindAll(this, 'onLogin', 'onShowLogin', 'onShowSignup');
         },
 
         onShowLogin : function () {
@@ -51,6 +51,11 @@ define([
             e.preventDefault();
             var data = (new DataRetriever({el : this.$el})).getData();
             this.trigger('signup-user', data);
+        },
+
+        onLogout : function (e) {
+            e.preventDefault();
+            this.trigger('logout-user');
         }
     });
 

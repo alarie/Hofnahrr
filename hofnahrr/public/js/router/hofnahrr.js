@@ -13,9 +13,34 @@ define([
             'sight/:id/edit' : 'edit-sight',
 
             'login' : 'login',
-            'logout' : 'logout'
+            'logout' : 'logout',
+
+            'tag/:tagname' : 'onChangeTag'
         }
     });
+
+    Backbone.History.prototype.checkUrl = function (e) {
+        var current = this.getFragment(),
+            old = this.fragment;
+
+        if (current.indexOf('tag/') === 0) {
+            if (old.indexOf('tag/') >= 0) {
+                current = old.replace(/tag\/.*$/, current);
+            }
+            else {
+                current = old + '/' + current;
+            }
+
+            if (current !== old) {
+                this.navigate(current);
+            }
+        }
+
+        if (current == this.fragment && this.iframe) current = this.getFragment(this.getHash(this.iframe));
+        if (current == this.fragment) return false;
+        if (this.iframe) this.navigate(current);
+        this.loadUrl() || this.loadUrl(this.getHash());
+    };
 
     return HofnahrrRouter;
 });
