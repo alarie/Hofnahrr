@@ -17,6 +17,7 @@ define([], function () {
             'sight_add_link' : 'Link hinzufügen',
             'sight_wizard' : 'Sehenswürdigkeiten Wizard',
             'sight_add_photos' : 'Fotos hinzufügen',
+            'sight_edit' : 'Sehenswürdigkeit bearbeiten',
 
             'picture_add_pictures' : 'Bilder hinzufügen',
             'picture_name' : 'Name',
@@ -28,6 +29,15 @@ define([], function () {
             'wizard_close' : 'Schließen',
             'wizard_next' : 'Weiter',
             'wizard_prev' : 'Zurück',
+
+            'login_login' : 'Anmelden',
+            'login_signup' : 'Account erstellen',
+            'login_logout' : 'Abmelden',
+            'login_name' : 'Name',
+            'login_password' : 'Passwort',
+            'login_firstname' : 'Vorname',
+            'login_surname' : 'Nachname',
+            
 
         },
         'en' : {
@@ -47,6 +57,7 @@ define([], function () {
             'sight_add_link' : 'add a link',
             'sight_wizard' : 'Sights Wizard',
             'sight_add_photos' : 'Add photos',
+            'sight_edit' : 'Edit sight',
 
             'picture_add_pictures' : 'Add pictures',
             'picture_name' : 'Name',
@@ -58,6 +69,14 @@ define([], function () {
             'wizard_close' : 'Close',
             'wizard_next' : 'Next',
             'wizard_prev' : 'Previous',
+
+            'login_login' : 'Login',
+            'login_signup' : 'Signup',
+            'login_logout' : 'Logout',
+            'login_name' : 'Name',
+            'login_password' : 'Password',
+            'login_firstname' : 'Firstname',
+            'login_surname' : 'Surname',
         }
     };
 

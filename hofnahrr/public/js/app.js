@@ -12,12 +12,14 @@ define([
     'views/templated-bridge',
     'views/modal',
     'views/file-drop',
+    'views/login',
 
     'models/sight',
     'models/user',
 
     'router/hofnahrr',
 
+    'text!tmpl/sight-info.tmpl',
     'text!tmpl/sight-form.tmpl',
     'text!tmpl/sights-list.tmpl',
     'text!tmpl/sight-link.tmpl',
@@ -28,12 +30,13 @@ define([
 ], function (
     $, _, Backbone, Templater, lang, DataRetriever, 
 
-    ListView, TemplateView, TemplatedBridgeView, ModalView, FileDropView,
+    ListView, TemplateView, TemplatedBridgeView, ModalView, FileDropView, LoginView,
 
     SightModel, UserModel,
 
     HofnahrrRouter,
-            
+    
+    tmplSightInfo,
     tmplSightForm, tmplSightsList, tmplSightLink, tmplModal,
     tmplPictureForm, tmplUpload, tmplImage
 ) {
@@ -60,7 +63,6 @@ define([
                   'onCreateSight', 
                   'onCreateNewSight',
                   'onUserLoggedIn', 
-                  'onShowLogin', 
                   'onLogout', 
                   'onLogin', 
                   'onSignup');
@@ -73,6 +75,8 @@ define([
 
         this.initTemplateHelpers();
 
+        this.createLoginView();
+        this.createSightInfoView();
         this.createSightFormView();
         this.createPictureFormView();
         this.createListView();
@@ -99,6 +103,14 @@ define([
             });
         },
 
+        createLoginView : function () {
+            this.loginView = new LoginView({
+                model : this.currentUser
+            });
+            this.currentUser.on('change', this.loginView.render);
+            $('#header').append(this.loginView.render().el);
+        },
+
         createFileDropView : function () {
             this.fileDropView = new FileDropView({
                 el : $('<div/>'),
@@ -113,6 +125,13 @@ define([
 
         onFileUploaded : function (file) {
             console.log(file);
+        },
+
+        createSightInfoView : function () {
+            this.sightInfoView = new TemplatedBridgeView({
+                el : $('#main'),
+                template : tmplSightInfo
+            });
         },
 
         createSightFormView : function () {
@@ -229,6 +248,9 @@ define([
             this.fileDropView.on('drop', this.onFileDragEnd);
             this.fileDropView.on('files-dropped', this.onFileDropped);
 
+            this.loginView.on('login-user', this.onLogin);
+            this.loginView.on('signup-user', this.onSignup);
+            this.loginView.on('logout-user', this.onLogout);
 
             this.router.on('route:open-sight', this.onOpenSight);
 
@@ -237,18 +259,9 @@ define([
             this.router.on('route:create-new-sight', this.onCreateNewSight);
 
             this.router.on('route:login', this.onShowLogin);
+
             this.router.on('route:logout', this.onLogout);
 
-        },
-
-        onShowLogin : function () {
-            var that = this;
-            require(['views/login'], function (LoginView) {
-                var loginView = new LoginView();
-                $('body').append(loginView.render().el);
-                loginView.on('login-user', that.onLogin);
-                loginView.on('signup-user', that.onSignup);
-            });
         },
 
         onLogin : function (data) {
@@ -258,7 +271,11 @@ define([
         },
 
         onLogout : function (data) {
-            this.currentUser.logout();
+            this.currentUser.logout({
+                success : function () {
+                    window.location.reload();
+                }
+            });
         },
 
         onSignup : function (data) {
@@ -273,22 +290,31 @@ define([
             this.sightModal.show();
         },
 
-        onOpenSight : function (id) {
-            // TODO
-            
-        },
-
-        onEditSight : function (id) {
+        setSelectedSight : function (id) {
             if (id) {
                 this.selectedSight = this.collection.find(function (model) {
                     return id === model.get('speakingId');
                 });
-                if (this.selectedSight) {
-                    this.createSightModal();
-                    this.sightFormView.setModel(this.selectedSight);
-                    this.pictureFormView.setModel(this.selectedSight);
-                    this.sightModal.show();
-                }
+            }
+            else {
+                this.selectedSight = null;
+            }
+        },
+
+        onOpenSight : function (id) {
+            this.setSelectedSight(id);
+            if (this.selectedSight) {
+                this.sightInfoView.setModel(this.selectedSight);
+            }
+        },
+
+        onEditSight : function (id) {
+            this.setSelectedSight(id);
+            if (this.selectedSight) {
+                this.createSightModal();
+                this.sightFormView.setModel(this.selectedSight);
+                this.pictureFormView.setModel(this.selectedSight);
+                this.sightModal.show();
             }
         },
 

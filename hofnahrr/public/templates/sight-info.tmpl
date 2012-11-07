@@ -1,0 +1,18 @@
+<h3>{{name}}</h3>   
+<div>
+    {{description}}   
+</div>
+<h5>Tags</h5>
+<ul class="unstyled">
+    {{#each tags}}
+    <li>{{this}}</li>
+    {{/each}}
+</li>
+<h5>Links</h5>
+<ul class="unstyled">
+    {{#each links}}
+    <li>{{this}}</li>
+    {{/each}}
+</li>
+<div>{{location.latitude}}, {{location.longitude}}</div>
+<a href="#sight/{{speakingId}}/edit">{{i18n "sight_edit"}}</a>

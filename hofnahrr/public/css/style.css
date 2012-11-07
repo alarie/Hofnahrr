@@ -77,6 +77,9 @@
 /* Transforms */
 /* Transitions */
 /* BOOSTRAT EXTENDS */
+body {
+  padding-top: 60px; }
+
 .fixed-fluid {
   margin-left: 300px; }
 
@@ -95,9 +98,6 @@
 
 .sidebar-nav {
   padding: 9px 0; }
-
-.right {
-  float: right; }
 
 div.tagsinput {
   height: 100px;
@@ -219,3 +219,14 @@ input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap; }
+
+#user {
+  position: relative; }
+  #user form {
+    right: 0;
+    position: absolute;
+    background-color: white;
+    border: 4px solid #efefef;
+    padding: 10px;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+    z-index: 1; }
