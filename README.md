@@ -15,9 +15,6 @@ Eingesetzte Technologien
 * [Backbone](http://backbonejs.org/)
 * [Underscore](http://documentcloud.github.com/underscore/)
 
-### PHP-Libs ###
-* [Propel](http://www.propelorm.org/)
-
 ### Testing ###
 * [Testem](https://github.com/airportyh/testem)
 * [Jasmin](http://pivotal.github.com/jasmine/)
@@ -27,5 +24,3 @@ Eingesetzte Technologien
 
 ### Tools ###
 * [jshint](https://github.com/jshint/jshint)
-* [PHPLint](http://www.icosaedro.it/phplint/)
-* [yeoman](http://yeoman.io/)
