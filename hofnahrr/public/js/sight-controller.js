@@ -10,8 +10,11 @@ define([
     'views/templated-bridge',
     'views/file-drop',
     'views/modal',
+    'views/sight-map',
 
+    'text!tmpl/sight-nav.tmpl',
     'text!tmpl/sight-info.tmpl',
+    'text!tmpl/sight-map.tmpl',
     'text!tmpl/sights-list.tmpl',
     'text!tmpl/sight-link.tmpl',
     'text!tmpl/modal.tmpl',
@@ -30,8 +33,11 @@ define([
     TemplatedBridgeView,
     FileDropView,
     ModalView,
+    SightMapView,
 
+    tmplSightNav,
     tmplSightInfo,
+    tmplSightMap,
     tmplSightsList, tmplSightLink,
     tmplModal, tmplUpload, tmplImage, tmplSightForm, tmplPictureForm) {
     'use strict';
@@ -43,24 +49,41 @@ define([
             _.bindAll(this, 
                     'onEditSight', 
                     'onOpenSight', 
+                    'onOpenSightInfo', 
+                    'onOpenSightMap', 
+                    'onOpenSightGallery', 
+                    'onOpenSightMosaic', 
                     'onCreateSight', 
-                    'onCreateNewSight',
-                    'onShowSightMap');
+                    'onCreateNewSight');
+
             // no sight is selected now
             this.selectedSight = null;
 
+            this.compileSightTempalates();
 
-
-            this.createListView();
-            this.createSightInfoView();
+            this.createSightViews();
 
             this.createSightCollection();
 
             this._sightControllerInstalled = true;
 
+            this._openedPage = '';
+
             this.sightCollection.fetch({
                 success : this.start
             });
+        },
+
+
+        compileSightTempalates : function () {
+            this._compiledSightNavTmpl = Templater.compile(tmplSightNav);
+        },
+
+        createSightViews : function () {
+            this.createSecondaryNavView();
+            this.createSightListView();
+            this.createSightInfoView();
+            this.createSightMapView();
         },
 
         createSightCollection : function () {
@@ -75,14 +98,32 @@ define([
             this.sightCollection.on('reset', this.listView.onAddAll);
         },
 
+        createSecondaryNavView : function () {
+            var data = {};
+
+            if (this.selectedSight) {
+                data = this.selectedSight.toJSON();
+            }
+
+            $('#secondary-nav')
+                .empty()
+                .html(this._compiledSightNavTmpl(data));
+        },
+
         createSightInfoView : function () {
             this.sightInfoView = new TemplatedBridgeView({
-                el : $('#main'),
+                tagName : 'div',
                 template : tmplSightInfo
             });
         },
 
-        createListView : function () {
+        createSightMapView : function () {
+            this.sightMapView = new SightMapView({
+                template : tmplSightMap
+            });
+        },
+
+        createSightListView : function () {
             this.listView = new ListView({
                 el : $('#sidebar'),
                 template : tmplSightsList,
@@ -92,15 +133,33 @@ define([
             this.listView.render();
         },
 
-        onShowSightMap : function () {
-            console.log("todo");
+        onOpenSight : function (id) {
+            // TODO make this open the map
+            this.onOpenSightInfo(id);        
         },
 
-        onOpenSight : function (id) {
-            this.setSelectedSight(id);
+        onOpenSightInfo : function (id) {
+            this.openSightView(id, this.sightInfoView);
+        },
+
+        onOpenSightMap : function (id) {
+            this.openSightView(id, this.sightMapView);
+        },
+
+        onOpenSightGallery : function (id) {
+            this.openSightView(id, this.sightGalleryView);
+        },
+
+        onOpenSightMosaic : function (id) {
+            this.openSightView(id, this.sightMosaicView);
+        },
+
+        openSightView : function (sightId, view) {
+            this.setSelectedSight(sightId);
             if (this.selectedSight) {
-                this.sightInfoView.setModel(this.selectedSight);
+                view.setModel(this.selectedSight);
             }
+            this.setMainView(view);
         },
 
         onEditSight : function (id) {
@@ -131,6 +190,7 @@ define([
             else {
                 this.selectedSight = null;
             }
+            this.createSecondaryNavView();
         },
 
 
