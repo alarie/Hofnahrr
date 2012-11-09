@@ -8,6 +8,7 @@ define([
 
     HofnahrrRouter = Backbone.Router.extend({
         routes : {
+            'sight/' : 'show-sight-map',
             'sight/create' : 'create-new-sight',
             'sight/:id' : 'open-sight',
             'sight/:id/edit' : 'edit-sight',
