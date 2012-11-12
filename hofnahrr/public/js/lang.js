@@ -25,6 +25,13 @@ define([], function () {
             'sight_add_photos' : 'Fotos hinzufügen',
             'sight_edit' : 'Sehenswürdigkeit bearbeiten',
             'sight_no_links' : 'Keine Links vorhanden',
+            'sight_no_tags' : 'Keine Tags vorhanden',
+
+            'sight_map' : 'Karte',
+            'sight_gallery' : 'Galerie',
+            'sight_mosaic' : 'Mosaik',
+            'sight_info' : 'Info',
+
 
             'picture_add_pictures' : 'Bilder hinzufügen',
             'picture_name' : 'Name',
@@ -73,6 +80,12 @@ define([], function () {
             'sight_add_photos' : 'Add photos',
             'sight_edit' : 'Edit sight',
             'sight_no_links' : 'No Links available.',
+            'sight_no_tags' : 'No Tags available',
+
+            'sight_map' : 'Map',
+            'sight_gallery' : 'Gallery',
+            'sight_mosaic' : 'Mosaic',
+            'sight_info' : 'Info',
 
             'picture_add_pictures' : 'Add pictures',
             'picture_name' : 'Name',

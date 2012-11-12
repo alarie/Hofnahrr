@@ -146,13 +146,19 @@ define([
             // routing events 
             // CALL Backbone.history.start() ONLY AFTER THIS SETUP
             this.router.on('route:open-sight', this.onOpenSight);
+            this.router.on('route:open-sight-info', this.onOpenSight);
+            this.router.on('route:open-sight-map', this.onOpenSightMap);
+            this.router.on('route:open-sight-gallery', this.onOpenSightGallery);
+            this.router.on('route:open-sight-mosaic', this.onOpenSightMosaic);
+            this.router.on('route:open-sight-map', this.onOpenSightMap);
             this.router.on('route:edit-sight', this.onEditSight);
             this.router.on('route:create-new-sight', this.onCreateNewSight);
-            this.router.on('route:show-sight-map', this.onShowSightMap);
             
             this.router.on('route:login', this.loginView.onShowLogin);
             this.router.on('route:logout', this.onLogout);
         },
+
+
 
         createNav : function () {
             $('#main-nav #user')
@@ -177,6 +183,16 @@ define([
 
         onSignup : function (data) {
             this.currentUser.signup(data);
+        },
+
+
+        setMainView : function (view) {
+            if (this.mainView) {
+                this.mainView.$el.detach();
+            }
+            this.mainView = view;
+            $('#main-content').append(this.mainView.render().el);
+            console.log(this.mainView.el);
         }
     };
 
