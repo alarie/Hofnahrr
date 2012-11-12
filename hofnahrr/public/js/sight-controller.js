@@ -6,15 +6,18 @@ define([
 
     'models/sight',
 
-    'views/list',
+    'views/sight-nav',
+    'views/sight-list',
+    'views/template',
     'views/templated-bridge',
     'views/file-drop',
     'views/modal',
     'views/sight-map',
+    'views/sight-mosaic',
+    'views/sight-gallery',
 
     'text!tmpl/sight-nav.tmpl',
     'text!tmpl/sight-info.tmpl',
-    'text!tmpl/sight-map.tmpl',
     'text!tmpl/sights-list.tmpl',
     'text!tmpl/sight-link.tmpl',
     'text!tmpl/modal.tmpl',
@@ -29,15 +32,18 @@ define([
     
     SightModel, 
 
-    ListView, 
+    SightNavView,
+    SightListView, 
+    TemplateView,
     TemplatedBridgeView,
     FileDropView,
     ModalView,
     SightMapView,
+    SightMosaicView,
+    SightGalleryView,
 
     tmplSightNav,
     tmplSightInfo,
-    tmplSightMap,
     tmplSightsList, tmplSightLink,
     tmplModal, tmplUpload, tmplImage, tmplSightForm, tmplPictureForm) {
     'use strict';
@@ -59,8 +65,6 @@ define([
             // no sight is selected now
             this.selectedSight = null;
 
-            this.compileSightTempalates();
-
             this.createSightViews();
 
             this.createSightCollection();
@@ -74,16 +78,13 @@ define([
             });
         },
 
-
-        compileSightTempalates : function () {
-            this._compiledSightNavTmpl = Templater.compile(tmplSightNav);
-        },
-
         createSightViews : function () {
             this.createSecondaryNavView();
             this.createSightListView();
             this.createSightInfoView();
             this.createSightMapView();
+            this.createSightMosaicView();
+            this.createSightGalleryView();
         },
 
         createSightCollection : function () {
@@ -99,32 +100,42 @@ define([
         },
 
         createSecondaryNavView : function () {
-            var data = {};
+            var data = {}, 
+                el = $('#secondary-nav');
 
             if (this.selectedSight) {
                 data = this.selectedSight.toJSON();
             }
 
-            $('#secondary-nav')
-                .empty()
-                .html(this._compiledSightNavTmpl(data));
+            this.sightNav = new SightNavView({
+                el : el,
+                template : tmplSightNav
+            })
+            .render();
         },
 
         createSightInfoView : function () {
             this.sightInfoView = new TemplatedBridgeView({
                 tagName : 'div',
+                className : 'container-fluid',
                 template : tmplSightInfo
             });
         },
 
         createSightMapView : function () {
-            this.sightMapView = new SightMapView({
-                template : tmplSightMap
-            });
+            this.sightMapView = new SightMapView();
+        },
+
+        createSightMosaicView : function () {
+            this.sightMosaicView = new SightMosaicView();
+        },
+
+        createSightGalleryView : function () {
+            this.sightGalleryView = new SightGalleryView();
         },
 
         createSightListView : function () {
-            this.listView = new ListView({
+            this.listView = new SightListView({
                 el : $('#sidebar'),
                 template : tmplSightsList,
                 listItemTemplate : tmplSightLink
@@ -139,27 +150,49 @@ define([
         },
 
         onOpenSightInfo : function (id) {
+            this.sightSubpage = '/info/';
             this.openSightView(id, this.sightInfoView);
         },
 
         onOpenSightMap : function (id) {
+            this.sightSubpage = '/map/';
             this.openSightView(id, this.sightMapView);
         },
 
         onOpenSightGallery : function (id) {
+            this.sightSubpage = '/gallery/';
             this.openSightView(id, this.sightGalleryView);
         },
 
         onOpenSightMosaic : function (id) {
+            this.sightSubpage = '/mosaic/';
             this.openSightView(id, this.sightMosaicView);
         },
 
         openSightView : function (sightId, view) {
             this.setSelectedSight(sightId);
+            this.listView
+                .setSubPage(this.sightSubpage)
+                .setSight(this.selectedSight && this.selectedSight.get('speakingId'));
+
             if (this.selectedSight) {
                 view.setModel(this.selectedSight);
             }
             this.setMainView(view);
+            this.sightNav.openPage(this.sightSubpage);
+        },
+
+        setSelectedSight : function (id) {
+            if (id) {
+                this.selectedSight = this.sightCollection.find(function (model) {
+                    return id === model.get('speakingId');
+                });
+            }
+            else {
+                this.selectedSight = null;
+            }
+            
+            this.sightNav.setModel(this.selectedSight);
         },
 
         onEditSight : function (id) {
@@ -179,20 +212,6 @@ define([
             this.pictureFormView.setModel(null);
             this.sightModal.show();
         },
-
-
-        setSelectedSight : function (id) {
-            if (id) {
-                this.selectedSight = this.sightCollection.find(function (model) {
-                    return id === model.get('speakingId');
-                });
-            }
-            else {
-                this.selectedSight = null;
-            }
-            this.createSecondaryNavView();
-        },
-
 
         onCreateSight : function (data) {
             var that = this;

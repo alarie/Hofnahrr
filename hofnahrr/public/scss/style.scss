@@ -1,3 +1,4 @@
+@import "fonts";
 @import "prefixer";
 
 /* BOOSTRAT EXTENDS */
@@ -116,8 +117,16 @@ body{
     }
 }
 
+#sidebar {
+    border-radius: 0;
+}
 
+i.pictos{
+    font-style: normal;
+}
 
+@import "mosaic";
+@import "sight-info";
 
 
 

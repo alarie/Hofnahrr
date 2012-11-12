@@ -70,7 +70,6 @@ define([
         this.currentUser.isLoggedIn(this.onUserLoggedIn, 
                                     this.onUserNotLoggedIn);
         
-        Backbone.history.start();
     };
 
     AppController.prototype = {
@@ -121,6 +120,8 @@ define([
         start : function () {
             this.initTemplateHelpers();
             this.createViews();
+
+            Backbone.history.start();
         },
 
         initTemplateHelpers : function () {
@@ -134,7 +135,12 @@ define([
                 return html;
             });
             Templater.registerHelper('hasLocation', function () {
-                return this.location.latitude && this.location.longitude;
+                return this.location && this.location.latitude && this.location.longitude;
+            });
+            Templater.registerHelper('getSightMainPicture', function () {
+                return (this.pictures && this.pictures.length) ? 
+                    'url(' + this.pictures[0].url + ')' : 
+                    'none';
             });
         },
 
@@ -191,8 +197,7 @@ define([
                 this.mainView.$el.detach();
             }
             this.mainView = view;
-            $('#main-content').append(this.mainView.render().el);
-            console.log(this.mainView.el);
+            $('#main-content').append(this.mainView.el);
         }
     };
 

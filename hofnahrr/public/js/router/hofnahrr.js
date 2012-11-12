@@ -10,7 +10,7 @@ define([
         routes : {
             'sight/' : 'show-sight-map',
             'sight/create/' : 'create-new-sight',
-            'sight/:id/' : 'open-sight',
+            'sight/:id' : 'open-sight-info',
             'sight/:id/info/' : 'open-sight-info',
             'sight/:id/gallery/' : 'open-sight-gallery',
             'sight/:id/mosaic/' : 'open-sight-mosaic',

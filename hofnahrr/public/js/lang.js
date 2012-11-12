@@ -26,11 +26,14 @@ define([], function () {
             'sight_edit' : 'Sehenswürdigkeit bearbeiten',
             'sight_no_links' : 'Keine Links vorhanden',
             'sight_no_tags' : 'Keine Tags vorhanden',
+            'sight_edit_mosaic' : 'Mosaik bearbeiten',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
             'sight_mosaic' : 'Mosaik',
             'sight_info' : 'Info',
+            'sight_meta' : 'Weitere Informationen',
+            'sight_wikipedia' : 'Wikipedia',
 
 
             'picture_add_pictures' : 'Bilder hinzufügen',
@@ -81,11 +84,14 @@ define([], function () {
             'sight_edit' : 'Edit sight',
             'sight_no_links' : 'No Links available.',
             'sight_no_tags' : 'No Tags available',
+            'sight_edit_mosaic' : 'Edit mosaic',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',
             'sight_mosaic' : 'Mosaic',
             'sight_info' : 'Info',
+            'sight_meta' : 'Further information',
+            'sight_wikipedia' : 'Wikipedia',
 
             'picture_add_pictures' : 'Add pictures',
             'picture_name' : 'Name',
