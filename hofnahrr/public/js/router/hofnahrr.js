@@ -10,12 +10,15 @@ define([
         routes : {
             'sight/' : 'show-sight-map',
             'sight/create/' : 'create-new-sight',
-            'sight/:id' : 'open-sight-info',
+            'sight/:id/' : 'open-sight-info',
             'sight/:id/info/' : 'open-sight-info',
             'sight/:id/gallery/' : 'open-sight-gallery',
             'sight/:id/mosaic/' : 'open-sight-mosaic',
             'sight/:id/map/' : 'open-sight-map',
             'sight/:id/edit/' : 'edit-sight',
+
+            'game/' : 'game',
+            'game/:type/:level/' : 'game-play',
 
             'login' : 'login',
             'logout' : 'logout',
@@ -33,7 +36,7 @@ define([
                 current = old.replace(/tag\/.*$/, current);
             }
             else {
-                current = old + '/' + current;
+                current = old + current;
             }
 
             if (current !== old) {

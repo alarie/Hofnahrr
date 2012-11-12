@@ -24,9 +24,8 @@ define([
         reset : function () {
             this.views = [];
             this.$el
-                .find('ul')
-                .children()
-                .not('#sight-list-header')
+                .find('ul li')
+                .not('.fixed')
                 .remove();
         },
 

@@ -32,7 +32,8 @@ requirejs.config({
         }
     ],
     "paths" : {
-        "tmpl" : '../templates'
+        "tmpl" : '../templates',
+        "layout" : '../templates/layouts'
     },
     "version": "0.1.4",
     "shim": {

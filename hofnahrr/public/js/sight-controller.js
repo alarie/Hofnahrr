@@ -16,6 +16,7 @@ define([
     'views/sight-mosaic',
     'views/sight-gallery',
 
+    'text!layout/sight.html',
     'text!tmpl/sight-nav.tmpl',
     'text!tmpl/sight-info.tmpl',
     'text!tmpl/sights-list.tmpl',
@@ -24,7 +25,7 @@ define([
     'text!tmpl/upload.tmpl',
     'text!tmpl/image.tmpl',
     'text!tmpl/sight-form.tmpl',
-    'text!tmpl/picture-form.tmpl',
+    'text!tmpl/picture-form.tmpl'
 ], function (
     _, Backbone, Templater,
     
@@ -42,6 +43,7 @@ define([
     SightMosaicView,
     SightGalleryView,
 
+    tmplSightLayout,
     tmplSightNav,
     tmplSightInfo,
     tmplSightsList, tmplSightLink,
@@ -60,7 +62,10 @@ define([
                     'onOpenSightGallery', 
                     'onOpenSightMosaic', 
                     'onCreateSight', 
-                    'onCreateNewSight');
+                    'onCreateNewSight', 
+                    'onShowSightMap', 
+                    'initSightLayout');
+
 
             // no sight is selected now
             this.selectedSight = null;
@@ -70,12 +75,15 @@ define([
             this.createSightCollection();
 
             this._sightControllerInstalled = true;
+            this.layouts.sight = tmplSightLayout;
 
             this._openedPage = '';
 
             this.sightCollection.fetch({
                 success : this.start
             });
+
+            this.on('layout-set:sight', this.initSightLayout);
         },
 
         createSightViews : function () {
@@ -99,16 +107,16 @@ define([
             this.sightCollection.on('reset', this.listView.onAddAll);
         },
 
+// TODO create event sight:layout-created and do all inits in that event handler
+
         createSecondaryNavView : function () {
-            var data = {}, 
-                el = $('#secondary-nav');
+            var data = {}; 
 
             if (this.selectedSight) {
                 data = this.selectedSight.toJSON();
             }
 
             this.sightNav = new SightNavView({
-                el : el,
                 template : tmplSightNav
             })
             .render();
@@ -136,12 +144,18 @@ define([
 
         createSightListView : function () {
             this.listView = new SightListView({
-                el : $('#sidebar'),
                 template : tmplSightsList,
                 listItemTemplate : tmplSightLink
-            });
+            }).render();
+        },
 
-            this.listView.render();
+        appendSightListView : function () {
+            console.log($('#sidebar')[0]);
+            $('#sidebar').empty().append(this.listView.el);
+        },
+
+        appendSecondaryNavView : function () {
+            $('#secondary-nav').empty().append(this.sightNav.el);
         },
 
         onOpenSight : function (id) {
@@ -150,26 +164,33 @@ define([
         },
 
         onOpenSightInfo : function (id) {
-            this.sightSubpage = '/info/';
+            this.sightSubpage = 'info/';
             this.openSightView(id, this.sightInfoView);
         },
 
         onOpenSightMap : function (id) {
-            this.sightSubpage = '/map/';
+            this.sightSubpage = 'map/';
             this.openSightView(id, this.sightMapView);
         },
 
         onOpenSightGallery : function (id) {
-            this.sightSubpage = '/gallery/';
+            this.sightSubpage = 'gallery/';
             this.openSightView(id, this.sightGalleryView);
         },
 
         onOpenSightMosaic : function (id) {
-            this.sightSubpage = '/mosaic/';
+            this.sightSubpage = 'mosaic/';
             this.openSightView(id, this.sightMosaicView);
         },
 
+        onShowSightMap : function () {
+            this.sightSubpage = '';
+            this.openSightView(null, this.sightInfoView);
+        },
+
         openSightView : function (sightId, view) {
+            this.setLayout('sight');
+
             this.setSelectedSight(sightId);
             this.listView
                 .setSubPage(this.sightSubpage)
@@ -180,6 +201,11 @@ define([
             }
             this.setMainView(view);
             this.sightNav.openPage(this.sightSubpage);
+        },
+
+        initSightLayout : function () {
+            this.appendSightListView();
+            this.appendSecondaryNavView();
         },
 
         setSelectedSight : function (id) {

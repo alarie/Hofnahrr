@@ -102,6 +102,11 @@
 /* BOOSTRAT EXTENDS */
 body {
   padding-top: 60px; }
+  body.modal-open #main-content {
+    -webkit-filter: blur(2px); }
+
+.active .muted {
+  color: #ccc; }
 
 .fixed-fluid {
   margin-left: 300px; }
