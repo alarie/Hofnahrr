@@ -1,9 +1,11 @@
 /*global define*/
 define([
+    'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore', 'backbone', 
     'views/template', 
+    'templater',
     'helpers/file-handler', 'helpers/file-upload'
-], function (_, Backbone, TemplateView, FileHandler, FileUpload) {
+], function ($, _, Backbone, TemplateView, Templater, FileHandler, FileUpload) {
     'use strict';
 
     var FileDropView,
@@ -126,7 +128,7 @@ define([
 
         events : function () {
             return {
-                'click .close' : 'onClose',
+                'click .cancel' : 'onClose',
 
                 'click .adder' : 'onThumbnailsAddToCollection',
                 'dragstart .thumbnail' : 'onThumbnailDragStart', 
@@ -294,8 +296,6 @@ define([
             var files = e.dataTransfer.files,
                 count = files.length;
 
-            this.$el.show();
-
             if (count) {
                 this.readFiles(files);
                 this.trigger('files-dropped', files);
@@ -329,9 +329,15 @@ define([
         },
 
         render : function () {
-            this.$el
-                .append(this._compiledTemplate())
-                .hide();
+            this.$el.empty()
+                .append(this._compiledTemplate());
+
+            this.$('.pictures-help').popover({
+                title : Templater.i18n('pictures_help'),
+                content : Templater.i18n('pictures_add_by_dragging'),
+                placement : 'right',
+                trigger : 'hover'
+            });
             return this;
         }
 

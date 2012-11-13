@@ -7,6 +7,8 @@ define([], function () {
             'discover_discover' : 'Entdecken',
             'game_play' : 'Spielen',
 
+            'app_new' : 'Neu',
+
             'sight_name' : 'Name',
             'sight_description' : 'Beschreibung',
             'sights_sights' : 'Sehenswürdigkeiten',
@@ -30,6 +32,7 @@ define([], function () {
             'sight_dont_know' : 'Weiß ich nich',
             'sights_existing' : 'Existierende',
             'sights_unknown' : 'Unbekannte',
+            'sight_add_selected_photos' : 'Ausgewählte Fotos zu dieser Sehenswürdigkeit hinzufügen',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
@@ -45,6 +48,8 @@ define([], function () {
             'picture_upload' : 'hochladen',
             'picture_start_upload' : 'Hochladen starten',
             'picture_close' : 'Schließen',
+            'pictures_add_by_dragging' : 'Bilder zum Hochladen aus dem Dateibrowser in dieses Fenster ziehen. Dannach den Sehenwürdigkeiten in der linken Spalte per drag&drop zuweisen.',
+            'pictures_help' : 'Hilfe',
 
             'wizard_close' : 'Schließen',
             'wizard_next' : 'Weiter',
@@ -72,6 +77,8 @@ define([], function () {
             'discover_discover' : 'Discover',
             'game_play' : 'Play',
 
+            'app_new' : 'New',
+
             'sight_name' : 'Name',
             'sight_description' : 'Description',
             'sights_sights' : 'Sights',
@@ -95,6 +102,7 @@ define([], function () {
             'sight_dont_know' : 'I don\'t know',
             'sights_existing' : 'Existing',
             'sights_unknown' : 'Unknown',
+            'sight_add_selected_photos' : 'Add selected photos to this sight',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',
@@ -109,6 +117,8 @@ define([], function () {
             'picture_upload' : 'upload',
             'picture_start_upload' : 'Start upload',
             'picture_close' : 'Close',
+            'pictures_add_by_dragging' : 'To uplod images, drag them from your file browser into this window. Then apply them to the fitting sight in the list on the left by drag&drop.',
+            'pictures_help' : 'Help',
 
             'wizard_close' : 'Close',
             'wizard_next' : 'Next',

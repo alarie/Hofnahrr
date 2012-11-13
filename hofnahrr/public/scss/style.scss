@@ -41,6 +41,12 @@ a {
     width: 280px;
 }
 
+
+.modal-open .popover.in {
+    z-index:2000;
+}
+
+
 .sidebar-nav {
     padding: 9px 0;
 }
@@ -76,25 +82,21 @@ a {
 }
 
 
+.nav-header {
+    padding: 3px 0;
+}
+
+
 
 
 #upload-preview {
-    position: absolute;
-    top:0;
-    width: 800px;
-    left:50%;
-    margin-left: -400px;
-    background-color: white;
-    z-index: 2000;
-    border-bottom-left-radius:2px;
-    border-bottom-right-radius:2px;
     min-height:20px;
     box-sizing: border-box;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
     @include transition(height 0.3s ease-in);
 
 
-    .modal-body.fixed-fluid {
+    &.fixed-fluid {
+        position: relative;
         overflow-y: hidden;
         padding-left:200px;
         margin-left:0;
@@ -223,4 +225,16 @@ i.pictos{
         background-position: center center;
         background-repeat: no-repeat;
     }
+}
+
+/*.animated-turn {*/
+    /*//-webkit-backface-visibility: hidden;*/
+    /*@include transform(rotateY(0deg) translateZ(0));*/
+    /*@include transition(-webkit-transform 0.3s linear);*/
+/*}*/
+/*.animated-turn.turn-out {*/
+    /*@include transform(translateZ(1px) rotateY(180deg));*/
+/*}*/
+.animated-turn.turn-in {
+    /*@include transform(perspective(1000px) rotateY(360deg) translateZ(0px));*/
 }

@@ -230,7 +230,6 @@ define([
         openModal : function (sight) {
             this.createSightModal();
             this.sightFormView.setModel(sight);
-            this.pictureFormView.setModel(sight);
             this.sightModal.show();
         },
 
@@ -252,23 +251,6 @@ define([
             }
         },
 
-        createFileDropView : function () {
-            this.fileDropView = new FileDropView({
-                tagName : 'div',
-                template : tmplUpload,
-                fileTemplate : tmplImage,
-                uploadToPath : 'http://localhost:2403/pictures'
-            });
-
-            // upload events
-            this.fileDropView.on('drag-over', this.onFileDragOver);
-            this.fileDropView.on('drag-end', this.onFileDragEnd);
-            this.fileDropView.on('drop', this.onFileDragEnd);
-            this.fileDropView.on('files-dropped', this.onFileDropped);
-            this.fileDropView.on('add-items-to-container', this.onFilesAddedToContainer);
-
-            $('body').append(this.fileDropView.render().el);
-        },
 
         onFilesAddedToContainer : function (files, containerId) {
             var sight = this.sightCollection.get(containerId);
@@ -300,12 +282,21 @@ define([
                 });
 
                 this.createSightFormView();
-                this.createPictureFormView();
                 this.createFileDropView();
 
                 this.sightModal
                     .render()
-                    .setContentViews([this.sightFormView, this.pictureFormView]);
+                    .setContentViews([{
+                        view : this.sightFormView,
+                        trigger : 'click .show-sight-form',
+                        title : function (model) {
+                            return Templater.i18n(model ? 'sights_edit_sight' : 'sights_new_sight');
+                        }
+                    }, {
+                        view : this.fileDropView,
+                        trigger : 'click .show-file-browser',
+                        title : Templater.i18n('sight_add_photos')
+                    }]);
 
                 this.sightModal.on('hide', function () {
                     that.router.navigate('sights');
@@ -324,13 +315,20 @@ define([
             this.sightFormView.on('create-sight', this.onCreateSight);
         },
 
-        createPictureFormView : function () {
-            // early return if view exists already
-            if (this.pictureFormView) {
-                return;
-            }
+        createFileDropView : function () {
+            this.fileDropView = new FileDropView({
+                tagName : 'div',
+                template : tmplUpload,
+                fileTemplate : tmplImage,
+                uploadToPath : 'http://localhost:2403/pictures'
+            });
 
-            this.pictureFormView = new PictureFormView();
+            // upload events
+            this.fileDropView.on('drag-over', this.onFileDragOver);
+            this.fileDropView.on('drag-end', this.onFileDragEnd);
+            this.fileDropView.on('drop', this.onFileDragEnd);
+            this.fileDropView.on('files-dropped', this.onFileDropped);
+            this.fileDropView.on('add-items-to-container', this.onFilesAddedToContainer);
         },
     };
 

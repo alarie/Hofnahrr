@@ -1,6 +1,5 @@
 <form id="sights-form" class="form-horizontal">
     <fieldset>
-        <legend>{{#if id}}{{i18n "sights_edit_sight"}}: {{name}}{{else}}{{i18n "sights_new_sight"}}{{/if}}</legend>
         <div class="control-group">
             <label class="control-label" for="sight-name">{{i18n "sight_name"}}</label>
             <div class="controls">
@@ -37,6 +36,11 @@
         <div class="control-group">
             <div class="controls">
                 <input type="submit" class="btn btn-primary" value="{{#if id}}{{i18n "sight_update"}}{{else}}{{i18n "sight_create"}}{{/if}}" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button class="btn show-file-browser">{{i18n "sight_add_photos"}}...</button>
             </div>
         </div>
     </fieldset>

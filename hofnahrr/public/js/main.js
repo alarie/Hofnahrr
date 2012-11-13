@@ -49,7 +49,11 @@ requirejs.config({
         "jam/bootstrap-sass/js/bootstrap-carousel" : {
             deps : ['jquery'],
             exports : 'jQuery'
-        }
+        },
+        "jam/bootstrap-sass/js/bootstrap-popover" : {
+            deps : ['jquery', 'jam/bootstrap-sass/js/bootstrap-tooltip'],
+            exports : 'jQuery'
+        },
     }
 });
 
