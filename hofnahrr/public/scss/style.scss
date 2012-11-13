@@ -5,13 +5,23 @@
 body{
     padding-top: 60px;
 
-    &.modal-open #main-content {
-        -webkit-filter: blur(2px);
-    }
+    /*&.modal-open #main-content {*/
+        /*-webkit-filter: blur(2px);*/
+    /*}*/
+}
+
+a {
+    cursor: pointer;
 }
 
 .active .muted {
     color: #ccc;
+}
+
+.fixed-fluid,
+.fluid-fixed, 
+.fixed-fixed {
+    position: relative;
 }
 
 .fixed-fluid {
@@ -35,6 +45,30 @@ body{
     padding: 9px 0;
 }
 
+.hover-tools-trigger {
+    position: relative;
+    overflow: hidden;
+ 
+    .hover-tools {
+        position: absolute;
+        right:-20px;
+        @include transition(right 0.2s linear);
+    }
+    &:hover {
+        .hover-tools {
+            right: 10px;
+        }
+    }
+}
+
+.drag-over {
+    background-color: desaturate(#08C, 20%);
+
+    a {
+        color: white;
+    }
+}
+
 @import "tagsinput";
 
 .modal-backdrop {
@@ -47,9 +81,9 @@ body{
 #upload-preview {
     position: absolute;
     top:0;
-    width: 640px;
+    width: 800px;
     left:50%;
-    margin-left: -320px;
+    margin-left: -400px;
     background-color: white;
     z-index: 2000;
     border-bottom-left-radius:2px;
@@ -58,6 +92,28 @@ body{
     box-sizing: border-box;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
     @include transition(height 0.3s ease-in);
+
+
+    .modal-body.fixed-fluid {
+        overflow-y: hidden;
+        padding-left:200px;
+        margin-left:0;
+        max-height: 400px;
+
+        aside {
+            position: absolute;
+            top: 0;
+            bottom:0;
+            left: 0px;
+            width: 160px;
+            padding: 10px;
+
+            // overwrite .well
+            border-radius: 0;
+            margin-bottom: 0;
+            
+        }
+    }
 
     .justifier {
         padding-left: 100%;
@@ -69,6 +125,7 @@ body{
     .thumbnails {
         text-align: justify;
         margin-left: 0;
+        min-height: 200px;
         max-height: 400px;
         overflow-y: scroll;
 
@@ -81,21 +138,22 @@ body{
         }
     }
 
+    .selected .thumbnail {
+        background-color: #efefef;
+    }
     .thumbnail {
         height: 180px;
         position: relative;
         overflow: hidden;
+        background-color: #ffffff;
 
-        &.uploaded {
-            opacity: 0.6;
-        }
 
         .caption {
             position: absolute;
             bottom: 0;
             left:0;
             right: 0;
-            background-color: white;
+            background-color: inherit;
             padding: 2px 5px;
             box-sizing: border-box;
             margin-bottom: 0;
@@ -145,3 +203,24 @@ i.pictos{
 
 
 
+
+
+.uploading {
+    position: relative;
+
+    &:before,
+    &::before {
+        position: absolute;
+        left: 0;
+        right:0;
+        top: 0;
+        bottom: 0;
+        content: '\0020';
+        z-index: 1;
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.5);
+        background-image: url(../img/ajax-loader.gif);
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+}

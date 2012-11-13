@@ -2,7 +2,6 @@
 define([
     'underscore', 'backbone', 
     'templater',
-    'data-retriever',
 
     'models/sight',
 
@@ -15,6 +14,8 @@ define([
     'views/sight-map',
     'views/sight-mosaic',
     'views/sight-gallery',
+    'views/sight-form',
+    'views/picture-form',
 
     'text!layout/sight.html',
     'text!tmpl/sight-nav.tmpl',
@@ -24,12 +25,8 @@ define([
     'text!tmpl/modal.tmpl',
     'text!tmpl/upload.tmpl',
     'text!tmpl/image.tmpl',
-    'text!tmpl/sight-form.tmpl',
-    'text!tmpl/picture-form.tmpl'
 ], function (
     _, Backbone, Templater,
-    
-    DataRetriever,
     
     SightModel, 
 
@@ -42,12 +39,17 @@ define([
     SightMapView,
     SightMosaicView,
     SightGalleryView,
+    SightFormView,
+    PictureFormView,
 
     tmplSightLayout,
     tmplSightNav,
     tmplSightInfo,
     tmplSightsList, tmplSightLink,
-    tmplModal, tmplUpload, tmplImage, tmplSightForm, tmplPictureForm) {
+    tmplModal, 
+    tmplUpload, 
+    tmplImage
+) {
     'use strict';
 
     var SightController;
@@ -64,7 +66,8 @@ define([
                     'onCreateSight', 
                     'onCreateNewSight', 
                     'onShowSightMap', 
-                    'initSightLayout');
+                    'initSightLayout',
+                    'onFilesAddedToContainer');
 
 
             // no sight is selected now
@@ -87,7 +90,7 @@ define([
         },
 
         createSightViews : function () {
-            this.createSecondaryNavView();
+            this.createSightSecondaryNavView();
             this.createSightListView();
             this.createSightInfoView();
             this.createSightMapView();
@@ -97,9 +100,8 @@ define([
 
         createSightCollection : function () {
             // create a new Sight Collection
-            this.sightCollection = new Backbone.Collection({
-                model : SightModel,
-            });
+            this.sightCollection = new Backbone.Collection();
+            this.sightCollection.model = SightModel;
             this.sightCollection.url = 'sights/';
 
             // sight collection events
@@ -107,9 +109,7 @@ define([
             this.sightCollection.on('reset', this.listView.onAddAll);
         },
 
-// TODO create event sight:layout-created and do all inits in that event handler
-
-        createSecondaryNavView : function () {
+        createSightSecondaryNavView : function () {
             var data = {}; 
 
             if (this.selectedSight) {
@@ -150,12 +150,7 @@ define([
         },
 
         appendSightListView : function () {
-            console.log($('#sidebar')[0]);
             $('#sidebar').empty().append(this.listView.el);
-        },
-
-        appendSecondaryNavView : function () {
-            $('#secondary-nav').empty().append(this.sightNav.el);
         },
 
         onOpenSight : function (id) {
@@ -205,7 +200,7 @@ define([
 
         initSightLayout : function () {
             this.appendSightListView();
-            this.appendSecondaryNavView();
+            this.appendSecondaryNavView(this.sightNav);
         },
 
         setSelectedSight : function (id) {
@@ -217,25 +212,25 @@ define([
             else {
                 this.selectedSight = null;
             }
-            
             this.sightNav.setModel(this.selectedSight);
         },
 
         onEditSight : function (id) {
             this.setSelectedSight(id);
             if (this.selectedSight) {
-                this.createSightModal();
-                this.sightFormView.setModel(this.selectedSight);
-                this.pictureFormView.setModel(this.selectedSight);
-                this.sightModal.show();
+                this.openModal(this.selectedSight);
             }
         },
 
         onCreateNewSight : function () {
-            this.selectedSight = null;
+            this.setSelectedSight(null);
+            this.openModal(null);
+        },
+
+        openModal : function (sight) {
             this.createSightModal();
-            this.sightFormView.setModel(null);
-            this.pictureFormView.setModel(null);
+            this.sightFormView.setModel(sight);
+            this.pictureFormView.setModel(sight);
             this.sightModal.show();
         },
 
@@ -257,78 +252,9 @@ define([
             }
         },
 
-        createSightFormView : function () {
-            if (this.sightFormView) {
-                return;
-            }
-
-            this.sightFormView = new TemplatedBridgeView({
-                el : $('<div/>'),
-                template : tmplSightForm,
-                events : function () {
-                    return {
-                        'submit' : function (e) {
-                            e.preventDefault();
-
-                            if (e.target.checkValidity()) {
-                                var data = (new DataRetriever({
-                                    el : $(e.target)
-                                })).getData();
-
-                                data.location = {
-                                    latitude : data.lat,
-                                    longitude : data.lng
-                                };
-                                data.tags = data.tags.split(',');
-                                data.links = data.links.split(',');
-
-                                delete data.lat;
-                                delete data.lng;
-
-                                this.trigger('create-sight', data);
-                            }
-
-                        }
-                    };
-                }
-            });
-
-            // sight form events
-            this.sightFormView.on('create-sight', this.onCreateSight);
-
-            this.sightFormView.afterRender = function () {
-                this.$('#sight-tags').tagsInput({
-                    height : '50px;',
-                    defaultText : Templater.i18n('sight_add_tag')
-                });
-                this.$('#sight-links').tagsInput({
-                    height : '50px;',
-                    defaultText : Templater.i18n('sight_add_link')
-                });
-            };
-        },
-
-        createPictureFormView : function () {
-            if (this.pictureFormView) {
-                return;
-            }
-
-            this.pictureFormView = new TemplatedBridgeView({
-                el : $('<div class="row-fluid"/>'),
-                template : tmplPictureForm,
-                events : function () {
-                    return {
-                        'submit' : function () {
-                            // TODO
-                        }
-                    };
-                }
-            });
-        },
-
         createFileDropView : function () {
             this.fileDropView = new FileDropView({
-                el : $('<div/>'),
+                tagName : 'div',
                 template : tmplUpload,
                 fileTemplate : tmplImage,
                 uploadToPath : 'http://localhost:2403/pictures'
@@ -339,14 +265,20 @@ define([
             this.fileDropView.on('drag-end', this.onFileDragEnd);
             this.fileDropView.on('drop', this.onFileDragEnd);
             this.fileDropView.on('files-dropped', this.onFileDropped);
-            this.fileDropView.files.on('uploaded', this.onFileUploaded);
+            this.fileDropView.on('add-items-to-container', this.onFilesAddedToContainer);
 
             $('body').append(this.fileDropView.render().el);
         },
 
-        onFileUploaded : function (file) {
-            console.log(file);
+        onFilesAddedToContainer : function (files, containerId) {
+            var sight = this.sightCollection.get(containerId);
+            if (files && sight) {
+                _.each(files, function (file) {
+                    sight.addImage(file);
+                });
+            }
         },
+
 
         createSightModal : function () {
             var that = this;
@@ -369,8 +301,8 @@ define([
 
                 this.createSightFormView();
                 this.createPictureFormView();
+                this.createFileDropView();
 
-                // TODO create views on the fly
                 this.sightModal
                     .render()
                     .setContentViews([this.sightFormView, this.pictureFormView]);
@@ -381,6 +313,25 @@ define([
             }
         },
 
+        createSightFormView : function () {
+            // early return if view exists already
+            if (this.sightFormView) {
+                return;
+            }
+
+            this.sightFormView = new SightFormView();
+            // sight form events
+            this.sightFormView.on('create-sight', this.onCreateSight);
+        },
+
+        createPictureFormView : function () {
+            // early return if view exists already
+            if (this.pictureFormView) {
+                return;
+            }
+
+            this.pictureFormView = new PictureFormView();
+        },
     };
 
     return {
@@ -390,4 +341,3 @@ define([
         }
     };
 });
-

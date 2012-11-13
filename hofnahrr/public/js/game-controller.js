@@ -3,12 +3,15 @@ define([
     'underscore', 'backbone', 
     'views/template',
 
-    'text!layout/game.html'
+    'text!layout/game.html',
+    'text!tmpl/game-nav.tmpl'
+    
 ], function (
     _, 
     Backbone, 
     TemplateView,
-    tmplGameLayout
+    tmplGameLayout,
+    tmplGameNav
 ) {
     'use strict';
 
@@ -20,10 +23,29 @@ define([
                     'onOpenGame', 
                     'onOpenGamePlay');
 
+            this.createGameViews();
 
             this._gameControllerInstalled = true;
             this.layouts.game = tmplGameLayout;
 
+            this.on('layout-set:game', this.initGameLayout);
+        },
+
+        createGameViews : function () {
+            this.createGameSecondaryNavView();
+        },
+
+        createGameSecondaryNavView : function () {
+            var data = {}; 
+
+            this.gameNav = new TemplateView({
+                template : tmplGameNav
+            })
+            .render();
+        },
+
+        initGameLayout : function () {
+            this.appendSecondaryNavView(this.gameNav);
         },
 
         onOpenGame : function () {

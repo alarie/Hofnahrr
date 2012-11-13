@@ -86,6 +86,11 @@ define([
                 this.trigger('layout-set:' + name);
             }
         },
+
+        appendSecondaryNavView : function (view) {
+            $('#secondary-nav').empty().append(view.el);
+        },
+
         createUser : function () {
             // create a new UserModel
             this.currentUser = new UserModel({}, {
@@ -139,17 +144,19 @@ define([
 
         initTemplateHelpers : function () {
             var that = this;
-            Templater.registerHelper('sightsOptions', function (current, options) {
-                var html = '<option value="-1">' + Templater.i18n('sight_dont_know') + '</opion>';
-                that.collection.each(function (item) {
-                    var selected = current === item.id ? 'selected="selected"' : '';
-                    html += options.fn(_.extend({selected : selected}, item.attributes));
+
+            Templater.registerHelper('sightsList', function (options) {
+                var html = '';
+                that.sightCollection.each(function (item) {
+                    html += options.fn(item.attributes);
                 }); 
                 return html;
             });
+
             Templater.registerHelper('hasLocation', function () {
                 return this.location && this.location.latitude && this.location.longitude;
             });
+
             Templater.registerHelper('getSightMainPicture', function () {
                 return (this.pictures && this.pictures.length) ? 
                     'url(' + this.pictures[0].url + ')' : 

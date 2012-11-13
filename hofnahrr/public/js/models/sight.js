@@ -17,7 +17,8 @@ define([
         },
 
         addImage : function (file) {
-            console.log(file);
+            file = file instanceof Backbone.Model ? file.toJSON() : file;
+            
             var pictures = this.attributes.pictures,
                 picture = _.find(pictures, function (p) {
                     return p.name === file.name; 
@@ -25,7 +26,7 @@ define([
 
             if (picture) {
                 // update this picture
-                console.log('updating: ' + picture.name);
+                console.log('updating: ', picture);
                 picture.url = file.url;
             }
             else {
@@ -36,9 +37,8 @@ define([
                 };
                 pictures.push(picture);
             }
-
-            this.trigger('change:pictures');
-            this.trigger('change');
+            
+            this.save();
         }
     });
 

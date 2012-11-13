@@ -27,6 +27,9 @@ define([], function () {
             'sight_no_links' : 'Keine Links vorhanden',
             'sight_no_tags' : 'Keine Tags vorhanden',
             'sight_edit_mosaic' : 'Mosaik bearbeiten',
+            'sight_dont_know' : 'Weiß ich nich',
+            'sights_existing' : 'Existierende',
+            'sights_unknown' : 'Unbekannte',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
@@ -55,6 +58,10 @@ define([], function () {
             'login_password' : 'Passwort',
             'login_firstname' : 'Vorname',
             'login_surname' : 'Nachname',
+
+            'game_new_game' : 'Neues Spiel',
+            'game_help' : 'Hilfe',
+            'game_end' : 'Beenden'
             
 
         },
@@ -85,6 +92,9 @@ define([], function () {
             'sight_no_links' : 'No Links available.',
             'sight_no_tags' : 'No Tags available',
             'sight_edit_mosaic' : 'Edit mosaic',
+            'sight_dont_know' : 'I don\'t know',
+            'sights_existing' : 'Existing',
+            'sights_unknown' : 'Unknown',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',
@@ -112,6 +122,10 @@ define([], function () {
             'login_password' : 'Password',
             'login_firstname' : 'Firstname',
             'login_surname' : 'Surname',
+
+            'game_new_game' : 'New Game',
+            'game_help' : 'Help',
+            'game_end' : 'End'
         }
     };
 
