@@ -33,7 +33,9 @@ define([
                 picture = {
                     title : file.title,
                     name : file.name,
-                    url : file.url
+                    origUrl : file.url,
+                    url : 'pictures/edited/' + file.name,
+                    thumb : 'pictures/thumb/' + file.name
                 };
                 pictures.push(picture);
             }

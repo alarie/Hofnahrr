@@ -1,4 +1,6 @@
 {
 	"type": "Upload",
-	"path": "pictures/"
+	"path": "pictures/",
+	"maxWidth": "800",
+	"maxHeight": "600"
 }
