@@ -32,7 +32,8 @@ requirejs.config({
         }
     ],
     "paths" : {
-        "tmpl" : '../templates'
+        "tmpl" : '../templates',
+        "layout" : '../templates/layouts'
     },
     "version": "0.1.4",
     "shim": {
@@ -44,7 +45,15 @@ requirejs.config({
         "jam/bootstrap-sass/js/bootstrap-modal" : {
             deps : ['jquery'],
             exports : 'jQuery'
-        }
+        },
+        "jam/bootstrap-sass/js/bootstrap-carousel" : {
+            deps : ['jquery'],
+            exports : 'jQuery'
+        },
+        "jam/bootstrap-sass/js/bootstrap-popover" : {
+            deps : ['jquery', 'jam/bootstrap-sass/js/bootstrap-tooltip'],
+            exports : 'jQuery'
+        },
     }
 });
 

@@ -1,11 +1,37 @@
-<form id="upload-preview" class="contsiner">
-    <div class="row-fluid modal-body">
+<div class="row-fluid">
+    <legend>
+        {{i18n "sight_add_photos"}}
+        <button class="pull-right show-sight-form btn btn-small" title="{{i18n "sight_create"}}"><i class="pictos">&</i> {{i18n "sight_create"}}...</button>
+    </legend>
+</div>
+<div id="upload-preview" class="fixed-fluid">
+    <aside class="well">
+        <h5>
+            {{i18n "sights_sights"}}
+            <a class="pull-right pictures-help"><i class="pictos">?</i></a>
+        </h5>
+        <ul class="unstyled">
+            <li class="nav-header">{{i18n "sights_unknown"}}</li>
+            <li class="hover-tools-trigger">
+                <a data-file-drop-container-id="-1">{{i18n "sight_dont_know"}}</a>
+                <span class="hover-tools">
+                    <a class="adder" title="{{i18n "sight_add_selected_photos"}}"><i class="pictos">&</i></a>
+                </span>
+            </li>
+            <li class="nav-header">{{i18n "sights_existing"}}</li>
+            {{#sightsList}}
+            <li class="hover-tools-trigger">
+                <a data-file-drop-container-id="{{id}}">{{name}}</a>
+                <span class="hover-tools">
+                    <a class="adder" title="{{i18n "sight_add_selected_photos"}}"><i class="pictos">&</i></a>
+                </span>
+            </li>
+            {{/sightsList}}
+        </ul>
+    </aside>
+    <div class="row-fluid">
         <ul class="thumbnails">
             <li class="justifier"><!-- --></li>
         </ul>
     </div>
-    <div class="modal-footer">
-        <button class="pull-left btn close">{{i18n "picture_close"}}</button>
-        <input type="submit" class="pull-right btn btn-primary" value="{{i18n "picture_upload"}}" />
-    </div>
-</form>
+</div>

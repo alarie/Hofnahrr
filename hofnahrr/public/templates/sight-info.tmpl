@@ -1,30 +1,47 @@
-<h3>{{name}}</h3>   
-<div>
-    {{description}}   
+<div class="row-fluid banner" style="background-image:{{getSightMainPicture}};">
+    
 </div>
-<h5>Tags</h5>
-<ul class="unstyled">
-    {{#if tags}}
-        {{#each tags}}
-        <li><a href="#tag/{{this}}">{{this}}</a></li>
-        {{/each}}
-    {{else}}
-        {{i18n "sight_no_tags"}}        
-    {{/if}}
-</li>
-<h5>Links</h5>
-<ul class="unstyled">
-    {{#if links}}
-        {{#each links}}
-        <li><a href="{{this}}">{{this}}</a></li>
-        {{/each}}
-    {{else}}
-        {{i18n "sight_no_links"}}        
-    {{/if}}
-</li>
-{{#if hasLocation}}
-    <div>{{location.latitude}}, {{location.longitude}}</div>
-{{/if}}
-<div>
-    <a class="btn" href="#sight/{{speakingId}}/edit/">{{i18n "sight_edit"}}</a>
+<div class="row-fluid">
+    <h3>{{name}}</h3>
+</div>
+<div class="row-fluid">
+    <div class="span4">
+        <h4>{{i18n "sight_description"}}</h4>
+        {{description}}   
+    </div>
+
+    <div class="span4">
+        <h4>{{i18n "sight_wikipedia"}}</h4>
+    </div>
+
+    <div class="span4">
+        <h4>{{i18n "sight_meta"}}</h4>
+        <h5>Tags</h5>
+        <ul class="unstyled">
+            {{#if tags}}
+                {{#each tags}}
+                <li><a href="#tag/{{this}}">{{this}}</a></li>
+                {{/each}}
+            {{else}}
+                {{i18n "sight_no_tags"}}        
+            {{/if}}
+        </li>
+        <h5>Links</h5>
+        <ul class="unstyled">
+            {{#if links}}
+                {{#each links}}
+                <li><a href="{{this}}">{{this}}</a></li>
+                {{/each}}
+            {{else}}
+                {{i18n "sight_no_links"}}        
+            {{/if}}
+        </li>
+        {{#if hasLocation}}
+            <div>{{location.latitude}}, {{location.longitude}}</div>
+        {{/if}}
+        <br>
+        <div>
+            <a class="btn" href="#sight/{{speakingId}}/edit/"><i class="pictos">p</i> {{i18n "sight_edit"}}</a>
+        </div>
+    </div>
 </div>

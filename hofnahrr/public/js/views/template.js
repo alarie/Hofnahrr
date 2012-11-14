@@ -21,7 +21,7 @@ define([
                 this.delegateEvents(this.events);
             }
 
-            if (this.model) {
+            if (this.model && this.model instanceof Backbone.Model) {
                 this.model.on('change', this.render);
             }
 
@@ -37,7 +37,9 @@ define([
 
         render : function () {
             this.beforeRender();
-            var data = this.model ? this.model.toJSON() : {};
+            var data = this.model ? 
+                (this.model instanceof Backbone.Model ? this.model.toJSON() : this.model) : 
+                {};
             
             this.$el.empty().append(this._compiledTemplate(data));
 

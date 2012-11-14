@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Pictos';
+  src: url("../fonts/pictos/pictos-web.eot");
+  src: local("\u263a"), url("../fonts/pictos/pictos-web.woff") format("woff"), url("../fonts/pictos/pictos-web.ttf") format("truetype"), url("../fonts/pictos/pictos-web.svg#webfontIyfZbseF") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Tipogram';
+  src: url("../fonts/tipogram/tipogram-webfont.eot");
+  src: url("../fonts/tipogram/tipogram-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/tipogram/tipogram-webfont.woff") format("woff"), url("../fonts/tipogram/tipogram-webfont.ttf") format("truetype"), url("../fonts/tipogram/tipogram-webfont.svg#Tipogram") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+.tipogram {
+  font-family: 'Tipogram'!important; }
+
+.pictos {
+  font-family: 'Pictos'!important; }
+
+.architects-daughter {
+  font-family: 'Architects Daughter', cursive; }

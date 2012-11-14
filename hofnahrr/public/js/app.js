@@ -9,6 +9,7 @@ define([
     'user-access-handler',
 
     'sight-controller',
+    'game-controller',
 
     'views/template',
     'views/templated-bridge',
@@ -23,6 +24,7 @@ define([
     $, _, Backbone, Templater, lang, DataRetriever, UserAccessHandler,
 
     SightController,
+    GameController,
 
     TemplateView, TemplatedBridgeView, LoginView,
 
@@ -40,7 +42,7 @@ define([
         // set the defaul language for everything that is rendered, before the
         // actual is identified
         // TODO: check browser language and use that instead
-        Templater.setLanguage(lang.en);
+        Templater.setLanguage(lang.de);
 
         // bind the this pointer in all of the following functions to the
         // current AppController instance
@@ -52,7 +54,10 @@ define([
                   'onLogin', 
                   'onSignup');
 
+        this.layouts = {};
+
         SightController.installTo(this);
+        GameController.installTo(this);
 
         this._started = false;
 
@@ -70,10 +75,22 @@ define([
         this.currentUser.isLoggedIn(this.onUserLoggedIn, 
                                     this.onUserNotLoggedIn);
         
-        Backbone.history.start();
     };
 
     AppController.prototype = {
+        setLayout : function (name) {
+            if (this.currentLayout !== name) {
+                $('#main-content')
+                    .html(Templater.compile(this.layouts[name]));
+                this.currentLayout = name;
+                this.trigger('layout-set:' + name);
+            }
+        },
+
+        appendSecondaryNavView : function (view) {
+            $('#secondary-nav').empty().append(view.el);
+        },
+
         createUser : function () {
             // create a new UserModel
             this.currentUser = new UserModel({}, {
@@ -121,20 +138,29 @@ define([
         start : function () {
             this.initTemplateHelpers();
             this.createViews();
+
+            Backbone.history.start();
         },
 
         initTemplateHelpers : function () {
             var that = this;
-            Templater.registerHelper('sightsOptions', function (current, options) {
-                var html = '<option value="-1">' + Templater.i18n('sight_dont_know') + '</opion>';
-                that.collection.each(function (item) {
-                    var selected = current === item.id ? 'selected="selected"' : '';
-                    html += options.fn(_.extend({selected : selected}, item.attributes));
+
+            Templater.registerHelper('sightsList', function (options) {
+                var html = '';
+                that.sightCollection.each(function (item) {
+                    html += options.fn(item.attributes);
                 }); 
                 return html;
             });
+
             Templater.registerHelper('hasLocation', function () {
-                return this.location.latitude && this.location.longitude;
+                return this.location && this.location.latitude && this.location.longitude;
+            });
+
+            Templater.registerHelper('getSightMainPicture', function () {
+                return (this.pictures && this.pictures.length) ? 
+                    'url(' + this.pictures[0].url + ')' : 
+                    'none';
             });
         },
 
@@ -145,6 +171,7 @@ define([
         addEventListeners : function () {
             // routing events 
             // CALL Backbone.history.start() ONLY AFTER THIS SETUP
+            this.router.on('route:show-sight-map', this.onShowSightMap);
             this.router.on('route:open-sight', this.onOpenSight);
             this.router.on('route:open-sight-info', this.onOpenSight);
             this.router.on('route:open-sight-map', this.onOpenSightMap);
@@ -153,6 +180,9 @@ define([
             this.router.on('route:open-sight-map', this.onOpenSightMap);
             this.router.on('route:edit-sight', this.onEditSight);
             this.router.on('route:create-new-sight', this.onCreateNewSight);
+
+            this.router.on('route:game', this.onOpenGame);
+            this.router.on('route:game-play', this.onOpenGamePlay);
             
             this.router.on('route:login', this.loginView.onShowLogin);
             this.router.on('route:logout', this.onLogout);
@@ -191,12 +221,11 @@ define([
                 this.mainView.$el.detach();
             }
             this.mainView = view;
-            $('#main-content').append(this.mainView.render().el);
-            console.log(this.mainView.el);
+            $('#page-content').append(this.mainView.el);
         }
     };
 
-    _.extend(AppController, Backbone.Events);
+    _.extend(AppController.prototype, Backbone.Events);
 
     return AppController;
 });

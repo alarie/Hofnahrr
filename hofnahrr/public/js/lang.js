@@ -7,6 +7,8 @@ define([], function () {
             'discover_discover' : 'Entdecken',
             'game_play' : 'Spielen',
 
+            'app_new' : 'Neu',
+
             'sight_name' : 'Name',
             'sight_description' : 'Beschreibung',
             'sights_sights' : 'Sehenswürdigkeiten',
@@ -26,11 +28,18 @@ define([], function () {
             'sight_edit' : 'Sehenswürdigkeit bearbeiten',
             'sight_no_links' : 'Keine Links vorhanden',
             'sight_no_tags' : 'Keine Tags vorhanden',
+            'sight_edit_mosaic' : 'Mosaik bearbeiten',
+            'sight_dont_know' : 'Weiß ich nich',
+            'sights_existing' : 'Existierende',
+            'sights_unknown' : 'Unbekannte',
+            'sight_add_selected_photos' : 'Ausgewählte Fotos zu dieser Sehenswürdigkeit hinzufügen',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
             'sight_mosaic' : 'Mosaik',
             'sight_info' : 'Info',
+            'sight_meta' : 'Weitere Informationen',
+            'sight_wikipedia' : 'Wikipedia',
 
 
             'picture_add_pictures' : 'Bilder hinzufügen',
@@ -39,6 +48,8 @@ define([], function () {
             'picture_upload' : 'hochladen',
             'picture_start_upload' : 'Hochladen starten',
             'picture_close' : 'Schließen',
+            'pictures_add_by_dragging' : 'Bilder zum Hochladen aus dem Dateibrowser in dieses Fenster ziehen. Dannach den Sehenwürdigkeiten in der linken Spalte per drag&drop zuweisen.',
+            'pictures_help' : 'Hilfe',
 
             'wizard_close' : 'Schließen',
             'wizard_next' : 'Weiter',
@@ -52,6 +63,10 @@ define([], function () {
             'login_password' : 'Passwort',
             'login_firstname' : 'Vorname',
             'login_surname' : 'Nachname',
+
+            'game_new_game' : 'Neues Spiel',
+            'game_help' : 'Hilfe',
+            'game_end' : 'Beenden'
             
 
         },
@@ -61,6 +76,8 @@ define([], function () {
 
             'discover_discover' : 'Discover',
             'game_play' : 'Play',
+
+            'app_new' : 'New',
 
             'sight_name' : 'Name',
             'sight_description' : 'Description',
@@ -81,11 +98,18 @@ define([], function () {
             'sight_edit' : 'Edit sight',
             'sight_no_links' : 'No Links available.',
             'sight_no_tags' : 'No Tags available',
+            'sight_edit_mosaic' : 'Edit mosaic',
+            'sight_dont_know' : 'I don\'t know',
+            'sights_existing' : 'Existing',
+            'sights_unknown' : 'Unknown',
+            'sight_add_selected_photos' : 'Add selected photos to this sight',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',
             'sight_mosaic' : 'Mosaic',
             'sight_info' : 'Info',
+            'sight_meta' : 'Further information',
+            'sight_wikipedia' : 'Wikipedia',
 
             'picture_add_pictures' : 'Add pictures',
             'picture_name' : 'Name',
@@ -93,6 +117,8 @@ define([], function () {
             'picture_upload' : 'upload',
             'picture_start_upload' : 'Start upload',
             'picture_close' : 'Close',
+            'pictures_add_by_dragging' : 'To uplod images, drag them from your file browser into this window. Then apply them to the fitting sight in the list on the left by drag&drop.',
+            'pictures_help' : 'Help',
 
             'wizard_close' : 'Close',
             'wizard_next' : 'Next',
@@ -106,6 +132,10 @@ define([], function () {
             'login_password' : 'Password',
             'login_firstname' : 'Firstname',
             'login_surname' : 'Surname',
+
+            'game_new_game' : 'New Game',
+            'game_help' : 'Help',
+            'game_end' : 'End'
         }
     };
 

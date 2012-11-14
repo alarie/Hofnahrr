@@ -2,17 +2,22 @@
 define([
     'underscore', 'backbone', 
     'views/templated-bridge',
-], function (_, Backbone, TemplatedBridgeView) {
+
+    'text!tmpl/sight-map.tmpl',
+], function (
+    _, Backbone, TemplatedBridgeView, 
+    tmplSightMap
+) {
     'use strict';
 
     var SightMapView;
 
     SightMapView = TemplatedBridgeView.extend({
-        tagname : 'div'
+        tagname : 'div',
+        template : tmplSightMap,
 
         // TODO map implementation
     });
 
     return SightMapView;
 });
-

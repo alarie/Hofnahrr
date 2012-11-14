@@ -7,7 +7,6 @@ define([
     var FileHandler;
 
     FileHandler = function () {
-        this.reader = new FileReader();
     };
 
     FileHandler.prototype = {
@@ -31,17 +30,43 @@ define([
             return name;
         },
 
+        sliceFile : function (file, len, offset) {
+            offset || (offset = 0);
+            if (file.slice) {
+                filePart = file.slice(offset, len);
+            } else if (file.webkitSlice) {
+                filePart = file.webkitSlice(offset, len);
+            } else if (file.mozSlice) {
+                filePart = file.mozSlice(offset, len);
+            } else {
+                filePart = file;
+            }
+            return filePart;
+        },
+
         getDataURL : function (file, callback) {
-            var that = this;
-            this.reader.onload = function (e) {
-                callback(that.getFileDataURL(e.target, file));
-            };
-            this.reader.readAsDataURL(file);
+            var that = this, worker/*,
+                fileSlice = this.sliceFile(file, 131072)*/;
+
+            if (window.Worker) {
+                worker = new Worker('js/workers/filereader.js');
+                worker.onmessage = function (e) {
+                    callback(that.getFileDataURL(e.data, file));
+                };
+                worker.postMessage(file);
+            }
+            else {
+                this.reader = new FileReader();
+                this.reader.onload = function (e) {
+                    callback(that.getFileDataURL(e.target.result, file));
+                };
+                this.reader.readAsDataURL(file);
+            }
         },
 
         getFileDataURL : function (data, file) {
             var result = {
-                url : data.result,
+                url : data,
                 name : file.name,
                 type : file.type,
                 title : this.getBeautifiedFileName(file),

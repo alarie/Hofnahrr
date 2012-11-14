@@ -1,9 +1,11 @@
 /*global define*/
 define([
+    'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore', 'backbone', 
     'views/template', 
+    'templater',
     'helpers/file-handler', 'helpers/file-upload'
-], function (_, Backbone, TemplateView, FileHandler, FileUpload) {
+], function ($, _, Backbone, TemplateView, Templater, FileHandler, FileUpload) {
     'use strict';
 
     var FileDropView,
@@ -25,11 +27,15 @@ define([
                 var that = this,
                     uploader = new FileUpload(this.collection.url);
 
-                this.set(attributes, options);
+                if (attributes) {
+                    this.set(attributes);
+                }
                 
                 uploader.on('success', function (data) {
                     that.onUploaded(data, options);
                 });
+
+                this.trigger('upload-started');
 
                 uploader.upload(this.attributes.file);
             },
@@ -48,10 +54,16 @@ define([
 
                 this.trigger('uploaded', this.attributes);
 
+                this.trigger('upload-succeeded');
+
                 if (options.success) {
                     console.log("TODO: set success args");
                     options.success();
                 }
+
+                delete this.attributes.id;
+                delete this.id;
+                this.destroy();
             }
         
         }),
@@ -59,22 +71,38 @@ define([
         FileView = TemplateView.extend({
             tagName : 'li',
             className : 'span3',
+            attributes : {
+                draggable : true 
+            },
 
             events : function () {
                 return {
-                    'change .upload-file' : 'onDoUploadChange'
+                    'click .thumbnail' : 'onToggleThumbnail',
                 };
             },
 
             initialize : function () {
                 TemplateView.prototype.initialize.apply(this, arguments);
-                _.bindAll(this, 'remove', 'onDoUploadChange');
+                _.bindAll(this, 
+                          'remove', 
+                          'onToggleThumbnail', 
+                          'onUploadStarted', 
+                          'onUploadSucceeded');
+
+                this.model.on('upload-started', this.onUploadStarted);
+                this.model.on('upload-succeeded', this.onUploadSucceeded);
             },
 
-            onDoUploadChange : function (e) {
-                this.model.set({
-                    doUpload : e.target.checked
-                });
+            onUploadStarted : function () {
+                this.$el.addClass('uploading');
+            },
+
+            onUploadSucceeded : function () {
+                this.$el.removeClass('uploading').remove();
+            },
+
+            onToggleThumbnail : function (e) {
+                $(e.target).closest('li').toggleClass('selected');
             },
 
             remove : function () {
@@ -100,8 +128,14 @@ define([
 
         events : function () {
             return {
-                'submit' : 'onStartUpload',
-                'click .close' : 'onClose'
+                'click .cancel' : 'onClose',
+
+                'click .adder' : 'onThumbnailsAddToCollection',
+                'dragstart .thumbnail' : 'onThumbnailDragStart', 
+                'dragleave aside li:not(.nav-header)' : 'onThumbnailDragLeave', 
+                'dragover aside li:not(.nav-header)' : 'onThumbnailDragOver', 
+                'dragend .thumbnail' : 'onThumbnailDragEnd', 
+                'drop aside li:not(.nav-header)' : 'onThumbnailDrop'
             };
         },
 
@@ -138,6 +172,7 @@ define([
                 template : this.fileTemplate
             });
 
+
             this.$('#upload-preview .justifier').before(view.render().el);
         },
 
@@ -149,6 +184,94 @@ define([
         ignoreEvent : function (e) {
             e.stopPropagation();
             e.preventDefault();
+        },
+
+
+        onThumbnailDragStart : function (e) {
+            e = e.originalEvent;
+
+            // TODO create nice drag preview
+            var data = [],
+                div = document.createElement('div');
+
+            div.style.maxWidth = '300px';
+            div.style.height = '120px';
+            this.$('.thumbnail.selected').each(function () {
+                this.style.opacity = '0.4';  // this / e.target is the source node.
+                div.appendChild(this.cloneNode(true), null);
+            });
+            document.body.appendChild(div, null);
+            e.dataTransfer.setDragImage(div, 0, 0);
+            e.dataTransfer.setData('text/plain', JSON.stringify(data));
+        },
+
+        onThumbnailDragOver : function (e) {
+            e = e.originalEvent;
+            this.ignoreEvent(e);
+
+            $(e.target).closest('li').addClass('drag-over');
+            e.dataTransfer.dropEffect = 'move';
+
+            return false;
+        },
+
+        onThumbnailDragLeave : function (e) {
+            $(e.target).closest('li').removeClass('drag-over');
+        },
+
+        onThumbnailDrop : function (e) {
+            e = e.originalEvent;
+
+            var that = this,
+                containerId = $(e.target)
+                    .closest('li')
+                    .find('[data-file-drop-container-id]')
+                    .attr('data-file-drop-container-id'),
+                items;
+
+            e.preventDefault();
+
+            items = this.getSelectedItems();
+            this.addItemsToContainer(items, containerId);
+
+            return false;
+        },
+        
+        onThumbnailDragEnd : function (e) {
+            this.$('aside .drag-over').removeClass('drag-over');
+        },
+
+        onThumbnailsAddToCollection : function (e) {
+            var containerId = $(e.target)
+                    .closest('li')
+                    .find('[data-file-drop-container-id]')
+                    .attr('data-file-drop-container-id'),
+                items = this.getSelectedItems();
+
+            this.addItemsToContainer(items, containerId);
+        },
+
+        getSelectedItems : function () {
+            var files = this.files,
+                items = [];
+            this.$('.selected').each(function () {
+                var id = $(this).find('[data-file-drop-item-id]')
+                            .attr('data-file-drop-item-id'),
+                    item = files.get(id);
+                items.push(item);
+            });
+            return items;
+        },
+
+        addItemsToContainer : function (items, containerId) {
+            var that = this;
+            _.each(items, function (itm) {
+                itm.upload(null, {
+                    success : function () {
+                        that.trigger('add-items-to-container', [itm], containerId);
+                    }
+                });
+            });
         },
 
         onDragOver : function (e) {
@@ -173,26 +296,10 @@ define([
             var files = e.dataTransfer.files,
                 count = files.length;
 
-            this.$el.show();
-
             if (count) {
                 this.readFiles(files);
                 this.trigger('files-dropped', files);
             }
-        },
-
-        onStartUpload : function (e) {
-            var that = this,
-                files = this.files;
-
-            e.preventDefault();
-            
-            this.files.each(function (file) {
-                if (file.get('doUpload')) {
-                    file.upload();
-                }
-            });
-            
         },
 
         onClose : function (e) {
@@ -210,6 +317,7 @@ define([
         },
 
         onFileRead : function (file) {
+            file.id = file.name;
             this.files.create(file);
         },
 
@@ -221,9 +329,15 @@ define([
         },
 
         render : function () {
-            this.$el
-                .append(this._compiledTemplate())
-                .hide();
+            this.$el.empty()
+                .append(this._compiledTemplate());
+
+            this.$('.pictures-help').popover({
+                title : Templater.i18n('pictures_help'),
+                content : Templater.i18n('pictures_add_by_dragging'),
+                placement : 'right',
+                trigger : 'hover'
+            });
             return this;
         }
 
