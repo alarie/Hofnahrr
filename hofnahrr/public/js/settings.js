@@ -5,9 +5,11 @@ define([
     'use strict';
 
     return {
-        BASE_URL : 'http://localhost:2024/',
+        BASE_URL : 'http://localhost:2403/',
         API : {
-            PICTURE : 'picture'
+            PICTURES : 'pictures/',
+            SIGHTS : 'sights/',
+            USERS : 'users/'
         }
     };
 });

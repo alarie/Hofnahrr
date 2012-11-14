@@ -5,6 +5,8 @@ define([
 
     'models/sight',
 
+    'settings',
+
     'views/sight-nav',
     'views/sight-list',
     'views/template',
@@ -29,6 +31,8 @@ define([
     _, Backbone, Templater,
     
     SightModel, 
+
+    settings,
 
     SightNavView,
     SightListView, 
@@ -102,7 +106,7 @@ define([
             // create a new Sight Collection
             this.sightCollection = new Backbone.Collection();
             this.sightCollection.model = SightModel;
-            this.sightCollection.url = 'sights/';
+            this.sightCollection.url = settings.API.SIGHTS;
 
             // sight collection events
             this.sightCollection.on('add', this.listView.onAdd);
@@ -321,7 +325,7 @@ define([
                 tagName : 'div',
                 template : tmplUpload,
                 fileTemplate : tmplImage,
-                uploadToPath : 'http://localhost:2403/pictures'
+                uploadToPath : settings.BASE_URL + settings.API.PICTURE
             });
 
             // upload events
