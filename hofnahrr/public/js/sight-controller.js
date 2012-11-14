@@ -295,7 +295,8 @@ define([
                     }, {
                         view : this.fileDropView,
                         trigger : 'click .show-file-browser',
-                        title : Templater.i18n('sight_add_photos')
+                        title : Templater.i18n('sight_add_photos'),
+                        className : 'wide'
                     }]);
 
                 this.sightModal.on('hide', function () {

@@ -205,8 +205,6 @@ i.pictos{
 
 
 
-
-
 .uploading {
     position: relative;
 
@@ -225,6 +223,14 @@ i.pictos{
         background-position: center center;
         background-repeat: no-repeat;
     }
+}
+
+.modal {
+   @include  transition(all 0.3s ease!important);
+}
+.wide .modal {
+    width: 800px;
+    margin-left: -400px;
 }
 
 /*.animated-turn {*/

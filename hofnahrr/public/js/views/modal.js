@@ -112,8 +112,14 @@ define([
                     title = opts.title,
                     view = opts.view,
                     that = this;
-console.log(view);
-                this.$('.modal-header h3').text(_.isFunction(title) ? title(view.getModel()) : title);
+
+                this.$('.modal-header h3').text(
+                    _.isFunction(title) ? title(view.getModel()) : title
+                );
+
+                if (opts.className) {
+                    this.$el.addClass(opts.className);
+                }
 
                 this.$el.addClass('turn-out');
 
@@ -130,6 +136,12 @@ console.log(view);
 
         closeCurrentView : function () {
             if (this.selectedView !== null) {
+                if (this.contentViews[this.selectedView].className) {
+                    console.log(this.contentViews[this.selectedView].className);
+                    this.$el.removeClass(
+                        this.contentViews[this.selectedView].className
+                    );
+                }
                 this.contentViews[this.selectedView].view.$el.hide();
             }
         },
