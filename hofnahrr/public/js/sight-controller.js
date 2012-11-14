@@ -325,7 +325,7 @@ define([
                 tagName : 'div',
                 template : tmplUpload,
                 fileTemplate : tmplImage,
-                uploadToPath : settings.BASE_URL + settings.API.PICTURE
+                uploadToPath : settings.BASE_URL + settings.API.PICTURES
             });
 
             // upload events
