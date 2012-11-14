@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Test</title>
+        <link rel="stylesheet" href="./dist/leaflet.css" type="text/css" media="screen" charset="utf-8">
+        <!--[if lte IE 8]>
+     		<link rel="stylesheet" href="./dist/leaflet.ie.css" />
+ 		<![endif]-->
+    </head>
+    <body>
+    	<div id="map" style="height: 400px"></div>
+    </body>
+    <script src="./dist/leaflet-src.js"></script>
+    <script type="text/javascript">
+    	var map;
+		var hull = new L.LatLng(50.325, 11.940);
+		function initmap() {
+			map = new L.Map('map');
+			var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+			var cmUrl = 'http://{s}.tile.cloudmade.com/77aace98a9ec425f8f2cb228c484f71f/997/256/{z}/{x}/{y}.png';
+			var osmAttrib='Map data © openstreetmap contributors';
+			var osm = new L.TileLayer(cmUrl,{minZoom:8,maxZoom:18,attribution:osmAttrib});
+
+			map.setView(hull,18);
+			map.addLayer(osm);
+
+			L.marker([50.325, 11.940]).addTo(map);
+		}
+		initmap();
+
+    </script>
+</html>
