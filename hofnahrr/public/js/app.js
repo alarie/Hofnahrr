@@ -8,6 +8,8 @@ define([
     'data-retriever',
     'user-access-handler',
 
+    'settings',
+
     'sight-controller',
     'game-controller',
 
@@ -22,6 +24,8 @@ define([
     'text!tmpl/navigation.tmpl',
 ], function (
     $, _, Backbone, Templater, lang, DataRetriever, UserAccessHandler,
+
+    settings, 
 
     SightController,
     GameController,
@@ -94,7 +98,7 @@ define([
         createUser : function () {
             // create a new UserModel
             this.currentUser = new UserModel({}, {
-                url : 'users'
+                url : settings.API.USERS
             });
         },
 
