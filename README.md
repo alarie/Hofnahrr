@@ -10,6 +10,7 @@ Eingesetzte Technologien
 
 ### Frameworks ###
 * [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
+* [Deployd](http://twitter.github.com/bootstrap/)
 
 ### JS-Libs ###
 * [Backbone](http://backbonejs.org/)
