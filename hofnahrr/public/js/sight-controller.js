@@ -71,7 +71,8 @@ define([
                     'onCreateNewSight', 
                     'onShowSightMap', 
                     'initSightLayout',
-                    'onFilesAddedToContainer');
+                    'onFilesAddedToContainer', 
+                    'onOpenContainer');
 
 
             // no sight is selected now
@@ -233,7 +234,7 @@ define([
 
         openModal : function (sight) {
             this.createSightModal();
-            this.sightFormView.setModel(sight);
+            this.sightModal.setModel(sight);
             this.sightModal.show();
         },
 
@@ -294,12 +295,14 @@ define([
                         view : this.sightFormView,
                         trigger : 'click .show-sight-form',
                         title : function (model) {
-                            return Templater.i18n(model ? 'sights_edit_sight' : 'sights_new_sight');
+                            return Templater.i18n(model ? 
+                                                    'sights_edit_sight' : 
+                                                    'sights_new_sight');
                         }
                     }, {
                         view : this.fileDropView,
                         trigger : 'click .show-file-browser',
-                        title : Templater.i18n('sight_add_photos'),
+                        title : Templater.i18n('picture_manager'),
                         className : 'wide'
                     }]);
 
@@ -334,7 +337,16 @@ define([
             this.fileDropView.on('drop', this.onFileDragEnd);
             this.fileDropView.on('files-dropped', this.onFileDropped);
             this.fileDropView.on('add-items-to-container', this.onFilesAddedToContainer);
+            this.fileDropView.on('open-container', this.onOpenContainer);
         },
+
+        onOpenContainer : function (id) {
+            var sight = this.sightCollection.get(id); 
+            if (sight) {
+                this.fileDropView.showContainerContents(id, sight.get('pictures'));
+            }
+        }
+
     };
 
     return {

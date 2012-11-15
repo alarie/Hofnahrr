@@ -33,6 +33,7 @@ define([], function () {
             'sights_existing' : 'Existierende',
             'sights_unknown' : 'Unbekannte',
             'sight_add_selected_photos' : 'Ausgewählte Fotos zu dieser Sehenswürdigkeit hinzufügen',
+            'sight_edit_name' : '%_ bearbeiten',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
@@ -42,13 +43,14 @@ define([], function () {
             'sight_wikipedia' : 'Wikipedia',
 
 
+            'picture_manager' : 'Fotomanager',
             'picture_add_pictures' : 'Bilder hinzufügen',
             'picture_name' : 'Name',
             'picture_description' : 'Beschreibung',
             'picture_upload' : 'hochladen',
             'picture_start_upload' : 'Hochladen starten',
             'picture_close' : 'Schließen',
-            'pictures_add_by_dragging' : 'Bilder zum Hochladen aus dem Dateibrowser in dieses Fenster ziehen. Dannach den Sehenwürdigkeiten in der linken Spalte per drag&drop zuweisen.',
+            'pictures_add_by_dragging' : 'Bilder zum Hochladen aus dem Dateibrowser in dieses Fenster ziehen. Dannach den Sehenwürdigkeiten in der folgenden Liste per drag&drop zuweisen.',
             'pictures_help' : 'Hilfe',
 
             'wizard_close' : 'Schließen',
@@ -103,6 +105,7 @@ define([], function () {
             'sights_existing' : 'Existing',
             'sights_unknown' : 'Unknown',
             'sight_add_selected_photos' : 'Add selected photos to this sight',
+            'sight_edit_name' : 'Edit %_',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',
@@ -111,13 +114,14 @@ define([], function () {
             'sight_meta' : 'Further information',
             'sight_wikipedia' : 'Wikipedia',
 
+            'picture_manager' : 'Picture manager',
             'picture_add_pictures' : 'Add pictures',
             'picture_name' : 'Name',
             'picture_description' : 'Description',
             'picture_upload' : 'upload',
             'picture_start_upload' : 'Start upload',
             'picture_close' : 'Close',
-            'pictures_add_by_dragging' : 'To uplod images, drag them from your file browser into this window. Then apply them to the fitting sight in the list on the left by drag&drop.',
+            'pictures_add_by_dragging' : 'To uplod images, drag them from your file browser into this window. Then apply them to the fitting sight in the list below by drag&drop.',
             'pictures_help' : 'Help',
 
             'wizard_close' : 'Close',

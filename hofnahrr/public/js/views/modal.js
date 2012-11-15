@@ -6,7 +6,8 @@ define([
 ], function ($, _, TemplateView) {
     'use strict';
 
-    var Modal;
+    var Modal,
+        transitionEvents = 'transitionend webkitTransitionEnd oTransitionEnd oTransitionend';
 
     Modal = TemplateView.extend({
         className : 'animated-turn',
@@ -113,31 +114,50 @@ define([
                     view = opts.view,
                     that = this;
 
-                this.$('.modal-header h3').text(
-                    _.isFunction(title) ? title(view.getModel()) : title
-                );
-
                 if (opts.className) {
                     this.$el.addClass(opts.className);
                 }
 
-                this.$el.addClass('turn-out');
+                //this.$('.modal').one(transitionEvents, function () {
+                    that.closeCurrentView();
+                    that.selectedView = selected;
+                    view.$el.show();
+                    view.render();
 
-                this.closeCurrentView();
-                this.selectedView = selected;
-                view.$el.show();
-                view.render();
+                    that.$('.modal')
+                        .removeClass('turn-out')
+                        .addClass('turn-in').on(transitionEvents, function () {
+                        that.$('.modal').removeClass('turn-in');
+                    });
 
-                window.setTimeout(function () {
-                    that.$el.removeClass('turn-out').addClass('turn-in');
-                }, 500);
+                    this.updateModal();
+                //}).addClass('turn-out');
             }
+        },
+
+        updateModal : function () {
+            var that = this,
+                i = this.selectedView,
+                header = this.$('.modal-header h3');
+            _.each(this.contentViews, function (opts, j) {
+                opts.view.setModel(that.model);
+                if (i === j) {
+                    header.text(_.isFunction(opts.title) ? 
+                        opts.title(that.model) : 
+                        opts.title
+                    );
+                }
+            });
+        },
+
+        setModel : function (model) {
+            this.model = model;
+            this.updateModal();
         },
 
         closeCurrentView : function () {
             if (this.selectedView !== null) {
                 if (this.contentViews[this.selectedView].className) {
-                    console.log(this.contentViews[this.selectedView].className);
                     this.$el.removeClass(
                         this.contentViews[this.selectedView].className
                     );

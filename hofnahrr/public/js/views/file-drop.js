@@ -3,9 +3,10 @@ define([
     'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore', 'backbone', 
     'views/template', 
+    'views/templated-bridge', 
     'templater',
     'helpers/file-handler', 'helpers/file-upload'
-], function ($, _, Backbone, TemplateView, Templater, FileHandler, FileUpload) {
+], function ($, _, Backbone, TemplateView, TemplatedBridgeView, Templater, FileHandler, FileUpload) {
     'use strict';
 
     var FileDropView,
@@ -117,7 +118,7 @@ define([
             }
         });
 
-    FileDropView = TemplateView.extend({
+    FileDropView = TemplatedBridgeView.extend({
         dragEvents : {
             'dragenter' : 'ignoreEvent',
             'dragleave' : 'ignoreEvent',
@@ -129,6 +130,7 @@ define([
         events : function () {
             return {
                 'click .cancel' : 'onClose',
+                'click .well li' : 'onOpenContainer',
 
                 'click .adder' : 'onThumbnailsAddToCollection',
                 'dragstart .thumbnail' : 'onThumbnailDragStart', 
@@ -157,6 +159,26 @@ define([
             });
         },
 
+        onOpenContainer : function (e) {
+            var containerId = $(e.target)
+                .closest('li')
+                .find('[data-file-drop-container-id]')
+                .attr('data-file-drop-container-id');
+            this.trigger('open-container', containerId);
+        },
+
+        showContainerContents : function (id, collection) {
+            this.$('.well')
+                .find('.active').removeClass('active')
+                .end()
+                .find('[data-file-drop-container-id="' + id + '"]')
+                .parent()
+                .addClass('active');
+
+
+            this.onAddAll(new Backbone.Collection(collection));
+        },
+
         _createCollection : function () {
             this.files = new FileCollection([], {
                 url : this.uploadToPath
@@ -177,7 +199,7 @@ define([
         },
 
         onAddAll : function (collection) {
-            this.$('#upload-preview').children().not('.justifier').remove();
+            this.$('.thumbnails').children().not('.justifier').remove();
             collection.each(this.onAdd);
         },
 
@@ -328,17 +350,13 @@ define([
             });
         },
 
-        render : function () {
-            this.$el.empty()
-                .append(this._compiledTemplate());
-
+        afterRender : function () {
             this.$('.pictures-help').popover({
                 title : Templater.i18n('pictures_help'),
                 content : Templater.i18n('pictures_add_by_dragging'),
                 placement : 'right',
                 trigger : 'hover'
             });
-            return this;
         }
 
     });

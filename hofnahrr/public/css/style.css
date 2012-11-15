@@ -101,10 +101,7 @@
 /* Transitions */
 /* BOOSTRAT EXTENDS */
 body {
-  padding-top: 60px;
-  /*&.modal-open #main-content {*/
-  /*-webkit-filter: blur(2px);*/
-  /*}*/ }
+  padding-top: 60px; }
 
 a {
   cursor: pointer; }
@@ -792,12 +789,6 @@ i.pictos {
     background-position: center center;
     background-repeat: no-repeat; }
 
-.modal {
-  -webkit-transition: all 0.3s ease !important;
-  -moz-transition: all 0.3s ease !important;
-  -o-transition: all 0.3s ease !important;
-  transition: all 0.3s ease !important; }
-
 .wide .modal {
   width: 800px;
   margin-left: -400px; }
@@ -812,3 +803,34 @@ i.pictos {
 /*}*/
 .animated-turn.turn-in {
   /*@include transform(perspective(1000px) rotateY(360deg) translateZ(0px));*/ }
+
+/*
+body {
+
+    .animated-turn {
+        -webkit-perspective: 1000px;
+        position: fixed;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        z-index:5000;
+        
+        .modal {
+            -webkit-transform: rotateY(0deg) translateZ(0);
+            @include transition(all 0.3s linear);
+            &.turn-out  {
+                -webkit-transform: rotateY(90deg) translateZ(0);
+            }
+            &.turn-in {
+                -webkit-transform: rotateY(180deg) translateZ(0);
+            }
+        }
+    }
+}
+*/
+body .animated-turn .modal {
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear; }

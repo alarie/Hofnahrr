@@ -1,8 +1,5 @@
 <div class="row-fluid">
-    <legend>
-        {{i18n "sight_add_photos"}}
-        <button class="pull-right show-sight-form btn btn-small" title="{{i18n "sight_create"}}"><i class="pictos">&</i> {{i18n "sight_create"}}...</button>
-    </legend>
+        <button class="pull-right show-sight-form btn btn-small" title="{{i18n "sight_create"}}"><i class="pictos">^</i> {{#if id}}{{interpolateI18n "sight_edit_name" name}}{{else}}{{i18n "sight_create"}}{{/if}}...</button>
 </div>
 <div id="upload-preview" class="fixed-fluid">
     <aside class="well">
@@ -10,7 +7,7 @@
             {{i18n "sights_sights"}}
             <a class="pull-right pictures-help"><i class="pictos">?</i></a>
         </h5>
-        <ul class="unstyled">
+        <ul class="nav nav-list unstyled">
             <li class="nav-header">{{i18n "sights_unknown"}}</li>
             <li class="hover-tools-trigger">
                 <a data-file-drop-container-id="-1">{{i18n "sight_dont_know"}}</a>
