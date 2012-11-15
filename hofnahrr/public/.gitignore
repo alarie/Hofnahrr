@@ -3,4 +3,5 @@ config
 Captfile
 scss/.sass-cache/*
 .sass-cache
+css/_*
 
