@@ -175,7 +175,7 @@ define([
 
         onOpenSightMap : function (id) {
             this.sightSubpage = 'map/';
-            this.openSightView(id, this.sightMapView);
+            this.openSightView(id, this.sightMapView, {silent : true});
         },
 
         onOpenSightGallery : function (id) {
@@ -193,7 +193,7 @@ define([
             this.openSightView(null, this.sightInfoView);
         },
 
-        openSightView : function (sightId, view) {
+        openSightView : function (sightId, view, options) {
             this.setLayout('sight');
 
             this.setSelectedSight(sightId);
@@ -204,7 +204,14 @@ define([
             if (this.selectedSight) {
                 view.setModel(this.selectedSight);
             }
-            this.setMainView(view);
+
+            if (this.currentView !== view || !options.silent) {
+                console.log("here");
+                this.setMainView(view);
+            }
+
+            this.currentView = view;
+
             this.sightNav.openPage(this.sightSubpage);
         },
 
