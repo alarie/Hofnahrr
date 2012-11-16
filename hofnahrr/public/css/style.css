@@ -130,6 +130,11 @@ a {
   left: auto;
   width: 280px; }
 
+.single-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
 .modal-open .popover.in {
   z-index: 2000; }
 
@@ -153,6 +158,9 @@ a {
   background-color: #1481b8; }
   .drag-over a {
     color: white; }
+
+.modal-backdrop {
+  background-color: #dedede; }
 
 div.tagsinput {
   height: 100px;
@@ -217,73 +225,6 @@ div.tagsinput {
 input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
   display: block;
   float: none; }
-
-.modal-backdrop {
-  background-color: #dedede; }
-
-.nav-header {
-  padding: 3px 0; }
-
-#upload-preview {
-  min-height: 20px;
-  box-sizing: border-box;
-  -webkit-transition: height 0.3s ease-in;
-  -moz-transition: height 0.3s ease-in;
-  -o-transition: height 0.3s ease-in;
-  transition: height 0.3s ease-in; }
-  #upload-preview.fixed-fluid {
-    position: relative;
-    overflow-y: hidden;
-    padding-left: 200px;
-    margin-left: 0;
-    max-height: 400px; }
-    #upload-preview.fixed-fluid aside {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0px;
-      width: 160px;
-      padding: 10px;
-      border-radius: 0;
-      margin-bottom: 0; }
-  #upload-preview .justifier {
-    padding-left: 100%;
-    display: inline-block;
-    float: none; }
-  #upload-preview .thumbnails {
-    text-align: justify;
-    margin-left: 0;
-    min-height: 200px;
-    max-height: 400px;
-    overflow-y: scroll; }
-    #upload-preview .thumbnails > li[class*="span"] {
-      position: relative;
-      overflow: hidden;
-      margin-left: 0;
-      float: none;
-      display: inline-block; }
-  #upload-preview .selected .thumbnail {
-    background-color: #efefef; }
-  #upload-preview .thumbnail {
-    height: 180px;
-    position: relative;
-    overflow: hidden;
-    background-color: #ffffff; }
-    #upload-preview .thumbnail .caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: inherit;
-      padding: 2px 5px;
-      box-sizing: border-box;
-      margin-bottom: 0;
-      padding-bottom: 4px; }
-      #upload-preview .thumbnail .caption h5 {
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap; }
 
 #user {
   position: relative; }
@@ -773,6 +714,95 @@ i.pictos {
 .leaflet-popup-content {
   font: 12px/1.4 "Helvetica Neue", Arial, Helvetica, sans-serif; }
 
+#upload-preview {
+  box-sizing: border-box;
+  -webkit-transition: height 0.3s ease-in;
+  -moz-transition: height 0.3s ease-in;
+  -o-transition: height 0.3s ease-in;
+  transition: height 0.3s ease-in; }
+  #upload-preview.fixed-fluid {
+    position: relative;
+    margin: -15px;
+    padding-left: 180px;
+    min-height: 200px;
+    max-height: 300px;
+    overflow: hidden; }
+    #upload-preview.fixed-fluid aside {
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      width: 160px;
+      padding: 10px;
+      border-top: 0;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 0;
+      margin-bottom: 0; }
+      #upload-preview.fixed-fluid aside h5 {
+        margin: 0; }
+      #upload-preview.fixed-fluid aside ul {
+        position: absolute;
+        top: 37px;
+        bottom: 0;
+        left: 0px;
+        right: 0px;
+        padding: 15px;
+        overflow-y: scroll; }
+      #upload-preview.fixed-fluid aside + * {
+        max-height: 400px;
+        overflow-y: scroll; }
+        #upload-preview.fixed-fluid aside + * .container-header {
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          left: 180px;
+          right: 0;
+          background-color: whiteSmoke;
+          height: 27px;
+          padding: 5px;
+          border-bottom: 1px solid #e3e3e3;
+          clear: both;
+          margin-bottom: 10px; }
+  #upload-preview .justifier {
+    padding-left: 100%;
+    display: inline-block;
+    float: none; }
+  #upload-preview .thumbnails {
+    text-align: justify;
+    padding: 10px;
+    padding-top: 47px;
+    margin-left: 0; }
+    #upload-preview .thumbnails > li[class*="span"] {
+      position: relative;
+      overflow: hidden;
+      margin-left: 0;
+      float: none;
+      display: inline-block;
+      vertical-align: middle; }
+  #upload-preview .selected .thumbnail {
+    background-color: #efefef; }
+  #upload-preview .thumbnail {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff; }
+    #upload-preview .thumbnail .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: inherit;
+      padding: 2px 5px;
+      box-sizing: border-box;
+      margin-bottom: 0;
+      padding-bottom: 4px; }
+      #upload-preview .thumbnail .caption h5 {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+
 .uploading {
   position: relative; }
   .uploading:before, .uploading::before {
@@ -792,17 +822,6 @@ i.pictos {
 .wide .modal {
   width: 800px;
   margin-left: -400px; }
-
-/*.animated-turn {*/
-/*//-webkit-backface-visibility: hidden;*/
-/*@include transform(rotateY(0deg) translateZ(0));*/
-/*@include transition(-webkit-transform 0.3s linear);*/
-/*}*/
-/*.animated-turn.turn-out {*/
-/*@include transform(translateZ(1px) rotateY(180deg));*/
-/*}*/
-.animated-turn.turn-in {
-  /*@include transform(perspective(1000px) rotateY(360deg) translateZ(0px));*/ }
 
 /*
 body {

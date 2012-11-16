@@ -38,6 +38,12 @@ a {
 }
 
 
+.single-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .modal-open .popover.in {
     z-index:2000;
 }
@@ -71,101 +77,12 @@ a {
     }
 }
 
-@import "tagsinput";
-
 .modal-backdrop {
     background-color: #dedede;
 }
 
 
-.nav-header {
-    padding: 3px 0;
-}
-
-
-
-
-#upload-preview {
-    min-height:20px;
-    box-sizing: border-box;
-    @include transition(height 0.3s ease-in);
-
-
-    &.fixed-fluid {
-        position: relative;
-        overflow-y: hidden;
-        padding-left:200px;
-        margin-left:0;
-        max-height: 400px;
-
-        aside {
-            position: absolute;
-            top: 0;
-            bottom:0;
-            left: 0px;
-            width: 160px;
-            padding: 10px;
-
-            // overwrite .well
-            border-radius: 0;
-            margin-bottom: 0;
-            
-        }
-    }
-
-    .justifier {
-        padding-left: 100%;
-        display: inline-block;
-        float: none;
-    }
-
-
-    .thumbnails {
-        text-align: justify;
-        margin-left: 0;
-        min-height: 200px;
-        max-height: 400px;
-        overflow-y: scroll;
-
-        & > li[class*="span"] {
-            position: relative;
-            overflow: hidden;
-            margin-left:0;
-            float: none;
-            display: inline-block;
-        }
-    }
-
-    .selected .thumbnail {
-        background-color: #efefef;
-    }
-    .thumbnail {
-        height: 180px;
-        position: relative;
-        overflow: hidden;
-        background-color: #ffffff;
-
-
-        .caption {
-            position: absolute;
-            bottom: 0;
-            left:0;
-            right: 0;
-            background-color: inherit;
-            padding: 2px 5px;
-            box-sizing: border-box;
-            margin-bottom: 0;
-            padding-bottom: 4px;
-
-            h5 {
-                display: block;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-        }
-    }
-}
+@import "tagsinput";
 
 #user {
     position: relative;
@@ -192,16 +109,10 @@ i.pictos{
 @import "mosaic";
 @import "sight-info";
 @import "sight-map";
+@import "upload-preview";
 
 
-
-
-
-
-
-
-
-
+// Upload animator
 .uploading {
     position: relative;
 
@@ -222,22 +133,12 @@ i.pictos{
     }
 }
 
+// make a modal wider
 .wide .modal {
     width: 800px;
     margin-left: -400px;
 }
 
-/*.animated-turn {*/
-    /*//-webkit-backface-visibility: hidden;*/
-    /*@include transform(rotateY(0deg) translateZ(0));*/
-    /*@include transition(-webkit-transform 0.3s linear);*/
-/*}*/
-/*.animated-turn.turn-out {*/
-    /*@include transform(translateZ(1px) rotateY(180deg));*/
-/*}*/
-.animated-turn.turn-in {
-    /*@include transform(perspective(1000px) rotateY(360deg) translateZ(0px));*/
-}
 /*
 body {
 
@@ -267,6 +168,8 @@ body .animated-turn .modal {
     @include transition(all 0.3s linear);
 }
 
+
+// carousel style
 .carousel.slide{
     width: 800px;
     height:600px;

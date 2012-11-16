@@ -1,0 +1,118 @@
+#upload-preview {
+    box-sizing: border-box;
+    @include transition(height 0.3s ease-in);
+
+
+    &.fixed-fluid {
+        position: relative;
+        margin:-15px;
+        padding-left: 180px;
+        min-height: 200px;
+        max-height: 300px;
+        overflow: hidden;
+
+        aside {
+            position: absolute;
+            top: 0px;
+            bottom:0px;
+            left: 0px;
+            width: 160px;
+            padding: 10px;
+            border-top:0;
+            border-bottom:0;
+            border-left:0;
+
+            // overwrite .well
+            border-radius: 0;
+            margin-bottom: 0;
+
+            h5 {
+                margin: 0;
+            }
+        
+            ul {
+                position: absolute;
+                top: 37px;
+                bottom:0;
+                left:0px;
+                right:0px;
+                padding: 15px;
+                overflow-y: scroll;
+            }
+
+            & + * {
+                max-height: 400px;
+                overflow-y: scroll;
+
+                .container-header {
+                    position: absolute;
+                    z-index: 1;
+                    top:0;
+                    left:180px;
+                    right:0;
+                    background-color: whiteSmoke;
+                    height: 27px;
+                    padding: 5px;
+                    border-bottom: 1px solid #e3e3e3;
+                    clear:both;
+                    margin-bottom: 10px;
+                }
+            }
+            
+        }
+
+    }
+
+    .justifier {
+        padding-left: 100%;
+        display: inline-block;
+        float: none;
+    }
+
+
+    .thumbnails {
+        text-align: justify;
+        padding: 10px;
+        padding-top: 47px;
+        margin-left: 0;
+
+        & > li[class*="span"] {
+            position: relative;
+            overflow: hidden;
+            margin-left:0;
+            float: none;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .selected .thumbnail {
+        background-color: #efefef;
+    }
+    .thumbnail {
+        height: 180px;
+        position: relative;
+        overflow: hidden;
+        background-color: #ffffff;
+
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left:0;
+            right: 0;
+            background-color: inherit;
+            padding: 2px 5px;
+            box-sizing: border-box;
+            margin-bottom: 0;
+            padding-bottom: 4px;
+
+            h5 {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+}

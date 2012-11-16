@@ -1,6 +1,3 @@
-<div class="row-fluid">
-        <button class="pull-right show-sight-form btn btn-small" title="{{i18n "sight_create"}}"><i class="pictos">^</i> {{#if id}}{{interpolateI18n "sight_edit_name" name}}{{else}}{{i18n "sight_create"}}{{/if}}...</button>
-</div>
 <div id="upload-preview" class="fixed-fluid">
     <aside class="well">
         <h5>
@@ -26,7 +23,10 @@
             {{/sightsList}}
         </ul>
     </aside>
-    <div class="row-fluid">
+    <div class="row-fluid container-content">
+        <div class="container-header">
+            <button class="pull-right show-sight-form btn btn-small" title="{{i18n "sight_create"}}"><i class="pictos">^</i> {{#if id}}{{interpolateI18n "sight_edit_name" name}}{{else}}{{i18n "sight_create"}}{{/if}}...</button>
+        </div>
         <ul class="thumbnails">
             <li class="justifier"><!-- --></li>
         </ul>
