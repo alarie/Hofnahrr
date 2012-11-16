@@ -834,3 +834,8 @@ body .animated-turn .modal {
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear; }
+
+.carousel.slide {
+  width: 800px;
+  height: 600px;
+  background-color: black; }

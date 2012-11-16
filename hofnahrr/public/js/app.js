@@ -166,6 +166,19 @@ define([
                     'url(' + this.pictures[0].url + ')' : 
                     'none';
             });
+
+            Templater.registerHelper('carousel', function (all, active, options) {
+                console.log(all, active);
+                var i = 0, html = '';
+                _.each(all, function (itm) {
+                    if (i === active) {
+                        itm.active = "active";
+                    }
+                    html += options.fn(itm);
+                    i += 1;
+                });
+                return html;
+            });
         },
 
         createViews : function () {
@@ -184,6 +197,7 @@ define([
             this.router.on('route:open-sight-map', this.onOpenSightMap);
             this.router.on('route:edit-sight', this.onEditSight);
             this.router.on('route:create-new-sight', this.onCreateNewSight);
+            this.router.on('route:search', this.onSearch);
 
             this.router.on('route:game', this.onOpenGame);
             this.router.on('route:game-play', this.onOpenGamePlay);

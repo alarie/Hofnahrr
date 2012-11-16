@@ -2,15 +2,15 @@
 <div class="carousel slide">
   <!-- Carousel items -->
   <div class="carousel-inner">
-    {{#each pictures}}
-    <div class="item">
+    {{#carousel pictures 0}}
+    <div class="item {{active}}" >
         <img src="{{this.url}}" alt="">
         <div class="carousel-caption">
             <h4>{{this.title}}</h4>
             <p>{{this.description}}</p>
         </div>
     </div>
-    {{/each}}
+    {{/carousel}}
   </div>
   <!-- Carousel nav -->
   <a class="carousel-control left" data-slide="prev">&lsaquo;</a>

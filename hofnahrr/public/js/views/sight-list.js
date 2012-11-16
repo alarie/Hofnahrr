@@ -9,10 +9,27 @@ define([
     var SightListView;
 
     SightListView = ListView.extend({
+        events : function () {
+            return {
+                'keydown .search-query' : 'onSearchKeydown',
+                'blur .search-query' : 'onSearchChanged'
+            };
+        },
+
         initialize : function (options) {
             options = (options || {});
             options.itemViewConstructor = SightListItem;
             ListView.prototype.initialize.apply(this, arguments);
+            _.bindAll(this, 'onSearchChanged', 'onSearchKeydown');
+        },
+
+        onSearchKeydown : function (e) {
+            //if (e.keyCode === 13) {
+                this.onSearchChanged(e);
+            //}
+        },
+        onSearchChanged : function (e) {
+            window.location.hash = 'search/' + e.target.value;
         },
 
         appendView : function (view) {

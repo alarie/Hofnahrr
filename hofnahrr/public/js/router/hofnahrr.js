@@ -16,6 +16,7 @@ define([
             'sight/:id/mosaic/' : 'open-sight-mosaic',
             'sight/:id/map/' : 'open-sight-map',
             'sight/:id/edit/' : 'edit-sight',
+            '*path/search/:query' : 'search',
 
             'game/' : 'game',
             'game/:type/:level/' : 'game-play',
@@ -31,9 +32,12 @@ define([
         var current = this.getFragment(),
             old = this.fragment;
 
-        if (current.indexOf('tag/') === 0) {
+        if (current.indexOf('tag/') === 0 || current.indexOf('search/') === 0) {
             if (old.indexOf('tag/') >= 0) {
                 current = old.replace(/tag\/.*$/, current);
+            }
+            if (old.indexOf('search/') >= 0) {
+                current = old.replace(/search\/.*$/, current);
             }
             else {
                 current = old + current;

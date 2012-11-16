@@ -72,7 +72,8 @@ define([
                     'onShowSightMap', 
                     'initSightLayout',
                     'onFilesAddedToContainer', 
-                    'onOpenContainer');
+                    'onOpenContainer', 
+                    'onSearch');
 
 
             // no sight is selected now
@@ -92,6 +93,10 @@ define([
             });
 
             this.on('layout-set:sight', this.initSightLayout);
+        },
+
+        onSearch : function (query) {
+            console.log(query);
         },
 
         createSightViews : function () {
