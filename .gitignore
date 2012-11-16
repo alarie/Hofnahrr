@@ -2,6 +2,7 @@
 hofnahrr/.dpd
 hofnahrr/Captfile
 hofnahrr/config
+hofnahrr/data/mongod.lock
 hofnahrr/public/scss/.sass-cache/*
 hofnahrr/public/.sass-cache
 hofnahrr/public/css/_*
