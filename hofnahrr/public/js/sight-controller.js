@@ -194,6 +194,8 @@ define([
         },
 
         openSightView : function (sightId, view, options) {
+            options || (options = {});
+
             this.setLayout('sight');
 
             this.setSelectedSight(sightId);
@@ -206,7 +208,6 @@ define([
             }
 
             if (this.currentView !== view || !options.silent) {
-                console.log("here");
                 this.setMainView(view);
             }
 

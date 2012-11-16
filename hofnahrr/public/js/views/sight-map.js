@@ -32,7 +32,42 @@ define([
 
             //this.bubble.setModel(model);
             //this.renderBubbleAtLocation(pos);
-            this.map.panTo(pos);
+            this.panMapTo(pos);
+        },
+
+        panMapTo : function (pos) {
+            var that = this,
+                PAN_ZOOM_LEVEL = 14,
+                DETAIL_ZOOM_LEVEL = 17,
+                ANIMATION_DELAY = 300;
+
+            this.map.on('zoomend', function zoomend() {
+                that.map.off('zoomend', zoomend);
+
+                // wait a short moment for the map ro refresh, then pan the map
+                window.setTimeout(function () {
+                    that.map.panTo(pos);
+                }, ANIMATION_DELAY);
+
+                // once the map was panned, zoom in
+                that.map.on('moveend', function panend() {
+                    that.map.off('moveend', panend);
+
+                    // again wait for the map to have been rerendered
+                    window.setTimeout(function () {
+                        that.map.setZoom(DETAIL_ZOOM_LEVEL);
+                    }, ANIMATION_DELAY);
+                });
+            });
+
+            // zoom out to the pan zoom level or if we are there already, just
+            // trigger starting of the panning
+            if (this.map.getZoom() <= PAN_ZOOM_LEVEL) {
+                this.map.fire('zoomend'); 
+            }
+            else {
+                this.map.setZoom(PAN_ZOOM_LEVEL);
+            }
         },
 
         afterRender : function () {
