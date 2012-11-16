@@ -12,7 +12,9 @@ define([
 ) {
     'use strict';
 
-    var SightMapView;
+    var SightMapView, SightMapBubbleView;
+
+    SightMapBubbleView = TemplatedBridgeView.extend({});
 
     SightMapView = TemplatedBridgeView.extend({
         tagname : 'div',
@@ -28,6 +30,8 @@ define([
                 this.render();
             }
 
+            //this.bubble.setModel(model);
+            //this.renderBubbleAtLocation(pos);
             this.map.panTo(pos);
         },
 
