@@ -12,7 +12,7 @@ define([
     'views/template',
     'views/templated-bridge',
     'views/file-drop',
-    'views/modal',
+    'views/sight-modal',
     'views/sight-map',
     'views/sight-mosaic',
     'views/sight-gallery',
@@ -24,7 +24,7 @@ define([
     'text!tmpl/sight-info.tmpl',
     'text!tmpl/sights-list.tmpl',
     'text!tmpl/sight-link.tmpl',
-    'text!tmpl/modal.tmpl',
+    'text!tmpl/sight-manager.tmpl',
     'text!tmpl/upload.tmpl',
     'text!tmpl/image.tmpl',
 ], function (
@@ -50,7 +50,7 @@ define([
     tmplSightNav,
     tmplSightInfo,
     tmplSightsList, tmplSightLink,
-    tmplModal, 
+    tmplSightModal, 
     tmplUpload, 
     tmplImage
 ) {
@@ -71,7 +71,8 @@ define([
                     'onCreateNewSight', 
                     'onShowSightMap', 
                     'initSightLayout',
-                    'onFilesAddedToContainer', 
+                    'onAddPicturesToSight', 
+                    'onRemovePicturesFromSight', 
                     'onOpenContainer', 
                     'onSearch');
 
@@ -248,7 +249,7 @@ define([
         openModal : function (sight) {
             this.createSightModal();
             this.sightModal.setModel(sight);
-            this.sightModal.show();
+            this.sightModal.modal.show();
         },
 
         onCreateSight : function (data) {
@@ -270,58 +271,51 @@ define([
         },
 
 
-        onFilesAddedToContainer : function (files, containerId) {
-            var sight = this.sightCollection.get(containerId);
-            if (files && sight) {
-                _.each(files, function (file) {
-                    sight.addImage(file);
-                });
-            }
-        },
-
-
         createSightModal : function () {
-            var that = this;
+            var that = this,
+                sightModal;
 
             if (!this.sightModal) {
-                this.sightModal = new ModalView({
-                    template : tmplModal,
+                sightModal = new ModalView({
+                    template : tmplSightModal,
                     modalOptions : {
                         show : false,
                         backdrop : true
                     },
                     modalData : {
                         modalId : 'sights-modal',
-                        modalHeadline : Templater.i18n('sight_wizard'),
-                        modalClose : Templater.i18n('wizard_close'),
+                        modalHeadline : Templater.i18n('sight_manager'),
+                        modalClose : Templater.i18n('modal_close'),
                         modalNext : Templater.i18n('sight_add_photos'),
                         modalPrev : Templater.i18n('sights_edit_sight'),
                     }
                 });
 
+                this.sightModal = sightModal;
                 this.createSightFormView();
                 this.createFileDropView();
 
-                this.sightModal
+
+                sightModal
                     .render()
                     .setContentViews([{
                         view : this.sightFormView,
                         trigger : 'click .show-sight-form',
-                        title : function (model) {
-                            return Templater.i18n(model ? 
-                                                    'sights_edit_sight' : 
-                                                    'sights_new_sight');
-                        }
+                        className : 'large'
                     }, {
                         view : this.fileDropView,
                         trigger : 'click .show-file-browser',
-                        title : Templater.i18n('picture_manager'),
                         className : 'wide'
                     }]);
 
-                this.sightModal.on('hide', function () {
+                sightModal.on('add-items-to-container', this.onAddPicturesToSight);
+                sightModal.on('remove-item-from-container', this.onRemovePicturesFromSight);
+                sightModal.on('open-container', this.onOpenContainer);
+                sightModal.modal.on('hide', function () {
                     that.router.navigate('sights');
                 });
+
+
             }
         },
 
@@ -343,20 +337,32 @@ define([
                 fileTemplate : tmplImage,
                 uploadToPath : settings.BASE_URL + settings.API.PICTURES
             });
-
-            // upload events
-            this.fileDropView.on('drag-over', this.onFileDragOver);
-            this.fileDropView.on('drag-end', this.onFileDragEnd);
-            this.fileDropView.on('drop', this.onFileDragEnd);
-            this.fileDropView.on('files-dropped', this.onFileDropped);
-            this.fileDropView.on('add-items-to-container', this.onFilesAddedToContainer);
-            this.fileDropView.on('open-container', this.onOpenContainer);
         },
 
-        onOpenContainer : function (id) {
-            var sight = this.sightCollection.get(id); 
+        onAddPicturesToSight : function (pictures, sightId) {
+            var sight = this.sightCollection.get(sightId);
+            if (pictures && sight) {
+                _.each(pictures, function (pictures) {
+                    sight.addImage(pictures);
+                });
+            }
+        },
+
+        onRemovePicturesFromSight : function (pictureId, sightId) {
+            var sight = this.sightCollection.get(sightId);
+            if (pictureId && sight) {
+                sight.removeImage(pictureId, {
+                    success : function () {
+                        console.log('SUCCESS: TODO'); 
+                    }
+                });
+            }
+        },
+
+        onOpenContainer : function (containerId) {
+            var sight = this.sightCollection.get(containerId); 
             if (sight) {
-                this.fileDropView.showContainerContents(id, sight.get('pictures'));
+                this.sightModal.setModel(sight);
             }
         }
 

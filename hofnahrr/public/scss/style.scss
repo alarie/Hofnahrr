@@ -58,13 +58,21 @@ a {
     overflow: hidden;
  
     .hover-tools {
+        background-color: #efefef;
+        line-height: inherit;
+        padding: 0 5px;
+        line-height: inherit;
+        border: 1px solid darken(#efefef, 5%);
+        border-radius: 3px;
+        box-shadow: -5px 0 5px 0 #efefef;;
         position: absolute;
-        right:-20px;
+        top:0;
+        right:-25px;
         @include transition(right 0.2s linear);
     }
     &:hover {
         .hover-tools {
-            right: 10px;
+            right: 0px;
         }
     }
 }
@@ -109,7 +117,7 @@ i.pictos{
 @import "mosaic";
 @import "sight-info";
 @import "sight-map";
-@import "upload-preview";
+@import "sight-manager";
 
 
 // Upload animator
@@ -133,10 +141,15 @@ i.pictos{
     }
 }
 
+// make a modal large
+.large .modal {
+    width: 700px;
+    margin-left: -350px;
+}
 // make a modal wider
 .wide .modal {
-    width: 800px;
-    margin-left: -400px;
+    width: 860px;
+    margin-left: -430px;
 }
 
 /*

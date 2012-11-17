@@ -1,3 +1,4 @@
+/*global define */
 define([], function () {
     var lang = {
         'de' : {
@@ -23,9 +24,10 @@ define([], function () {
             'sight_add_tag' : 'Tag hinzufügen',
             'sight_links' : 'Links',
             'sight_add_link' : 'Link hinzufügen',
-            'sight_wizard' : 'Sehenswürdigkeiten Wizard',
+            'sight_manager' : 'Sehenswürdigkeiten-Manager',
             'sight_add_photos' : 'Fotos hinzufügen',
             'sight_edit' : 'Sehenswürdigkeit bearbeiten',
+            'sight_edit_details' : 'Details bearbeiten',
             'sight_no_links' : 'Keine Links vorhanden',
             'sight_no_tags' : 'Keine Tags vorhanden',
             'sight_edit_mosaic' : 'Mosaik bearbeiten',
@@ -53,9 +55,7 @@ define([], function () {
             'pictures_add_by_dragging' : 'Bilder zum Hochladen aus dem Dateibrowser in dieses Fenster ziehen. Dannach den Sehenwürdigkeiten in der folgenden Liste per drag&drop zuweisen.',
             'pictures_help' : 'Hilfe',
 
-            'wizard_close' : 'Schließen',
-            'wizard_next' : 'Weiter',
-            'wizard_prev' : 'Zurück',
+            'modal_close' : 'Schließen',
 
             'login_language' : 'Sprache',
             'login_login' : 'Anmelden',
@@ -95,9 +95,10 @@ define([], function () {
             'sight_add_tag' : 'add a tag',
             'sight_links' : 'Links',
             'sight_add_link' : 'add a link',
-            'sight_wizard' : 'Sights Wizard',
+            'sight_manager' : 'Sightmanager',
             'sight_add_photos' : 'Add photos',
             'sight_edit' : 'Edit sight',
+            'sight_edit_details' : 'Edit details',
             'sight_no_links' : 'No Links available.',
             'sight_no_tags' : 'No Tags available',
             'sight_edit_mosaic' : 'Edit mosaic',
@@ -124,9 +125,7 @@ define([], function () {
             'pictures_add_by_dragging' : 'To uplod images, drag them from your file browser into this window. Then apply them to the fitting sight in the list below by drag&drop.',
             'pictures_help' : 'Help',
 
-            'wizard_close' : 'Close',
-            'wizard_next' : 'Next',
-            'wizard_prev' : 'Previous',
+            'manager_close' : 'Close',
 
             'login_language' : 'Language',
             'login_login' : 'Login',

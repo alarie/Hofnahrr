@@ -32,6 +32,35 @@ define([
 
             TemplateView.prototype.initialize.apply(this, arguments);
 
+            var that = this, modal = {
+                toggle : function () {
+                    that.modalEl.modal('toggle');
+                    return that;
+                },
+
+                show : function () {
+                    that.modalEl.modal('show');
+                    return that;
+                },
+
+                hide : function () {
+                    that.modalEl.modal('hide');
+                    return that;
+                },
+
+                on : function (event, callback) {
+                    that.modalEl.on(event, callback);
+                    return that;
+                },
+
+                off : function (event, callback) {
+                    that.modalEl.off(event, callback);
+                    return that;
+                }
+            };
+            this.modal = modal;
+
+
             this.selectedView = null;
         },
 
@@ -64,7 +93,7 @@ define([
         },
 
         setContentViews : function (contentViewOptions, selected) {
-            var container = this.$('.modal-body'),
+            var container = this.$('.modal-content'),
                 that = this,
                 needsDelegateEvents = false;
 
@@ -164,33 +193,7 @@ define([
                 }
                 this.contentViews[this.selectedView].view.$el.hide();
             }
-        },
-
-        toggle : function () {
-            this.modalEl.modal('toggle');
-            return this;
-        },
-
-        show : function () {
-            this.modalEl.modal('show');
-            return this;
-        },
-
-        hide : function () {
-            this.modalEl.modal('hide');
-            return this;
-        },
-
-        on : function (event, callback) {
-            this.modalEl.on(event, callback);
-            return this;
-        },
-
-        off : function (event, callback) {
-            this.modalEl.off(event, callback);
-            return this;
-        },
-
+        }
 
     });
     

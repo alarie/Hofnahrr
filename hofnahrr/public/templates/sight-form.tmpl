@@ -27,20 +27,15 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="sight-location">{{i18n "sight_location"}}</label>
+            <label class="control-label" for="sight-location-lat">{{i18n "sight_location"}}</label>
             <div class="controls controls-row">
-                <input class="input-small" type="text" id="lat" name="lat" placeholder="{{i18n "sight_latitude"}}" value="{{location.latitude}}">&nbsp;&nbsp;
-                <input class="input-small" type="text" id="lng" name="lng" placeholder="{{i18n "sight_longitude"}}" value="{{location.longitude}}">
+                <input class="input-small" type="text" id="sight-location-lat" name="lat" placeholder="{{i18n "sight_latitude"}}" value="{{location.latitude}}">&nbsp;&nbsp;
+                <input class="input-small" type="text" id="sight-location-lng" name="lng" placeholder="{{i18n "sight_longitude"}}" value="{{location.longitude}}">
             </div>
         </div>
         <div class="control-group">
             <div class="controls">
                 <input type="submit" class="btn btn-primary" value="{{#if id}}{{i18n "sight_update"}}{{else}}{{i18n "sight_create"}}{{/if}}" />
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <button class="btn show-file-browser"><i class="pictos">P</i> {{i18n "sight_add_photos"}}...</button>
             </div>
         </div>
     </fieldset>

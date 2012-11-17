@@ -1,0 +1,64 @@
+<div id="{{modalId}}" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="{{modalLabel}}">{{modalHeadline}}</h3>
+    </div>
+    <div class="modal-body">
+        <div id="sight-manager" class="fixed-fluid">
+            <aside class="well">
+                <h5>
+                    {{i18n "sights_sights"}}
+                    <a class="pull-right pictures-help"><i class="pictos">?</i></a>
+                </h5>
+                <ul class="nav nav-list unstyled">
+                    <li class="nav-header">{{i18n "sights_unknown"}}</li>
+                    <li class="hover-tools-trigger">
+                        <a data-file-drop-container-id="-1">{{i18n "sight_dont_know"}}</a>
+                        <span class="hover-tools">
+                            <a class="adder" title="{{i18n "sight_add_selected_photos"}}"><i class="pictos">&</i></a>
+                        </span>
+                    </li>
+                    <li class="nav-header">{{i18n "sights_existing"}}</li>
+                    {{#sightsList}}
+                    <li class="hover-tools-trigger">
+                        <a data-file-drop-container-id="{{id}}">{{name}}</a>
+                        <span class="hover-tools">
+                            <a class="adder" title="{{i18n "sight_add_selected_photos"}}"><i class="pictos">&</i></a>
+                        </span>
+                    </li>
+                    {{/sightsList}}
+                </ul>
+                <a class="new"><i class="pictos">&</i> {{i18n "sights_new_sight"}}</a>
+            </aside>
+
+            <div class="row-fluid container-content">
+                <div class="container-header">
+                {{name}}
+                <ul class="pull-right nav nav-pills">
+                    <li>
+                        <a class="show-sight-form"><i class="pictos">^</i> {{i18n "sight_edit_details"}}</a>
+                    </li>
+                    <li>
+                        <a class="show-file-browser"><i class="pictos">P</i> {{i18n "sight_add_photos"}}</a>
+                    </li>
+                </ul>
+
+        <div class="control-group">
+            <div class="controls">
+            </div>
+        </div>
+                </div>
+                <div class="modal-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn pull-right" data-dismiss="modal" aria-hidden="true">{{modalClose}}</button>
+<!--        <button class="btn prev" aria-hidden="true">{{modalPrev}}</button>
+        <button class="btn next btn-primary">{{modalNext}}</button> -->
+        <!--<button data-wizard-action="prev" class="btn">{{modalPrev}}</button>
+        <button data-wizard-action="next" class="btn btn-primary">{{modalNext}}</button>-->
+    </div>
+</div>

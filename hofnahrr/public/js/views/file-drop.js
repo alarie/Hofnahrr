@@ -5,8 +5,9 @@ define([
     'views/template', 
     'views/templated-bridge', 
     'templater',
-    'helpers/file-handler', 'helpers/file-upload'
-], function ($, _, Backbone, TemplateView, TemplatedBridgeView, Templater, FileHandler, FileUpload) {
+    'helpers/file-handler', 'helpers/file-upload',
+    'data-retriever'
+], function ($, _, Backbone, TemplateView, TemplatedBridgeView, Templater, FileHandler, FileUpload, DataRetriever) {
     'use strict';
 
     var FileDropView,
@@ -71,7 +72,7 @@ define([
 
         FileView = TemplateView.extend({
             tagName : 'li',
-            className : 'span3',
+            className : 'span4',
             attributes : {
                 draggable : true 
             },
@@ -129,15 +130,9 @@ define([
 
         events : function () {
             return {
-                'click .cancel' : 'onClose',
-                'click .well li' : 'onOpenContainer',
-
-                'click .adder' : 'onThumbnailsAddToCollection',
+                'click .thumbnails .closer' : 'onRemoveItem',
                 'dragstart .thumbnail' : 'onThumbnailDragStart', 
-                'dragleave aside li:not(.nav-header)' : 'onThumbnailDragLeave', 
-                'dragover aside li:not(.nav-header)' : 'onThumbnailDragOver', 
-                'dragend .thumbnail' : 'onThumbnailDragEnd', 
-                'drop aside li:not(.nav-header)' : 'onThumbnailDrop'
+                'dragend .thumbnail' : 'onThumbnailDragEnd'
             };
         },
 
@@ -159,24 +154,17 @@ define([
             });
         },
 
-        onOpenContainer : function (e) {
-            var containerId = $(e.target)
+        _getItemIdByElement : function (el) {
+            return $(el)
+                .closest('[data-file-drop-item-id]')
+                .attr('data-file-drop-item-id');
+        },
+
+        _getContainerIdByElement : function (el) {
+            return $(el)
                 .closest('li')
                 .find('[data-file-drop-container-id]')
                 .attr('data-file-drop-container-id');
-            this.trigger('open-container', containerId);
-        },
-
-        showContainerContents : function (id, collection) {
-            this.$('.well')
-                .find('.active').removeClass('active')
-                .end()
-                .find('[data-file-drop-container-id="' + id + '"]')
-                .parent()
-                .addClass('active');
-
-
-            this.onAddAll(new Backbone.Collection(collection));
         },
 
         _createCollection : function () {
@@ -188,18 +176,31 @@ define([
             this.files.on('reset', this.onAddAll);
         },
 
+        onRemoveItem : function (e) {
+            var itemId = this._getItemIdByElement(e.target),
+                containerId = this._getContainerIdByElement($('aside.well .active'));
+
+            e.preventDefault();
+
+            if (containerId) {
+                this.trigger('remove-item-from-container', itemId, containerId);
+            }
+            else {
+                this.trigger('remove-item', itemId);
+            }
+        },
+
         onAdd : function (model) {
             var view = new FileView({
                 model : model,
                 template : this.fileTemplate
             });
 
-
-            this.$('#upload-preview .justifier').before(view.render().el);
+            this.$('.thumbnails').append(view.render().el);
         },
 
         onAddAll : function (collection) {
-            this.$('.thumbnails').children().not('.justifier').remove();
+            this.$('.thumbnails').empty();
             collection.each(this.onAdd);
         },
 
@@ -207,7 +208,6 @@ define([
             e.stopPropagation();
             e.preventDefault();
         },
-
 
         onThumbnailDragStart : function (e) {
             e = e.originalEvent;
@@ -227,73 +227,26 @@ define([
             e.dataTransfer.setData('text/plain', JSON.stringify(data));
         },
 
-        onThumbnailDragOver : function (e) {
-            e = e.originalEvent;
-            this.ignoreEvent(e);
-
-            $(e.target).closest('li').addClass('drag-over');
-            e.dataTransfer.dropEffect = 'move';
-
-            return false;
-        },
-
-        onThumbnailDragLeave : function (e) {
-            $(e.target).closest('li').removeClass('drag-over');
-        },
-
-        onThumbnailDrop : function (e) {
-            e = e.originalEvent;
-
-            var that = this,
-                containerId = $(e.target)
-                    .closest('li')
-                    .find('[data-file-drop-container-id]')
-                    .attr('data-file-drop-container-id'),
-                items;
-
-            e.preventDefault();
-
-            items = this.getSelectedItems();
-            this.addItemsToContainer(items, containerId);
-
-            return false;
-        },
-        
         onThumbnailDragEnd : function (e) {
             this.$('aside .drag-over').removeClass('drag-over');
-        },
-
-        onThumbnailsAddToCollection : function (e) {
-            var containerId = $(e.target)
-                    .closest('li')
-                    .find('[data-file-drop-container-id]')
-                    .attr('data-file-drop-container-id'),
-                items = this.getSelectedItems();
-
-            this.addItemsToContainer(items, containerId);
         },
 
         getSelectedItems : function () {
             var files = this.files,
                 items = [];
+                
             this.$('.selected').each(function () {
                 var id = $(this).find('[data-file-drop-item-id]')
                             .attr('data-file-drop-item-id'),
                     item = files.get(id);
-                items.push(item);
+
+                console.log(id, item);
+                if (item) {
+                    item.set((new DataRetriever({el : $(this)})).getData());
+                    items.push(item);
+                }
             });
             return items;
-        },
-
-        addItemsToContainer : function (items, containerId) {
-            var that = this;
-            _.each(items, function (itm) {
-                itm.upload(null, {
-                    success : function () {
-                        that.trigger('add-items-to-container', [itm], containerId);
-                    }
-                });
-            });
         },
 
         onDragOver : function (e) {
