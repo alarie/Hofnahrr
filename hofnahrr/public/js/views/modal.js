@@ -81,10 +81,8 @@ define([
             this.beforeRender();
             var data = this.options.modalData;
             
-            this.$el.empty().append(this._compiledTemplate(data));
+            this.$el.append(this._compiledTemplate(data));
 
-            $('body').append(this.el);
-            
             this.modalEl = $('#' + this.options.modalData.modalId);
             this.modalEl.modal(this.options.modalOptions);
 
@@ -147,21 +145,12 @@ define([
                     this.$el.addClass(opts.className);
                 }
 
-                //this.$('.modal').one(transitionEvents, function () {
-                    that.closeCurrentView();
-                    that.selectedView = selected;
-                    view.$el.show();
-                    view.render();
+                that.closeCurrentView();
+                that.selectedView = selected;
+                view.$el.show();
+                view.render();
 
-                    that.$('.modal')
-                        .removeClass('turn-out')
-                        .addClass('turn-in').one(transitionEvents, function () {
-                            console.log("here");
-                        that.$('.modal').removeClass('turn-in');
-                    });
-
-                    this.updateModal();
-                //}).addClass('turn-out');
+                this.updateModal();
             }
         },
 

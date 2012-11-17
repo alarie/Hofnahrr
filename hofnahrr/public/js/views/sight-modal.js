@@ -64,7 +64,7 @@ define([
         },
 
         setModel : function (item) {
-            this._activateContainerElementById(item.id);     
+            this._activateContainerElementById(item ? item.id : null);
             return ModalView.prototype.setModel.apply(this, arguments);
         },
 

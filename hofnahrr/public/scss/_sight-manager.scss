@@ -43,10 +43,33 @@
                 padding: 15px;
                 overflow-y: scroll;
 
-                li a {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
+                li {
+                    &:after,
+                    &::after {
+                        content: "\0020";
+                        background-color: white;
+                        width: 15px;
+                        height: 15px;
+                        display: inline-block;
+                        position: absolute;
+                        right: -50px;
+                        top: 6px;   
+                        @include transform(rotateZ(45deg));
+                        @include transition(right 0.3s ease-out);
+                    }
+
+                    &.active {
+                        &:after,
+                        &::after {
+                            right: -24px;
+                        }
+                    }
+
+                    a {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
                 }
             }
 

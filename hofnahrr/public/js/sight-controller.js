@@ -277,6 +277,7 @@ define([
 
             if (!this.sightModal) {
                 sightModal = new ModalView({
+                    el : 'body',
                     template : tmplSightModal,
                     modalOptions : {
                         show : false,

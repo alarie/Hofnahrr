@@ -55,7 +55,6 @@ a {
 
 .hover-tools-trigger {
     position: relative;
-    overflow: hidden;
  
     .hover-tools {
         background-color: #efefef;
@@ -67,7 +66,7 @@ a {
         box-shadow: -5px 0 5px 0 #efefef;
         position: absolute;
         top: 4px;
-        right:-25px;
+        right:-35px;
         @include transition(right 0.2s linear);
     }
 
@@ -186,8 +185,16 @@ body {
     }
 }
 */
-body .animated-turn .modal {
-    @include transition(all 0.3s linear);
+body .modal {
+    @include transition(all 0.3s linear !important);
+}
+
+body .modal.fade {
+    -webkit-backface-visibility: hidden;
+    @include transform(rotateY(180deg) scale(1));
+}
+body .modal.fade.in {
+    @include transform(rotateY(0deg) scale(1));
 }
 
 

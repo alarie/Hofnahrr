@@ -43,15 +43,15 @@ requirejs.config({
             exports : 'jQuery'
         },
         "jam/bootstrap-sass/js/bootstrap-modal" : {
-            deps : ['jquery'],
+            deps : ['jquery', 'jam/bootstrap-sass/js/bootstrap-transition'],
             exports : 'jQuery'
         },
         "jam/bootstrap-sass/js/bootstrap-carousel" : {
-            deps : ['jquery'],
+            deps : ['jquery', 'jam/bootstrap-sass/js/bootstrap-transition'],
             exports : 'jQuery'
         },
         "jam/bootstrap-sass/js/bootstrap-popover" : {
-            deps : ['jquery', 'jam/bootstrap-sass/js/bootstrap-tooltip'],
+            deps : ['jquery', 'jam/bootstrap-sass/js/bootstrap-transition', 'jam/bootstrap-sass/js/bootstrap-tooltip'],
             exports : 'jQuery'
         },
     }
