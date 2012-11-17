@@ -5,23 +5,22 @@
 
     &.fixed-fluid {
         position: relative;
-        margin:-15px;
-        padding-left: 180px;
+        margin: -15px;
+        padding-left: 200px;
         height: 400px;
         overflow: hidden;
 
-        aside {
+        .main-nav-list {
             position: absolute;
-            top: 0px;
-            bottom: 0px;
-            left: 0px;
-            width: 160px;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 180px;
             padding: 10px;
-            border-top:0;
-            border-bottom:0;
-            border-left:0;
+            border-top: 0;
+            border-bottom: 0;
+            border-left: 0;
 
-            // overwrite .well
             border-radius: 0;
             margin-bottom: 0;
 
@@ -37,10 +36,10 @@
         
             ul {
                 position: absolute;
-                top: 37px;
-                bottom:37px;
-                left:0px;
-                right:0px;
+                top: 44px;
+                bottom: 22px;
+                left: 0;
+                right: 0;
                 padding: 15px;
                 overflow-y: scroll;
 
@@ -57,11 +56,11 @@
                 .container-header {
                     position: absolute;
                     z-index: 1;
-                    top:0;
-                    left:180px;
+                    top: 0;
+                    left:200px;
                     right:0;
                     background-color: whiteSmoke;
-                    height: 36px;
+                    height: 34px;
                     padding: 5px 20px;
                     border-bottom: 1px solid #e3e3e3;
                     clear:both;
@@ -74,57 +73,76 @@
     }
 
     .modal-content {
+        position: relative;
         padding: 15px;
-        margin-top: 44px;
+        margin-top: 42px;
         overflow-y: scroll;
-        max-height: 356px;
+        height: 354px;
         box-sizing: border-box;
 
-        & > li[class*="span"] {
-            margin: 0.84%;
-            box-sizing: border-box;
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            vertical-align: middle;
-        }
     }
 
-    .selected .thumbnail {
+    .selected .item {
         background-color: #efefef;
     }
-    .thumbnail {
-        overflow: hidden;
-        background-color: #ffffff;
 
-        .img-container {
-            margin: 7px 0;
-            background-color: inherit;
-            width: 100%;
-            height: 80px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center center;
-
-
-
-            // TODO load this css in IE < 9 for background-size in the javascript part
-            // perhaps use templater for this
-            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
-            src='images/logo.gif',
-            sizingMethod='scale');
-
-            -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
-            src='images/logo.gif',
-            sizingMethod='scale')";
+    #item-content {
+        &.fluid-fixed {
+            margin-right: 250px;
         }
 
+        .list-container {
+            height: 324px;
+        }
+        .items {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            overflow-y: scroll;
+            background-color: #ffffff;
+            margin:0;
 
-        .caption {
-            background-color: inherit;
-            padding: 5px;
-            box-sizing: border-box;
-            margin-bottom: 0;
+            & > li[class*="span"] {
+                margin: 0.6%;
+                box-sizing: border-box;
+                position: relative;
+                overflow: hidden;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .img-container {
+                margin: 7px 0;
+                background-color: inherit;
+                width: 100%;
+                height: 100px;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+
+
+            .caption {
+                background-color: inherit;
+                padding: 5px;
+                box-sizing: border-box;
+                margin-bottom: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        .item-details {
+            border-left: 1px solid #efefef;
+            padding-left:15px;
+            right: -250px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 220px;
         }
     }
 }

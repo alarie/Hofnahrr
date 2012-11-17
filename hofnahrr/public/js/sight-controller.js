@@ -335,7 +335,8 @@ define([
                 tagName : 'div',
                 template : tmplUpload,
                 fileTemplate : tmplImage,
-                uploadToPath : settings.BASE_URL + settings.API.PICTURES
+                uploadToPath : settings.BASE_URL + settings.API.PICTURES,
+                modelFileListProperty : 'pictures'
             });
         },
 

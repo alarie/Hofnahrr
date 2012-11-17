@@ -163,30 +163,39 @@ a {
   .hover-tools-trigger .hover-tools {
     background-color: #efefef;
     line-height: inherit;
-    padding: 0 5px;
-    line-height: inherit;
+    padding: 0 3px;
+    line-height: 14px;
     border: 1px solid #e2e2e2;
     border-radius: 3px;
     box-shadow: -5px 0 5px 0 #efefef;
     position: absolute;
-    top: 0;
+    top: 4px;
     right: -25px;
     -webkit-transition: right 0.2s linear;
     -moz-transition: right 0.2s linear;
     -o-transition: right 0.2s linear;
     transition: right 0.2s linear; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000374}}
+  .hover-tools-trigger.active .hover-tools {
+    right: 2px;
+    background-color: #08C;
+    box-shadow: -5px 0 5px 0 #0088cc;
+    border-color: #00aaff; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000379}}
+    .hover-tools-trigger.active .hover-tools a {
+      color: white; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000384}}
   .hover-tools-trigger:hover .hover-tools {
-    right: 0px; }
+    right: 2px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000390}}
 .drag-over {
   background-color: #1481b8; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000393}}
   .drag-over a {
     color: white; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000398}}
 .modal-backdrop {
   background-color: #dedede; }
 
@@ -263,10 +272,10 @@ input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
   display: block;
   float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000395}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003105}}
 #user {
   position: relative; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\0000398}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003108}}
   #user form {
     left: 0;
     position: absolute;
@@ -276,11 +285,11 @@ input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
     z-index: 1; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003109}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003119}}
 #sidebar {
   border-radius: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003123}}
 i.pictos {
   font-style: normal; }
 
@@ -845,116 +854,10 @@ i.pictos {
 .leaflet-popup-content {
   font: 12px/1.4 "Helvetica Neue", Arial, Helvetica, sans-serif; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\000031}}
-#sight-manager {
-  box-sizing: border-box;
-  -webkit-transition: height 0.3s ease-in;
-  -moz-transition: height 0.3s ease-in;
-  -o-transition: height 0.3s ease-in;
-  transition: height 0.3s ease-in; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\000036}}
-  #sight-manager.fixed-fluid {
-    position: relative;
-    margin: -15px;
-    padding-left: 180px;
-    height: 400px;
-    overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000313}}
-    #sight-manager.fixed-fluid aside {
-      position: absolute;
-      top: 0px;
-      bottom: 0px;
-      left: 0px;
-      width: 160px;
-      padding: 10px;
-      border-top: 0;
-      border-bottom: 0;
-      border-left: 0;
-      border-radius: 0;
-      margin-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000328}}
-      #sight-manager.fixed-fluid aside .new {
-        position: absolute;
-        bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000334}}
-      #sight-manager.fixed-fluid aside h5 {
-        margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000338}}
-      #sight-manager.fixed-fluid aside ul {
-        position: absolute;
-        top: 37px;
-        bottom: 37px;
-        left: 0px;
-        right: 0px;
-        padding: 15px;
-        overflow-y: scroll; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000347}}
-        #sight-manager.fixed-fluid aside ul li a {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000354}}
-      #sight-manager.fixed-fluid aside + * {
-        height: 400px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000357}}
-        #sight-manager.fixed-fluid aside + * .container-header {
-          position: absolute;
-          z-index: 1;
-          top: 0;
-          left: 180px;
-          right: 0;
-          background-color: whiteSmoke;
-          height: 36px;
-          padding: 5px 20px;
-          border-bottom: 1px solid #e3e3e3;
-          clear: both;
-          margin-bottom: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000376}}
-  #sight-manager .modal-content {
-    padding: 15px;
-    margin-top: 44px;
-    overflow-y: scroll;
-    max-height: 356px;
-    box-sizing: border-box; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000383}}
-    #sight-manager .modal-content > li[class*="span"] {
-      margin: 0.84%;
-      box-sizing: border-box;
-      position: relative;
-      overflow: hidden;
-      display: inline-block;
-      vertical-align: middle; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000393}}
-  #sight-manager .selected .thumbnail {
-    background-color: #efefef; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000396}}
-  #sight-manager .thumbnail {
-    overflow: hidden;
-    background-color: #ffffff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003100}}
-    #sight-manager .thumbnail .img-container {
-      margin: 7px 0;
-      background-color: inherit;
-      width: 100%;
-      height: 80px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center center;
-      filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif',             sizingMethod='scale');
-      -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
-            src='images/logo.gif',
-            sizingMethod='scale')"; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003122}}
-    #sight-manager .thumbnail .caption {
-      background-color: inherit;
-      padding: 5px;
-      box-sizing: border-box;
-      margin-bottom: 0; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003133}}
 .uploading {
   position: relative; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003128}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003137}}
   .uploading:before, .uploading::before {
     position: absolute;
     left: 0;
@@ -969,15 +872,15 @@ i.pictos {
     background-position: center center;
     background-repeat: no-repeat; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003145}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003154}}
 .large .modal {
   width: 700px;
   margin-left: -350px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003150}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003159}}
 .wide .modal {
-  width: 860px;
-  margin-left: -430px; }
+  width: 900px;
+  margin-left: -450px; }
 
 /*
 body {
@@ -1004,15 +907,142 @@ body {
     }
 }
 */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003189}}
 body .animated-turn .modal {
   -webkit-transition: all 0.3s linear;
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003186}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/style\.scss}line{font-family:\00003195}}
 .carousel.slide {
   width: 800px;
   height: 600px;
   background-color: black; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\000031}}
+#sight-manager {
+  box-sizing: border-box;
+  -webkit-transition: height 0.3s ease-in;
+  -moz-transition: height 0.3s ease-in;
+  -o-transition: height 0.3s ease-in;
+  transition: height 0.3s ease-in; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\000036}}
+  #sight-manager.fixed-fluid {
+    position: relative;
+    margin: -15px;
+    padding-left: 200px;
+    height: 400px;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000313}}
+    #sight-manager.fixed-fluid .main-nav-list {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 180px;
+      padding: 10px;
+      border-top: 0;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 0;
+      margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000327}}
+      #sight-manager.fixed-fluid .main-nav-list .new {
+        position: absolute;
+        bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000333}}
+      #sight-manager.fixed-fluid .main-nav-list h5 {
+        margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000337}}
+      #sight-manager.fixed-fluid .main-nav-list ul {
+        position: absolute;
+        top: 44px;
+        bottom: 22px;
+        left: 0;
+        right: 0;
+        padding: 15px;
+        overflow-y: scroll; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000346}}
+        #sight-manager.fixed-fluid .main-nav-list ul li a {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000353}}
+      #sight-manager.fixed-fluid .main-nav-list + * {
+        height: 400px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000356}}
+        #sight-manager.fixed-fluid .main-nav-list + * .container-header {
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          left: 200px;
+          right: 0;
+          background-color: whiteSmoke;
+          height: 34px;
+          padding: 5px 20px;
+          border-bottom: 1px solid #e3e3e3;
+          clear: both;
+          margin-bottom: 10px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000375}}
+  #sight-manager .modal-content {
+    position: relative;
+    padding: 15px;
+    margin-top: 42px;
+    overflow-y: scroll;
+    height: 354px;
+    box-sizing: border-box; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000385}}
+  #sight-manager .selected .item {
+    background-color: #efefef; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000390}}
+  #sight-manager #item-content.fluid-fixed {
+    margin-right: 250px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000394}}
+  #sight-manager #item-content .list-container {
+    height: 324px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\0000397}}
+  #sight-manager #item-content .items {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
+    background-color: #ffffff;
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003107}}
+    #sight-manager #item-content .items > li[class*="span"] {
+      margin: 0.6%;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003116}}
+    #sight-manager #item-content .items .img-container {
+      margin: 7px 0;
+      background-color: inherit;
+      width: 100%;
+      height: 100px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003127}}
+    #sight-manager #item-content .items .caption {
+      background-color: inherit;
+      padding: 5px;
+      box-sizing: border-box;
+      margin-bottom: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003138}}
+  #sight-manager #item-content .item-details {
+    border-left: 1px solid #efefef;
+    padding-left: 15px;
+    right: -250px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 220px; }

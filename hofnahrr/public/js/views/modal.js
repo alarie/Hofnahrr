@@ -155,7 +155,8 @@ define([
 
                     that.$('.modal')
                         .removeClass('turn-out')
-                        .addClass('turn-in').on(transitionEvents, function () {
+                        .addClass('turn-in').one(transitionEvents, function () {
+                            console.log("here");
                         that.$('.modal').removeClass('turn-in');
                     });
 

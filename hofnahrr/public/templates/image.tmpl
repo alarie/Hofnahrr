@@ -1,9 +1,5 @@
-<div data-file-drop-item-id="{{id}}" class="thumbnail {{#if uploaded}}uploaded{{/if}}">
+<div data-file-drop-item-id="{{id}}" class="thumbnail item {{#if uploaded}}uploaded{{/if}}">
     <a class="closer"><i class="pictos">*</i></a>
     <div class="img-container" style="background-image:url({{url}})"></div>
-    <div class="caption">
-        <input type="text" value="{{title}}" class="span12" name="title" placeholder="{{i18n "picture_name"}}"/>
-        <textarea name="description" class="span12" placeholder="{{i18n "picture_description"}}">{{description}}</textarea>
-        <input type="date" value="{{takeDate}}" class="span12" name="takeDate" placeholder="{{i18n "picture_tage_date"}}"/>
-    </div>
+    <div class="caption">{{title}}</div>
 </div>

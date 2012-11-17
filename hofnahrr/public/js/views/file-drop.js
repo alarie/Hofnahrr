@@ -72,7 +72,7 @@ define([
 
         FileView = TemplateView.extend({
             tagName : 'li',
-            className : 'span4',
+            className : 'span6',
             attributes : {
                 draggable : true 
             },
@@ -130,7 +130,7 @@ define([
 
         events : function () {
             return {
-                'click .thumbnails .closer' : 'onRemoveItem',
+                'click .items .closer' : 'onRemoveItem',
                 'dragstart .thumbnail' : 'onThumbnailDragStart', 
                 'dragend .thumbnail' : 'onThumbnailDragEnd'
             };
@@ -152,6 +152,18 @@ define([
             _.each(this.dragEvents, function (val, key) {
                 $('body').on(key, that[val]);
             });
+        },
+
+        setModel : function (model) {
+            var retval = TemplatedBridgeView.prototype.setModel.apply(this, arguments),
+                files;
+            
+            if (model && (files = model.get(this.options.modelFileListProperty || 'files'))) {
+                this.files = new Backbone.Collection(files);
+                this.onAddAll(this.files);
+            }
+
+            return retval;
         },
 
         _getItemIdByElement : function (el) {
@@ -196,11 +208,11 @@ define([
                 template : this.fileTemplate
             });
 
-            this.$('.thumbnails').append(view.render().el);
+            this.$('.items').append(view.render().el);
         },
 
         onAddAll : function (collection) {
-            this.$('.thumbnails').empty();
+            this.$('.items').empty();
             collection.each(this.onAdd);
         },
 

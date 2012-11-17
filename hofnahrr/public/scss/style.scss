@@ -60,19 +60,29 @@ a {
     .hover-tools {
         background-color: #efefef;
         line-height: inherit;
-        padding: 0 5px;
-        line-height: inherit;
+        padding: 0 3px;
+        line-height: 14px;
         border: 1px solid darken(#efefef, 5%);
         border-radius: 3px;
-        box-shadow: -5px 0 5px 0 #efefef;;
+        box-shadow: -5px 0 5px 0 #efefef;
         position: absolute;
-        top:0;
+        top: 4px;
         right:-25px;
         @include transition(right 0.2s linear);
     }
+
+    &.active .hover-tools {
+        right:2px;
+        background-color: #08C;
+        box-shadow: -5px 0 5px 0 #08C;
+        border-color: lighten(#08C, 10%);
+        a {
+            color: white;
+        }
+    }
     &:hover {
         .hover-tools {
-            right: 0px;
+            right:2px;
         }
     }
 }
@@ -117,7 +127,6 @@ i.pictos{
 @import "mosaic";
 @import "sight-info";
 @import "sight-map";
-@import "sight-manager";
 
 
 // Upload animator
@@ -148,8 +157,8 @@ i.pictos{
 }
 // make a modal wider
 .wide .modal {
-    width: 860px;
-    margin-left: -430px;
+    width: 900px;
+    margin-left: -450px;
 }
 
 /*
@@ -188,3 +197,5 @@ body .animated-turn .modal {
     height:600px;
     background-color: black;
 }
+
+@import "sight-manager";

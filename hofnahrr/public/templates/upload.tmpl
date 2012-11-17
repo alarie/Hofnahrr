@@ -1,5 +1,16 @@
-<h4>{{i18n "pictures_pictures"}}</h4>
-<div id="upload-preview" class="fixed-fluid">
-    <ul class="thumbnails">
-    </ul>
+<div id="item-content" class="fluid-fixed">
+    <div class="list-container">
+        <ul class="unstyled items">
+        </ul>
+    </div>
+    <aside class="item-details">
+        <form>
+            <label>{{i18n "picture_name"}}</label>
+            <input type="text" value="{{title}}" class="span12" name="title" placeholder="{{i18n "picture_name"}}"/>
+            <label>{{i18n "picture_description"}}</label>
+            <textarea name="description" class="span12" placeholder="{{i18n "picture_description"}}">{{description}}</textarea>
+            <label>{{i18n "picture_take_date"}}</label>
+            <input type="date" value="{{takeDate}}" class="span12" name="takeDate" placeholder="{{i18n "picture_tage_date"}}"/>
+        </form>
+    </aside>
 </div>

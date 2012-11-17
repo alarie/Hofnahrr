@@ -1,0 +1,15 @@
+// all the crappy hacks for ie...
+#sight-manager {
+    #item-content {
+        .items {
+            .img-container {
+                /* TODO load this css in IE < 9 for background-size in the javascript part
+                 perhaps use templater for this
+                filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif',sizingMethod='scale');
+
+                -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif',sizingMethod='scale')";
+                */
+            }
+        }
+    }
+}

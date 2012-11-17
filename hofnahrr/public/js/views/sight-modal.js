@@ -60,7 +60,6 @@ define([
 
         onOpenContainer : function (e) {
             var containerId = this._getContainerIdByElement(e.target);
-            console.log(this, containerId);
             this.trigger('open-container', containerId);
         },
 
