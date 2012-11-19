@@ -1,7 +1,13 @@
+var that = this;
 if (this.pictures) {
-    this.pictures.forEach(function (pic) {
+    this.pictures.forEach(function (pic, i) {
         if (!pic.id) {
-            pic.id = pic.name;
+            var name = pic.name;
+            if (!name) {
+                name = /[^\/]+$/.exec(pic.url)[0];
+                that.pictures[i].name = name;
+            }
+            that.pictures[i].id = name;
         }
     });
 }

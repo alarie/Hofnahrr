@@ -21,7 +21,8 @@ define([
         template : tmplSightForm,
         events : function () {
             return {
-                'submit' : 'onSubmit' 
+                'submit' : 'onSubmit',
+                'click .sight-delete' : 'onDelete'
             };
         },
 
@@ -34,9 +35,10 @@ define([
             e.preventDefault();
 
             if (e.target.checkValidity()) {
-                var data = (new DataRetriever({
-                    el : $(e.target)
-                })).getData();
+                var origData,
+                    data = (new DataRetriever({
+                        el : $(e.target)
+                    })).getData();
 
                 data.location = {
                     latitude : data.lat,
@@ -48,9 +50,18 @@ define([
                 delete data.lat;
                 delete data.lng;
 
-                this.trigger('create-sight', data);
+                origData = this.model ? this.model.toJSON() : {};
+
+                _.extend(origData, data);
+
+                this.trigger('create-sight', origData);
             }
 
+        },
+
+        onDelete : function (e) {
+            e.preventDefault();
+            this.trigger('delete-sight', this.model ? this.model.id : -1);
         },
 
         afterRender : function () {

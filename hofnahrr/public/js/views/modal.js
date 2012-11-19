@@ -145,13 +145,18 @@ define([
                     this.$el.addClass(opts.className);
                 }
 
-                that.closeCurrentView();
-                that.selectedView = selected;
+                this.closeCurrentView();
+                this.selectedView = selected;
                 view.$el.show();
                 view.render();
 
                 this.updateModal();
             }
+        },
+
+        getSelectedView : function () {
+            console.log(this.contentViews[this.selectedView].view);
+            return this.contentViews[this.selectedView].view;
         },
 
         updateModal : function () {

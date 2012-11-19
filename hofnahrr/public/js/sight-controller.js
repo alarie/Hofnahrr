@@ -4,6 +4,7 @@ define([
     'templater',
 
     'models/sight',
+    'models/file',
 
     'settings',
 
@@ -25,12 +26,15 @@ define([
     'text!tmpl/sights-list.tmpl',
     'text!tmpl/sight-link.tmpl',
     'text!tmpl/sight-manager.tmpl',
+    'text!tmpl/sight-list-entry.tmpl',
     'text!tmpl/upload.tmpl',
     'text!tmpl/image.tmpl',
+    'text!tmpl/picture-form.tmpl',
 ], function (
     _, Backbone, Templater,
     
     SightModel, 
+    FileModel,
 
     settings,
 
@@ -51,8 +55,10 @@ define([
     tmplSightInfo,
     tmplSightsList, tmplSightLink,
     tmplSightModal, 
+    tmplSightNavListItem,
     tmplUpload, 
-    tmplImage
+    tmplImage,
+    tmplPictureForm
 ) {
     'use strict';
 
@@ -68,11 +74,14 @@ define([
                     'onOpenSightGallery', 
                     'onOpenSightMosaic', 
                     'onCreateSight', 
+                    'onDeleteSight',
                     'onCreateNewSight', 
                     'onShowSightMap', 
+                    'onFileRead',
                     'initSightLayout',
                     'onAddPicturesToSight', 
                     'onRemovePicturesFromSight', 
+                    'onEditPicturesOfSight',
                     'onOpenContainer', 
                     'onSearch');
 
@@ -253,13 +262,16 @@ define([
         },
 
         onCreateSight : function (data) {
-            var that = this;
-            if (this.selectedSight) {
-                this.selectedSight.save(data, {
-                    success : function () {
-                        that.sightFormView.render();
-                    }
-                });
+            var that = this, sight;
+            if (data.id) {
+                sight = this.sightCollection.get(data.id);
+                if (sight) {
+                    sight.save(data, {
+                        success : function () {
+                            that.sightFormView.render();
+                        }
+                    });
+                }
             }
             else {
                 this.sightCollection.create(data, {
@@ -270,6 +282,12 @@ define([
             }
         },
 
+        onDeleteSight : function (id) {
+            if (window.confirm(Templater.i18n('sight_confirm_delete'))) {
+                var sight = this.sightCollection.get(id);
+                sight.destroy();
+            }
+        },
 
         createSightModal : function () {
             var that = this,
@@ -279,6 +297,7 @@ define([
                 sightModal = new ModalView({
                     el : 'body',
                     template : tmplSightModal,
+                    listItemTemplate : tmplSightNavListItem,
                     modalOptions : {
                         show : false,
                         backdrop : true
@@ -309,13 +328,16 @@ define([
                         className : 'wide'
                     }]);
 
+
                 sightModal.on('add-items-to-container', this.onAddPicturesToSight);
-                sightModal.on('remove-item-from-container', this.onRemovePicturesFromSight);
                 sightModal.on('open-container', this.onOpenContainer);
                 sightModal.modal.on('hide', function () {
                     that.router.navigate('sights');
                 });
 
+                this.sightCollection.on('add', sightModal.onAdd);
+                this.sightCollection.on('reset', sightModal.onAddAll);
+                sightModal.onAddAll(this.sightCollection);
 
             }
         },
@@ -329,6 +351,7 @@ define([
             this.sightFormView = new SightFormView();
             // sight form events
             this.sightFormView.on('create-sight', this.onCreateSight);
+            this.sightFormView.on('delete-sight', this.onDeleteSight);
         },
 
         createFileDropView : function () {
@@ -336,9 +359,27 @@ define([
                 tagName : 'div',
                 template : tmplUpload,
                 fileTemplate : tmplImage,
-                uploadToPath : settings.BASE_URL + settings.API.PICTURES,
+                fileEditTemplate : tmplPictureForm,
                 modelFileListProperty : 'pictures'
             });
+            this.fileDropView.on('remove-item-from-container', this.onRemovePicturesFromSight);
+            this.fileDropView.on('files-edited', this.onEditPicturesOfSight);
+            this.fileDropView.on('file-read', this.onFileRead);
+        },
+
+        onFileRead : function (file, containerId) {
+            var sight = this.sightCollection.get(containerId),
+                fileModel = new FileModel();
+
+            fileModel.url = settings.BASE_URL + settings.API.PICTURES + file.name;
+
+            this.fileDropView.addUploadFile(fileModel);
+
+            fileModel.on('upload-succeeded', function () {
+                sight.addImage(fileModel.toJSON());
+            });
+
+            fileModel.upload(file);
         },
 
         onAddPicturesToSight : function (pictures, sightId) {
@@ -354,6 +395,17 @@ define([
             var sight = this.sightCollection.get(sightId);
             if (pictureId && sight) {
                 sight.removeImage(pictureId, {
+                    success : function () {
+                        console.log('SUCCESS: TODO'); 
+                    }
+                });
+            }
+        },
+
+        onEditPicturesOfSight : function (data, fileIds, sightId) {
+            var sight = this.sightCollection.get(sightId);
+            if (sight) {
+                sight.editImages(fileIds, data, {
                     success : function () {
                         console.log('SUCCESS: TODO'); 
                     }

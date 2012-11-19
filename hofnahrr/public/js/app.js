@@ -179,6 +179,11 @@ define([
                 });
                 return html;
             });
+
+
+            Templater.registerHelper('array2String', function (items) {
+                return (items || []).join(', ');
+            });
         },
 
         createViews : function () {

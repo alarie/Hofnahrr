@@ -1,123 +1,109 @@
 /*global define*/
 define([
     'jam/bootstrap-sass/js/bootstrap-popover',
-    'underscore', 'backbone', 
+    'underscore', 
+    'backbone', 
     'views/template', 
     'views/templated-bridge', 
     'templater',
-    'helpers/file-handler', 'helpers/file-upload',
+    'helpers/file-handler',
     'data-retriever'
-], function ($, _, Backbone, TemplateView, TemplatedBridgeView, Templater, FileHandler, FileUpload, DataRetriever) {
+], function ($, _, Backbone, TemplateView, TemplatedBridgeView, Templater, FileHandler, DataRetriever) {
     'use strict';
 
-    var FileDropView,
+    var FileDropView, FileView, FileFormView;
 
-        FileModel = Backbone.Model.extend({
 
-            defaults : {
-                doUpload : true,
-                uploaded : false
-            },
-           
-            // Overwrite default save, so the image is JUST uploaded once the
-            // the upload function is called.
-            // This is necessary because Collection.create implicitly calls
-            // save and would thus trigger the upload. 
-            save : function (attributes, options) {},
+    FileView = TemplateView.extend({
+        tagName : 'li',
+        className : 'span6',
+        attributes : {
+            draggable : true 
+        },
 
-            upload : function (attributes, options) {
-                var that = this,
-                    uploader = new FileUpload(this.collection.url);
+        initialize : function () {
+            TemplateView.prototype.initialize.apply(this, arguments);
+            _.bindAll(this, 
+                        'remove', 
+                        'onUploadStarted', 
+                        'onUploadSucceeded');
 
-                if (attributes) {
-                    this.set(attributes);
-                }
-                
-                uploader.on('success', function (data) {
-                    that.onUploaded(data, options);
-                });
+            this.model.on('upload-started', this.onUploadStarted);
+            this.model.on('upload-succeeded', this.onUploadSucceeded);
+        },
 
-                this.trigger('upload-started');
+        onUploadStarted : function () {
+            this.$el.addClass('uploading');
+        },
 
-                uploader.upload(this.attributes.file);
-            },
+        onUploadSucceeded : function () {
+            this.$el.removeClass('uploading').remove();
+        },
 
-            onUploaded : function (result, options) {
-                options || (options = {});
 
-                this.set(_.extend(result, {
-                    uploaded : true,
-                    doUpload : false,
-                    origFileName : this.attributes.name,
-                    url : 'http://localhost:2403/pictures/' + result.name
-                }));
 
-                delete this.attributes.file;
+        remove : function () {
+            this.$el.remove();
+        }
+    });
 
-                this.trigger('uploaded', this.attributes);
+    FileFormView = TemplateView.extend({
+        events : function () {
+            return {
+                'submit' : 'onSubmit'
+            };
+        },
 
-                this.trigger('upload-succeeded');
+        initialize : function () {
+            TemplateView.prototype.initialize.apply(this, arguments);
+            _.bindAll(this, 'render');
+            this.model = new Backbone.Model();
+            this.model.on('change', this.render);
+        },
 
-                if (options.success) {
-                    console.log("TODO: set success args");
-                    options.success();
-                }
+        onSubmit : function (e) {
+            var data = (new DataRetriever({el : this.$el})).getData();
+            e.preventDefault();
+            this.trigger('files-edited', data, this.getEditedFileIds());
+        },
 
-                delete this.attributes.id;
-                delete this.id;
-                this.destroy();
+        getEditedFileIds : function () {
+            var edited = [];
+            _.each(this.models, function (model) {
+                edited.push(model.id);
+            });
+            return edited;
+        },
+
+        setModels : function (models) {
+            var that = this;
+
+            this.models = models;
+
+            this.currentFiles = [];
+            _.each(models, function (model) {
+                that.currentFiles.push(model.get('title') || model.get('name'));
+            });
+
+            if (this.models.length >= 1) {
+                this.model.set(this.models[0].toJSON());
+                this.model.trigger('change');
             }
-        
-        }),
+        },
 
-        FileView = TemplateView.extend({
-            tagName : 'li',
-            className : 'span6',
-            attributes : {
-                draggable : true 
-            },
 
-            events : function () {
-                return {
-                    'click .thumbnail' : 'onToggleThumbnail',
-                };
-            },
+        render : function () {
+            this.beforeRender();
 
-            initialize : function () {
-                TemplateView.prototype.initialize.apply(this, arguments);
-                _.bindAll(this, 
-                          'remove', 
-                          'onToggleThumbnail', 
-                          'onUploadStarted', 
-                          'onUploadSucceeded');
+            var data = _.extend({
+                names : this.currentFiles
+            }, this.model.toJSON());
+            this.$el.empty().append(this._compiledTemplate(data));
 
-                this.model.on('upload-started', this.onUploadStarted);
-                this.model.on('upload-succeeded', this.onUploadSucceeded);
-            },
-
-            onUploadStarted : function () {
-                this.$el.addClass('uploading');
-            },
-
-            onUploadSucceeded : function () {
-                this.$el.removeClass('uploading').remove();
-            },
-
-            onToggleThumbnail : function (e) {
-                $(e.target).closest('li').toggleClass('selected');
-            },
-
-            remove : function () {
-                this.$el.remove();
-            }
-        }),
-
-        FileCollection = Backbone.Collection.extend({
-            model : FileModel,
-            initialize : function (models, options) {
-                this.url = options.url;
-            }
-        });
+            this.afterRender();
+            return this;
+        }
+    });
 
     FileDropView = TemplatedBridgeView.extend({
         dragEvents : {
@@ -131,10 +117,12 @@ define([
         events : function () {
             return {
                 'click .items .closer' : 'onRemoveItem',
+                'click .thumbnail' : 'onSelectThumbnail',
                 'dragstart .thumbnail' : 'onThumbnailDragStart', 
-                'dragend .thumbnail' : 'onThumbnailDragEnd'
+                'dragend .thumbnail' : 'onThumbnailDragEnd',
+                'mousedown .items li' : 'onToggleThumbnail'
             };
-        },
+        }, 
 
         initialize : function (options) {
             var that = this;
@@ -154,13 +142,77 @@ define([
             });
         },
 
-        setModel : function (model) {
-            var retval = TemplatedBridgeView.prototype.setModel.apply(this, arguments),
-                files;
-            
-            if (model && (files = model.get(this.options.modelFileListProperty || 'files'))) {
+        updateFiles : function () {
+            var files;
+            if (this.model && (files = this.model.get(this.options.modelFileListProperty || 'files'))) {
                 this.files = new Backbone.Collection(files);
                 this.onAddAll(this.files);
+            }
+        },
+
+        onToggleThumbnail : function (e) {
+            // TODO check for win or mac
+            var ctrl = e.ctrlKey || e.metaKey,
+                shift = e.shiftKey;
+
+            console.log(ctrl, shift);
+
+            if (!(shift || ctrl)) {
+                this._deselectAll();
+                this._select(e.currentTarget);
+            }
+            else if (shift) {
+                this._deselectAll();
+                this._expandSelectionTo(e.currentTarget);
+            }
+            else if (ctrl) {
+                this._toggle(e.currentTarget);
+            }
+        },
+
+        _deselectAll : function () {
+            this.$('.items').find('.selected').removeClass('selected');
+        },
+
+        _select : function (el) {
+            this._firstSelected = $(el).addClass('selected');
+        },
+
+        _toggle : function (el) {
+            $(el).toggleClass('selected');
+        },
+
+        _expandSelectionTo : function (el) {
+            var that = this,
+                items = this.$('.items').children(),
+                i = items.index(this._firstSelected),
+                j = items.index(el),
+                tmp;
+
+            if (i > j) {
+                tmp = i;
+                i = j;
+                j = tmp;
+            }
+
+            j += 1;
+            items = Array.prototype.slice.apply(items, [i, j]);
+            _.each(items, function (child) {
+                that._select(child);
+            });
+        },
+
+        setModel : function () {
+            if (this.model) {
+                this.model.off('change:pictures', this.updateFiles);
+            }
+
+            var retval = TemplatedBridgeView.prototype.setModel.apply(this, arguments);
+            
+            this.updateFiles();
+
+            if (this.model) {
+                this.model.on('change:pictures', this.updateFiles);
             }
 
             return retval;
@@ -180,13 +232,19 @@ define([
         },
 
         _createCollection : function () {
-            this.files = new FileCollection([], {
+            this.fileCollection = new Backbone.Collection([], {
                 url : this.uploadToPath
             });
 
-            this.files.on('add', this.onAdd);
-            this.files.on('reset', this.onAddAll);
+            this.fileCollection.on('add', this.onAdd);
+            this.fileCollection.on('reset', this.onAddAll);
         },
+
+        onSelectThumbnail : function () {
+            if (this.fileEdit) {
+                this.fileEdit.setModels(this.getSelectedItems());
+            }
+        }, 
 
         onRemoveItem : function (e) {
             var itemId = this._getItemIdByElement(e.target),
@@ -239,7 +297,7 @@ define([
             e.dataTransfer.setData('text/plain', JSON.stringify(data));
         },
 
-        onThumbnailDragEnd : function (e) {
+        onThumbnailDragEnd : function () {
             this.$('aside .drag-over').removeClass('drag-over');
         },
 
@@ -252,12 +310,12 @@ define([
                             .attr('data-file-drop-item-id'),
                     item = files.get(id);
 
-                console.log(id, item);
                 if (item) {
                     item.set((new DataRetriever({el : $(this)})).getData());
                     items.push(item);
                 }
             });
+
             return items;
         },
 
@@ -305,7 +363,15 @@ define([
 
         onFileRead : function (file) {
             file.id = file.name;
-            this.files.create(file);
+            this.trigger('file-read', file, this.model ? this.model.id : null);
+        },
+
+        addUploadFile : function (file) {
+            var view = new FileView({
+                model : file,
+                template : this.fileTemplate
+            });
+            this.$('.upload-container').append(view.render().el);
         },
 
         uninstall : function () {
@@ -316,11 +382,22 @@ define([
         },
 
         afterRender : function () {
+            var that = this;
+
             this.$('.pictures-help').popover({
                 title : Templater.i18n('pictures_help'),
                 content : Templater.i18n('pictures_add_by_dragging'),
                 placement : 'right',
                 trigger : 'hover'
+            });
+
+            this.fileEdit = new FileFormView({
+                el : '.item-details',
+                template : this.options.fileEditTemplate
+            }).render();
+
+            this.fileEdit.on('files-edited', function (data, fileIds) {
+                that.trigger('files-edited', data, fileIds, that.model.id);
             });
         }
 

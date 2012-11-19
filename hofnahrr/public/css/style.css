@@ -1028,7 +1028,7 @@ body .modal.fade.in {
     padding: 15px;
     margin-top: 42px;
     overflow-y: scroll;
-    height: 354px;
+    height: 358px;
     box-sizing: border-box; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003108}}
   #sight-manager .selected .item {
@@ -1039,7 +1039,29 @@ body .modal.fade.in {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003117}}
   #sight-manager #item-content .list-container {
     height: 324px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003120}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003121}}
+  #sight-manager #item-content .upload-container {
+    background-color: white;
+    position: absolute;
+    top: -12px;
+    left: -14px;
+    right: -14px;
+    max-height: 0;
+    z-index: 1;
+    overflow: hidden;
+    border-top: 0;
+    padding: 0px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0);
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003135}}
+    #sight-manager #item-content .upload-container:not(:empty) {
+      max-height: 100px;
+      padding: 10;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003142}}
   #sight-manager #item-content .items {
     position: absolute;
     top: 0;
@@ -1049,7 +1071,7 @@ body .modal.fade.in {
     overflow-y: scroll;
     background-color: #ffffff;
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003130}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003152}}
     #sight-manager #item-content .items > li[class*="span"] {
       margin: 0.6%;
       box-sizing: border-box;
@@ -1057,7 +1079,7 @@ body .modal.fade.in {
       overflow: hidden;
       display: inline-block;
       vertical-align: middle; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003139}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003161}}
     #sight-manager #item-content .items .img-container {
       margin: 7px 0;
       background-color: inherit;
@@ -1066,7 +1088,7 @@ body .modal.fade.in {
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003150}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003172}}
     #sight-manager #item-content .items .caption {
       background-color: inherit;
       padding: 5px;
@@ -1075,7 +1097,7 @@ body .modal.fade.in {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-manager\.scss}line{font-family:\00003183}}
   #sight-manager #item-content .item-details {
     border-left: 1px solid #efefef;
     padding-left: 15px;

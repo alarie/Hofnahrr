@@ -17,12 +17,11 @@ define([
         },
 
         addImage : function (file, options) {
-            var name, pictures, picture; 
+            var name, pictures, picture;
 
             file = file instanceof Backbone.Model ? file.toJSON() : file;
 
             if (file && (name = file.name)) {
-                options || (options = function () {});
                 pictures = this.attributes.pictures;
                 picture = _.find(pictures, function (p) {
                     return p.name === name; 
@@ -52,13 +51,12 @@ define([
                     };
                     pictures.push(picture);
                 }
-                
-                this.save(null, options);
+                this.savePictures(options);
             }
         },
 
         removeImage : function (id, options) {
-            var pictures, index;
+            var pictures, index, that = this;
 
             if (id) {
                 options || (options = function () {});
@@ -71,10 +69,44 @@ define([
 
                 if (index >= 0) {
                     pictures.splice(index, 1);
-                    this.save(null, options);
+                    this.savePictures(options);
                 }
             }
-        }
+        },
+
+        editImages : function (imageIds, data, options) {
+            console.log(imageIds);
+            var pictures = this.attributes.pictures, picture, index;
+            _.each(imageIds, function (id) {
+                index = -1;
+                picture = _.find(pictures, function (p) {
+                    index += 1;
+                    return p.id === id;
+                });
+                _.extend(pictures[index], data);
+            });
+            this.savePictures(options);
+        },
+
+        savePictures : function (options) {
+            var that = this;
+            options || (options = {});
+            this.save(null, {
+                success : function (model, data) {
+                    console.log(arguments);
+                    that.trigger('change:pictures', model.attributes.pictures);
+                    if (options.success) {
+                        options.success.apply(null, arguments);
+                    }
+                },
+                error : function () {
+                    if (options.error) {
+                        options.error.apply(null, arguments);
+                    }
+                }
+            });
+        },
+
     });
 
     return SightModel;

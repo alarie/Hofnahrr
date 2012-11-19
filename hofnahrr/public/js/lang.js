@@ -36,6 +36,7 @@ define([], function () {
             'sights_unknown' : 'Unbekannte',
             'sight_add_selected_photos' : 'Ausgewählte Fotos zu dieser Sehenswürdigkeit hinzufügen',
             'sight_edit_name' : '%_ bearbeiten',
+            'sight_delete' : 'Sehenswürdigkeit entfernen',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
@@ -54,6 +55,10 @@ define([], function () {
             'picture_close' : 'Schließen',
             'pictures_add_by_dragging' : 'Bilder zum Hochladen aus dem Dateibrowser in dieses Fenster ziehen. Dannach den Sehenwürdigkeiten in der folgenden Liste per drag&drop zuweisen.',
             'pictures_help' : 'Hilfe',
+            'pictures_editing' : 'Bearbeitete Bilder',
+            'picture_title' : 'Titel',
+            'picture_take_date' : 'Aufnahmedatum',
+            'picture_apply_changes' : 'Änderungen anwenden',
 
             'modal_close' : 'Schließen',
 
@@ -107,6 +112,7 @@ define([], function () {
             'sights_unknown' : 'Unknown',
             'sight_add_selected_photos' : 'Add selected photos to this sight',
             'sight_edit_name' : 'Edit %_',
+            'sight_delete' : 'Sehenswürdigkeit entfernen',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',
@@ -124,6 +130,10 @@ define([], function () {
             'picture_close' : 'Close',
             'pictures_add_by_dragging' : 'To uplod images, drag them from your file browser into this window. Then apply them to the fitting sight in the list below by drag&drop.',
             'pictures_help' : 'Help',
+            'pictures_editing' : 'Editing images',
+            'picture_title' : 'Title',
+            'picture_take_date' : 'Date image was taken',
+            'picture_apply_changes' : 'Apply changes',
 
             'manager_close' : 'Close',
 

@@ -40,7 +40,7 @@ define([
                 response;
 
             if (xhr.readyState === 4) {
-                response = this.getResponse(xhr);
+                response = this.parseResponse(xhr);
                 if (xhr.status === 200) {
                     this.trigger('success', response, xhr.statusText, xhr);
                 }
@@ -51,6 +51,17 @@ define([
             else {
                 this.onProgress(e);
             }
+        },
+
+        parseResponse : function (xhr) {
+            var resp = xhr.responseText,
+                contentType = xhr.getResponseHeader('content-type');
+
+            //if (contentType === 'application/json') {
+                resp = JSON.parse(resp);
+            //}
+
+            return resp;
         },
 
         onProgress : function (e) {
