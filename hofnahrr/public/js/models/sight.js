@@ -8,7 +8,7 @@ define([
 
     SightModel = Backbone.Model.extend({
         defaults : {
-            name : '',
+            name : 'No Name',
             description : '',
             location : {},
             tags : [],

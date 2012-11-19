@@ -6,7 +6,7 @@ define([
 
     return {
         CITY : 'Hof', 
-        MAPQUEST_API_KEY : 'Fmjtd%7Cluuan9u1nl%2Crl%3Do5-96rlhr ',
+        YAHOO_API_KEY : 'cf9244713a7ac320bf3fc2743b133480caeff7d4',
         BASE_URL : 'http://localhost:2403/',
         API : {
             PICTURES : 'pictures/',

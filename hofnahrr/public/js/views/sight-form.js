@@ -11,7 +11,7 @@ define([
     DataRetriever,
     Templater,
     TemplatedBridgeView, 
-    Settings,
+    settings,
     tmplSightForm
 ) {
     'use strict';
@@ -35,28 +35,36 @@ define([
         },
 
         onSightNameChanged : function (e) {
-            var val = e.target.name,
-                url = 'http://www.mapquestapi.com/geocoding/v1/address?key=' + 
-                    Settings.MAPQUEST_API_KEY + 
-                    '&location=' + val + ',' + Settings.CITY + '&callback=renderGeocode',
-                latInput = this.$('#sight-location-lat'),
-                lngInput = this.$('#sight-location-lng'),
-                help = lngInput.siblings('.help-inline');
+            //var val = e.target.value,
+                //url = 'http://local.yahooapis.com/MapsService/V1/geocode',
+                //latInput = this.$('#sight-location-lat'),
+                //lngInput = this.$('#sight-location-lng'),
+                //help = lngInput.siblings('.help-inline');
 
-            if (val.length > 3) {
-                $.ajax({
-                    url : url,
-                    success : function (data) {
-                        if (data && data.results && data.results.length) {
-                            data = data.results[0];
-                            var location = data.geometry.location;
-                            latInput.val(location.lat);
-                            lngInput.val(location.lng);
-                            help.text(data.formatted_address);
-                        }
-                    }
-                });
-            }
+            //if (val.length > 3) {
+                //$.ajax({
+                    //url : url,
+                    //data : {
+                        //appid : settings.YAHOO_API_KEY,
+                        //location : val + ',' + settings.CITY,
+                        //output : 'json'
+                    //},
+                    //crossDomain : true,
+                    //dataType : 'json',
+                    //success : function (data) {
+                        //console.log(data);
+                        //if (data && data.results && data.results.length) {
+                            //data = data.results[0];
+                            //if (data.locations.length) {
+                                //var location = data.locations[0];
+                                //latInput.val(location.latLng.lat);
+                                //lngInput.val(location.lngLng.lng);
+                            //}
+                            ////help.text(data.formatted_address);
+                        //}
+                    //}
+                //});
+            //}
         },
 
         onSubmit : function (e) {

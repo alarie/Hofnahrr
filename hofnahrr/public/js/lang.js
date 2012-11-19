@@ -37,6 +37,7 @@ define([], function () {
             'sight_add_selected_photos' : 'Ausgewählte Fotos zu dieser Sehenswürdigkeit hinzufügen',
             'sight_edit_name' : '%_ bearbeiten',
             'sight_delete' : 'Sehenswürdigkeit entfernen',
+            'sight_search' : 'Sehenswürdigkeiten durchsuchen...',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
@@ -113,6 +114,7 @@ define([], function () {
             'sight_add_selected_photos' : 'Add selected photos to this sight',
             'sight_edit_name' : 'Edit %_',
             'sight_delete' : 'Sehenswürdigkeit entfernen',
+            'sight_search' : 'Search in sights...',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',

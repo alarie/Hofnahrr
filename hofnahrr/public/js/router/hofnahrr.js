@@ -44,7 +44,7 @@ define([
             }
 
             if (current !== old) {
-                this.navigate(current);
+                this.navigate(current, true);
             }
         }
 

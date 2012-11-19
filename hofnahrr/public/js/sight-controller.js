@@ -106,8 +106,8 @@ define([
             this.on('layout-set:sight', this.initSightLayout);
         },
 
-        onSearch : function (query) {
-            console.log(query);
+        onSearch : function (path, query) {
+            this.listView.filter(query);
         },
 
         createSightViews : function () {

@@ -11,7 +11,7 @@ define([
     SightListView = ListView.extend({
         events : function () {
             return {
-                'keydown .search-query' : 'onSearchKeydown',
+                'input .search-query' : 'onSearchKeydown',
                 'blur .search-query' : 'onSearchChanged'
             };
         },

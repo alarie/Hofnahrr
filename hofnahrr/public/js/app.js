@@ -56,7 +56,8 @@ define([
                   'onUserNotLoggedIn',
                   'onLogout', 
                   'onLogin', 
-                  'onSignup');
+                  'onSignup', 
+                  'onToggleSidebar');
 
         this.layouts = {};
 
@@ -75,6 +76,8 @@ define([
         // -- TODO: Put this in a SightAppController mixin
             
         // --
+        
+        $('body').on('click', '.toggle-sidebar', this.onToggleSidebar);
 
         this.currentUser.isLoggedIn(this.onUserLoggedIn, 
                                     this.onUserNotLoggedIn);
@@ -89,6 +92,11 @@ define([
                 this.currentLayout = name;
                 this.trigger('layout-set:' + name);
             }
+        },
+
+        onToggleSidebar : function () {
+            console.log("here");
+            $('body').toggleClass('sidebar-visible');
         },
 
         appendSecondaryNavView : function (view) {
