@@ -36,7 +36,9 @@ define([
 
         onSightNameChanged : function (e) {
             var val = e.target.name,
-                url = 'http://maps.googleapis.com/maps/api/geocode/json?address=St.%20Marien,' + Settings.CITY + '&sensor=false',
+                url = 'http://www.mapquestapi.com/geocoding/v1/address?key=' + 
+                    Settings.MAPQUEST_API_KEY + 
+                    '&location=' + val + ',' + Settings.CITY + '&callback=renderGeocode',
                 latInput = this.$('#sight-location-lat'),
                 lngInput = this.$('#sight-location-lng'),
                 help = lngInput.siblings('.help-inline');
