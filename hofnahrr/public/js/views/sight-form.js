@@ -36,13 +36,22 @@ define([
 
         onSightNameChanged : function (e) {
             var val = e.target.name,
-                url = 'http://maps.googleapis.com/maps/api/geocode/json?address=St.%20Marien,' + Settings.CITY + '&sensor=false';
+                url = 'http://maps.googleapis.com/maps/api/geocode/json?address=St.%20Marien,' + Settings.CITY + '&sensor=false',
+                latInput = this.$('#sight-location-lat'),
+                lngInput = this.$('#sight-location-lng'),
+                help = lngInput.siblings('.help-inline');
 
             if (val.length > 3) {
                 $.ajax({
                     url : url,
-                    success : function () {
-                        console.log(arguments);
+                    success : function (data) {
+                        if (data && data.results && data.results.length) {
+                            data = data.results[0];
+                            var location = data.geometry.location;
+                            latInput.val(location.lat);
+                            lngInput.val(location.lng);
+                            help.text(data.formatted_address);
+                        }
                     }
                 });
             }
