@@ -83,6 +83,7 @@ define([
                     'onRemovePicturesFromSight', 
                     'onEditPicturesOfSight',
                     'onOpenContainer', 
+                    'onNewContainer',
                     'onSearch');
 
 
@@ -331,6 +332,7 @@ define([
 
                 sightModal.on('add-items-to-container', this.onAddPicturesToSight);
                 sightModal.on('open-container', this.onOpenContainer);
+                sightModal.on('new-container', this.onNewContainer);
                 sightModal.modal.on('hide', function () {
                     that.router.navigate('sights');
                 });
@@ -415,6 +417,13 @@ define([
 
         onOpenContainer : function (containerId) {
             var sight = this.sightCollection.get(containerId); 
+            if (sight) {
+                this.sightModal.setModel(sight);
+            }
+        },
+
+        onNewContainer : function () {
+            var sight = this.sightCollection.create(); 
             if (sight) {
                 this.sightModal.setModel(sight);
             }

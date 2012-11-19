@@ -14,6 +14,7 @@ define([
         events : function () {
             return {
                 'click .well li a' : 'onOpenContainer',
+                'click .well .new' : 'onNewContainer',
                 'click .adder' : 'onItemsAddToContainer',
                 'dragover aside li:not(.nav-header)' : 'onDragOverContainer', 
                 'dragleave aside li:not(.nav-header)' : 'onDragLeaveContainer', 
@@ -26,6 +27,10 @@ define([
             ModalView.prototype.initialize.apply(this, arguments);
 
             _.bindAll(this);
+        },
+
+        onNewContainer : function () {
+            this.trigger('new-container');
         },
 
         onAdd : function (model) {

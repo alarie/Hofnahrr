@@ -4,12 +4,14 @@ define([
     'data-retriever',
     'templater',
     'views/templated-bridge',
-    'text!tmpl/sight-form.tmpl',
+    'settings',
+    'text!tmpl/sight-form.tmpl'
 ], function (
     _,
     DataRetriever,
     Templater,
     TemplatedBridgeView, 
+    Settings,
     tmplSightForm
 ) {
     'use strict';
@@ -22,13 +24,28 @@ define([
         events : function () {
             return {
                 'submit' : 'onSubmit',
-                'click .sight-delete' : 'onDelete'
+                'click .sight-delete' : 'onDelete',
+                'input #sight-name' : 'onSightNameChanged'
             };
         },
 
         initialize : function () {
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
             _.bindAll(this, 'onSubmit');
+        },
+
+        onSightNameChanged : function (e) {
+            var val = e.target.name,
+                url = 'http://maps.googleapis.com/maps/api/geocode/json?address=St.%20Marien,' + Settings.CITY + '&sensor=false';
+
+            if (val.length > 3) {
+                $.ajax({
+                    url : url,
+                    success : function () {
+                        console.log(arguments);
+                    }
+                });
+            }
         },
 
         onSubmit : function (e) {
