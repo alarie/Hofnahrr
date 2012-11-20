@@ -6,6 +6,10 @@ var jam = {
             "main": "backbone.js"
         },
         {
+            "name": "bootstrap-sass",
+            "location": "jam/bootstrap-sass"
+        },
+        {
             "name": "handlebars",
             "location": "jam/handlebars",
             "main": "handlebars.js"
@@ -16,27 +20,18 @@ var jam = {
             "main": "jquery.js"
         },
         {
-            "name": "bootstrap-sass",
-            "location": "jam/bootstrap-sass"
+            "name": "text",
+            "location": "jam/text",
+            "main": "text.js"
         },
         {
             "name": "underscore",
             "location": "jam/underscore",
             "main": "underscore.js"
-        },
-        {
-            "name": "text",
-            "location": "jam/text",
-            "main": "text.js"
         }
     ],
-    "paths" : {
-        "tmpl" : '../templates'
-    },
-    "version": "0.1.4",
-    "shim": {
-        "jquery.tagsinput" : ['jquery', 'jquery.ui.keycodes']
-    }
+    "version": "0.2.10",
+    "shim": {}
 };
 
 if (typeof require !== "undefined" && require.config) {
@@ -48,4 +43,4 @@ else {
 
 if (typeof exports !== "undefined" && typeof module !== "undefined") {
     module.exports = jam;
-};
+}

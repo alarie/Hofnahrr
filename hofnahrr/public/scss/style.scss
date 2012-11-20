@@ -1,17 +1,34 @@
+@import "../js/jam/bootstrap-sass/lib/_variables.scss";
 @import "fonts";
 @import "prefixer";
 
+$hn_lilac: #572381;
+$hn_orange: #ec7405;
+$hn_green: #269d2e;
+$hn_red: #d80000;
+
 /* BOOSTRAT EXTENDS */
 body{
-    padding-top: 60px;
+    padding-top: 80px;
 }
 
 a {
     cursor: pointer;
 }
 
+
+.navbar-fixed-top .navbar-inner {
+    box-sizing: border-box;
+    padding: 10px 0;
+    height: 60px;
+    background-image: none;
+    border: 0;
+    @include box-shadow(none);
+}
+
+
 .active .muted {
-    color: #ccc;
+    color: $grayLight;
 }
 
 .fixed-fluid,
@@ -57,13 +74,13 @@ a {
     position: relative;
  
     .hover-tools {
-        background-color: #efefef;
+        background-color: $grayLighter;
         line-height: inherit;
         padding: 0 3px;
         line-height: 14px;
-        border: 1px solid darken(#efefef, 5%);
+        border: 1px solid darken($grayLighter, 5%);
         border-radius: 3px;
-        box-shadow: -5px 0 5px 0 #efefef;
+        box-shadow: -5px 0 5px 0 $grayLighter;
         position: absolute;
         top: 4px;
         right:-35px;
@@ -72,9 +89,10 @@ a {
 
     &.active .hover-tools {
         right:2px;
-        background-color: #08C;
-        box-shadow: -5px 0 5px 0 #08C;
-        border-color: lighten(#08C, 10%);
+        background-color: $linkColor;
+        box-shadow: -5px 0 5px 0 $linkColor;
+        border-color: lighten($linkColor, 10%);
+
         a {
             color: white;
         }
@@ -87,7 +105,7 @@ a {
 }
 
 .drag-over {
-    background-color: desaturate(#08C, 20%);
+    background-color: desaturate($linkColor, 20%);
 
     a {
         color: white;
@@ -95,11 +113,35 @@ a {
 }
 
 .modal-backdrop {
-    background-color: #dedede;
+    background-color: darken($grayLighter, 5%);
 }
 
 
 @import "tagsinput";
+
+#main-content {
+    padding: 0px;
+}
+#secondary-nav {
+    border-top: 3px solid $hn_lilac; 
+    background-color: rgba($hn_lilac, 0.5);
+    padding: 0 10px;
+
+    a {
+        color: $bodyBackground;
+        @include border-radius(0);
+        border: 0;
+        
+    }
+    .nav-tabs a:hover {
+        background-color: rgba($bodyBackground, 0.5);
+    }
+    .nav-tabs > .active > a {
+        color: $hn_lilac;
+        background-color: rgba($bodyBackground, 0.7);
+    }
+}
+
 
 #user {
     position: relative;
@@ -141,9 +183,11 @@ a {
     z-index: 1031;
     width: 300px;
     margin: 0;
-    padding-top: 120px;
-    max-height: 125px;
+    max-height: 265px;
+    padding:0;
+    border: 0;
     overflow: hidden;
+    background-color: rgba($hn_lilac, 0.6);
     @include transition(max-height 0.3s ease-in-out);
 
     &:hover {
@@ -153,17 +197,36 @@ a {
         }
 
     }
-    ul li {
-        display: none;
+    ul {
+        padding: 0px;
 
-        &.active, &.nav-header {
-            display: list-item;
+        li {
+            display: none;
+            background-color: $bodyBackground;
+            margin: 10px 0;
+
+            a {
+                margin: 0;
+            }
+
+            &.active, &.nav-header {
+                display: list-item;
+            }
         }
     }
 
+    #logo {
+        height: 121px;
+        border-bottom: 3px solid $hn_lilac;
+        background-color: $bodyBackground;
+    }
+
+    .content {
+        padding: 10px;
+    }
 }
 #secondary-nav {
-    padding-right: 330px;
+    padding-right: 340px;
 }
 
 i.pictos{

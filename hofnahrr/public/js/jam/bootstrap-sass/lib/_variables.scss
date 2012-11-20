@@ -160,8 +160,8 @@ $navbarCollapseWidth:             979px !default;
 
 $navbarHeight:                    40px !default;
 $navbarBackgroundHighlight:       #ffffff !default;
-$navbarBackground:                darken($navbarBackgroundHighlight, 5%) !default;
-$navbarBorder:                    darken($navbarBackground, 12%) !default;
+$navbarBackground:                #ffffff !default; //darken($navbarBackgroundHighlight, 5%) !default;
+$navbarBorder:                    #ffffff !default; // darken($navbarBackground, 12%) !default;
 
 $navbarText:                      #777 !default;
 $navbarLinkColor:                 #777 !default;

@@ -1,6 +1,6 @@
+{{#if speakingId}}
 <a class="pull-right" href="#sight/{{speakingId}}/edit/"><i class="pictos">p</i> {{i18n "sight_edit"}}</a>
 <ul class="nav nav-tabs">
-    {{#if speakingId}}
     <li>
         <a href="#sight/{{speakingId}}/map/"><i class="pictos">@</i> {{i18n "sight_map"}}</a>
     </li>
@@ -13,9 +13,11 @@
     <li>
         <a href="#sight/{{speakingId}}/info/"><i class="pictos">i</i> {{i18n "sight_info"}}</a>
     </li>
-    {{else}}
+</ul>
+{{else}}
+<ul class="nav nav-tabs">
     <li>
         <a href="#sight/"><i class="pictos">@</i> {{i18n "sight_map"}}</a>
     </li>
-    {{/if}}
 </ul>
+{{/if}}
