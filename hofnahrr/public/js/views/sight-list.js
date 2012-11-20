@@ -33,9 +33,10 @@ define([
         },
 
         appendView : function (view) {
-            this.$el
-                .find('ul #sight-list-header')
-                .after(view.render().el);
+            this.$el.find('ul')
+                //.find('ul #sight-list-header')
+                //.after(view.render().el);
+                .append(view.render().el);
         },
 
         reset : function () {

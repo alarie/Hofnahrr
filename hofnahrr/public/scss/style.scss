@@ -16,14 +16,42 @@ a {
     cursor: pointer;
 }
 
+.btn {
+    background-image: none;
+    
+    @include border-radius(0);
+    @include box-shadow(none);
+}
+
 
 .navbar-fixed-top .navbar-inner {
     box-sizing: border-box;
-    padding: 10px 0;
+    padding: 20px 0;
     height: 60px;
     background-image: none;
     border: 0;
     @include box-shadow(none);
+
+
+
+    .nav > li > a {
+        width: 170px;
+        height: 40px;
+        line-height: 40px;
+        box-sizing: border-box;
+        padding:0;
+        margin: 0 5px;
+        text-align: center;
+        text-shadow: none;
+        color: $bodyBackground;
+    }
+}
+
+input.search-query {
+    @include border-radius(0);
+    border:0;
+    @include box-shadow(none);
+    text-align: left;
 }
 
 
@@ -89,10 +117,6 @@ a {
 
     &.active .hover-tools {
         right:2px;
-        background-color: $linkColor;
-        box-shadow: -5px 0 5px 0 $linkColor;
-        border-color: lighten($linkColor, 10%);
-
         a {
             color: white;
         }
@@ -121,11 +145,17 @@ a {
 
 #main-content {
     padding: 0px;
+    position: relative;
 }
+
 #secondary-nav {
-    border-top: 3px solid $hn_lilac; 
-    background-color: rgba($hn_lilac, 0.5);
     padding: 0 10px;
+    position: absolute;
+    height: 38px;
+    top:0;
+    left:0;
+    right: 0;
+    z-index: 1031;
 
     a {
         color: $bodyBackground;
@@ -133,12 +163,13 @@ a {
         border: 0;
         
     }
+    
+    .nav-tabs {
+        border: 0;
+    }
+
     .nav-tabs a:hover {
         background-color: rgba($bodyBackground, 0.5);
-    }
-    .nav-tabs > .active > a {
-        color: $hn_lilac;
-        background-color: rgba($bodyBackground, 0.7);
     }
 }
 
@@ -183,11 +214,10 @@ a {
     z-index: 1031;
     width: 300px;
     margin: 0;
-    max-height: 265px;
+    max-height: 230px;
     padding:0;
     border: 0;
     overflow: hidden;
-    background-color: rgba($hn_lilac, 0.6);
     @include transition(max-height 0.3s ease-in-out);
 
     &:hover {
@@ -197,6 +227,8 @@ a {
         }
 
     }
+
+
     ul {
         padding: 0px;
 
@@ -205,11 +237,18 @@ a {
             background-color: $bodyBackground;
             margin: 10px 0;
 
-            a {
-                margin: 0;
+            &.nav-header {
+                background-color: transparent;
+                text-shadow: none;
             }
 
-            &.active, &.nav-header {
+            a {
+                margin: 0;
+                @include transition (background-color 0.1s linear);
+            }
+
+            &.active, 
+            &.nav-header {
                 display: list-item;
             }
         }
@@ -217,7 +256,6 @@ a {
 
     #logo {
         height: 121px;
-        border-bottom: 3px solid $hn_lilac;
         background-color: $bodyBackground;
     }
 
@@ -316,3 +354,82 @@ body .modal.fade.in {
 }
 
 @import "sight-manager";
+
+
+
+@each $hn_col in lilac, orange, green {
+    $c: $hn_lilac;
+    @if $hn_col == lilac {
+        $c: $hn_lilac;
+    }
+    @else if $hn_col == orange {
+        $c: $hn_orange;
+    }
+    @else if $hn_col == green {
+        $c: $hn_green;
+    }
+
+    .navbar .nav > li > a {
+        &.#{$hn_col} {
+            background-color: #{$c};
+        }
+    }
+
+    body.#{$hn_col} {
+
+        #secondary-nav {
+            border-top: 3px solid #{$c}; 
+            background-color: rgba($c, 0.5);
+
+            .nav-tabs > .active > a {
+                color: #{$c};
+                background-color: rgba($bodyBackground, 0.7);
+            }
+        }
+
+        #sidebar {
+            background-color: rgba($c, 0.6);
+
+            ul li {
+                &.nav-header {
+                    color: darken($c, 10%);
+                }
+                &:hover a {
+                    background-color: lighten($c, 60%);
+                }
+                &.active a {
+                    background-color: #{$c};
+                }
+            }
+        }
+
+        #logo {
+            border-bottom: 3px solid #{$c};
+        }
+
+        .btn.btn-primary {
+            background-color: #{$c};
+            color: $bodyBackground;
+        }
+
+        a {
+            color: #{$c};
+        }
+
+        .nav-list > .active > a, 
+        .nav-list > .active > a:hover {
+            background-color: #{$c};
+        }
+
+        .hover-tools-trigger.active {
+            .hover-tools {
+                background-color: #{$c};
+                box-shadow: -5px 0 5px 0 #{$c};
+                border-color: lighten($c, 20%);
+            }
+        }
+
+    }
+
+}
+
