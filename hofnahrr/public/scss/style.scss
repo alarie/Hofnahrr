@@ -8,8 +8,15 @@ $hn_green: #269d2e;
 $hn_red: #d80000;
 
 /* BOOSTRAT EXTENDS */
+html, body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 body{
+    box-sizing: border-box;
     padding-top: 80px;
+    overflow: hidden;
 }
 
 a {
@@ -145,6 +152,8 @@ input.search-query {
 
 #main-content {
     padding: 0px;
+    width: 100%;
+    height: 100%;
     position: relative;
 }
 
@@ -369,13 +378,13 @@ body .modal.fade.in {
         $c: $hn_green;
     }
 
-    .navbar .nav > li > a {
+    .navbar .nav > li  a {
         &.#{$hn_col} {
             background-color: #{$c};
         }
     }
 
-    body.#{$hn_col} {
+    .#{$hn_col} {
 
         #secondary-nav {
             border-top: 3px solid #{$c}; 

@@ -45,6 +45,7 @@ define([
         },
 
         initGameLayout : function () {
+            $('body').addClass('orange');
             this.appendSecondaryNavView(this.gameNav);
         },
 

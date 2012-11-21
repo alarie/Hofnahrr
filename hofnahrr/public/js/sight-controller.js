@@ -228,6 +228,7 @@ define([
         },
 
         initSightLayout : function () {
+            $('body').addClass('lilac');
             this.appendSightListView();
             this.appendSecondaryNavView(this.sightNav);
         },

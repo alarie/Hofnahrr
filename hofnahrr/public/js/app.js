@@ -39,6 +39,14 @@ define([
     navigationTmpl
 ) {
     /* use strict */
+
+
+
+    /* some global stuff*/
+
+    window.Intent = window.Intent || window.WebKitIntent;
+    window.navigator.startActivity = window.navigator.startActivity || window.navigator.webkitStartActivity;
+    window.intent = window.intent || window.webkitIntent;
     
     var AppController;
 
@@ -87,6 +95,7 @@ define([
     AppController.prototype = {
         setLayout : function (name) {
             if (this.currentLayout !== name) {
+                $('body').removeClass('lilac green orange');
                 $('#main-content')
                     .html(Templater.compile(this.layouts[name]));
                 this.currentLayout = name;
@@ -191,6 +200,12 @@ define([
 
             Templater.registerHelper('array2String', function (items) {
                 return (items || []).join(', ');
+            });
+
+            Templater.registerHelper('imageEditIntent', function (opts) {
+                return (window.Intent || window.intent) ? 
+                    '<button class="btn edit-image">' + Templater.i18n('app_edit') + '</button>' : 
+                    '';
             });
         },
 
