@@ -37,6 +37,8 @@ define([
 
             this.trigger('upload-started');
 
+            console.log(this.attributes.file);
+
             uploader.upload(this.attributes.file);
         },
 

@@ -105,8 +105,11 @@ define([
 
         onEditImage : function () {
             var Intent = window.Intent || window.intent,
-                onsuccess = function () {
-                    console.log(arguments);
+                that = this,
+                onsuccess = function (data) {
+                    var model = that.models[0].toJSON();
+                    model.file = data;                    
+                    that.trigger('file-data-edited', model, model.id);
                 };
 
 
@@ -400,7 +403,8 @@ define([
         },
 
         onFileRead : function (file) {
-            file.id = file.name;
+            console.log(file);
+            file.id || (file.id = file.name);
             this.trigger('file-read', file, this.model ? this.model.id : null);
         },
 
@@ -433,6 +437,8 @@ define([
                 el : '.item-details',
                 template : this.options.fileEditTemplate
             }).render();
+
+            this.fileEdit.on('file-data-edited', this.onFileRead);
 
             this.fileEdit.on('files-edited', function (data, fileIds) {
                 that.trigger('files-edited', data, fileIds, that.model.id);

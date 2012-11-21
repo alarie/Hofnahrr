@@ -1,6 +1,7 @@
 @import "../js/jam/bootstrap-sass/lib/_variables.scss";
 @import "fonts";
 @import "prefixer";
+@import "sprite";
 
 $hn_lilac: #572381;
 $hn_orange: #ec7405;
@@ -40,7 +41,6 @@ a {
     @include box-shadow(none);
 
 
-
     .nav > li > a {
         width: 170px;
         height: 40px;
@@ -48,9 +48,24 @@ a {
         box-sizing: border-box;
         padding:0;
         margin: 0 5px;
-        text-align: center;
         text-shadow: none;
         color: $bodyBackground;
+        position: relative;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        line-height: 22px;
+        font-size: 22px;
+        font-weight: normal;
+
+        &:after,
+        &::after {
+            content: '\0020';
+            display: inline-block;
+            position: absolute;
+            right:8px;
+            top: 5px;
+            @include sprite_arrow();
+        }
     }
 }
 
@@ -193,7 +208,7 @@ input.search-query {
         border: 4px solid #efefef;
         padding: 10px;
         box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
-        z-index: 1;
+        z-index: $zindexModal;
     }
 }
 
@@ -266,6 +281,29 @@ input.search-query {
     #logo {
         height: 121px;
         background-color: $bodyBackground;
+        position: relative;
+
+        h2 {
+            font-size: 32px;
+            text-transform: uppercase;
+            font-weight: normal;
+            position: absolute;
+            bottom:0;
+            left:15px;
+            letter-spacing:0.08em;
+            a {
+                text-decoration: none;
+            }
+        }
+
+        .image {
+            display: inline-block;
+            @include sprite_logo();
+            position: absolute;
+            right:15px;
+            bottom:10px;
+            opacity: 0.7;
+        }
     }
 
     .content {
@@ -382,6 +420,10 @@ body .modal.fade.in {
         &.#{$hn_col} {
             background-color: #{$c};
         }
+    }
+    
+    .fg-#{$hn_col} {
+        color: $c;
     }
 
     .#{$hn_col} {

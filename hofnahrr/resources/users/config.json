@@ -1,5 +1,5 @@
 {
-	"type": "UserCollection",
+	"type": "ExtendedUserCollection",
 	"properties": {
 		"firstname": {
 			"name": "firstname",

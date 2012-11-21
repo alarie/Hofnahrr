@@ -1,0 +1,23 @@
+@mixin sprite { 
+    background-image: url(../img/sprite.png); 
+    background-repeat: no-repeat; 
+}
+@mixin sprite_arrow { 
+    width: 10px; 
+    height: 29px; 
+    @include sprite();
+    background-position: 0 0; 
+}
+@mixin sprite_logo { 
+    width: 90px; 
+    height: 96px; 
+    @include sprite();
+    background-position: -21px 0; 
+}
+@mixin sprite_pin { 
+    width: 20px; 
+    height: 41px; 
+    @include sprite();
+    background-position: 0 -30px; 
+}
+
