@@ -1,67 +1,40 @@
-<div>
 {{#if id}}
-    <div>
-        Hi {{firstname}} <a class="logout">{{i18n "login_logout"}}</a>
-    </div>
+<p class="navbar-text">
+    Hi {{firstname}} <a class="logout">{{i18n "login_logout"}}</a>
+</p>    
 {{else}}
-    <div>
+    <p class="navbar-text">
         <a class="login">{{i18n "login_login"}}</a>&nbsp;|&nbsp;
         <a class="signup">{{i18n "login_signup"}}</a>
+    </p>
+    <div class="login-form hide container-fluid">
+        <div class="row-fluid">
+            <div class="span6">
+                <h5>{{i18n "app_login"}}</h5>
+                <form class="">
+                    <label class="control-label" for="login-name">{{i18n "login_name"}}</label>
+                    <input class="span12" type="text" id="login-name" name="username" value="{{username}}">
+                    <label class="control-label" for="login-password">{{i18n "login_password"}}</label>
+                    <input class="span12" type="password" id="login-password" name="password" value="{{password}}">
+                    <button class="pull-right btn btn-primary">{{i18n "login_login"}}</button>
+                </form>
+            </div>
+            <div class="span6">
+                <h5>{{i18n "app_other_logins"}}</h5>
+                <form class="open-id" action="users/openid-login" method="POST">
+                    <label>
+                        <input type="radio" name="provider" value="http://www.google.com/accounts/o8/id"/>
+                        <a class="immediate" id="google-openid"><img src="img/google.png"></a>
+                    </label>
+                    <!--
+                    <label>
+                        <input type="radio" name="provider" value="http://flickr.com/" />
+                        <a id="google-openid"><img src="img/google.png"></a>
+                        <input class="immediate" type="text" name="username" placeholder="flickr username" />
+                    </label>
+                    -->
+                </form>
+            </div>
+        </div>
     </div>
-    <form class="form-horizontal signup-form hide">
-        <div class="control-group">
-            <label class="control-label" for="login-name">{{i18n "login_name"}}</label>
-            <div class="controls controls-row">
-                <input class="input-large" type="text" id="login-name" name="username" value="{{username}}">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="login-password">{{i18n "login_password"}}</label>
-            <div class="controls controls-row">
-                <input class="input-large" type="password" id="login-password" name="password" value="{{password}}">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="login_firstname">{{i18n "login_firstname"}}</label>
-            <div class="controls controls-row">
-                <input class="input-large" type="text" id="login_firstname" name="firstname" value="{{firstname}}">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="login_surname">{{i18n "login_surname"}}</label>
-            <div class="controls controls-row">
-                <input class="input-large" type="text" id="login_surname" name="surname" value="{{surname}}">
-            </div>
-        </div>    
-        <div class="control-group">
-            <label class="control-label" for="login-language">{{i18n "login_language"}}</label>
-            <div class="controls controls-row">
-                <select class="input-large" id="login-language" name="language">
-                    <option value="de">{{i18n "lang_german"}}</option>
-                    <option value="en">{{i18n "lang_english"}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <button class="pull-right btn btn-primary">{{i18n "login_signup"}}</button>
-        </div>
-    </form>
-    <form class="form-horizontal login-form hide">
-        <div class="control-group">
-            <label class="control-label" for="login-name">{{i18n "login_name"}}</label>
-            <div class="controls controls-row">
-                <input class="input-large" type="text" id="login-name" name="username" value="{{username}}">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="login-password">{{i18n "login_password"}}</label>
-            <div class="controls controls-row">
-                <input class="input-large" type="password" id="login-password" name="password" value="{{password}}">
-            </div>
-        </div>
-        <div class="control-group">
-            <button class="pull-right btn btn-primary">{{i18n "login_login"}}</button>
-        </div>
-    </form>
 {{/if}}
-</div>

@@ -54,6 +54,10 @@ requirejs.config({
             deps : ['jquery', 'jam/bootstrap-sass/js/bootstrap-transition', 'jam/bootstrap-sass/js/bootstrap-tooltip'],
             exports : 'jQuery'
         },
+        "jam/bootstrap-sass/js/bootstrap-dropdown" : {
+            deps : ['jquery', 'jam/bootstrap-sass/js/bootstrap-transition'],
+            exports : 'jQuery'
+        },
     }
 });
 

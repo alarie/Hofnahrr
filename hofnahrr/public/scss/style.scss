@@ -179,7 +179,7 @@ input.search-query {
     top:0;
     left:0;
     right: 0;
-    z-index: 1031;
+    z-index: $zindexDropdown - 10;
 
     a {
         color: $bodyBackground;
@@ -208,6 +208,7 @@ input.search-query {
         border: 4px solid #efefef;
         padding: 10px;
         box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+        width: 500px;
         z-index: $zindexModal;
     }
 }
@@ -302,7 +303,6 @@ input.search-query {
             position: absolute;
             right:15px;
             bottom:10px;
-            opacity: 0.7;
         }
     }
 

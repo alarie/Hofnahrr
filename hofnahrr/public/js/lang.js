@@ -74,8 +74,10 @@ define([], function () {
 
             'game_new_game' : 'Neues Spiel',
             'game_help' : 'Hilfe',
-            'game_end' : 'Beenden'
-            
+            'game_end' : 'Beenden',
+
+
+            'profile_profile' : 'Profil'
 
         },
         'en' : {
@@ -150,7 +152,10 @@ define([], function () {
 
             'game_new_game' : 'New Game',
             'game_help' : 'Help',
-            'game_end' : 'End'
+            'game_end' : 'End',
+
+
+            'profile_profile' : 'Profile'
         }
     };
 

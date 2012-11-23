@@ -8,6 +8,7 @@ define([
 
     HofnahrrRouter = Backbone.Router.extend({
         routes : {
+            '' : 'show-sight-map',
             'sight/' : 'show-sight-map',
             'sight/create/' : 'create-new-sight',
             'sight/:id/' : 'open-sight-map',
@@ -20,6 +21,8 @@ define([
 
             'game/' : 'game',
             'game/:type/:level/' : 'game-play',
+
+            'profile/' : 'profile',
 
             'login' : 'login',
             'logout' : 'logout',

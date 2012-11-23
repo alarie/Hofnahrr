@@ -16,13 +16,13 @@ define([
         },
 
         login : function (data, options) {
-            var url = this.url() + '/login';
+            var url = this.url() + 'login';
             options || (options = {});
             this.save(data, _.extend({url : url}, options));
         },  
 
         logout : function (options) {
-            var url = this.url() + '/logout';
+            var url = this.url() + 'logout';
             options || (options = {});
             this.attributes = {};
             this.save(null, _.extend({url : url}, options));
@@ -36,7 +36,7 @@ define([
         },
 
         isLoggedIn : function (onTrue, onFalse) {
-            var url = this.url() + '/me';
+            var url = this.url() + 'me';
             this.fetch({
                 url : url,
                 success : function (result) {
@@ -48,7 +48,7 @@ define([
                     }
                 },
                 error : function () {
-                    console.log(arguments);
+                    (onFalse || function () {})();
                 }
             });
         }

@@ -16,6 +16,7 @@ define([
     'views/template',
     'views/templated-bridge',
     'views/login',
+    'views/user-form',
 
     'models/user',
 
@@ -30,7 +31,7 @@ define([
     SightController,
     GameController,
 
-    TemplateView, TemplatedBridgeView, LoginView,
+    TemplateView, TemplatedBridgeView, LoginView, UserFormView,
 
     UserModel,
 
@@ -69,22 +70,16 @@ define([
 
         this.layouts = {};
 
-        SightController.installTo(this);
-        GameController.installTo(this);
-
         this._started = false;
 
         this.createUser();
 
-        this.createLoginView();
 
         // create the HofnahrrRouter instance
-        this.createRouter();
-        this.addEventListeners();
-        // -- TODO: Put this in a SightAppController mixin
-            
-        // --
-        
+        //this.createRouter();
+        //this.addEventListeners();
+
+
         $('body').on('click', '.toggle-sidebar', this.onToggleSidebar);
 
         this.currentUser.isLoggedIn(this.onUserLoggedIn, 
@@ -104,7 +99,6 @@ define([
         },
 
         onToggleSidebar : function () {
-            console.log("here");
             $('body').toggleClass('sidebar-visible');
         },
 
@@ -141,6 +135,10 @@ define([
             if (!this._started) {
                 this._started = true;
             }
+
+            SightController.installTo(this);
+            GameController.installTo(this);
+
         },
 
         setUserLanguage : function () {
@@ -160,6 +158,8 @@ define([
             this.initTemplateHelpers();
             this.createViews();
 
+        this.createRouter();
+        this.addEventListeners();
             Backbone.history.start();
         },
 
@@ -207,10 +207,28 @@ define([
                     '<button class="btn edit-image">' + Templater.i18n('app_edit') + '</button>' : 
                     '';
             });
+
+            Templater.registerHelper('userIsLoggedIn', function () {
+                return !!that.currentUser.id;
+            });
+            Templater.registerHelper('userMay', function () {});
         },
 
         createViews : function () {
             this.createNav();
+            this.createLoginView();
+            this.userFormView = new UserFormView();
+            // sight form events
+            this.userFormView.on('update-user', this.onUpdateUser);
+            this.userFormView.on('delete-user', this.onDeleteUser);
+        },
+
+        onUpdateUser : function () {
+            console.log("update");
+        },
+
+        onDeleteUser : function () {
+            console.log("detele");
         },
 
         addEventListeners : function () {
@@ -237,8 +255,8 @@ define([
 
 
         createNav : function () {
-            $('#main-nav #user')
-                .before((Templater.compile(navigationTmpl))());
+            $('#main-nav')
+                .append((Templater.compile(navigationTmpl))());
         },
 
         // from now on: stuff that happens on demand 
