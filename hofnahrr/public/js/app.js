@@ -17,12 +17,14 @@ define([
     'views/templated-bridge',
     'views/login',
     'views/user-form',
+    'views/modal',
 
     'models/user',
 
     'router/hofnahrr',
 
     'text!tmpl/navigation.tmpl',
+    'text!tmpl/modal.tmpl',
 ], function (
     $, _, Backbone, Templater, lang, DataRetriever, UserAccessHandler,
 
@@ -31,13 +33,14 @@ define([
     SightController,
     GameController,
 
-    TemplateView, TemplatedBridgeView, LoginView, UserFormView,
+    TemplateView, TemplatedBridgeView, LoginView, UserFormView, ModalView,
 
     UserModel,
 
     HofnahrrRouter,
     
-    navigationTmpl
+    navigationTmpl,
+    tmplModal
 ) {
     /* use strict */
 
@@ -66,7 +69,10 @@ define([
                   'onLogout', 
                   'onLogin', 
                   'onSignup', 
-                  'onToggleSidebar');
+                  'onToggleSidebar',
+                  'onOpenProfile', 
+                  'onUpdateUser', 
+                  'onDeleteUser');
 
         this.layouts = {};
 
@@ -129,6 +135,13 @@ define([
             $('#user').append(this.loginView.render().el);
         },
 
+        createUserFormView : function () {
+            this.userFormView = new UserFormView();
+            // sight form events
+            this.userFormView.on('update-user', this.onUpdateUser);
+            this.userFormView.on('delete-user', this.onDeleteUser);
+        },
+
         onUserLoggedIn : function () {
             this.setUserLanguage();
 
@@ -158,8 +171,11 @@ define([
             this.initTemplateHelpers();
             this.createViews();
 
-        this.createRouter();
-        this.addEventListeners();
+
+            this.createRouter();
+            this.addEventListeners();
+
+
             Backbone.history.start();
         },
 
@@ -212,19 +228,32 @@ define([
                 return !!that.currentUser.id;
             });
             Templater.registerHelper('userMay', function () {});
+
+            Templater.registerHelper('languageSelect', function (opts) {
+                var html = '', 
+                    selectedLanguage = that.currentUser.get('language');
+
+                _.each(lang, function (l, key) {
+                    var data = {
+                        selected : key === selectedLanguage ? 'selected="selected"' : '',
+                        value : key,
+                        name : l.lang_name
+                    };
+                    html += opts.fn(data);
+                });
+
+                return html;
+            });
+
         },
 
         createViews : function () {
             this.createNav();
             this.createLoginView();
-            this.userFormView = new UserFormView();
-            // sight form events
-            this.userFormView.on('update-user', this.onUpdateUser);
-            this.userFormView.on('delete-user', this.onDeleteUser);
         },
 
-        onUpdateUser : function () {
-            console.log("update");
+        onUpdateUser : function (data) {
+            this.currentUser.save(data);
         },
 
         onDeleteUser : function () {
@@ -244,6 +273,8 @@ define([
             this.router.on('route:edit-sight', this.onEditSight);
             this.router.on('route:create-new-sight', this.onCreateNewSight);
             this.router.on('route:search', this.onSearch);
+            this.router.on('route:profile', this.onOpenProfile);
+
 
             this.router.on('route:game', this.onOpenGame);
             this.router.on('route:game-play', this.onOpenGamePlay);
@@ -257,6 +288,44 @@ define([
         createNav : function () {
             $('#main-nav')
                 .append((Templater.compile(navigationTmpl))());
+        },
+
+        onOpenProfile : function () {
+            var that = this,
+                userModal;
+
+            if (!this.userModal) {
+                userModal = new ModalView({
+                    el : 'body',
+                    template : tmplModal,
+                    modalOptions : {
+                        show : false,
+                        backdrop : true
+                    },
+                    modalData : {
+                        modalId : 'user-modal',
+                        modalHeadline : Templater.i18n('user_profile'),
+                        modalClose : Templater.i18n('modal_close')
+                    }
+                });
+
+                this.userModal = userModal;
+                this.createUserFormView();
+
+                userModal
+                    .render()
+                    .setContentViews([{
+                        view : this.userFormView
+                    }]);
+
+
+                userModal.modal.on('hide', function () {
+                    that.router.navigate('sights');
+                });
+            }
+
+            userModal.setModel(this.currentUser);
+            userModal.modal.show();
         },
 
         // from now on: stuff that happens on demand 

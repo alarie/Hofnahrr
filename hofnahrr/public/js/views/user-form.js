@@ -43,16 +43,6 @@ define([
                         el : $(e.target)
                     })).getData();
 
-                data.location = {
-                    latitude : data.lat,
-                    longitude : data.lng
-                };
-                data.tags = data.tags.split(',');
-                data.links = data.links.split(',');
-
-                delete data.lat;
-                delete data.lng;
-
                 origData = this.model ? this.model.toJSON() : {};
 
                 _.extend(origData, data);

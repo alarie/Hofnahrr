@@ -2,8 +2,9 @@
 define([], function () {
     var lang = {
         'de' : {
-            'lang_german' : 'Deutsch',
-            'lang_english' : 'English',
+            'lang_de' : 'Deutsch',
+            'lang_en' : 'Englisch',
+            'lang_name' : 'Deutsch',
 
             'discover_discover' : 'Entdecken',
             'game_play' : 'Spielen',
@@ -77,12 +78,21 @@ define([], function () {
             'game_end' : 'Beenden',
 
 
-            'profile_profile' : 'Profil'
+            'profile_profile' : 'Profil',
+
+            'user_profile' : 'Profil',
+            'user_username' : 'Benutzername',
+            'user_firstname' : 'Vorname',
+            'user_surname' : 'Nachname',
+            'user_email' : 'Email',
+            'user_language' : 'Sprache',
+            'user_submit' : 'Benutzerdaten aktualisieren',
 
         },
         'en' : {
-            'lang_german' : 'German',
-            'lang_english' : 'English',
+            'lang_de' : 'German',
+            'lang_en' : 'English',
+            'lang_name' : 'English',
 
             'discover_discover' : 'Discover',
             'game_play' : 'Play',
@@ -155,7 +165,15 @@ define([], function () {
             'game_end' : 'End',
 
 
-            'profile_profile' : 'Profile'
+            'profile_profile' : 'Profile',
+
+            'user_profile' : 'Profile',
+            'user_username' : 'Username',
+            'user_firstname' : 'Firstname',
+            'user_surname' : 'Surname',
+            'user_email' : 'Email',
+            'user_language' : 'Language',
+            'user_submit' : 'Update user data',
         }
     };
 

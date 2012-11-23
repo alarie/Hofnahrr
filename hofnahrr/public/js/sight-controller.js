@@ -216,16 +216,15 @@ define([
                 this.setSelectedSight(model.get('speakingId'));
             }
 
-
             this.listView
                 .setSubPage(this.sightSubpage)
                 .setSight(this.selectedSight && this.selectedSight.get('speakingId'));
 
-            view.setModel(this.selectedSight);
-
             if (this.currentView !== view || !options.silent) {
                 this.setMainView(view);
             }
+
+            view.setModel(this.selectedSight);
 
             this.currentView = view;
 
