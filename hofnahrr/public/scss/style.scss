@@ -261,6 +261,9 @@ input.search-query {
             display: none;
             background-color: $bodyBackground;
             margin: 10px 0;
+            position: relative;
+            height:80px;
+            box-sizing: border-box;
 
             &.nav-header {
                 background-color: transparent;
@@ -269,12 +272,35 @@ input.search-query {
 
             a {
                 margin: 0;
+                padding: 20px 10px 20px 90px;
                 @include transition (background-color 0.1s linear);
+            }
+
+            &.fixed {
+                height: auto;
+                
+                a {
+                    padding: 3px 15px;
+                }
             }
 
             &.active, 
             &.nav-header {
                 display: list-item;
+            }
+
+            .thumb {
+                display: inline-block;
+                background-color: $hn_lilac;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                position:absolute;
+                top:0;
+                bottom:0;
+                left:0;
+                width: 80px;
+                border-right: 1px solid rgba(255, 255, 255, 0.2);
             }
         }
     }

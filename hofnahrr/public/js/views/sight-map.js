@@ -70,6 +70,16 @@ define([
             }
         },
 
+        createIcon : function (content) {
+            var icon = L.divIcon({
+                className : 'map-pin',
+                html : content || '',
+                iconSize : new L.Point(20, 41),
+                iconAnchor : new L.Point(10, 41)
+            });
+            return icon;
+        },
+
         afterRender : function () {
             this.map = null;
             var data = this.model ? this.model.toJSON() : {};
@@ -87,9 +97,12 @@ define([
                 layers: [osm]
             });
 
-            L.marker(pos)
+
+            L.marker(pos, {icon : this.createIcon(1)})
                 .addTo(this.map)
-                .bindPopup('<p>' + data.description + '</p>').openPopup();
+                .bindPopup('<p>' + data.description + '</p>', {
+                    offset: new L.Point(0, -33)
+                }).openPopup();
 
             //fix for bug at first load of map / popup or marke is still on wrong position
             //http://stackoverflow.com/questions/10762984/leaflet-map-not-displayed-properly-inside-tabbed-panel

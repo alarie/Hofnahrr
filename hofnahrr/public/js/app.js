@@ -265,7 +265,7 @@ define([
             // CALL Backbone.history.start() ONLY AFTER THIS SETUP
             this.router.on('route:show-sight-map', this.onShowSightMap);
             this.router.on('route:open-sight', this.onOpenSight);
-            this.router.on('route:open-sight-info', this.onOpenSight);
+            this.router.on('route:open-sight-info', this.onOpenSightInfo);
             this.router.on('route:open-sight-map', this.onOpenSightMap);
             this.router.on('route:open-sight-gallery', this.onOpenSightGallery);
             this.router.on('route:open-sight-mosaic', this.onOpenSightMosaic);
