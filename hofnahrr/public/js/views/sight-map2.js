@@ -41,14 +41,9 @@ define([
                 this.render();
             }
 
+            this.bubble.setModel(model);
+            //this.renderBubbleAtLocation(pos);
             this.panMapTo(pos);
-
-            //TODO open popup of selected sight
-            console.log("Model id" + this.model.id);
-
-            // marker in array ablegen und dann nach ids gehn?
-            
-
         },
 
         panMapTo : function (pos) {
@@ -96,17 +91,6 @@ define([
             return icon;
         },
 
-        addMarker : function (item) {
-            console.log(this.i ++);
-            var attributes = item.attributes;
-            L.marker(new L.LatLng(attributes.location.latitude, attributes.location.longitude), {icon : this.createIcon(this.i)})
-                .addTo(this.map)
-                //TODO replace content by bubble view, for each element a new view
-                .bindPopup('<p>' + attributes.description + '</p>', {
-                    offset: new L.Point(0, -33)
-                });
-        },
-
         afterRender : function () {
             this.map = null;
 
@@ -123,15 +107,18 @@ define([
                 layers: [osm]
             });
 
+            L.marker(pos, {icon : this.createIcon(1)})
+                .addTo(this.map)
+                .bindPopup('<p>' + data.description + '</p>', {
+                    offset: new L.Point(0, -33)
+                }).openPopup();
+
             //fix for bug at first load of map / popup or marker is still on wrong position
             //http://stackoverflow.com/questions/10762984/leaflet-map-not-displayed-properly-inside-tabbed-panel
             L.Util.requestAnimFrame(this.map.invalidateSize, this.map, false, this.map._container);
-            this.i = 0;
 
-            // add marker to map for each sight
-            this.collection.forEach(this.addMarker, this);
+
         },
-
     });
 
     return SightMapView;

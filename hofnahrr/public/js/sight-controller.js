@@ -185,7 +185,7 @@ define([
 
         onOpenSightMap : function (id) {
             this.sightSubpage = 'map/';
-            this.openSightView(id, this.sightMapView, {silent : true});
+            this.openSightView(id, this.sightMapView, {silent : true, collection : true});
         },
 
         onOpenSightGallery : function (id) {
@@ -222,6 +222,11 @@ define([
 
             if (this.currentView !== view || !options.silent) {
                 this.setMainView(view);
+            }
+
+            if (options.collection) {
+                view.collection = this.sightCollection;
+                console.log("test");
             }
 
             view.setModel(this.selectedSight);
