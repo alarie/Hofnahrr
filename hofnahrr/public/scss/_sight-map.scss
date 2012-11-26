@@ -1,7 +1,4 @@
 /* _sight-map.scss */
-#map {
-    height: 600px;
-}
 
 @import "leaflet";
 
@@ -33,4 +30,3 @@
     @include sprite_pin();
     text-align: center;
 }
-

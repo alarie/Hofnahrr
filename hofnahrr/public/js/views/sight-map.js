@@ -24,6 +24,7 @@ define([
 
     SightMapView = TemplatedBridgeView.extend({
         tagname : 'div',
+        className : 'mapcontainer',
         template : tmplSightMap,
 
         initialize : function () {

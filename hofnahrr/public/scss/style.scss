@@ -348,6 +348,10 @@ i.pictos{
 @import "sight-info";
 @import "sight-map";
 
+//set map to height of the window
+.mapcontainer, .row-fluid, #map, #page-content {
+    height: 100%;
+}
 
 // Upload animator
 .uploading {
