@@ -10,4 +10,5 @@ if (this.pictures) {
             that.pictures[i].id = name;
         }
     });
+    this.icon = this.pictures[0];
 }

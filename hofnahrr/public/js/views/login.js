@@ -1,11 +1,12 @@
 /*global define*/
 define([
+    'jam/bootstrap-sass/js/bootstrap-dropdown',
     'underscore',
     'views/template',
     'data-retriever',
 
     'text!tmpl/login.tmpl'
-], function (_, TemplateView, DataRetriever, tmplLogin) {
+], function ($, _, TemplateView, DataRetriever, tmplLogin) {
     'use strict';
 
     var LoginView;
@@ -15,11 +16,12 @@ define([
 
         events : function () {
             return {
-                'submit .login-form ' : 'onLogin',
                 'submit .signup-form' : 'onSignup',
                 'click .login' : 'onShowLogin',
                 'click .signup' : 'onShowSignup',
-                'click .logout' : 'onLogout'
+                'click .logout' : 'onLogout',
+                'click .open-id .immediate' : 'onCheckLogin',
+                'keydown .open-id .immediate' : 'onCheckLogin'
             };
         },
 
@@ -28,10 +30,19 @@ define([
             _.bindAll(this, 'onLogin', 'onShowLogin', 'onShowSignup');
         },
 
+        onCheckLogin : function (e) {
+            var target = e.currentTarget,
+                event = e.type;
+
+            if ((target.nodeName === 'A' && event === 'click') ||
+                (target.nodeName === 'INPUT' && event === 'keydown' && e.which === 13)) {
+                e.preventDefault();
+                this.$('form.open-id').submit();
+            }
+        },
+
         onShowLogin : function () {
-            this.$('form')
-                .addClass('hide')
-                .filter('.login-form')
+            this.$('.login-form')
                 .removeClass('hide');
         },
         onShowSignup : function () {
@@ -56,6 +67,10 @@ define([
         onLogout : function (e) {
             e.preventDefault();
             this.trigger('logout-user');
+        },
+
+        afterRender : function () {
+            $('.dropdown-toggle').dropdown();
         }
     });
 

@@ -50,13 +50,14 @@ define([
     FileFormView = TemplateView.extend({
         events : function () {
             return {
-                'submit' : 'onSubmit'
+                'submit' : 'onSubmit',
+                'click .edit-image' : 'onEditImage'
             };
         },
 
         initialize : function () {
             TemplateView.prototype.initialize.apply(this, arguments);
-            _.bindAll(this, 'render');
+            _.bindAll(this, 'render', 'onEditImage');
             this.model = new Backbone.Model();
             this.model.on('change', this.render);
         },
@@ -87,10 +88,49 @@ define([
 
             if (this.models.length >= 1) {
                 this.model.set(this.models[0].toJSON());
+                this.readImage(this.models[0]);
                 this.model.trigger('change');
             }
         },
 
+        readImage : function (model) {
+            var that = this;
+            this.img = new Image();
+            this.imageLoaded = false;
+            this.img.src = 'http://localhost:2403/' + model.get('url');
+            this.img.onload = function () {
+                that.imageLoaded = true;  
+            };
+        },
+
+        onEditImage : function () {
+            var Intent = window.Intent || window.intent,
+                that = this,
+                onsuccess = function (data) {
+                    var model = that.models[0].toJSON();
+                    model.file = data;                    
+                    that.trigger('file-data-edited', model, model.id);
+                };
+
+
+            if (!Intent) {
+                return;
+            }
+
+            var canvas = document.createElement('canvas'),
+                ctx = canvas.getContext('2d'),
+                mime = 'image/png',
+                data,
+                intent;
+
+            canvas.width = this.img.width;
+            canvas.height = this.img.height;
+            ctx.drawImage(this.img, 0, 0);
+            data = canvas.toDataURL(mime, null);
+
+            intent = new Intent('http://webintents.org/edit', mime, data);
+            window.navigator.startActivity(intent, onsuccess);
+        },
 
         render : function () {
             this.beforeRender();
@@ -342,7 +382,9 @@ define([
                 count = files.length;
 
             if (count) {
-                this.readFiles(files);
+                this.readFiles(files, {
+                    onFileRead : this.onFileRead
+                });
                 this.trigger('files-dropped', files);
             }
         },
@@ -352,17 +394,17 @@ define([
             this.$el.hide();
         },
 
-        readFiles : function (files) {
-            var that = this;
+        readFiles : function (files, options) {
             _.each(files, function (file) {
                 FileHandler.create()
                     .filter(file.type)
-                    .getDataURL(file, that.onFileRead);
+                    .getDataURL(file, options.onFileRead);
             });
         },
 
         onFileRead : function (file) {
-            file.id = file.name;
+            console.log(file);
+            file.id || (file.id = file.name);
             this.trigger('file-read', file, this.model ? this.model.id : null);
         },
 
@@ -395,6 +437,8 @@ define([
                 el : '.item-details',
                 template : this.options.fileEditTemplate
             }).render();
+
+            this.fileEdit.on('file-data-edited', this.onFileRead);
 
             this.fileEdit.on('files-edited', function (data, fileIds) {
                 that.trigger('files-edited', data, fileIds, that.model.id);

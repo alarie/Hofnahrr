@@ -8,6 +8,7 @@ define([
 
     HofnahrrRouter = Backbone.Router.extend({
         routes : {
+            '' : 'show-sight-map',
             'sight/' : 'show-sight-map',
             'sight/create/' : 'create-new-sight',
             'sight/:id/' : 'open-sight-map',
@@ -20,6 +21,8 @@ define([
 
             'game/' : 'game',
             'game/:type/:level/' : 'game-play',
+
+            'profile/' : 'profile',
 
             'login' : 'login',
             'logout' : 'logout',
@@ -34,10 +37,10 @@ define([
 
         if (current.indexOf('tag/') === 0 || current.indexOf('search/') === 0) {
             if (old.indexOf('tag/') >= 0) {
-                current = old.replace(/tag\/.*$/, current);
+                current = old.replace(/tag\/[\s\S]*$/, current);
             }
             if (old.indexOf('search/') >= 0) {
-                current = old.replace(/search\/.*$/, current);
+                current = old.replace(/search\/[\s\S]*$/, current);
             }
             else {
                 current = old + current;

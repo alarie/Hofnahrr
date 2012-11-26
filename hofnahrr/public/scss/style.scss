@@ -1,6 +1,7 @@
 @import "../js/jam/bootstrap-sass/lib/_variables.scss";
 @import "fonts";
 @import "prefixer";
+@import "sprite";
 
 $hn_lilac: #572381;
 $hn_orange: #ec7405;
@@ -8,8 +9,15 @@ $hn_green: #269d2e;
 $hn_red: #d80000;
 
 /* BOOSTRAT EXTENDS */
+html, body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 body{
+    box-sizing: border-box;
     padding-top: 80px;
+    overflow: hidden;
 }
 
 a {
@@ -33,7 +41,6 @@ a {
     @include box-shadow(none);
 
 
-
     .nav > li > a {
         width: 170px;
         height: 40px;
@@ -41,9 +48,24 @@ a {
         box-sizing: border-box;
         padding:0;
         margin: 0 5px;
-        text-align: center;
         text-shadow: none;
         color: $bodyBackground;
+        position: relative;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        line-height: 22px;
+        font-size: 22px;
+        font-weight: normal;
+
+        &:after,
+        &::after {
+            content: '\0020';
+            display: inline-block;
+            position: absolute;
+            right:8px;
+            top: 5px;
+            @include sprite_arrow();
+        }
     }
 }
 
@@ -145,6 +167,8 @@ input.search-query {
 
 #main-content {
     padding: 0px;
+    width: 100%;
+    height: 100%;
     position: relative;
 }
 
@@ -155,7 +179,7 @@ input.search-query {
     top:0;
     left:0;
     right: 0;
-    z-index: 1031;
+    z-index: $zindexDropdown - 10;
 
     a {
         color: $bodyBackground;
@@ -184,7 +208,8 @@ input.search-query {
         border: 4px solid #efefef;
         padding: 10px;
         box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
-        z-index: 1;
+        width: 500px;
+        z-index: $zindexModal;
     }
 }
 
@@ -236,6 +261,9 @@ input.search-query {
             display: none;
             background-color: $bodyBackground;
             margin: 10px 0;
+            position: relative;
+            height:80px;
+            box-sizing: border-box;
 
             &.nav-header {
                 background-color: transparent;
@@ -244,12 +272,35 @@ input.search-query {
 
             a {
                 margin: 0;
+                padding: 20px 10px 20px 90px;
                 @include transition (background-color 0.1s linear);
+            }
+
+            &.fixed {
+                height: auto;
+                
+                a {
+                    padding: 3px 15px;
+                }
             }
 
             &.active, 
             &.nav-header {
                 display: list-item;
+            }
+
+            .thumb {
+                display: inline-block;
+                background-color: $hn_lilac;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                position:absolute;
+                top:0;
+                bottom:0;
+                left:0;
+                width: 80px;
+                border-right: 1px solid rgba(255, 255, 255, 0.2);
             }
         }
     }
@@ -257,6 +308,28 @@ input.search-query {
     #logo {
         height: 121px;
         background-color: $bodyBackground;
+        position: relative;
+
+        h2 {
+            font-size: 32px;
+            text-transform: uppercase;
+            font-weight: normal;
+            position: absolute;
+            bottom:0;
+            left:15px;
+            letter-spacing:0.08em;
+            a {
+                text-decoration: none;
+            }
+        }
+
+        .image {
+            display: inline-block;
+            @include sprite_logo();
+            position: absolute;
+            right:15px;
+            bottom:10px;
+        }
     }
 
     .content {
@@ -369,13 +442,17 @@ body .modal.fade.in {
         $c: $hn_green;
     }
 
-    .navbar .nav > li > a {
+    .navbar .nav > li  a {
         &.#{$hn_col} {
             background-color: #{$c};
         }
     }
+    
+    .fg-#{$hn_col} {
+        color: $c;
+    }
 
-    body.#{$hn_col} {
+    .#{$hn_col} {
 
         #secondary-nav {
             border-top: 3px solid #{$c}; 

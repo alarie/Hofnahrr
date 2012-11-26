@@ -1,10 +1,36 @@
 /* _sight-map.scss */
 #map {
-	height: 600px;
-	// width: 100%;
-	// background-color: black;
+    height: 600px;
 }
 
-
-
 @import "leaflet";
+
+.leaflet-popup {
+    
+    
+
+    .leaflet-popup-content-wrapper {
+        background-color:rgba(255, 255, 255, 0.85);
+        border: 3px solid $hn_lilac;
+        @include border-radius(0);
+    }
+    .leaflet-popup-tip-container {
+        z-index: 1;
+        margin-top: -3px;
+
+        .leaflet-popup-tip {
+            box-shadow: none;
+            width: 10px;
+            height: 10px;
+            border-bottom: 3px solid rgba($hn_lilac, 0.96);
+            border-right: 3px solid rgba($hn_lilac, 0.96);
+            margin-top: -8px;
+        }
+
+    }
+}
+.map-pin {
+    @include sprite_pin();
+    text-align: center;
+}
+

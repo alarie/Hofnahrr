@@ -18,12 +18,40 @@ define([
         upload : function (file) {
             var xhr = this.prepareUpload();
 
+            if (!(file instanceof window.File)) {
+                file = this._dataURItoBlob(file);
+            }
+
             this.formData.append('File', file);
             
             xhr.open('POST', this.path, true);
             xhr.overrideMimeType('multipart/form-data');
 
             xhr.send(this.formData);
+        },
+
+        // http://stackoverflow.com/questions/6850276/how-to-convert-dataurl-to-file-object-in-javascript
+        _dataURItoBlob : function (dataURI) {
+            // convert base64 to raw binary data held in a string
+            // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+            var byteString = atob(dataURI.split(',')[1]),
+
+            // separate out the mime component
+                mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0],
+
+            // write the bytes of the string to an ArrayBuffer
+                ab = new ArrayBuffer(byteString.length),
+                ia = new Uint8Array(ab),
+                i, bb;
+            for (i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            // write the ArrayBuffer to a blob, and you're done
+            bb = new window.Blob([ab], {
+                type : mimeString
+            });
+            return bb;
         },
 
         prepareUpload : function () {

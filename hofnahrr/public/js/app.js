@@ -16,12 +16,15 @@ define([
     'views/template',
     'views/templated-bridge',
     'views/login',
+    'views/user-form',
+    'views/modal',
 
     'models/user',
 
     'router/hofnahrr',
 
     'text!tmpl/navigation.tmpl',
+    'text!tmpl/modal.tmpl',
 ], function (
     $, _, Backbone, Templater, lang, DataRetriever, UserAccessHandler,
 
@@ -30,15 +33,24 @@ define([
     SightController,
     GameController,
 
-    TemplateView, TemplatedBridgeView, LoginView,
+    TemplateView, TemplatedBridgeView, LoginView, UserFormView, ModalView,
 
     UserModel,
 
     HofnahrrRouter,
     
-    navigationTmpl
+    navigationTmpl,
+    tmplModal
 ) {
     /* use strict */
+
+
+
+    /* some global stuff*/
+
+    window.Intent = window.Intent || window.WebKitIntent;
+    window.navigator.startActivity = window.navigator.startActivity || window.navigator.webkitStartActivity;
+    window.intent = window.intent || window.webkitIntent;
     
     var AppController;
 
@@ -57,26 +69,23 @@ define([
                   'onLogout', 
                   'onLogin', 
                   'onSignup', 
-                  'onToggleSidebar');
+                  'onToggleSidebar',
+                  'onOpenProfile', 
+                  'onUpdateUser', 
+                  'onDeleteUser');
 
         this.layouts = {};
-
-        SightController.installTo(this);
-        GameController.installTo(this);
 
         this._started = false;
 
         this.createUser();
 
-        this.createLoginView();
 
         // create the HofnahrrRouter instance
-        this.createRouter();
-        this.addEventListeners();
-        // -- TODO: Put this in a SightAppController mixin
-            
-        // --
-        
+        //this.createRouter();
+        //this.addEventListeners();
+
+
         $('body').on('click', '.toggle-sidebar', this.onToggleSidebar);
 
         this.currentUser.isLoggedIn(this.onUserLoggedIn, 
@@ -87,6 +96,7 @@ define([
     AppController.prototype = {
         setLayout : function (name) {
             if (this.currentLayout !== name) {
+                $('body').removeClass('lilac green orange');
                 $('#main-content')
                     .html(Templater.compile(this.layouts[name]));
                 this.currentLayout = name;
@@ -95,7 +105,6 @@ define([
         },
 
         onToggleSidebar : function () {
-            console.log("here");
             $('body').toggleClass('sidebar-visible');
         },
 
@@ -126,12 +135,23 @@ define([
             $('#user').append(this.loginView.render().el);
         },
 
+        createUserFormView : function () {
+            this.userFormView = new UserFormView();
+            // sight form events
+            this.userFormView.on('update-user', this.onUpdateUser);
+            this.userFormView.on('delete-user', this.onDeleteUser);
+        },
+
         onUserLoggedIn : function () {
             this.setUserLanguage();
 
             if (!this._started) {
                 this._started = true;
             }
+
+            SightController.installTo(this);
+            GameController.installTo(this);
+
         },
 
         setUserLanguage : function () {
@@ -150,6 +170,11 @@ define([
         start : function () {
             this.initTemplateHelpers();
             this.createViews();
+
+
+            this.createRouter();
+            this.addEventListeners();
+
 
             Backbone.history.start();
         },
@@ -192,10 +217,47 @@ define([
             Templater.registerHelper('array2String', function (items) {
                 return (items || []).join(', ');
             });
+
+            Templater.registerHelper('imageEditIntent', function (opts) {
+                return (window.Intent || window.intent) ? 
+                    '<button class="btn edit-image">' + Templater.i18n('app_edit') + '</button>' : 
+                    '';
+            });
+
+            Templater.registerHelper('userIsLoggedIn', function () {
+                return !!that.currentUser.id;
+            });
+            Templater.registerHelper('userMay', function () {});
+
+            Templater.registerHelper('languageSelect', function (opts) {
+                var html = '', 
+                    selectedLanguage = that.currentUser.get('language');
+
+                _.each(lang, function (l, key) {
+                    var data = {
+                        selected : key === selectedLanguage ? 'selected="selected"' : '',
+                        value : key,
+                        name : l.lang_name
+                    };
+                    html += opts.fn(data);
+                });
+
+                return html;
+            });
+
         },
 
         createViews : function () {
             this.createNav();
+            this.createLoginView();
+        },
+
+        onUpdateUser : function (data) {
+            this.currentUser.save(data);
+        },
+
+        onDeleteUser : function () {
+            console.log("detele");
         },
 
         addEventListeners : function () {
@@ -203,7 +265,7 @@ define([
             // CALL Backbone.history.start() ONLY AFTER THIS SETUP
             this.router.on('route:show-sight-map', this.onShowSightMap);
             this.router.on('route:open-sight', this.onOpenSight);
-            this.router.on('route:open-sight-info', this.onOpenSight);
+            this.router.on('route:open-sight-info', this.onOpenSightInfo);
             this.router.on('route:open-sight-map', this.onOpenSightMap);
             this.router.on('route:open-sight-gallery', this.onOpenSightGallery);
             this.router.on('route:open-sight-mosaic', this.onOpenSightMosaic);
@@ -211,6 +273,8 @@ define([
             this.router.on('route:edit-sight', this.onEditSight);
             this.router.on('route:create-new-sight', this.onCreateNewSight);
             this.router.on('route:search', this.onSearch);
+            this.router.on('route:profile', this.onOpenProfile);
+
 
             this.router.on('route:game', this.onOpenGame);
             this.router.on('route:game-play', this.onOpenGamePlay);
@@ -222,8 +286,46 @@ define([
 
 
         createNav : function () {
-            $('#main-nav #user')
-                .before((Templater.compile(navigationTmpl))());
+            $('#main-nav')
+                .append((Templater.compile(navigationTmpl))());
+        },
+
+        onOpenProfile : function () {
+            var that = this,
+                userModal;
+
+            if (!this.userModal) {
+                userModal = new ModalView({
+                    el : 'body',
+                    template : tmplModal,
+                    modalOptions : {
+                        show : false,
+                        backdrop : true
+                    },
+                    modalData : {
+                        modalId : 'user-modal',
+                        modalHeadline : Templater.i18n('user_profile'),
+                        modalClose : Templater.i18n('modal_close')
+                    }
+                });
+
+                this.userModal = userModal;
+                this.createUserFormView();
+
+                userModal
+                    .render()
+                    .setContentViews([{
+                        view : this.userFormView
+                    }]);
+
+
+                userModal.modal.on('hide', function () {
+                    that.router.navigate('sights');
+                });
+            }
+
+            userModal.setModel(this.currentUser);
+            userModal.modal.show();
         },
 
         // from now on: stuff that happens on demand 

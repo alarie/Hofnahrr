@@ -175,8 +175,7 @@ define([
         },
 
         onOpenSight : function (id) {
-            // TODO make this open the map
-            this.onOpenSightInfo(id);        
+            this.onOpenSightMap(id);        
         },
 
         onOpenSightInfo : function (id) {
@@ -201,7 +200,7 @@ define([
 
         onShowSightMap : function () {
             this.sightSubpage = '';
-            this.openSightView(null, this.sightInfoView);
+            this.openSightView(null, this.sightMapView);
         },
 
         openSightView : function (sightId, view, options) {
@@ -210,17 +209,22 @@ define([
             this.setLayout('sight');
 
             this.setSelectedSight(sightId);
+            
+            if (!this.selectedSight) {
+                var rnd = parseInt(Math.random() * this.sightCollection.length, 10),
+                    model = this.sightCollection.at(rnd);
+                this.setSelectedSight(model.get('speakingId'));
+            }
+
             this.listView
                 .setSubPage(this.sightSubpage)
                 .setSight(this.selectedSight && this.selectedSight.get('speakingId'));
 
-            if (this.selectedSight) {
-                view.setModel(this.selectedSight);
-            }
-
             if (this.currentView !== view || !options.silent) {
                 this.setMainView(view);
             }
+
+            view.setModel(this.selectedSight);
 
             this.currentView = view;
 
@@ -228,6 +232,7 @@ define([
         },
 
         initSightLayout : function () {
+            $('body').addClass('lilac');
             this.appendSightListView();
             this.appendSecondaryNavView(this.sightNav);
         },

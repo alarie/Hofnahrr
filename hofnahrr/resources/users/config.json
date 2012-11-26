@@ -1,13 +1,29 @@
 {
-	"type": "UserCollection",
+	"type": "ExtendedUserCollection",
 	"properties": {
+		"username": {
+			"name": "username",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "username",
+			"order": 0
+		},
+		"email": {
+			"name": "email",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "email",
+			"order": 1
+		},
 		"firstname": {
 			"name": "firstname",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "firstname",
-			"order": 0
+			"order": 2
 		},
 		"surname": {
 			"name": "surname",
@@ -15,7 +31,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "surname",
-			"order": 1
+			"order": 3
 		},
 		"network": {
 			"name": "network",
@@ -23,7 +39,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "network",
-			"order": 2
+			"order": 4
 		},
 		"isAdmin": {
 			"name": "isAdmin",
@@ -31,7 +47,7 @@
 			"typeLabel": "boolean",
 			"required": false,
 			"id": "isAdmin",
-			"order": 3
+			"order": 5
 		},
 		"registeredAt": {
 			"name": "registeredAt",
@@ -39,7 +55,7 @@
 			"typeLabel": "date",
 			"required": false,
 			"id": "registeredAt",
-			"order": 4
+			"order": 6
 		},
 		"lastVisitAt": {
 			"name": "lastVisitAt",
@@ -47,7 +63,7 @@
 			"typeLabel": "date",
 			"required": false,
 			"id": "lastVisitAt",
-			"order": 5
+			"order": 7
 		},
 		"rank": {
 			"name": "rank",
@@ -55,7 +71,7 @@
 			"typeLabel": "number",
 			"required": false,
 			"id": "rank",
-			"order": 6
+			"order": 8
 		},
 		"pictureUrl": {
 			"name": "pictureUrl",
@@ -63,7 +79,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "pictureUrl",
-			"order": 7
+			"order": 9
 		},
 		"location": {
 			"name": "location",
@@ -71,7 +87,7 @@
 			"typeLabel": "object",
 			"required": false,
 			"id": "location",
-			"order": 8
+			"order": 10
 		},
 		"title": {
 			"name": "title",
@@ -79,7 +95,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "title",
-			"order": 9
+			"order": 11
 		},
 		"language": {
 			"name": "language",
@@ -87,7 +103,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "language",
-			"order": 10
+			"order": 12
 		}
 	}
 }
