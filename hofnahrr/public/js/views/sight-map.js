@@ -14,7 +14,7 @@ define([
 ) {
     'use strict';
 
-    var SightMapView, SightMapBubbleView;
+    var SightMapView, SightMapBubbleView, markers;
 
     SightMapBubbleView = TemplatedBridgeView.extend({
         tagname : 'div',
@@ -43,11 +43,11 @@ define([
 
             this.panMapTo(pos);
 
-            //TODO open popup of selected sight
-            console.log("Model id" + this.model.id);
+            //open popup of selected sight / right way or solve it with a extra view?
+            // called in panMapTo
+            // this.markers[model.id].openPopup();
+            // this.markers[this.model.id].openPopup();
 
-            // marker in array ablegen und dann nach ids gehn?
-            
 
         },
 
@@ -72,6 +72,7 @@ define([
                     // again wait for the map to have been rerendered
                     window.setTimeout(function () {
                         that.map.setZoom(DETAIL_ZOOM_LEVEL);
+                        that.markers[that.model.id].openPopup();
                     }, ANIMATION_DELAY);
                 });
             });
@@ -97,13 +98,18 @@ define([
         },
 
         addMarker : function (item) {
-            console.log(this.i ++);
-            var attributes = item.attributes;
-            L.marker(new L.LatLng(attributes.location.latitude, attributes.location.longitude), {icon : this.createIcon(this.i)})
+            this.i++;
+            var attributes = item.attributes,
+                sightMapBubbleView = new SightMapBubbleView({model : item});
+
+            this.markers[attributes.id] = L.marker(new L.LatLng(attributes.location.latitude, attributes.location.longitude), {icon : this.createIcon(this.i)})
                 .addTo(this.map)
-                //TODO replace content by bubble view, for each element a new view
-                .bindPopup('<p>' + attributes.description + '</p>', {
+                .bindPopup(sightMapBubbleView.render().el[0], {
                     offset: new L.Point(0, -33)
+                })
+                .on('click', function () {
+                    //link to the associated sight page
+                    window.location.hash = '#sight/' + item.get('speakingId') + '/map/';
                 });
         },
 
@@ -129,6 +135,7 @@ define([
             this.i = 0;
 
             // add marker to map for each sight
+            this.markers = [];
             this.collection.forEach(this.addMarker, this);
         },
 

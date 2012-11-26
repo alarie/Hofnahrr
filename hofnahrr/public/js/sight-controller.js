@@ -226,7 +226,7 @@ define([
 
             if (options.collection) {
                 view.collection = this.sightCollection;
-                console.log("test");
+                console.log("SET COLLECTION OF VIEW");
             }
 
             view.setModel(this.selectedSight);
