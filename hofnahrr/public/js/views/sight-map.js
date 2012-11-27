@@ -44,7 +44,7 @@ define([
 
             this.model = model;
 
-            if (this.model) }
+            if (this.model) {
                 data = this.model.toJSON();
                 pos = new L.LatLng(data.location.latitude, 
                                 data.location.longitude);
@@ -142,7 +142,6 @@ define([
 
         resetMarkers : function () {
             // add marker to map for each sight
-<<<<<<< Updated upstream
             this.markers = [];
 
             if (this.collection) {
@@ -163,17 +162,7 @@ define([
                     //link to the associated sight page
                     window.location.hash = '#sight/' + item.get('speakingId') + '/map/';
                 });
-=======
             //this.collection.each(this.addMarker, this);
-        },
-
-        onAdd : function (model) {
-            this.addMarker(model);
->>>>>>> Stashed changes
-        },
-
-        onAddAll : function (collection) {
-            collection.each(this.onAdd);
         }
 
     });
