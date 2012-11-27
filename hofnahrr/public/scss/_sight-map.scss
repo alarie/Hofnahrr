@@ -7,6 +7,8 @@
         background-color:rgba(255, 255, 255, 0.85);
         border: 3px solid $hn_lilac;
         @include border-radius(0);
+        overflow: auto;
+        color: $hn_lilac;
     }
     .leaflet-popup-tip-container {
         z-index: 1;
@@ -22,9 +24,27 @@
         }
 
     }
+    h4 {
+        font-size: 16px;
+        margin-bottom: 2em;
+    }
+
     ul {
         list-style: none;
         margin: 0;
+        padding-bottom: 10px;
+
+        li {
+            float: left;
+            padding-right: 6px;
+            margin-right: 6px;
+            border-right: 1px solid $hn_lilac;
+            line-height: normal;
+        }
+
+        li:last-child {
+            border: none;
+        }
     }
 }
 .map-pin {
