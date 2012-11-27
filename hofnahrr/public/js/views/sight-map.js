@@ -228,18 +228,14 @@ define([
                 });
             });
 
-            if (this._offsetIsWithinView(offset)) {
+            // zoom out to the pan zoom level or if we are there already, just
+            // trigger starting of the panning
+            if (this.map.getZoom() <= PAN_ZOOM_LEVEL || 
+                this._offsetIsWithinView(offset)) {
                 this.map.fire('zoomend'); 
             }
             else {
-                // zoom out to the pan zoom level or if we are there already, just
-                // trigger starting of the panning
-                if (this.map.getZoom() <= PAN_ZOOM_LEVEL) {
-                    this.map.fire('zoomend'); 
-                }
-                else {
-                    this.map.setZoom(PAN_ZOOM_LEVEL);
-                }
+                this.map.setZoom(PAN_ZOOM_LEVEL);
             }
         },
 
