@@ -62,6 +62,7 @@ define([
             // called in panMapTo
             // this.markers[model.id].openPopup();
             // this.markers[this.model.id].openPopup();
+            this.map.closePopup();
 
 
         },
@@ -128,7 +129,8 @@ define([
             this.map = new L.Map(this.$('#map')[0], {
                 center: pos,
                 zoom: 14,
-                layers: [osm]
+                layers: [osm],
+                zoomControl: false
             });
 
             //fix for bug at first load of map / popup or marker is still on wrong position

@@ -26,6 +26,10 @@
         }
 
     }
+    ul {
+        list-style: none;
+        margin: 0;
+    }
 }
 .map-pin {
     @include sprite_pin();
