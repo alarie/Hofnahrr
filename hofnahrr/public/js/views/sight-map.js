@@ -30,6 +30,8 @@ define([
         initialize : function () {
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
             this.bubble = new SightMapBubbleView();
+
+            _.bindAll(this, 'onAdd', 'onAddAll', 'addMarker');
         },
 
         setCollection : function (collection) {
@@ -37,16 +39,24 @@ define([
         },
 
         setModel : function (model) {
+            var data,
+                pos;
+
             this.model = model;
-            var data = this.model.toJSON(),
+
+            if (this.model) }
+                data = this.model.toJSON();
                 pos = new L.LatLng(data.location.latitude, 
-                                   data.location.longitude);
+                                data.location.longitude);
+            }
 
             if (!this.$el.children(0).length) {
                 this.render();
             }
 
-            this.panMapTo(pos);
+            if (pos) {
+                this.panMapTo(pos);
+            }
 
             //open popup of selected sight / right way or solve it with a extra view?
             // called in panMapTo
@@ -130,6 +140,7 @@ define([
 
         resetMarkers : function () {
             // add marker to map for each sight
+<<<<<<< Updated upstream
             this.markers = [];
 
             if (this.collection) {
@@ -150,7 +161,18 @@ define([
                     //link to the associated sight page
                     window.location.hash = '#sight/' + item.get('speakingId') + '/map/';
                 });
+=======
+            //this.collection.each(this.addMarker, this);
         },
+
+        onAdd : function (model) {
+            this.addMarker(model);
+>>>>>>> Stashed changes
+        },
+
+        onAddAll : function (collection) {
+            collection.each(this.onAdd);
+        }
 
     });
 
