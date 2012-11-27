@@ -303,6 +303,7 @@ define([
                         backdrop : true
                     },
                     modalData : {
+                        modalClassName : 'green',
                         modalId : 'user-modal',
                         modalHeadline : Templater.i18n('user_profile'),
                         modalClose : Templater.i18n('modal_close')

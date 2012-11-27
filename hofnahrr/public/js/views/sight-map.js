@@ -77,7 +77,9 @@ define([
                     // again wait for the map to have been rerendered
                     window.setTimeout(function () {
                         that.map.setZoom(DETAIL_ZOOM_LEVEL);
-                        that.markers[that.model.id].openPopup();
+                        if (that.markers[that.model.id]) {
+                            that.markers[that.model.id].openPopup();
+                        }
                     }, ANIMATION_DELAY);
                 });
             });

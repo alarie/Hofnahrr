@@ -204,8 +204,7 @@ define([
         },
 
         onShowSightMap : function () {
-            this.sightSubpage = '';
-            this.openSightView(null, this.sightMapView);
+            this.onOpenSightMap();
         },
 
         openSightView : function (sightId, view, options) {
