@@ -185,7 +185,9 @@ input.search-query {
         color: $bodyBackground;
         @include border-radius(0);
         border: 0;
-        
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;        
     }
     
     .nav-tabs {
@@ -276,6 +278,14 @@ input.search-query {
                 @include transition (background-color 0.1s linear);
             }
 
+            strong {
+                max-width: 145px;
+                display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
             &.fixed {
                 height: auto;
                 
@@ -301,6 +311,25 @@ input.search-query {
                 left:0;
                 width: 80px;
                 border-right: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .index {
+                position: absolute;
+                right: 10px;
+                top:10px;
+                width: 28px;
+                padding: 2px 5px;
+                box-sizing: border-box;
+                text-align: center;
+                background-color: $hn_lilac;
+                color: white;
+            }
+
+            &.active {
+                .index {
+                    background-color: white;
+                    color: $hn_lilac;
+                }
             }
         }
     }

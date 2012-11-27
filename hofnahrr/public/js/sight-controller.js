@@ -3,6 +3,7 @@ define([
     'underscore', 'backbone', 
     'templater',
 
+    'collections/sight-collection',
     'models/sight',
     'models/file',
 
@@ -33,6 +34,7 @@ define([
 ], function (
     _, Backbone, Templater,
     
+    SightCollection,
     SightModel, 
     FileModel,
 
@@ -121,7 +123,7 @@ define([
 
         createSightCollection : function () {
             // create a new Sight Collection
-            this.sightCollection = new Backbone.Collection();
+            this.sightCollection = new SightCollection();
             this.sightCollection.model = SightModel;
             this.sightCollection.url = settings.API.SIGHTS;
 
@@ -185,7 +187,10 @@ define([
 
         onOpenSightMap : function (id) {
             this.sightSubpage = 'map/';
-            this.openSightView(id, this.sightMapView, {silent : true, collection : true});
+            this.openSightView(id, this.sightMapView, {
+                silent : true, 
+                collection : true
+            });
         },
 
         onOpenSightGallery : function (id) {
@@ -199,8 +204,7 @@ define([
         },
 
         onShowSightMap : function () {
-            this.sightSubpage = '';
-            this.openSightView(null, this.sightMapView);
+            this.onOpenSightMap();
         },
 
         openSightView : function (sightId, view, options) {
@@ -208,25 +212,25 @@ define([
 
             this.setLayout('sight');
 
-            this.setSelectedSight(sightId);
+            this.setSelectedSight(sightId, {
+                randomize : true
+            });
             
-            if (!this.selectedSight) {
-                var rnd = parseInt(Math.random() * this.sightCollection.length, 10),
-                    model = this.sightCollection.at(rnd);
-                this.setSelectedSight(model.get('speakingId'));
-            }
-
             this.listView
                 .setSubPage(this.sightSubpage)
                 .setSight(this.selectedSight && this.selectedSight.get('speakingId'));
 
+            // only update main view, if it's actually a different view or if
+            // the silent option was not set
             if (this.currentView !== view || !options.silent) {
                 this.setMainView(view);
             }
 
+            // provide views that require a collection for rendering with said
+            // collection
             if (options.collection) {
-                view.collection = this.sightCollection;
-                console.log("SET COLLECTION OF VIEW");
+                view.setCollection(this.sightCollection);
+                console.log('SET COLLECTION OF VIEW');
             }
 
             view.setModel(this.selectedSight);
@@ -242,14 +246,22 @@ define([
             this.appendSecondaryNavView(this.sightNav);
         },
 
-        setSelectedSight : function (id) {
+        setSelectedSight : function (id, options) {
+            options || (options = {});
             if (id) {
                 this.selectedSight = this.sightCollection.find(function (model) {
                     return id === model.get('speakingId');
                 });
             }
             else {
-                this.selectedSight = null;
+                if (options.randomize) {
+                    var rnd = parseInt(Math.random() * 
+                                       this.sightCollection.length, 10);
+                    this.selectedSight = this.sightCollection.at(rnd);
+                }
+                else {
+                    this.selectedSight = null;
+                }
             }
             this.sightNav.setModel(this.selectedSight);
         },

@@ -4,17 +4,20 @@ define([
     'views/templated-bridge',
     'libs/leaflet-src',
 
+    'settings',
+
     'text!tmpl/sight-map.tmpl',
     'text!tmpl/sight-map-bubble.tmpl'
 ], function (
     _, Backbone, TemplatedBridgeView,
     leaflet,
+    settings,
     tmplSightMap,
     tmplSightMapBubble
 ) {
     'use strict';
 
-    var SightMapView, SightMapBubbleView, markers;
+    var SightMapView, SightMapBubbleView;
 
     SightMapBubbleView = TemplatedBridgeView.extend({
         tagname : 'div',
@@ -30,27 +33,45 @@ define([
         initialize : function () {
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
             this.bubble = new SightMapBubbleView();
+
+            _.bindAll(this, 'addMarker');
+        },
+
+        setCollection : function (collection) {
+            this.collection = collection;
         },
 
         setModel : function (model) {
+            var pos;
+
             this.model = model;
-            var data = this.model.toJSON(),
-                pos = new L.LatLng(data.location.latitude, 
-                                   data.location.longitude);
+
+            pos = this._getPosition(model);
 
             if (!this.$el.children(0).length) {
                 this.render();
             }
 
-            this.panMapTo(pos);
+            if (pos) {
+                this.panMapTo(pos);
+            }
 
             //open popup of selected sight / right way or solve it with a extra view?
             // called in panMapTo
             // this.markers[model.id].openPopup();
             // this.markers[this.model.id].openPopup();
             this.map.closePopup();
+        },
 
+        _getPosition : function (model) {
+            var location,
+                pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG);
 
+            if (model && (location = model.getLocation())) {
+                pos = new L.LatLng(location.latitude, 
+                                location.longitude);
+            }
+            return pos;
         },
 
         panMapTo : function (pos) {
@@ -74,7 +95,9 @@ define([
                     // again wait for the map to have been rerendered
                     window.setTimeout(function () {
                         that.map.setZoom(DETAIL_ZOOM_LEVEL);
-                        that.markers[that.model.id].openPopup();
+                        if (that.markers[that.model.id]) {
+                            that.markers[that.model.id].openPopup();
+                        }
                     }, ANIMATION_DELAY);
                 });
             });
@@ -99,31 +122,16 @@ define([
             return icon;
         },
 
-        addMarker : function (item) {
-            this.i++;
-            var attributes = item.attributes,
-                sightMapBubbleView = new SightMapBubbleView({model : item});
-
-            this.markers[attributes.id] = L.marker(new L.LatLng(attributes.location.latitude, attributes.location.longitude), {icon : this.createIcon(this.i)})
-                .addTo(this.map)
-                .bindPopup(sightMapBubbleView.render().el[0], {
-                    offset: new L.Point(0, -33)
-                })
-                .on('click', function () {
-                    //link to the associated sight page
-                    window.location.hash = '#sight/' + item.get('speakingId') + '/map/';
-                });
-        },
 
         afterRender : function () {
             this.map = null;
 
-            var data = this.model ? this.model.toJSON() : {},
-                pos = new L.LatLng(data.location.latitude, data.location.longitude),
-                osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            var osmAttrib = 'Map data © openstreetmap contributors',
                 cmUrl = 'http://{s}.tile.cloudmade.com/77aace98a9ec425f8f2cb228c484f71f/997/256/{z}/{x}/{y}.png',
-                osmAttrib = 'Map data © openstreetmap contributors',
-                osm = new L.TileLayer(cmUrl, {minZoom: 8, maxZoom: 18, attribution: osmAttrib});
+                osm = new L.TileLayer(cmUrl, {minZoom: 8, maxZoom: 18, attribution: osmAttrib}),
+                pos = this._getPosition(this.model);
+
+
 
             this.map = new L.Map(this.$('#map')[0], {
                 center: pos,
@@ -135,12 +143,39 @@ define([
             //fix for bug at first load of map / popup or marker is still on wrong position
             //http://stackoverflow.com/questions/10762984/leaflet-map-not-displayed-properly-inside-tabbed-panel
             L.Util.requestAnimFrame(this.map.invalidateSize, this.map, false, this.map._container);
-            this.i = 0;
+            this.resetMarkers();
+        },
 
+        resetMarkers : function () {
             // add marker to map for each sight
             this.markers = [];
-            this.collection.forEach(this.addMarker, this);
+
+            if (this.collection) {
+                this.collection.forEach(this.addMarker, this);
+            }
         },
+
+        addMarker : function (item) {
+            var sightMapBubbleView = new SightMapBubbleView({model : item}),
+                location = item.getLocation();
+
+            if (location) {
+                this.markers[item.id] = L.marker(new L.LatLng(
+                        location.latitude, 
+                        location.longitude
+                    ), {
+                        icon : this.createIcon(item.get('index'))
+                    })
+                    .addTo(this.map)
+                    .bindPopup(sightMapBubbleView.render().el[0], {
+                        offset: new L.Point(0, -33)
+                    })
+                    .on('click', function () {
+                        //link to the associated sight page
+                        window.location.hash = '#sight/' + item.get('speakingId') + '/map/';
+                    });
+            }
+        }
 
     });
 

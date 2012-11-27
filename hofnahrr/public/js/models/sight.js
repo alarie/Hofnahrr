@@ -107,6 +107,13 @@ define([
             });
         },
 
+        getLocation : function () {
+            var location = this.attributes.location; 
+            return location && location.latitude && location.longitude ?
+                location : 
+                null;
+        }
+
     });
 
     return SightModel;
