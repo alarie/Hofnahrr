@@ -174,7 +174,7 @@ input.search-query {
 
 #secondary-nav {
     padding: 0 10px;
-    position: absolute;
+    // position: absolute;
     height: 38px;
     top:0;
     left:0;
@@ -230,6 +230,7 @@ input.search-query {
 #page-content {
     margin-right:0;
     @include transition(margin-right 0.3s ease-in-out);
+
 }
 
 #sidebar {

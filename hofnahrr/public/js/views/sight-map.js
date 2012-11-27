@@ -42,30 +42,37 @@ define([
         },
 
         setModel : function (model) {
-            var pos;
+            var pos,
+                popup;
 
             this.model = model;
 
             pos = this._getPosition(model);
-
+            
             if (!this.$el.children(0).length) {
                 this.render();
             }
 
             if (pos) {
                 this.panMapTo(pos);
+                //close old popup new popup is opened in panMapTo function
+                this.map.closePopup();
+            } else {
+                //suggestion: show error msg when sight has no location
+                pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG);
+                this.panMapTo(pos);
+                popup = L.popup()
+                .setLatLng(pos)
+                .setContent('<p>Fehlermeldung!<br />Keine Ortsinformation hinterlegt.</p>')
+                .openOn(this.map);
             }
-
-            //open popup of selected sight / right way or solve it with a extra view?
-            // called in panMapTo
-            // this.markers[model.id].openPopup();
-            // this.markers[this.model.id].openPopup();
-            this.map.closePopup();
+           
         },
 
         _getPosition : function (model) {
             var location,
-                pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG);
+                // pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG);
+                pos = null;
 
             if (model && (location = model.getLocation())) {
                 pos = new L.LatLng(location.latitude, 
@@ -168,7 +175,8 @@ define([
                     })
                     .addTo(this.map)
                     .bindPopup(sightMapBubbleView.render().el[0], {
-                        offset: new L.Point(0, -33)
+                        offset: new L.Point(0, -33),
+                        closeButton: false
                     })
                     .on('click', function () {
                         //link to the associated sight page

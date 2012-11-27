@@ -316,7 +316,6 @@ input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
 
 #secondary-nav {
   padding: 0 10px;
-  position: absolute;
   height: 38px;
   top: 0;
   left: 0;
