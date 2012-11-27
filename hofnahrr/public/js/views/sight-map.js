@@ -4,11 +4,14 @@ define([
     'views/templated-bridge',
     'libs/leaflet-src',
 
+    'settings',
+
     'text!tmpl/sight-map.tmpl',
     'text!tmpl/sight-map-bubble.tmpl'
 ], function (
     _, Backbone, TemplatedBridgeView,
     leaflet,
+    settings,
     tmplSightMap,
     tmplSightMapBubble
 ) {
@@ -31,7 +34,7 @@ define([
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
             this.bubble = new SightMapBubbleView();
 
-            _.bindAll(this, 'onAdd', 'onAddAll', 'addMarker');
+            _.bindAll(this, 'addMarker');
         },
 
         setCollection : function (collection) {
@@ -119,12 +122,16 @@ define([
         afterRender : function () {
             this.map = null;
 
-            var data = this.model ? this.model.toJSON() : {},
-                pos = new L.LatLng(data.location.latitude, data.location.longitude),
-                //osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                cmUrl = 'http://{s}.tile.cloudmade.com/77aace98a9ec425f8f2cb228c484f71f/997/256/{z}/{x}/{y}.png',
+            var location, 
                 osmAttrib = 'Map data © openstreetmap contributors',
+                cmUrl = 'http://{s}.tile.cloudmade.com/77aace98a9ec425f8f2cb228c484f71f/997/256/{z}/{x}/{y}.png',
+                pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG), 
                 osm = new L.TileLayer(cmUrl, {minZoom: 8, maxZoom: 18, attribution: osmAttrib});
+
+            if (this.model) {
+                location = this.model.get('location');
+                pos = new L.LatLng(location.latitude, location.longitude);
+            }
 
             this.map = new L.Map(this.$('#map')[0], {
                 center: pos,
@@ -136,7 +143,6 @@ define([
             //fix for bug at first load of map / popup or marker is still on wrong position
             //http://stackoverflow.com/questions/10762984/leaflet-map-not-displayed-properly-inside-tabbed-panel
             L.Util.requestAnimFrame(this.map.invalidateSize, this.map, false, this.map._container);
-            
             this.resetMarkers();
         },
 
