@@ -19,13 +19,14 @@ define([
         template : tmplSightGallery,
 
         afterRender : function () {
-            this.$('.carousel').carousel();
-            var that = this;
-            this.$('.left').click(that, function () {
-                that.$('.carousel').carousel('prev');
+            var carousel = this.$('.carousel');
+            carousel.carousel();
+            
+            this.$('.left').click(carousel, function () {
+                carousel.carousel('prev');
             });
-            this.$('.right').click(that, function () {
-                that.$('.carousel').carousel('next');
+            this.$('.right').click(carousel, function () {
+                carousel.carousel('next');
             });
         }
     });
