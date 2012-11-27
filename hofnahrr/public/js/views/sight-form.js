@@ -1,5 +1,6 @@
 /*global define*/
 define([
+    'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore',
     'data-retriever',
     'templater',
@@ -7,6 +8,7 @@ define([
     'settings',
     'text!tmpl/sight-form.tmpl'
 ], function (
+    $,
     _,
     DataRetriever,
     Templater,
@@ -24,6 +26,7 @@ define([
         events : function () {
             return {
                 'submit' : 'onSubmit',
+                'click #pick-on-map' : 'onSightPickOnMap',
                 'click .sight-delete' : 'onDelete',
                 'input #sight-name' : 'onSightNameChanged'
             };
@@ -31,7 +34,27 @@ define([
 
         initialize : function () {
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
-            _.bindAll(this, 'onSubmit');
+            _.bindAll(this, 'onSubmit', 'onSightPickOnMap');
+        },
+
+        onSightPickOnMap : function (e) {
+            var that = this,
+                orig = this.model ? this.model.get('location') : {};
+
+            e.preventDefault();
+            e.stopPropagation();
+            this.trigger('pick-on-map', function (location) {
+                that.$('#sight-location-lat').val(location.lat);
+                that.$('#sight-location-lng').val(location.lng);
+                that.model.set({location : {
+                    latitude : location.lat,
+                    longitude : location.lng
+                }});
+            }, function () {
+                that.$('#sight-location-lat').val(orig.lat);
+                that.$('#sight-location-lng').val(orig.lng);
+                that.model.set({location : orig});
+            });
         },
 
         onSightNameChanged : function (e) {
@@ -108,6 +131,12 @@ define([
             this.$('#sight-links').tagsInput({
                 height : '50px;',
                 defaultText : Templater.i18n('sight_add_link')
+            });
+            this.$('.sight-pick-help').popover({
+                title : Templater.i18n('sight_pick_on_map'),
+                content : Templater.i18n('sight_pick_on_map_help'),
+                placement : 'right',
+                trigger : 'hover'
             });
         }
     });

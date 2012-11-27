@@ -86,7 +86,8 @@ define([
                     'onEditPicturesOfSight',
                     'onOpenContainer', 
                     'onNewContainer',
-                    'onSearch');
+                    'onSearch', 
+                    'onPickOnMap');
 
 
             // no sight is selected now
@@ -213,31 +214,36 @@ define([
             this.setLayout('sight');
 
             this.setSelectedSight(sightId, {
-                randomize : true
+                randomize : typeof options.randomize !== 'undefined' ? 
+                    options.randomize :
+                    true
             });
             
-            this.listView
-                .setSubPage(this.sightSubpage)
-                .setSight(this.selectedSight && this.selectedSight.get('speakingId'));
+            if (!options.noSubpage) {
+                this.listView
+                    .setSubPage(this.sightSubpage)
+                    .setSight(this.selectedSight && this.selectedSight.get('speakingId'));
+            }
 
             // only update main view, if it's actually a different view or if
             // the silent option was not set
             if (this.currentView !== view || !options.silent) {
                 this.setMainView(view);
             }
+            this.currentView = view;
 
             // provide views that require a collection for rendering with said
             // collection
             if (options.collection) {
                 view.setCollection(this.sightCollection);
-                console.log('SET COLLECTION OF VIEW');
             }
 
             view.setModel(this.selectedSight);
 
-            this.currentView = view;
 
-            this.sightNav.openPage(this.sightSubpage);
+            if (!options.noSubpage) {
+                this.sightNav.openPage(this.sightSubpage);
+            }
         },
 
         initSightLayout : function () {
@@ -376,6 +382,7 @@ define([
             // sight form events
             this.sightFormView.on('create-sight', this.onCreateSight);
             this.sightFormView.on('delete-sight', this.onDeleteSight);
+            this.sightFormView.on('pick-on-map', this.onPickOnMap);
         },
 
         createFileDropView : function () {
@@ -449,7 +456,58 @@ define([
             if (sight) {
                 this.sightModal.setModel(sight);
             }
-        }
+        },
+
+        onPickOnMap : function (onPick, onCancel) {
+            // open map sight
+            var that = this,
+                modal = this.sightModal.modal,
+                sightMapView = this.sightMapView,
+                oldView = this.currentView,
+                onReady = function () {
+                    sightMapView.off('map-ready', onReady);
+
+                    sightMapView.preparePicker()
+                        .on('pick', function (location) {
+                            onPick(location);
+                        })
+                        .on('picked', function () {
+                            sightMapView.destroyPicker();
+                            if (oldView && that.currentView !== oldView) {
+                                that.setMainView(oldView);
+                            }
+                            that.currentView = oldView;
+                            modal.show();
+                        })
+                        .on('cancel', function (location) {
+                            sightMapView.destroyPicker();
+                            onCancel();
+                            if (oldView && that.currentView !== oldView) {
+                                that.setMainView(oldView);
+                            }
+                            that.currentView = oldView;
+                            modal.show();
+                        });
+
+                };
+
+            modal.minimize();
+            if (this.currentView === sightMapView) {
+                onReady();
+            }
+            else {
+                sightMapView.on('map-ready', onReady);
+            }
+
+            this.openSightView(null, sightMapView, {
+                silent : true, 
+                collection : true,
+                randomize : false,
+                noSubpage : true
+            });
+
+        },
+
 
     };
 

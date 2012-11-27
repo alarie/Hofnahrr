@@ -1,10 +1,28 @@
 /*global define*/
 define([
-   'jam/bootstrap-sass/js/bootstrap-modal',
-   'underscore',
-   'views/template'
+    'jam/bootstrap-sass/js/bootstrap-modal',
+    'underscore',
+    'views/template'
 ], function ($, _, TemplateView) {
     'use strict';
+
+    $.fn.modal.Constructor.prototype.minimize = function () {
+        this.isShown = false;
+        $.support.transition && this.$element.hasClass('fade') ?
+            this.hideWithTransition() :
+            this.hideModal();
+    };
+
+    $.fn.modal.Constructor.prototype.maximize = function () {
+        console.log("here");
+        var that = this;
+        $.support.transition ?
+            this.$element.one($.support.transition.end, function () { 
+                that.$element.trigger('shown');
+            }) :
+            this.$element.trigger('shown');
+        this.isShown = true;
+    };
 
     var Modal,
         transitionEvents = 'transitionend webkitTransitionEnd oTransitionEnd oTransitionend';
@@ -56,12 +74,30 @@ define([
                 off : function (event, callback) {
                     that.modalEl.off(event, callback);
                     return that;
+                },
+
+                minimize : function () {
+                    that.modalEl.modal('minimize');
+                    return that;
+                },
+
+                maximize : function () {
+                    that.modalEl.modal('maximize');
+                    return that;
                 }
             };
             this.modal = modal;
 
 
             this.selectedView = null;
+        },
+
+        minimize : function () {
+            
+        },
+
+        maximize : function () {
+        
         },
 
         onWizardAction : function (e) {

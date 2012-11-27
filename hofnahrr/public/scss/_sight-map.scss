@@ -3,7 +3,13 @@
 @import "leaflet";
 
 .leaflet-top .leaflet-control {
-    margin-top: 51px;
+    margin-top: 48px;
+    background-color: rgba(87, 35, 129, 0.5);
+    @include border-radius(0);
+}
+
+.picker-controls {
+    padding: 5px;
 }
 
 .leaflet-popup {

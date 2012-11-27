@@ -17,7 +17,91 @@ define([
 ) {
     'use strict';
 
-    var SightMapView, SightMapBubbleView;
+    var SightMapView, SightMapBubbleView, PickerControls;
+
+    PickerControls = L.Control.extend({
+        options : {
+            position: 'topright'
+        },
+
+        initialize : function () {
+            
+            this.el = $('<div />', {
+                'class' : 'picker-controls form-inline'
+            });
+
+            this.okBtn = $('<button />', {
+                'class' : 'btn btn-primary', 
+                text : 'OK'
+            });
+
+            this.cancelBtn = $('<button />', {
+                'class' : 'btn btn-danger', 
+                text : 'Cancel'
+            });
+
+            this.latInput = $('<input />', {
+                'class' : 'input-small', 
+                type : 'text', 
+                placeholder : 'Latitude'
+            });
+
+            this.lngInput = $('<input />', {
+                'class' : 'input-small', 
+                type : 'text', 
+                placeholder : 'Longitude'
+            });
+
+            _.bindAll(this, 'onPick');
+
+            this.render();
+        },
+
+        render : function () {
+            var that = this;
+
+            this.okBtn.on('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                that.trigger('ok');
+            });
+
+            this.cancelBtn.on('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                that.trigger('cancel');
+            });
+
+
+            this.el.append(this.latInput, '\n', this.lngInput, '\n', this.okBtn, '\n', this.cancelBtn);
+
+            return this;
+        },
+
+        setLocation : function (location) {
+            this.latInput.val(location.lat);
+            this.lngInput.val(location.lng);
+        },
+
+        onAdd : function (map) {
+            map.on('click', this.onPick);
+            return this.el[0];
+        },
+
+        onRemove : function (map) {
+            map.off('click', this.onPick);
+        },
+
+        onPick : function (e) {
+            this.setLocation(e.latlng);
+            this.trigger('pick', {
+                lat : e.latlng.lat,
+                lng : e.latlng.lng
+            });
+        }
+    });
+
+    _.extend(PickerControls.prototype, Backbone.Events);
 
     SightMapBubbleView = TemplatedBridgeView.extend({
         tagname : 'div',
@@ -102,7 +186,7 @@ define([
                     // again wait for the map to have been rerendered
                     window.setTimeout(function () {
                         that.map.setZoom(DETAIL_ZOOM_LEVEL);
-                        if (that.markers[that.model.id]) {
+                        if (that.model && that.markers[that.model.id]) {
                             that.markers[that.model.id].openPopup();
                         }
                     }, ANIMATION_DELAY);
@@ -144,13 +228,15 @@ define([
                 center: pos,
                 zoom: 14,
                 layers: [osm],
-                zoomControl: false
+                zoomControl: true
             });
 
             //fix for bug at first load of map / popup or marker is still on wrong position
             //http://stackoverflow.com/questions/10762984/leaflet-map-not-displayed-properly-inside-tabbed-panel
             L.Util.requestAnimFrame(this.map.invalidateSize, this.map, false, this.map._container);
             this.resetMarkers();
+
+            this.trigger('map-ready');
         },
 
         resetMarkers : function () {
@@ -163,11 +249,12 @@ define([
         },
 
         addMarker : function (item) {
-            var sightMapBubbleView = new SightMapBubbleView({model : item}),
+            var marker,
+                sightMapBubbleView = new SightMapBubbleView({model : item}),
                 location = item.getLocation();
 
             if (location) {
-                this.markers[item.id] = L.marker(new L.LatLng(
+                marker = L.marker(new L.LatLng(
                         location.latitude, 
                         location.longitude
                     ), {
@@ -182,8 +269,46 @@ define([
                         //link to the associated sight page
                         window.location.hash = '#sight/' + item.get('speakingId') + '/map/';
                     });
+
+                item.on('change:location', function () {
+                    var location = item.getLocation();
+                    marker.setLatLng(new L.LatLng(
+                        location.latitude, 
+                        location.longitude
+                    ));
+                });
+
+                this.markers[item.id] = marker;
             }
+        },
+
+        preparePicker : function (callback) {
+            var that = this,
+                pickerCtrls = new PickerControls();
+
+            this.map.addControl(pickerCtrls);
+
+            pickerCtrls.on('ok', function () {
+                that.trigger('picked');
+            });
+
+            pickerCtrls.on('cancel', function (location) {
+                that.trigger('cancel', location);
+            });
+
+            pickerCtrls.on('pick', function (location) {
+                that.trigger('pick', location);
+            });
+
+            this.pickerCtrls = pickerCtrls;
+
+            return this;
+        },
+
+        destroyPicker : function () {
+            this.map.removeControl(this.pickerCtrls);
         }
+
 
     });
 
