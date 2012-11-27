@@ -330,7 +330,10 @@ input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
     background-clip: padding-box;
-    border: 0; }
+    border: 0;
+    line-height: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px; }
   #secondary-nav .nav-tabs {
     border: 0; }
   #secondary-nav .nav-tabs a:hover {
@@ -939,6 +942,9 @@ i.pictos {
 
 .leaflet-popup-content {
   font: 12px/1.4 "Helvetica Neue", Arial, Helvetica, sans-serif; }
+
+.leaflet-top .leaflet-control {
+  margin-top: 51px; }
 
 .leaflet-popup .leaflet-popup-content-wrapper {
   background-color: rgba(255, 255, 255, 0.85);

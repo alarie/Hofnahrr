@@ -2,10 +2,11 @@
 
 @import "leaflet";
 
-.leaflet-popup {
-    
-    
+.leaflet-top .leaflet-control {
+    margin-top: 51px;
+}
 
+.leaflet-popup {
     .leaflet-popup-content-wrapper {
         background-color:rgba(255, 255, 255, 0.85);
         border: 3px solid $hn_lilac;
