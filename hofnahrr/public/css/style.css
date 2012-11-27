@@ -420,6 +420,19 @@ input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
         left: 0;
         width: 80px;
         border-right: 1px solid rgba(255, 255, 255, 0.2); }
+      #sidebar ul li .index {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 28px;
+        padding: 2px 5px;
+        box-sizing: border-box;
+        text-align: center;
+        background-color: #572381;
+        color: white; }
+      #sidebar ul li.active .index {
+        background-color: white;
+        color: #572381; }
   #sidebar #logo {
     height: 121px;
     background-color: white;
