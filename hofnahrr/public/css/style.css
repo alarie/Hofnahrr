@@ -1104,9 +1104,20 @@ i.pictos {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\000035}}
 .leaflet-top .leaflet-control {
-  margin-top: 51px; }
+  margin-top: 48px;
+  background-color: rgba(87, 35, 129, 0.5);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000311}}
+.picker-controls {
+  padding: 5px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000316}}
 .leaflet-popup .leaflet-popup-content-wrapper {
   background-color: rgba(255, 255, 255, 0.85);
   border: 3px solid #572381;
@@ -1118,11 +1129,11 @@ i.pictos {
   background-clip: padding-box;
   overflow: auto;
   color: #572381; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000323}}
 .leaflet-popup .leaflet-popup-tip-container {
   z-index: 1;
   margin-top: -3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000327}}
   .leaflet-popup .leaflet-popup-tip-container .leaflet-popup-tip {
     box-shadow: none;
     width: 10px;
@@ -1130,27 +1141,27 @@ i.pictos {
     border-bottom: 3px solid rgba(87, 35, 129, 0.96);
     border-right: 3px solid rgba(87, 35, 129, 0.96);
     margin-top: -8px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000337}}
 .leaflet-popup h4 {
   font-size: 16px;
   margin-bottom: 2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000342}}
 .leaflet-popup ul {
   list-style: none;
   margin: 0;
   padding-bottom: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000347}}
   .leaflet-popup ul li {
     float: left;
     padding-right: 6px;
     margin-right: 6px;
     border-right: 1px solid #572381;
     line-height: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000349}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000355}}
   .leaflet-popup ul li:last-child {
     border: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-map\.scss}line{font-family:\0000360}}
 .map-pin {
   width: 20px;
   height: 41px;

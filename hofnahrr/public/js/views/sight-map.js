@@ -27,7 +27,7 @@ define([
         initialize : function () {
             
             this.el = $('<div />', {
-                'class' : 'picker-controls'
+                'class' : 'picker-controls form-inline'
             });
 
             this.okBtn = $('<button />', {
@@ -73,7 +73,7 @@ define([
             });
 
 
-            this.el.append(this.latInput, this.lngInput, this.okBtn, this.cancelBtn);
+            this.el.append(this.latInput, '\n', this.lngInput, '\n', this.okBtn, '\n', this.cancelBtn);
 
             return this;
         },

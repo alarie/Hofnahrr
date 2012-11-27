@@ -1,5 +1,6 @@
 /*global define*/
 define([
+    'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore',
     'data-retriever',
     'templater',
@@ -7,6 +8,7 @@ define([
     'settings',
     'text!tmpl/sight-form.tmpl'
 ], function (
+    $,
     _,
     DataRetriever,
     Templater,
@@ -37,7 +39,7 @@ define([
 
         onSightPickOnMap : function (e) {
             var that = this,
-                orig = this.model.get('location');
+                orig = this.model ? this.model.get('location') : {};
 
             e.preventDefault();
             e.stopPropagation();
@@ -129,6 +131,12 @@ define([
             this.$('#sight-links').tagsInput({
                 height : '50px;',
                 defaultText : Templater.i18n('sight_add_link')
+            });
+            this.$('.sight-pick-help').popover({
+                title : Templater.i18n('sight_pick_on_map'),
+                content : Templater.i18n('sight_pick_on_map_help'),
+                placement : 'right',
+                trigger : 'hover'
             });
         }
     });
