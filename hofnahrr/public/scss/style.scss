@@ -276,6 +276,14 @@ input.search-query {
                 @include transition (background-color 0.1s linear);
             }
 
+            strong {
+                max-width: 145px;
+                display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
             &.fixed {
                 height: auto;
                 

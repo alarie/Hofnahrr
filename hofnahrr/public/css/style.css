@@ -402,6 +402,12 @@ input.block + div.tagsinput > span.tag, input.block + div.tagsinput > div {
         -moz-transition: background-color 0.1s linear;
         -o-transition: background-color 0.1s linear;
         transition: background-color 0.1s linear; }
+      #sidebar ul li strong {
+        max-width: 145px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
       #sidebar ul li.fixed {
         height: auto; }
         #sidebar ul li.fixed a {
