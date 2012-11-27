@@ -24,6 +24,7 @@ define([
         events : function () {
             return {
                 'submit' : 'onSubmit',
+                'click #pick-on-map' : 'onSightPickOnMap',
                 'click .sight-delete' : 'onDelete',
                 'input #sight-name' : 'onSightNameChanged'
             };
@@ -31,7 +32,27 @@ define([
 
         initialize : function () {
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
-            _.bindAll(this, 'onSubmit');
+            _.bindAll(this, 'onSubmit', 'onSightPickOnMap');
+        },
+
+        onSightPickOnMap : function (e) {
+            var that = this,
+                orig = this.model.get('location');
+
+            e.preventDefault();
+            e.stopPropagation();
+            this.trigger('pick-on-map', function (location) {
+                that.$('#sight-location-lat').val(location.lat);
+                that.$('#sight-location-lng').val(location.lng);
+                that.model.set({location : {
+                    latitude : location.lat,
+                    longitude : location.lng
+                }});
+            }, function () {
+                that.$('#sight-location-lat').val(orig.lat);
+                that.$('#sight-location-lng').val(orig.lng);
+                that.model.set({location : orig});
+            });
         },
 
         onSightNameChanged : function (e) {

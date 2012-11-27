@@ -113,7 +113,6 @@ define([
                 location : 
                 null;
         }
-
     });
 
     return SightModel;
