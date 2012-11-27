@@ -940,6 +940,9 @@ i.pictos {
     border-bottom: 3px solid rgba(87, 35, 129, 0.96);
     border-right: 3px solid rgba(87, 35, 129, 0.96);
     margin-top: -8px; }
+.leaflet-popup ul {
+  list-style: none;
+  margin: 0; }
 
 .map-pin {
   width: 20px;

@@ -3,9 +3,6 @@
 @import "leaflet";
 
 .leaflet-popup {
-    
-    
-
     .leaflet-popup-content-wrapper {
         background-color:rgba(255, 255, 255, 0.85);
         border: 3px solid $hn_lilac;
@@ -24,6 +21,10 @@
             margin-top: -8px;
         }
 
+    }
+    ul {
+        list-style: none;
+        margin: 0;
     }
 }
 .map-pin {
