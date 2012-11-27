@@ -20,6 +20,13 @@ define([
 
         afterRender : function () {
             this.$('.carousel').carousel();
+            var that = this;
+            this.$('.left').click(that, function () {
+                that.$('.carousel').carousel('prev');
+            });
+            this.$('.right').click(that, function () {
+                that.$('.carousel').carousel('next');
+            });
         }
     });
 
