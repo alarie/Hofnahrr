@@ -15,10 +15,13 @@ define([
             Backbone.Collection.prototype.add.apply(this, arguments);
 
             _.each(models, function (model) {
-                that.get(model.id).set({
-                    index : index
-                });
-                index += 1;
+                // TODO handle new items
+                if (model.id) {
+                    that.get(model.id).set({
+                        index : index
+                    });
+                    index += 1;
+                }
             });
 
             return this;

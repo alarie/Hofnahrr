@@ -42,16 +42,11 @@ define([
         },
 
         setModel : function (model) {
-            var data,
-                pos;
+            var pos;
 
             this.model = model;
 
-            if (this.model) {
-                data = this.model.toJSON();
-                pos = new L.LatLng(data.location.latitude, 
-                                data.location.longitude);
-            }
+            pos = this._getPosition(model);
 
             if (!this.$el.children(0).length) {
                 this.render();
@@ -66,8 +61,17 @@ define([
             // this.markers[model.id].openPopup();
             // this.markers[this.model.id].openPopup();
             this.map.closePopup();
+        },
 
+        _getPosition : function (model) {
+            var location,
+                pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG);
 
+            if (model && (location = model.getLocation())) {
+                pos = new L.LatLng(location.latitude, 
+                                location.longitude);
+            }
+            return pos;
         },
 
         panMapTo : function (pos) {
@@ -122,16 +126,12 @@ define([
         afterRender : function () {
             this.map = null;
 
-            var location, 
-                osmAttrib = 'Map data © openstreetmap contributors',
+            var osmAttrib = 'Map data © openstreetmap contributors',
                 cmUrl = 'http://{s}.tile.cloudmade.com/77aace98a9ec425f8f2cb228c484f71f/997/256/{z}/{x}/{y}.png',
-                pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG), 
-                osm = new L.TileLayer(cmUrl, {minZoom: 8, maxZoom: 18, attribution: osmAttrib});
+                osm = new L.TileLayer(cmUrl, {minZoom: 8, maxZoom: 18, attribution: osmAttrib}),
+                pos = this._getPosition(this.model);
 
-            if (this.model) {
-                location = this.model.get('location');
-                pos = new L.LatLng(location.latitude, location.longitude);
-            }
+
 
             this.map = new L.Map(this.$('#map')[0], {
                 center: pos,
@@ -156,19 +156,25 @@ define([
         },
 
         addMarker : function (item) {
-            var attributes = item.attributes,
-                sightMapBubbleView = new SightMapBubbleView({model : item});
+            var sightMapBubbleView = new SightMapBubbleView({model : item}),
+                location = item.getLocation();
 
-            this.markers[attributes.id] = L.marker(new L.LatLng(attributes.location.latitude, attributes.location.longitude), {icon : this.createIcon(item.get('index'))})
-                .addTo(this.map)
-                .bindPopup(sightMapBubbleView.render().el[0], {
-                    offset: new L.Point(0, -33)
-                })
-                .on('click', function () {
-                    //link to the associated sight page
-                    window.location.hash = '#sight/' + item.get('speakingId') + '/map/';
-                });
-            //this.collection.each(this.addMarker, this);
+            if (location) {
+                this.markers[item.id] = L.marker(new L.LatLng(
+                        location.latitude, 
+                        location.longitude
+                    ), {
+                        icon : this.createIcon(item.get('index'))
+                    })
+                    .addTo(this.map)
+                    .bindPopup(sightMapBubbleView.render().el[0], {
+                        offset: new L.Point(0, -33)
+                    })
+                    .on('click', function () {
+                        //link to the associated sight page
+                        window.location.hash = '#sight/' + item.get('speakingId') + '/map/';
+                    });
+            }
         }
 
     });
