@@ -1,5 +1,6 @@
 *.DS_Store
 hofnahrr/.dpd
+hofnahrr/data
 hofnahrr/Captfile
 hofnahrr/config
 hofnahrr/data/mongod.lock
