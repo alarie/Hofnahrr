@@ -165,11 +165,46 @@ define([
             return pos;
         },
 
+        // Following three methods were copied from the leaflet library. At
+        // leaflet they were makred as private (starting with an underscore). 
+        // To be sure that with updates of leaflet those methods won't change,
+        // they were copied here. Thus this code remains independent of code
+        // changes in the leaflet library
+        /**
+         * @private
+         */
+        _getCenterLayerPoint: function () {
+            return this.map.containerPointToLayerPoint(this.map.getSize().divideBy(2));
+        },
+
+        /**
+         * @private
+         */
+        _getCenterOffset: function (center) {
+            return this.map.latLngToLayerPoint(center).subtract(this._getCenterLayerPoint());
+        },
+
+        /**
+         * @private
+         */
+        _offsetIsWithinView: function (offset, multiplyFactor) {
+            var m = multiplyFactor || 1,
+                size = this.map.getSize();
+
+            return (Math.abs(offset.x) <= size.x * m) &&
+                    (Math.abs(offset.y) <= size.y * m);
+        },
+        //
+
         panMapTo : function (pos) {
+
+
             var that = this,
                 PAN_ZOOM_LEVEL = 14,
                 DETAIL_ZOOM_LEVEL = 17,
-                ANIMATION_DELAY = 300;
+                ANIMATION_DELAY = 300,
+                offset = this._getCenterOffset(pos);
+
 
             this.map.on('zoomend', function zoomend() {
                 that.map.off('zoomend', zoomend);
@@ -195,7 +230,8 @@ define([
 
             // zoom out to the pan zoom level or if we are there already, just
             // trigger starting of the panning
-            if (this.map.getZoom() <= PAN_ZOOM_LEVEL) {
+            if (this.map.getZoom() <= PAN_ZOOM_LEVEL || 
+                this._offsetIsWithinView(offset)) {
                 this.map.fire('zoomend'); 
             }
             else {
