@@ -3,10 +3,12 @@ define([
     'jam/bootstrap-sass/js/bootstrap-carousel',
     'underscore', 'backbone', 
     'views/templated-bridge',
+    'libs/kort',
 
     'text!tmpl/sight-gallery.tmpl',
 ], function (
-    $, _, Backbone, TemplatedBridgeView, 
+    $, _, Backbone, TemplatedBridgeView,
+    kort, 
     tmplSightGallery
 ) {
     'use strict';
@@ -21,13 +23,15 @@ define([
         afterRender : function () {
             var carousel = this.$('.carousel');
             carousel.carousel();
-            
+
             this.$('.left').click(carousel, function () {
                 carousel.carousel('prev');
             });
             this.$('.right').click(carousel, function () {
                 carousel.carousel('next');
             });
+
+            Kort.bind();
         }
     });
 
