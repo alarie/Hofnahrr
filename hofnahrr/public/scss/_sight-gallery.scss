@@ -1,15 +1,13 @@
 /* _sight-gallery.scss */
 
-.carousel-inner {
-    height: 100%;
+@import "_jquery.lightbox-0.5";
 
-    img {
-    	margin: auto;
-    }
+#jquery-overlay {
+	z-index: 5090;
 }
-
-.carousel .item {
-	height: 100%;
+#jquery-lightbox {
+	z-index: 5100;
 }
-
-@import "kort";
+#jquery-overlay {
+	z-index: 5010;
+}

@@ -1001,97 +1001,125 @@ i.pictos {
   text-align: center; }
 
 /* _sight-gallery.scss */
-.carousel-inner {
-  height: 100%; }
-  .carousel-inner img {
-    margin: auto; }
-
-.carousel .item {
-  height: 100%; }
-
 /**
- * @author Hakim El Hattab | http://hakim.se
+ * jQuery lightBox plugin
+ * This jQuery plugin was inspired and based on Lightbox 2 by Lokesh Dhakar (http://www.huddletogether.com/projects/lightbox2/)
+ * and adapted to me for use like a plugin from jQuery.
+ * @name jquery-lightbox-0.5.css
+ * @author Leandro Vieira Pinho - http://leandrovieira.com
+ * @version 0.5
+ * @date April 11, 2008
+ * @category jQuery plugin
+ * @copyright (c) 2008 Leandro Vieira Pinho (leandrovieira.com)
+ * @license CCAttribution-ShareAlike 2.5 Brazil - http://creativecommons.org/licenses/by-sa/2.5/br/deed.en_US
+ * @example Visit http://leandrovieira.com/projects/jquery/lightbox/ for more informations about this jQuery plugin
  */
-.kortthumb {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 20px auto 60px auto; }
-
-.kortthumb img {
+#jquery-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  border: 5px solid black;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.8); }
+  z-index: 90;
+  width: 100%;
+  height: 500px; }
 
-/**
- * Kort styles start here, everything above is demo-page 
- * specific.
- */
-.kort {
-  -webkit-perspective: 1200px;
-  -moz-perspective: 1200px;
-  -o-perspective: 1200px;
-  perspective: 1200px;
-  -webkit-perspective-origin: 50% 50%;
-  -moz-perspective-origin: 50% 50%;
-  -o-perspective-origin: 50% 50%;
-  perspective-origin: 50% 50%;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none; }
+#jquery-lightbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  text-align: center;
+  line-height: 0; }
 
-.kort img {
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease; }
+#jquery-lightbox a img {
+  border: none; }
 
-/* DEFAULT TRANSITION */
-.kort:hover img,
-.kort.touching img {
-  -webkit-transform: translateX(-60%) rotateY(60deg) translateZ(-80px);
-  -moz-transform: translateX(-60%) rotateY(60deg) translateZ(-80px);
-  -o-transform: translateX(-60%) rotateY(60deg) translateZ(-80px);
-  transform: translateX(-60%) rotateY(60deg) translateZ(-80px); }
+#lightbox-container-image-box {
+  position: relative;
+  background-color: #fff;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto; }
 
-.kort:hover img.present ~ img,
-.kort.touching img.present ~ img {
-  -webkit-transform: translateX(82%) rotateY(50deg);
-  -moz-transform: translateX(82%) rotateY(50deg);
-  -o-transform: translateX(82%) rotateY(50deg);
-  transform: translateX(82%) rotateY(50deg); }
+#lightbox-container-image {
+  padding: 10px; }
 
-/* CONCAVE TRANSITION */
-.kort.concave:hover img.present ~ img,
-.kort.concave.touching img.present ~ img {
-  -webkit-transform: translateX(60%) rotateY(-60deg) translateZ(-80px);
-  -moz-transform: translateX(60%) rotateY(-60deg) translateZ(-80px);
-  -o-transform: translateX(60%) rotateY(-60deg) translateZ(-80px);
-  transform: translateX(60%) rotateY(-60deg) translateZ(-80px); }
+#lightbox-loading {
+  position: absolute;
+  top: 40%;
+  left: 0%;
+  height: 25%;
+  width: 100%;
+  text-align: center;
+  line-height: 0; }
 
-/* STACK TRANSITION */
-.kort.stack:hover img,
-.kort.stack.touching img {
-  -webkit-transform: translateZ(-180px) rotateY(-60deg);
-  -moz-transform: translateZ(-180px) rotateY(-60deg);
-  -o-transform: translateZ(-180px) rotateY(-60deg);
-  transform: translateZ(-180px) rotateY(-60deg); }
+#lightbox-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10; }
 
-.kort.stack:hover img.present ~ img,
-.kort.stack.touching img.present ~ img {
-  -webkit-transform: translateX(82%) rotateY(50deg);
-  -moz-transform: translateX(82%) rotateY(50deg);
-  -o-transform: translateX(82%) rotateY(50deg);
-  transform: translateX(82%) rotateY(50deg); }
+#lightbox-container-image-box > #lightbox-nav {
+  left: 0; }
 
-.kort:hover img.present,
-.kort.touching img.present {
-  -webkit-transform: none;
-  -moz-transform: none;
-  -o-transform: none;
-  transform: none;
-  margin: 0!important; }
+#lightbox-nav a {
+  outline: none; }
+
+#lightbox-nav-btnPrev, #lightbox-nav-btnNext {
+  width: 49%;
+  height: 100%;
+  zoom: 1;
+  display: block; }
+
+#lightbox-nav-btnPrev {
+  left: 0;
+  float: left; }
+
+#lightbox-nav-btnNext {
+  right: 0;
+  float: right; }
+
+#lightbox-container-image-data-box {
+  font: 10px Verdana, Helvetica, sans-serif;
+  background-color: #fff;
+  margin: 0 auto;
+  line-height: 1.4em;
+  overflow: auto;
+  width: 100%;
+  padding: 0 10px 0; }
+
+#lightbox-container-image-data {
+  padding: 0 10px;
+  color: #666; }
+
+#lightbox-container-image-data #lightbox-image-details {
+  width: 70%;
+  float: left;
+  text-align: left; }
+
+#lightbox-image-details-caption {
+  font-weight: bold; }
+
+#lightbox-image-details-currentNumber {
+  display: block;
+  clear: left;
+  padding-bottom: 1.0em; }
+
+#lightbox-secNav-btnClose {
+  width: 66px;
+  float: right;
+  padding-bottom: 0.7em; }
+
+#jquery-overlay {
+  z-index: 5090; }
+
+#jquery-lightbox {
+  z-index: 5100; }
+
+#jquery-overlay {
+  z-index: 5010; }
 
 .mapcontainer, .row-fluid, #map, #page-content {
   height: 100%; }

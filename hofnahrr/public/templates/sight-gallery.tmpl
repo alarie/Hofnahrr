@@ -1,6 +1,6 @@
 <h3>{{i18n "sight_gallery"}}: {{name}}</h3>
 <div>
   {{#carousel pictures 0}}
-        <img src="{{this.thumb}}" width="150" height="150">
+        <a class="lightbox" title="{{this.title}} <br /> {{this.description}}" href="{{this.url}}"><img src="{{this.thumb}}" width="150" height="150" alt="" /></a>
   {{/carousel}}
 </div>
