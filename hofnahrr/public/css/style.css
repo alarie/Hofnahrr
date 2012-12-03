@@ -576,8 +576,10 @@ i.pictos {
 
 .banner {
   background-position: center center;
-  background-repeat: no-reapeat;
-  background-size: cover; }
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100px;
+  background: grey; }
 
 /* _sight-map.scss */
 /* required styles */

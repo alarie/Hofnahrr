@@ -196,7 +196,7 @@ define([
 
             Templater.registerHelper('getSightMainPicture', function () {
                 return (this.pictures && this.pictures.length) ? 
-                    'url(' + this.pictures[0].url + ')' : 
+                    'url(pictures/' + this.pictures[0].origUrl + ')' : 
                     'none';
             });
 
