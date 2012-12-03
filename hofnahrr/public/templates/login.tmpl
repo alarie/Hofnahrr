@@ -1,12 +1,9 @@
 {{#if id}}
-<p class="navbar-text">
-    Hi {{firstname}} <a class="logout">{{i18n "login_logout"}}</a>
+<p class="navbar-text pull-right">
+    Hiho {{firstname}}. [<a class="logout">{{i18n "login_logout"}}</a>]
 </p>    
 {{else}}
-    <p class="navbar-text">
-        <a class="login">{{i18n "login_login"}}</a>&nbsp;|&nbsp;
-        <a class="signup">{{i18n "login_signup"}}</a>
-    </p>
+    <a class="green login">{{i18n "login_login"}}</a>
     <div class="login-form hide container-fluid">
         <div class="row-fluid">
             <div class="span6">
@@ -37,4 +34,7 @@
             </div>
         </div>
     </div>
+<p class="navbar-text pull-right">
+ <a class="login">{{i18n "login_signup"}}</a>
+</p>
 {{/if}}

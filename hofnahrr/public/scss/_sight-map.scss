@@ -13,6 +13,17 @@
 }
 
 .leaflet-popup {
+    .leaflet-popup-content {
+        margin: 10px;
+
+        .banner {
+            height: 50px;
+            margin-left: -11px;
+            margin-right: -11px;
+            margin-top: -11px;
+        }
+    }
+
     .leaflet-popup-content-wrapper {
         background-color:rgba(255, 255, 255, 0.85);
         border: 3px solid $hn_lilac;
@@ -60,4 +71,8 @@
 .map-pin {
     @include sprite_pin();
     text-align: center;
+
+    &.unverified {
+        color: red;
+    }
 }

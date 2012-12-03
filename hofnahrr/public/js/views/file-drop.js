@@ -24,9 +24,12 @@ define([
         initialize : function () {
             TemplateView.prototype.initialize.apply(this, arguments);
             _.bindAll(this, 
+                        'render',
                         'remove', 
                         'onUploadStarted', 
                         'onUploadSucceeded');
+
+            this.model.on('change:id', this.render);
 
             this.model.on('upload-started', this.onUploadStarted);
             this.model.on('upload-succeeded', this.onUploadSucceeded);
@@ -39,8 +42,6 @@ define([
         onUploadSucceeded : function () {
             this.$el.removeClass('uploading').remove();
         },
-
-
 
         remove : function () {
             this.$el.remove();
@@ -58,6 +59,7 @@ define([
         initialize : function () {
             TemplateView.prototype.initialize.apply(this, arguments);
             _.bindAll(this, 'render', 'onEditImage');
+            this.models = [];
             this.model = new Backbone.Model();
             this.model.on('change', this.render);
         },
@@ -142,7 +144,39 @@ define([
 
             this.afterRender();
             return this;
-        }
+        },
+
+        afterRender : function () {
+            if (!this.models.length) {
+                this.disableForm();
+            }
+            else {
+                this.enableForm();
+            }
+            
+            if (this.models.length === 1) {
+                this.enableEditButton();
+            }
+            else {
+                this.disableEditButton();
+            }
+        },
+
+        disableForm : function () {
+            this.$('input, textarea, button').attr('disabled', 'disabled');
+        },
+
+        enableForm : function () {
+            this.$('input, textarea, button').removeAttr('disabled');
+        },
+
+        enableEditButton : function () {
+            this.$('.edit-image').removeAttr('disabled');
+        },
+
+        disableEditButton : function () {
+            this.$('.edit-image').attr('disabled', 'disabled');
+        },
     });
 
     FileDropView = TemplatedBridgeView.extend({
@@ -194,8 +228,6 @@ define([
             // TODO check for win or mac
             var ctrl = e.ctrlKey || e.metaKey,
                 shift = e.shiftKey;
-
-            console.log(ctrl, shift);
 
             if (!(shift || ctrl)) {
                 this._deselectAll();
@@ -403,7 +435,6 @@ define([
         },
 
         onFileRead : function (file) {
-            console.log(file);
             file.id || (file.id = file.name);
             this.trigger('file-read', file, this.model ? this.model.id : null);
         },

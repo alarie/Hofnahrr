@@ -10,6 +10,7 @@ define([], function () {
             'game_play' : 'Spielen',
 
             'app_new' : 'Neu',
+            'app_edit' : 'bearbeiten',
 
             'sight_name' : 'Name',
             'sight_description' : 'Beschreibung',
@@ -18,6 +19,7 @@ define([], function () {
             'sights_edit_sight' : 'Sehenswürdigkeit bearbeiten',
             'sight_create' : 'Sehenswürdigkeit erstellen',
             'sight_update' : 'Sehensfürdigkeit aktualisieren',
+            'sight_category' : 'Kategorie',
             'sight_latitude' : 'Breitengrad',
             'sight_longitude' : 'Längengrad',
             'sight_location' : 'Ort',
@@ -41,6 +43,7 @@ define([], function () {
             'sight_search' : 'Sehenswürdigkeiten durchsuchen...',
             'sight_pick_on_map' : 'Auf der Karte auswählen',
             'sight_pick_on_map_help' : 'Zum auswählen des Orts dieser Sehenswürdigkeit wird dieser Dialog geschlossen und die Karte angezeigt. Nachdem der Ort auf der Karte festgelegt wurde, wird dieser Dialog wieder angezeigt.',
+            'sight_verified' : 'freigegeben',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
@@ -63,6 +66,7 @@ define([], function () {
             'picture_title' : 'Titel',
             'picture_take_date' : 'Aufnahmedatum',
             'picture_apply_changes' : 'Änderungen anwenden',
+            'picture_edit' : 'Bild bearbeiten',
 
             'modal_close' : 'Schließen',
 
@@ -100,6 +104,7 @@ define([], function () {
             'game_play' : 'Play',
 
             'app_new' : 'New',
+            'app_edit' : 'edit',
 
             'sight_name' : 'Name',
             'sight_description' : 'Description',
@@ -108,6 +113,7 @@ define([], function () {
             'sights_new_sight' : 'New Sight',
             'sight_create' : 'Create sight',
             'sight_update' : 'Update sight',
+            'sight_category' : 'Category',
             'sight_latitude' : 'Latitude',
             'sight_longitude' : 'Longitude',
             'sight_location' : 'Location',
@@ -131,6 +137,7 @@ define([], function () {
             'sight_search' : 'Search in sights...',
             'sight_pick_on_map' : 'Pick on map',
             'sight_pick_on_map_help' : 'In order to pick the location of this sight, this dialogue will be closed and a map will be displayed. Once the location was picked on the map, this dialogue will be displayed again.',
+            'sight_verified' : 'verified',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',
@@ -152,8 +159,9 @@ define([], function () {
             'picture_title' : 'Title',
             'picture_take_date' : 'Date image was taken',
             'picture_apply_changes' : 'Apply changes',
+            'picture_edit' : 'Edit picture',
 
-            'manager_close' : 'Close',
+            'modal_close' : 'Close',
 
             'login_language' : 'Language',
             'login_login' : 'Login',

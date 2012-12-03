@@ -239,10 +239,10 @@ define([
             }
         },
 
-        createIcon : function (content) {
+        createIcon : function (item) {
             var icon = L.divIcon({
-                className : 'map-pin',
-                html : content || '',
+                className : 'map-pin ' + (item.get('verified') ? '' : 'unverified'),
+                html : item.get('index') || '',
                 iconSize : new L.Point(20, 41),
                 iconAnchor : new L.Point(10, 41)
             });
@@ -294,7 +294,7 @@ define([
                         location.latitude, 
                         location.longitude
                     ), {
-                        icon : this.createIcon(item.get('index'))
+                        icon : this.createIcon(item)
                     })
                     .addTo(this.map)
                     .bindPopup(sightMapBubbleView.render().el[0], {

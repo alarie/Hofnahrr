@@ -125,6 +125,8 @@ define([
 
         createLoginView : function () {
             this.loginView = new LoginView({
+                tagName : 'li',
+                id : 'user',
                 model : this.currentUser
             });
             this.currentUser.on('change', this.loginView.render);
@@ -132,7 +134,7 @@ define([
             this.loginView.on('signup-user', this.onSignup);
             this.loginView.on('logout-user', this.onLogout);
 
-            $('#user').append(this.loginView.render().el);
+            $('#main-nav').append(this.loginView.render().el);
         },
 
         createUserFormView : function () {
@@ -224,9 +226,22 @@ define([
                     '';
             });
 
+            Templater.registerHelper('isChecked', function (value) {
+                return value ? 'checked="checked"' : '';
+            });
+
             Templater.registerHelper('userIsLoggedIn', function () {
                 return !!that.currentUser.id;
             });
+
+            Templater.registerHelper('isAdmin', function (obj, opts) {
+                var html = '';
+                if (that.currentUser.id && that.currentUser.get('isAdmin')) {
+                    html += opts.fn(obj);
+                }
+                return html;
+            });
+
             Templater.registerHelper('userMay', function () {});
 
             Templater.registerHelper('languageSelect', function (opts) {
@@ -356,6 +371,10 @@ define([
             }
             this.mainView = view;
             $('#page-content').append(this.mainView.el);
+        },
+
+        visitSightCollection : function (visitor) {
+            return visitor(this.sightCollection);
         }
     };
 
