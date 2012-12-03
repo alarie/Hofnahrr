@@ -38,6 +38,7 @@ define([
                 }
                 else {
                     picture = {
+                        id : file.id,
                         title : file.title,
                         name : file.name,
                         description : file.description,
@@ -75,7 +76,6 @@ define([
         },
 
         editImages : function (imageIds, data, options) {
-            console.log(imageIds);
             var pictures = this.attributes.pictures, picture, index;
             _.each(imageIds, function (id) {
                 index = -1;
@@ -93,7 +93,6 @@ define([
             options || (options = {});
             this.save(null, {
                 success : function (model, data) {
-                    console.log(arguments);
                     that.trigger('change:pictures', model.attributes.pictures);
                     if (options.success) {
                         options.success.apply(null, arguments);

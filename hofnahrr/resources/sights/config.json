@@ -25,13 +25,21 @@
 			"id": "description",
 			"order": 2
 		},
+		"category": {
+			"name": "category",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "category",
+			"order": 3
+		},
 		"location": {
 			"name": "location",
 			"type": "object",
 			"typeLabel": "object",
 			"required": false,
 			"id": "location",
-			"order": 3
+			"order": 4
 		},
 		"links": {
 			"name": "links",
@@ -39,7 +47,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "links",
-			"order": 4
+			"order": 5
 		},
 		"tags": {
 			"name": "tags",
@@ -47,7 +55,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "tags",
-			"order": 5
+			"order": 6
 		},
 		"pictures": {
 			"name": "pictures",
@@ -55,7 +63,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "pictures",
-			"order": 6
+			"order": 7
 		},
 		"language": {
 			"name": "language",
@@ -63,7 +71,23 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "language",
-			"order": 7
+			"order": 8
+		},
+		"verified": {
+			"name": "verified",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "verified",
+			"order": 9
+		},
+		"creator": {
+			"name": "creator",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "creator",
+			"order": 10
 		}
 	}
 }

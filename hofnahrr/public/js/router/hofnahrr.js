@@ -20,7 +20,8 @@ define([
             '*path/search/:query' : 'search',
 
             'game/' : 'game',
-            'game/:type/:level/' : 'game-play',
+            'game/help/' : 'game-help',
+            'game/play/:type/:level/' : 'game-play',
 
             'profile/' : 'profile',
 

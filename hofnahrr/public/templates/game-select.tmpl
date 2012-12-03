@@ -1,0 +1,23 @@
+<form class="form-horizontal">
+    <fieldset>
+        <legend>{{i18n "game_select"}}</legend>
+        <div class="control-group">
+            <label class="control-label" for="level">{{i18n "game_level"}}</label>
+            <div class="controls">
+                <label class="radio inline">
+                    <input type="radio" name="level" value="1" checked="checked"> 1
+                </label>
+                <label class="radio inline">
+                    <input type="radio" name="level" value="2"> 2
+                </label>
+                <label class="radio inline">
+                    <input type="radio" name="level" value="3"> 3
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <button class="btn start-game start-time-game">{{i18n "game_time_game"}}</button>
+            <button class="btn start-game start-location-game">{{i18n "game_location_game"}}</button>
+        </div>
+    </fieldset>    
+</form>

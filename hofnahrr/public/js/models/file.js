@@ -37,12 +37,12 @@ define([
 
             this.trigger('upload-started');
 
-            console.log(this.attributes.file);
-
             uploader.upload(this.attributes.file);
         },
 
         onUploaded : function (result, options) {
+            var attrs;
+
             options || (options = {});
 
             this.set(_.extend(result, {
@@ -54,9 +54,12 @@ define([
 
             delete this.attributes.file;
 
-            this.trigger('uploaded', this.attributes);
+            attrs = _.clone(this.attributes);
+            attrs.id = result.name;
 
-            this.trigger('upload-succeeded', this.attributes);
+            this.trigger('uploaded', attrs);
+
+            this.trigger('upload-succeeded', attrs);
 
             if (options.success) {
                 console.log("TODO: set success args");

@@ -118,6 +118,7 @@ define([
             e.preventDefault();
 
             items = this.getSelectedView().getSelectedItems();
+            // TODO delete moved items here
             this.addItemsToContainer(items, containerId);
 
             return false;
@@ -139,12 +140,16 @@ define([
                 if (!itm.id) {
                     itm.upload(null, {
                         success : function () {
-                            that.trigger('add-items-to-container', [itm], containerId);
+                            that.trigger('add-items-to-container', 
+                                         [itm], 
+                                         containerId);
                         }
                     });
                 }
                 else {
-                    that.trigger('add-items-to-container', [itm], containerId);
+                    that.trigger('add-items-to-container', 
+                                 [itm], 
+                                 containerId);
                 }
             });
         },

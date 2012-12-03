@@ -13,6 +13,14 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="sight-tags">{{i18n "sight_category"}}</label>
+            <div class="controls">
+                <select class="input-large" name="category" id="sight-category">
+
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
             <label class="control-label" for="sight-tags">{{i18n "sight_tags"}}</label>
             <div class="controls">
                 <input class="input-large" name="tags" id="sight-tags" value="{{tags}}">
@@ -29,13 +37,23 @@
         <div class="control-group">
             <label class="control-label" for="sight-location-lat">{{i18n "sight_location"}}</label>
             <div class="controls controls-row">
+                <button id="pick-on-map" class="btn"><i class="pictos">@</i> {{i18n "sight_pick_on_map"}}</button>
+                <a class="sight-pick-help"><i class="pictos">?</i></a>
+                <br>
+                <br>
                 <input class="input-small" type="text" id="sight-location-lat" name="lat" placeholder="{{i18n "sight_latitude"}}" value="{{location.latitude}}">&nbsp;&nbsp;
                 <input class="input-small" type="text" id="sight-location-lng" name="lng" placeholder="{{i18n "sight_longitude"}}" value="{{location.longitude}}">
-                <span class="help-inline"></span>
-                <button id="pick-on-map" class="btn">{{i18n "sight_pick_on_map"}}</button>
-                <a class="sight-pick-help"><i class="pictos">?</i></a>
             </div>
         </div>
+        {{#isAdmin this}}
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" name="verified" id="sight-verified" {{isChecked this.verified}}> {{i18n "sight_verified"}}
+                </label>
+            </div>
+        </div>
+        {{/isAdmin}}
         <div class="control-group">
             <div class="controls">
                 <input type="submit" class="btn btn-primary" value="{{#if id}}{{i18n "sight_update"}}{{else}}{{i18n "sight_create"}}{{/if}}" />

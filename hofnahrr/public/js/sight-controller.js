@@ -149,7 +149,7 @@ define([
         createSightInfoView : function () {
             this.sightInfoView = new TemplatedBridgeView({
                 tagName : 'div',
-                className : 'container-fluid',
+                className : 'container-fluid padded',
                 template : tmplSightInfo
             });
         },
@@ -362,7 +362,7 @@ define([
                 sightModal.on('open-container', this.onOpenContainer);
                 sightModal.on('new-container', this.onNewContainer);
                 sightModal.modal.on('hide', function () {
-                    that.router.navigate('sights');
+                    that.router.navigate('sight/');
                 });
 
                 this.sightCollection.on('add', sightModal.onAdd);
@@ -406,8 +406,8 @@ define([
 
             this.fileDropView.addUploadFile(fileModel);
 
-            fileModel.on('upload-succeeded', function () {
-                sight.addImage(fileModel.toJSON());
+            fileModel.on('upload-succeeded', function (attrs) {
+                sight.addImage(attrs);
             });
 
             fileModel.upload(file);
@@ -445,9 +445,19 @@ define([
         },
 
         onOpenContainer : function (containerId) {
-            var sight = this.sightCollection.get(containerId); 
-            if (sight) {
-                this.sightModal.setModel(sight);
+            var sight;
+            // "unknown"-container
+            if (containerId === '-1') {
+                console.log("Unknown container");
+                this.sightModal.setModel(null);
+                // open picture view
+                this.sightModal.openContentView(1);
+            }
+            else {
+                sight = this.sightCollection.get(containerId); 
+                if (sight) {
+                    this.sightModal.setModel(sight);
+                }
             }
         },
 

@@ -96,6 +96,7 @@ define([
             if (e.target.checkValidity()) {
                 var origData,
                     data = (new DataRetriever({
+                        useBool : true,
                         el : $(e.target)
                     })).getData();
 

@@ -22,7 +22,7 @@ define([
             };
         },
         tagname : 'div',
-        className : 'container',
+        className : 'container padded',
         template : tmplSightMosaic,
 
         initialize : function () {

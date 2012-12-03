@@ -28,6 +28,7 @@ define([
         },
 
         onSubmit : function () {},
+
     });
 
     return PictureFormView;

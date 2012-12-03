@@ -14,7 +14,6 @@ define([
     };
 
     $.fn.modal.Constructor.prototype.maximize = function () {
-        console.log("here");
         var that = this;
         $.support.transition ?
             this.$element.one($.support.transition.end, function () { 
@@ -173,9 +172,7 @@ define([
             selected || (selected = 0);
             if (selected >= 0 && selected < this.contentViews.length) {
                 var opts = this.contentViews[selected],
-                    title = opts.title,
-                    view = opts.view,
-                    that = this;
+                    view = opts.view;
 
                 if (opts.className) {
                     this.$el.addClass(opts.className);

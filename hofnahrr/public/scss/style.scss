@@ -174,7 +174,7 @@ input.search-query {
 
 #secondary-nav {
     padding: 0 10px;
-    // position: absolute;
+    position: absolute;
     height: 38px;
     top:0;
     left:0;
@@ -218,6 +218,7 @@ input.search-query {
 .sidebar-visible {
     #page-content {
         margin-right: 330px;
+
     }
 
     #sidebar {
@@ -231,6 +232,12 @@ input.search-query {
     margin-right:0;
     @include transition(margin-right 0.3s ease-in-out);
 
+    .container,
+    .container-fluid {
+        &.padded {
+            padding-top: 38px;
+        }
+    }
 }
 
 #sidebar {
@@ -382,6 +389,8 @@ i.pictos{
 .mapcontainer, .row-fluid, #map, #page-content {
     height: 100%;
 }
+
+
 
 // Upload animator
 .uploading {
@@ -544,3 +553,5 @@ body .modal.fade.in {
 
 }
 
+
+@import "game";

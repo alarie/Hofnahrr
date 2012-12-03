@@ -9,4 +9,6 @@
 <input type="date" value="{{takeDate}}" class="span12" name="takeDate" placeholder="{{i18n "picture_tage_date"}}"/>
 <input class="btn pull-right" type="submit" value="{{i18n "picture_apply_changes"}}" />
 </form>
-{{#imageEditIntent}}{{/imageEditIntent}}
+{{#hasIntents}}
+    <button class="btn edit-image">{{i18n "picture_edit"}}</button>
+{{/hasIntents}}
