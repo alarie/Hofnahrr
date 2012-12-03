@@ -1,18 +1,6 @@
 <h3>{{i18n "sight_gallery"}}: {{name}}</h3>
-<div class="carousel slide">
-  <!-- Carousel items -->
-  <div class="carousel-inner">
-    {{#carousel pictures 0}}
-    <div class="item {{active}}" >
-        <img src="{{this.url}}" alt="">
-        <div class="carousel-caption">
-            <h4>{{this.title}}</h4>
-            <p>{{this.description}}</p>
-        </div>
-    </div>
-    {{/carousel}}
-  </div>
-  <!-- Carousel nav -->
-  <a class="carousel-control left" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" data-slide="next">&rsaquo;</a>
+<div>
+  {{#carousel pictures 0}}
+        <a class="lightbox" title="{{this.title}} <br /> {{this.description}}" href="{{this.url}}"><img src="{{this.thumb}}" width="150" height="150" alt="" /></a>
+  {{/carousel}}
 </div>

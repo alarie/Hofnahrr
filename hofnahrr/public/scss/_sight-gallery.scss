@@ -1,0 +1,13 @@
+/* _sight-gallery.scss */
+
+@import "_jquery.lightbox-0.5";
+
+#jquery-overlay {
+	z-index: 5090;
+}
+#jquery-lightbox {
+	z-index: 5100;
+}
+#jquery-overlay {
+	z-index: 5010;
+}
