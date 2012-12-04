@@ -30,7 +30,7 @@ define([
                 imageBtnPrev: './img/lightbox-btn-prev.gif',
                 imageBtnNext: './img/lightbox-btn-next.gif',
                 imageBlank: './img/lightbox-blank.gif',
-                containerResizeSpeed: 350,
+                // containerResizeSpeed: 350,
                 txtImage: 'Bild', //TODO use translation
                 txtOf: 'von' //TODO user translation
             });
