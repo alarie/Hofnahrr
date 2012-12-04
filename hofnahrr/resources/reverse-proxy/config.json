@@ -1,0 +1,4 @@
+{
+	"type": "ReverseProxy",
+	"access-allow-orign-header": "hofnahrr.de:2403"
+}

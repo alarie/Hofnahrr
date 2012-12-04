@@ -11,6 +11,7 @@ define([
         initialize : function () {
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
             this.level = 1;
+            this.currentStep = 0;
         },
 
         setLevel : function (level) {
@@ -20,9 +21,11 @@ define([
             this.trigger('game-init');
         },
 
+        // override in subclasses 
         recalculateGame : function () {
-            // override in subclasses 
-        },
+            this.currentStep = 0;
+        }
+
     });
 
     return GameView;

@@ -11,6 +11,7 @@ define([
         template : tmplLocationGame,
 
         recalculateGame : function () {
+            GameView.prototype.recalculateGame.apply(this, arguments);
             var level = this.level;
 
             this.trigger('game-reset', function (collection) {
