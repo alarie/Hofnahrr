@@ -19,7 +19,8 @@ define([
         },
 
         setGameProgress : function (progressStep) {
-             
+            console.log(progressStep);
+
         },
 
         onAdd : function (itm) {

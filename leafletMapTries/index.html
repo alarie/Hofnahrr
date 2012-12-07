@@ -7,9 +7,37 @@
         <!--[if lte IE 8]>
      		<link rel="stylesheet" href="./dist/leaflet.ie.css" />
  		<![endif]-->
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            header {
+                height: 30px;
+                background-color: red;
+                margin: 0;
+            }
+            h1 {
+                margin: 0;
+            }
+
+            #map {
+                position: absolute;
+                top: 40px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        </style>
     </head>
     <body>
-    	<div id="map" style="height: 400px"></div>
+        <div id="wrapper">
+            <header>
+                <h1>Das ist ein Test</h1>
+            </header>
+        	<div id="map"></div>
+        </div>
     </body>
     <script src="./dist/leaflet-src.js"></script>
     <script type="text/javascript">
@@ -27,7 +55,7 @@
 
 			L.marker([50.325, 11.940]).addTo(map);
 		}
-		initmap();
 
+        initmap();
     </script>
 </html>

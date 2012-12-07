@@ -12,3 +12,22 @@
     @include box-sizing(border-box);
     @include box-shadow(0 0 20px rgba($hn_orange, 0.2));
 }
+
+#gamemap {
+    position: absolute !important;
+    top: 250px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+}
+
+.mapcontainer {
+    position: relative;
+    margin: 0;
+    padding: 0px;
+}
+
+#page-content {
+    overflow: scroll;
+}

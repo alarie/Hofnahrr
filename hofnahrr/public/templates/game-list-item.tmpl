@@ -1,1 +1,15 @@
-<input type="checkbox" {{isChecked replied}}><i></i> {{name}}
+<input type="checkbox" {{isChecked replied}}>
+<i>
+{{#replied}}
+	{{#correct}}
+		correct <!-- If {like: true} --->
+	{{/correct}}
+	{{^correct}}
+	    incorrect <!-- If {like: false} --->
+	{{/correct}}
+{{/replied}}
+{{^replied}}
+	open
+{{/replied}}
+</i>
+{{name}}
