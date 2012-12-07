@@ -11,6 +11,7 @@ define([
 
     'views/sight-nav',
     'views/sight-list',
+    'views/sight-info',
     'views/template',
     'views/templated-bridge',
     'views/file-drop',
@@ -42,6 +43,7 @@ define([
 
     SightNavView,
     SightListView, 
+    SightInfoView,
     TemplateView,
     TemplatedBridgeView,
     FileDropView,
@@ -147,7 +149,7 @@ define([
         },
 
         createSightInfoView : function () {
-            this.sightInfoView = new TemplatedBridgeView({
+            this.sightInfoView = new SightInfoView({
                 tagName : 'div',
                 className : 'container-fluid padded',
                 template : tmplSightInfo

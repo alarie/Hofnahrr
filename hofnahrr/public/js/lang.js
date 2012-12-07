@@ -82,6 +82,10 @@ define([], function () {
             'game_new_game' : 'Neues Spiel',
             'game_help' : 'Hilfe',
             'game_end' : 'Beenden',
+            'game_select' : 'Spielart',
+            'game_time_game' : 'Zeitzuordnungsspiel',
+            'game_location_game' : 'Ortszuordnungsspiel',
+            'game_level' : 'Schwierigkeitsgrad',
 
 
             'profile_profile' : 'Profil',
@@ -175,6 +179,10 @@ define([], function () {
             'game_new_game' : 'New Game',
             'game_help' : 'Help',
             'game_end' : 'End',
+            'game_select' : 'Game type',
+            'game_time_game' : 'Time game',
+            'game_location_game' : 'Location game',
+            'game_level' : 'Level',
 
 
             'profile_profile' : 'Profile',

@@ -82,6 +82,7 @@ define([
 
         createGameSelectView : function () {
             var view = new TemplateView({
+                className : 'container padded',
                 template : tmplGameSelect,
                 events : {
                     'click .start-game' : function (e) {
@@ -103,14 +104,18 @@ define([
         },
 
         createTimeGameView : function () {
-            var view = new TimeGameView();
+            var view = new TimeGameView({
+                className : 'container padded'
+            });
             view.on('game-progress', this.gameSidebar.setGameProgress);
             view.on('game-reset', this.onResetGame);
             this.timeGameView = view;
         },
 
         createLocationGameView : function () {
-            var view = new LocationGameView();
+            var view = new LocationGameView({
+                className : 'container padded'
+            });
             view.on('game-progress', this.onGameProgress, this);
             view.on('game-reset', this.onResetGame);
             this.locationGameView = view;

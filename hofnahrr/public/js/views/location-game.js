@@ -1,14 +1,14 @@
 /*global define*/
 define([
     'views/game',
-    'text!tmpl/time-game.tmpl'
-], function (GameView, tmplTimeGame) {
+    'text!tmpl/location-game.tmpl'
+], function (GameView, tmplLocationGame) {
     'use strict';
 
-    var TimeGameView;
+    var LocationGameView;
 
-    TimeGameView = GameView.extend({
-        template : tmplTimeGame,
+    LocationGameView = GameView.extend({
+        template : tmplLocationGame,
 
         recalculateGame : function () {
             GameView.prototype.recalculateGame.apply(this, arguments);
@@ -17,25 +17,32 @@ define([
             this.trigger('game-reset', function (collection) {
                 var sightsMax = collection.length - 1,
                     numQuestions = parseInt((Math.log(level) + 1) * 8, 10),
-                    sight, pictures, rnd,
-                    data = [];
+                    sight, rnd,
+                    data = [],
+                    json;
+
 
                 while (numQuestions) {
                     rnd = parseInt(Math.random() * sightsMax, 10);
                     sight = collection.at(rnd);
-                    pictures = sight.get('pictures');
-                    rnd = parseInt(Math.random() * pictures.length, 10);
+                    json = sight.toJSON();
 
-                    data.push(pictures[rnd]);
+                    data.push({
+                        name : json.name,
+                        location : json.location,
+                        replied : false,
+                        correct : false
+                    });
 
                     numQuestions -= 1;
                 }
-
+                
                 return data;
             });
+
         }       
     });
 
-    return TimeGameView;
+    return LocationGameView;
 });
 
