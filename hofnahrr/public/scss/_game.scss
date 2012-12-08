@@ -14,20 +14,72 @@
 }
 
 #gamemap {
-    position: absolute !important;
-    top: 250px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0;
+    height: 100%;
+
+    .leaflet-top .leaflet-control {
+        background-color: rgba($hn_orange, 0.5);
+    }
 }
 
 .mapcontainer {
-    position: relative;
     margin: 0;
     padding: 0px;
 }
 
-#page-content {
-    overflow: scroll;
+#questioncontainer {
+    position: absolute;
+    bottom: 50px;
+    left: 10px;
+    z-index: 900;
+    border: 3px solid $hn_orange;
+    background-color: rgba(255, 255, 255, 0.85);
+    @include border-radius(0);
+    overflow: auto;
+    color: $hn_orange;
+
+    img {
+        float: left;
+        margin-right: 10px;
+    }
+}
+
+.orange #sidebar {
+    ul {
+        margin: 0;
+
+        li {
+            background-color: white;
+            list-style: none;
+            height: auto;
+
+            div {
+                height: 43px;
+            }
+
+            .replied {
+                background-color: grey;
+            }
+
+            .correct {
+                background-color: green;
+            }
+
+            .status {
+                display: inline-block;
+                // background-color: grey;
+                color: $hn_orange;
+                // width: 30px;
+                padding: 10px 10px;
+                font-size: 20px;
+            }
+
+            .index {
+                background-color: $hn_orange;
+                position: relative;
+                display: inline-block;
+                float: right;
+            }
+        }
+
+    }
 }

@@ -113,9 +113,7 @@ define([
         },
 
         createLocationGameView : function () {
-            var view = new LocationGameView({
-                className : 'container padded'
-            });
+            var view = new LocationGameView();
             view.on('game-progress', this.onGameProgress, this);
             view.on('game-reset', this.onResetGame);
             this.locationGameView = view;
@@ -157,29 +155,25 @@ define([
 
         onGameProgress : function () {
 
-            // get next model
+            var progressSummaryData = {length : this.gameCollection.length, index : this.gameCollectionIndex, diff : this.gameCollection.length - this.gameCollectionIndex};
+            this.gameSidebar.setGameProgress(progressSummaryData);
 
             if (this.gameCollectionIndex < this.gameCollection.length) {
                 this.locationGameView.setModel(this.gameCollection.at(this.gameCollectionIndex));
                 this.gameCollectionIndex++;
-
-                //calculate progressanzeige
-                var progressStep = {length : this.gameCollection.length};
-                progressStep.countReplied = 10;
-
-                console.log(progressStep);
-
-                this.gameSidebar.setGameProgress(this.gameCollection.length);
             } else {
                 //if last model - calculate scores and end
                 console.log('end of game');
+
+                //open popup with highscore
+                
             }
 
         },
 
         onResetGame : function (visitor) {
             var data = this.visitSightCollection(visitor);
-            console.log(data);
+            // console.log(data);
             this.gameCollection.reset(data);
             this.gameCollectionIndex = 1;
         }

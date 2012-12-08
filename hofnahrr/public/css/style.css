@@ -1497,17 +1497,52 @@ body .modal.fade.in {
   box-shadow: 0 0 20px rgba(236, 116, 5, 0.2); }
 
 #gamemap {
-  position: absolute !important;
-  top: 250px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0; }
+  height: 100%; }
+  #gamemap .leaflet-top .leaflet-control {
+    background-color: rgba(236, 116, 5, 0.5); }
 
 .mapcontainer {
-  position: relative;
   margin: 0;
   padding: 0px; }
 
-#page-content {
-  overflow: scroll; }
+#questioncontainer {
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+  z-index: 900;
+  border: 3px solid #ec7405;
+  background-color: rgba(255, 255, 255, 0.85);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  overflow: auto;
+  color: #ec7405; }
+  #questioncontainer img {
+    float: left;
+    margin-right: 10px; }
+
+.orange #sidebar ul {
+  margin: 0; }
+  .orange #sidebar ul li {
+    background-color: white;
+    list-style: none;
+    height: auto; }
+    .orange #sidebar ul li div {
+      height: 43px; }
+    .orange #sidebar ul li .replied {
+      background-color: grey; }
+    .orange #sidebar ul li .correct {
+      background-color: green; }
+    .orange #sidebar ul li .status {
+      display: inline-block;
+      color: #ec7405;
+      padding: 10px 10px;
+      font-size: 20px; }
+    .orange #sidebar ul li .index {
+      background-color: #ec7405;
+      position: relative;
+      display: inline-block;
+      float: right; }

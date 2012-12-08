@@ -2,8 +2,10 @@
 define([
     'underscore',
     'backbone',
-    'views/template'
-], function (_, Backbone, TemplateView) {
+    'views/template',
+    'templater',
+    'text!tmpl/game-sidebar-progress-summary.tmpl'
+], function (_, Backbone, TemplateView, Templater, summaryTemplate) {
     'use strict';
 
     var GameSidebarView;
@@ -16,11 +18,13 @@ define([
             this.itemViewConstructor = options.itemViewConstructor || 
                 Backbone.View;
             this.itemViewData = options.itemViewData || {};
+            this.summaryTemplate = Templater.compile(summaryTemplate);
         },
 
-        setGameProgress : function (progressStep) {
-            console.log(progressStep);
-
+        setGameProgress : function (progressSummaryData) {
+            //add progressdata to view
+            this.$('.progress-summary').empty();
+            this.$('.progress-summary').append(this.summaryTemplate(progressSummaryData));
         },
 
         onAdd : function (itm) {

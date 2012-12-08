@@ -31,7 +31,8 @@ define([
                     numQuestions = parseInt((Math.log(level) + 1) * 8, 10),
                     sight, rnd,
                     data = [],
-                    json;
+                    json,
+                    i = 1;
 
 
                 while (numQuestions) {
@@ -44,7 +45,8 @@ define([
                         location : json.location,
                         icon : json.icon,
                         replied : false,
-                        correct : false
+                        correct : false,
+                        index : i++
                     });
 
                     numQuestions -= 1;
@@ -158,7 +160,7 @@ define([
         createIcon : function (item) {
             var icon = L.divIcon({
                 className : 'map-pin ',
-                html : item.get('index') || '',
+                html : item.get('index') || '?',
                 iconSize : new L.Point(20, 41),
                 iconAnchor : new L.Point(10, 41)
             });
