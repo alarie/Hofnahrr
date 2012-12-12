@@ -28,7 +28,7 @@ define([
 
             this.trigger('game-reset', function (collection) {
                 var sightsMax = collection.length - 1,
-                    numQuestions = parseInt((Math.log(level) + 1) * 8, 10),
+                    numQuestions = parseInt((Math.log(level) + 1) * 3, 10),
                     sight, rnd,
                     data = [],
                     json,
