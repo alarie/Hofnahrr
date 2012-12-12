@@ -336,7 +336,7 @@ define([
 
 
                 userModal.modal.on('hide', function () {
-                    that.router.navigate('sights');
+                    that.router.navigate('sight');
                 });
             }
 

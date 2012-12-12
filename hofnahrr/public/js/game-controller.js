@@ -1,28 +1,49 @@
 /*global define*/
 define([
-    'underscore', 'backbone', 
+    'underscore', 'backbone',
+    'templater',
+
+    'collections/game-collection',
+    'models/game',
+
+    'settings',
+
     'views/template',
     'views/game-sidebar',
     'views/game-time',
     'views/game-location',
+    'views/modal',
+    'views/game-highscore',
 
     'text!layout/game.html',
     'text!tmpl/game-nav.tmpl',
     'text!tmpl/game-sidebar.tmpl',
     'text!tmpl/game-select.tmpl',
-    'text!tmpl/game-list-item.tmpl'
+    'text!tmpl/game-list-item.tmpl',
+    'text!tmpl/modal.tmpl'
 ], function (
     _, 
-    Backbone, 
+    Backbone,
+    Templater,
+
+    GameCollection,
+    GameModel,
+
+    settings,
+
     TemplateView,
     GameSidebarView,
     TimeGameView,
     LocationGameView,
+    ModalView,
+    GameHighscoreView,
+
     tmplGameLayout,
     tmplGameNav,
     tmplGameSidebar,
     tmplGameSelect,
-    tmplGameListItem
+    tmplGameListItem,
+    tmplModal
 ) {
     'use strict';
 
@@ -36,20 +57,38 @@ define([
                     'onResetGame');
 
             this.createGameViews();
-            this.initGameCollection();
+            this.initQuestionCollection();
+            this.createGameCollection();
 
             this._gameControllerInstalled = true;
             this.layouts.game = tmplGameLayout;
-            this.gameCollectionIndex = 1;
+            this.questionCollectionIndex = 1;
 
             this.on('layout-set:game', this.initGameLayout);
+
+            this.currentGame = {
+                type : 'location', 
+                playerid : 'todo',
+                score : 'score',
+                date : Date.now(),
+                time : 'todo',
+                level : this.level,
+                correct : 0
+            };
 
             console.log('init', this);
         },
 
-        initGameCollection : function () {
-            this.gameCollection = new Backbone.Collection();
-            this.gameCollection.on('reset', this.gameSidebar.onAddAll);
+        initQuestionCollection : function () {
+            this.questionCollection = new Backbone.Collection();
+            this.questionCollection.on('reset', this.gameSidebar.onAddAll);
+        },
+
+        createGameCollection : function () {
+            this.gameCollection = new GameCollection();
+            this.gameCollection.model = GameModel;
+            this.gameCollection.url = settings.API.GAMES;
+            this.gameCollection.fetch();
         },
 
         createGameViews : function () {
@@ -58,6 +97,7 @@ define([
             this.createGameSelectView();
             this.createTimeGameView();
             this.createLocationGameView();
+            this.createGameHighscoreView();
         },
 
         createGameSidebarView : function () {
@@ -144,38 +184,103 @@ define([
                                 this.timeGameView : 
                                 this.locationGameView;
 
-            
+            this.time = Date.now();
+
+            this.currentGame.level = level;
             view.setLevel(level);
             view.render();
 
-            view.setModel(this.gameCollection.first());
+            view.setModel(this.questionCollection.first());
 
             this.setMainView(view);
         },
 
         onGameProgress : function () {
 
-            var progressSummaryData = {length : this.gameCollection.length, index : this.gameCollectionIndex, diff : this.gameCollection.length - this.gameCollectionIndex};
+            var percentage = this.questionCollectionIndex / this.questionCollection.length * 100,
+                progressSummaryData = {length : this.questionCollection.length, index : this.questionCollectionIndex, diff : this.questionCollection.length - this.questionCollectionIndex, percentage : percentage};
             this.gameSidebar.setGameProgress(progressSummaryData);
 
-            if (this.gameCollectionIndex < this.gameCollection.length) {
-                this.locationGameView.setModel(this.gameCollection.at(this.gameCollectionIndex));
-                this.gameCollectionIndex++;
+            if (this.questionCollectionIndex < this.questionCollection.length) {
+                this.locationGameView.setModel(this.questionCollection.at(this.questionCollectionIndex));
+                this.questionCollectionIndex++;
             } else {
                 //if last model - calculate scores and end
-                console.log('end of game');
-
                 //open popup with highscore
-                
+                this.onEndOfGame();
+
             }
 
+        },
+
+        onEndOfGame : function () {
+            console.log('end of game!!!');
+            //open highscore modal / collection auslesen
+
+            //create game object pass it to highscore view
+
+            this.questionCollection.forEach(function (item) {
+                if (item.attributes.correct) {
+                    this.currentGame.correct++;
+                }
+            }, this);
+
+            this.currentGame.time = Math.floor((Date.now() - this.time) / 1000);
+            this.currentGame.score = this.currentGame.correct * 1000 - this.currentGame.time; // a real score calculation
+            //open modal with current Game model and highscore list
+            // this.gameHighscoreView.setModel()
+            this.openHighscoreModal();
+            this.storeCurrentGame();
+            
+        },
+
+        openHighscoreModal : function () {
+            var that = this,
+                highscoreModal;
+
+            if (!this.highscoreModal) {
+                highscoreModal = new ModalView({
+                    el : 'body',
+                    template : tmplModal,
+                    modalOptions : {
+                        show : false,
+                        backdrop : true
+                    },
+                    modalData : {
+                        modalClassName : 'orange',
+                        modalId : 'game-highscore-modal',
+                        modalHeadline : Templater.i18n('game_highscore'),
+                        modalClose : Templater.i18n('modal_close')
+                    }
+                });
+
+                this.highscoreModal = highscoreModal;
+                this.highscoreModal
+                    .render()
+                    .setContentViews([{
+                        view : this.gameHighscoreView
+                    }]);
+            }
+            this.highscoreModal.modal.show();
+        },
+
+        storeCurrentGame : function () {            
+            this.currentGameModel = this.gameCollection.create(this.currentGame);
+            // console.log(this.currentGameModel);
+            this.gameHighscoreView.setModel(this.currentGameModel);
+            console.log(this.gameCollection);
+            this.gameHighscoreView.setHighscoreCollection(this.gameCollection);
         },
 
         onResetGame : function (visitor) {
             var data = this.visitSightCollection(visitor);
             // console.log(data);
-            this.gameCollection.reset(data);
-            this.gameCollectionIndex = 1;
+            this.questionCollection.reset(data);
+            this.questionCollectionIndex = 1;
+        },
+
+        createGameHighscoreView : function () {
+            this.gameHighscoreView = new GameHighscoreView();
         }
     };
 

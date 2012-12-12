@@ -1524,25 +1524,39 @@ body .modal.fade.in {
     float: left;
     margin-right: 10px; }
 
-.orange #sidebar ul {
-  margin: 0; }
-  .orange #sidebar ul li {
-    background-color: white;
-    list-style: none;
-    height: auto; }
-    .orange #sidebar ul li div {
-      height: 43px; }
-    .orange #sidebar ul li .replied {
-      background-color: grey; }
-    .orange #sidebar ul li .correct {
-      background-color: green; }
-    .orange #sidebar ul li .status {
-      display: inline-block;
-      color: #ec7405;
-      padding: 10px 10px;
-      font-size: 20px; }
-    .orange #sidebar ul li .index {
-      background-color: #ec7405;
-      position: relative;
-      display: inline-block;
-      float: right; }
+.orange .map-pin {
+  background-position: 0 -96px;
+  color: #ec7405; }
+
+.orange #sidebar {
+  color: white; }
+  .orange #sidebar #logo .image {
+    background-position: -21px -96px; }
+  .orange #sidebar .bar {
+    background-color: #ec7405; }
+  .orange #sidebar ul {
+    margin: 0; }
+    .orange #sidebar ul li {
+      background-color: rgba(255, 255, 255, 0);
+      list-style: none;
+      height: auto;
+      color: #ec7405; }
+      .orange #sidebar ul li div {
+        height: 43px;
+        background-color: white; }
+      .orange #sidebar ul li .replied {
+        opacity: 0.8; }
+        .orange #sidebar ul li .replied .status {
+          color: #d80000; }
+      .orange #sidebar ul li .correct .status {
+        color: #269d2e; }
+      .orange #sidebar ul li .status {
+        display: inline-block;
+        padding: 10px 10px;
+        font-size: 20px; }
+      .orange #sidebar ul li .index {
+        background-color: #ec7405;
+        position: relative;
+        display: inline-block;
+        float: right;
+        color: white; }

@@ -17,7 +17,8 @@ define([
         API : {
             PICTURES : 'pictures/',
             SIGHTS : 'sights/',
-            USERS : 'users/'
+            USERS : 'users/',
+            GAMES : 'games/'
         },
         WIKI_API : 'http://%lang%.wikipedia.org/w/api.php?format=json&action=query&titles=%query%&prop=images|extracts&list=tags&tgprop=displayname|name&exchars=600&explaintext=1'
     };

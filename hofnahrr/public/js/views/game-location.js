@@ -131,11 +131,6 @@ define([
                     })
                     .addTo(this.map)
                     .on('click', function (e) {
-                                                //TODO
-                        //control answer
-                        console.log('leaflet_id', e.target._leaflet_id);
-                        console.log('result ' + that.resultId);
-                        
                         if (e.target._leaflet_id === that.resultId) {
                             console.log("RICHTIG!!!");
                             correct = true;
@@ -145,7 +140,6 @@ define([
                         }
                         //show result
                         that.model.set({replied : true, correct : correct});
-                        console.log(that.model);
                         that.trigger('game-progress');
                     });
 

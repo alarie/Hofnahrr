@@ -23,6 +23,9 @@ define([
 
         setGameProgress : function (progressSummaryData) {
             //add progressdata to view
+            if (!progressSummaryData) {
+                progressSummaryData = {};
+            }
             this.$('.progress-summary').empty();
             this.$('.progress-summary').append(this.summaryTemplate(progressSummaryData));
         },
@@ -37,6 +40,7 @@ define([
         onAddAll : function (collection) {
             this.$('#game-progress').empty();
             collection.each(this.onAdd);
+            this.setGameProgress({diff : collection.length});
         }
     });
 
