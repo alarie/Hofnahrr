@@ -340,6 +340,7 @@ define([
                         modalClose : Templater.i18n('modal_close'),
                         modalNext : Templater.i18n('sight_add_photos'),
                         modalPrev : Templater.i18n('sights_edit_sight'),
+                        unknownModelId : this.sightCollection.unknownModel.id
                     }
                 });
 
@@ -454,19 +455,12 @@ define([
         },
 
         onOpenContainer : function (containerId) {
-            var sight;
-            // "unknown"-container
-            if (containerId === '-1') {
-                console.log("Unknown container");
-                this.sightModal.setModel(null);
-                // open picture view
-                this.sightModal.openContentView(1);
+            var sight = this.sightCollection.get(containerId); 
+            if (sight) {
+                this.sightModal.setModel(sight);
             }
-            else {
-                sight = this.sightCollection.get(containerId); 
-                if (sight) {
-                    this.sightModal.setModel(sight);
-                }
+            if (containerId === '-1') {
+                this.sightModal.openContentView(1);
             }
         },
 

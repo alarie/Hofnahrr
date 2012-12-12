@@ -104,6 +104,14 @@
 			"required": false,
 			"id": "creator",
 			"order": 12
+		},
+		"unknown": {
+			"name": "unknown",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "unknown",
+			"order": 13
 		}
 	}
 }

@@ -188,7 +188,6 @@ define([
         },
 
         getSelectedView : function () {
-            console.log(this.contentViews[this.selectedView].view);
             return this.contentViews[this.selectedView].view;
         },
 
@@ -196,6 +195,7 @@ define([
             var that = this,
                 i = this.selectedView,
                 header = this.$('.modal-header h3');
+
             _.each(this.contentViews, function (opts, j) {
                 opts.view.setModel(that.model);
                 if (i === j) {

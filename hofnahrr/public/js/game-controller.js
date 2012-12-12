@@ -276,7 +276,6 @@ define([
 
         onResetGame : function (visitor) {
             var data = this.visitSightCollection(visitor);
-            // console.log(data);
             this.questionCollection.reset(data);
             this.questionCollectionIndex = 1;
         },
