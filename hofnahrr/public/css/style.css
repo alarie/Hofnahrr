@@ -1157,13 +1157,22 @@ i.pictos {
   padding-bottom: 0.7em; }
 
 #jquery-overlay {
-  z-index: 5090; }
+  z-index: 5090;
+  background-color: white !important; }
 
 #jquery-lightbox {
   z-index: 5100; }
 
 #jquery-overlay {
   z-index: 5010; }
+
+#lightbox-container-image-box {
+  border: 1px solid #572381;
+  border-bottom: none; }
+
+#lightbox-container-image-data-box {
+  border: 1px solid #572381;
+  border-top: none; }
 
 .mapcontainer, .row-fluid, #map, #page-content {
   height: 100%; }
@@ -1515,6 +1524,71 @@ body .modal.fade.in {
   -webkit-box-shadow: 0 0 20px rgba(236, 116, 5, 0.2);
   -moz-box-shadow: 0 0 20px rgba(236, 116, 5, 0.2);
   box-shadow: 0 0 20px rgba(236, 116, 5, 0.2); }
+
+#gamemap {
+  height: 100%; }
+  #gamemap .leaflet-top .leaflet-control {
+    background-color: rgba(236, 116, 5, 0.5); }
+
+.mapcontainer {
+  margin: 0;
+  padding: 0px; }
+
+#questioncontainer {
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+  z-index: 900;
+  border: 3px solid #ec7405;
+  background-color: rgba(255, 255, 255, 0.85);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  overflow: auto;
+  color: #ec7405; }
+  #questioncontainer img {
+    float: left;
+    margin-right: 10px; }
+
+.orange .map-pin {
+  background-position: 0 -96px;
+  color: #ec7405; }
+
+.orange #sidebar {
+  color: white; }
+  .orange #sidebar #logo .image {
+    background-position: -21px -96px; }
+  .orange #sidebar .bar {
+    background-color: #ec7405; }
+  .orange #sidebar ul {
+    margin: 0; }
+    .orange #sidebar ul li {
+      background-color: rgba(255, 255, 255, 0);
+      list-style: none;
+      height: auto;
+      color: #ec7405; }
+      .orange #sidebar ul li div {
+        height: 43px;
+        background-color: white; }
+      .orange #sidebar ul li .replied {
+        opacity: 0.8; }
+        .orange #sidebar ul li .replied .status {
+          color: #d80000; }
+      .orange #sidebar ul li .correct .status {
+        color: #269d2e; }
+      .orange #sidebar ul li .status {
+        display: inline-block;
+        padding: 10px 10px;
+        font-size: 20px; }
+      .orange #sidebar ul li .index {
+        background-color: #ec7405;
+        position: relative;
+        display: inline-block;
+        float: right;
+        color: white; }
 
 .mosaic-view {
   position: relative; }

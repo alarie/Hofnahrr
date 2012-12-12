@@ -1,1 +1,15 @@
-<input type="checkbox" {{isChecked replied}}><i></i> {{name}}
+<div class="{{#replied}}replied{{/replied}} {{#correct}}correct{{/correct}}">
+{{#replied}}
+	{{#correct}}
+		<span class="status pictos">2</span> {{! is a tick }}
+	{{/correct}}
+	{{^correct}}
+	    <span class="status pictos">D</span> {{! is a X }}
+	{{/correct}}
+{{/replied}}
+{{^replied}}
+	<span class="status pictos">?</span>
+{{/replied}}
+<strong>{{name}}</strong>
+<span class="index">{{index}}</span>
+</div>

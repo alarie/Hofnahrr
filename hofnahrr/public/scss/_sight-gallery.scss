@@ -4,10 +4,21 @@
 
 #jquery-overlay {
 	z-index: 5090;
+	background-color: white !important;
 }
 #jquery-lightbox {
 	z-index: 5100;
 }
 #jquery-overlay {
 	z-index: 5010;
+}
+
+#lightbox-container-image-box {
+	border: 1px solid $hn_lilac;
+	border-bottom: none;
+}
+
+#lightbox-container-image-data-box {
+	border: 1px solid $hn_lilac;
+	border-top: none;
 }

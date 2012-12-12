@@ -1,0 +1,69 @@
+{
+	"type": "Collection",
+	"properties": {
+		"type": {
+			"name": "type",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "type",
+			"order": 0
+		},
+		"playerid": {
+			"name": "playerid",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "playerid",
+			"order": 1
+		},
+		"playername": {
+			"name": "playername",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "playername",
+			"order": 2
+		},
+		"score": {
+			"name": "score",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "score",
+			"order": 3
+		},
+		"date": {
+			"name": "date",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "date",
+			"order": 4
+		},
+		"time": {
+			"name": "time",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "time",
+			"order": 5
+		},
+		"level": {
+			"name": "level",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "level",
+			"order": 6
+		},
+		"correct": {
+			"name": "correct",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "correct",
+			"order": 7
+		}
+	}
+}

@@ -12,3 +12,111 @@
     @include box-sizing(border-box);
     @include box-shadow(0 0 20px rgba($hn_orange, 0.2));
 }
+
+#gamemap {
+    height: 100%;
+
+    .leaflet-top .leaflet-control {
+        background-color: rgba($hn_orange, 0.5);
+    }
+}
+
+.mapcontainer {
+    margin: 0;
+    padding: 0px;
+}
+
+#questioncontainer {
+    position: absolute;
+    bottom: 50px;
+    left: 10px;
+    z-index: 900;
+    border: 3px solid $hn_orange;
+    background-color: rgba(255, 255, 255, 0.85);
+    @include border-radius(0);
+    overflow: auto;
+    color: $hn_orange;
+
+    img {
+        float: left;
+        margin-right: 10px;
+    }
+}
+
+.orange {
+    .map-pin {
+        background-position: 0 -96px;
+        color: $hn_orange;
+    }
+}
+
+.orange #sidebar {
+
+    color: white;
+
+    
+
+    #logo .image {
+        background-position: -21px -96px;
+    }
+
+    .bar {
+        background-color: $hn_orange;
+    }
+
+    ul {
+        margin: 0;
+
+        li {
+            background-color: rgba(white, 0);
+            list-style: none;
+            height: auto;
+            color: $hn_orange;
+
+
+            div {
+                height: 43px;
+                background-color: white;
+            }
+
+            .replied {
+                // background-color: rgba($hn_red, 0.7);
+                // color: $hn_red;
+                // .index {
+                //     background-color: $hn_red;
+                // }
+                opacity: 0.8;
+                .status {
+                    color: $hn_red;
+                }
+            }
+
+            .correct {
+                // background-color: rgba($hn_green, 0.7);
+                // color: $hn_green;
+                // .index {
+                //     background-color: $hn_green;
+                // }
+                .status {
+                    color: $hn_green;
+                }
+            }
+
+            .status {
+                display: inline-block;
+                padding: 10px 10px;
+                font-size: 20px;
+            }
+
+            .index {
+                background-color: $hn_orange;
+                position: relative;
+                display: inline-block;
+                float: right;
+                color: white;
+            }
+
+        }
+
+    }
+}
