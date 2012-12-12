@@ -503,9 +503,7 @@ i.pictos {
   -moz-transform: rotate(0deg) translateZ(0);
   -ms-transform: rotate(0deg) translateZ(0);
   -o-transform: rotate(0deg) translateZ(0);
-  transform: rotate(0deg) translateZ(0);
-  -webkit-transition: width 0.3s ease-in-out, height 0.3s ease-in-out, border-width 0.3s ease-in-out, border-radius 0.3s ease-in-out, box-shadow 0s linear;
-  transition: width 0.3s ease-in-out, height 0.3s ease-in-out, border-width 0.3s ease-in-out, border-radius 0.3s ease-in-out, box-shadow 0s linear; }
+  transform: rotate(0deg) translateZ(0); }
 
 .mosaic-container.initializing {
   border: 100px solid black;
@@ -514,12 +512,7 @@ i.pictos {
   box-shadow: none;
   -webkit-animation: pulse 2s infinite ease-in-out;
   -webkit-transition: width 0.3s ease-in-out, height 0.3s ease-in-out, border-width 0.3s ease-in-out, border-radius 0.3s ease-in-out, box-shadow 0s linear;
-  transition: width 0.3s ease-in-out, height 0.3s ease-in-out, border-width 0.3s ease-in-out, border-radius 0.3s ease-in-out, box-shadow 0s linear;
-  -webkit-transform: rotate(45deg) translateZ(0);
-  -moz-transform: rotate(45deg) translateZ(0);
-  -ms-transform: rotate(45deg) translateZ(0);
-  -o-transform: rotate(45deg) translateZ(0);
-  transform: rotate(45deg) translateZ(0); }
+  -webkit-transform: rotate(45deg) translateZ(0); }
 
 .mosaic-container.initializing:before {
   color: white;
@@ -584,28 +577,6 @@ i.pictos {
 
   100% {
     -webkit-transform: translateY(0px); } }
-
-.resizers {
-  border: 1px solid black;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0; }
-
-.resizers span {
-  position: absolute;
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: black;
-  border: 1px solid white;
-  border-radius: 1px;
-  z-index: 1; }
-
-.resizers span.br {
-  right: -5px;
-  bottom: -5px; }
 
 .banner {
   background-position: center center;
@@ -1516,31 +1487,14 @@ body .modal.fade.in {
   -moz-box-shadow: 0 0 20px rgba(236, 116, 5, 0.2);
   box-shadow: 0 0 20px rgba(236, 116, 5, 0.2); }
 
-.mosaic-view {
-  position: relative; }
-
 #mosaic-image-select {
   position: absolute;
   width: 200px;
   height: 350px;
   background-color: white;
   top: 0;
-  right: -200px;
+  right: 0;
   z-index: 2000;
-  border: 1px solid #cdcdcd;
-  border-left-color: #ababab; }
-  #mosaic-image-select ul {
-    padding-bottom: 30px; }
-    #mosaic-image-select ul li {
-      padding: 0px 10px;
-      border-bottom: 1px solid #cdcdcd; }
-      #mosaic-image-select ul li.dragged {
-        background-color: rgba(87, 35, 129, 0.3); }
-      #mosaic-image-select ul li .thumbnail {
-        display: inline-block;
-        border: 0;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none; }
-        #mosaic-image-select ul li .thumbnail .caption {
-          padding: 3px; }
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7); }

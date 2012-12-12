@@ -52,13 +52,14 @@ define([
         events : function () {
             return {
                 'submit' : 'onSubmit',
-                'click .edit-image' : 'onEditImage'
+                'click .edit-image' : 'onEditImage',
+                'click .make-cover' : 'onMakeCover'
             };
         },
 
         initialize : function () {
             TemplateView.prototype.initialize.apply(this, arguments);
-            _.bindAll(this, 'render', 'onEditImage');
+            _.bindAll(this, 'render', 'onEditImage', 'onMakeCover');
             this.models = [];
             this.model = new Backbone.Model();
             this.model.on('change', this.render);
@@ -103,6 +104,10 @@ define([
             this.img.onload = function () {
                 that.imageLoaded = true;  
             };
+        },
+
+        onMakeCover : function () {
+            this.trigger('make-cover', this.models[0].toJSON());
         },
 
         onEditImage : function () {
@@ -470,10 +475,17 @@ define([
             }).render();
 
             this.fileEdit.on('file-data-edited', this.onFileRead);
+            this.fileEdit.on('make-cover', this.onMakeCover);
 
             this.fileEdit.on('files-edited', function (data, fileIds) {
                 that.trigger('files-edited', data, fileIds, that.model.id);
             });
+        },
+
+        onMakeCover : function (image) {
+            var containerId = this._getContainerIdByElement($('aside.well .active'));
+
+            this.trigger('make-cover', image, containerId);
         }
 
     });

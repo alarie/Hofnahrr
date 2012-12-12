@@ -4,7 +4,12 @@ define([
 ], function (_, Backbone) {
     'use strict';
 
-    var UserAccessHandler;
+    var UserAccessHandler,
+        acl = {
+            'edit_mosaic' : function (user) {
+                return user && user.id;
+            }
+        };
 
     UserAccessHandler = function (acl) {
         this.acl = acl || {};
@@ -19,6 +24,6 @@ define([
 
     _.extend(UserAccessHandler.prototype, Backbone.Events);
 
-    return UserAccessHandler;
+    return new UserAccessHandler(acl);
 });
 

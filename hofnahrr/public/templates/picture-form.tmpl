@@ -7,8 +7,13 @@
 <textarea name="description" class="span12" placeholder="{{i18n "picture_description"}}">{{description}}</textarea>
 <label>{{i18n "picture_take_date"}}</label>
 <input type="date" value="{{takeDate}}" class="span12" name="takeDate" placeholder="{{i18n "picture_tage_date"}}"/>
-<input class="btn pull-right" type="submit" value="{{i18n "picture_apply_changes"}}" />
+<div class="control-group">
+<input class="btn" type="submit" value="{{i18n "picture_apply_changes"}}" />
+</div>
 </form>
+<div class="control-group">
+<button class="btn btn-mini make-cover">{{i18n "picture_make_cover"}}</button>
 {{#hasIntents}}
-    <button class="btn edit-image">{{i18n "picture_edit"}}</button>
+    <button class="btn btn-mini edit-image">{{i18n "picture_edit"}}</button>
 {{/hasIntents}}
+</div>

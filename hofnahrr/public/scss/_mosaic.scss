@@ -12,6 +12,16 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 0 0 4px white, 0 1px 3px rgba(0, 0, 0, 0.1);
     @include transform(rotate(0deg) translateZ(0));
+    -webkit-transition: width 0.3s ease-in-out, 
+        height 0.3s ease-in-out, 
+        border-width 0.3s ease-in-out, 
+        border-radius 0.3s ease-in-out,
+        box-shadow 0s linear;
+    transition: width 0.3s ease-in-out, 
+        height 0.3s ease-in-out, 
+        border-width 0.3s ease-in-out, 
+        border-radius 0.3s ease-in-out,
+        box-shadow 0s linear;
 }
 .mosaic-container.initializing {
     border: 100px solid black;
@@ -24,7 +34,12 @@
         border-width 0.3s ease-in-out, 
         border-radius 0.3s ease-in-out,
         box-shadow 0s linear;
-    -webkit-transform: rotate(45deg) translateZ(0);
+    transition: width 0.3s ease-in-out, 
+        height 0.3s ease-in-out, 
+        border-width 0.3s ease-in-out, 
+        border-radius 0.3s ease-in-out,
+        box-shadow 0s linear;
+    @include transform(rotate(45deg) translateZ(0));
 }
 .mosaic-container.initializing:before {
     color: white;
@@ -81,4 +96,29 @@
     40%  { -webkit-transform:translateY(10px); }
     50%  { -webkit-transform:translateY(0px); }
     100% { -webkit-transform:translateY(0px); }
+}
+
+
+.resizers {
+    border: 1px solid black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+.resizers span {
+    position: absolute;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 1px;
+    z-index:1;
+}
+
+.resizers span.br {
+    right:-5px;
+    bottom: -5px;
 }

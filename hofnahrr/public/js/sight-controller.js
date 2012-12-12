@@ -89,7 +89,8 @@ define([
                     'onOpenContainer', 
                     'onNewContainer',
                     'onSearch', 
-                    'onPickOnMap');
+                    'onPickOnMap', 
+                    'onMakeCover');
 
 
             // no sight is selected now
@@ -398,6 +399,12 @@ define([
             this.fileDropView.on('remove-item-from-container', this.onRemovePicturesFromSight);
             this.fileDropView.on('files-edited', this.onEditPicturesOfSight);
             this.fileDropView.on('file-read', this.onFileRead);
+            this.fileDropView.on('make-cover', this.onMakeCover);
+        },
+
+        onMakeCover : function (picture, sightId) {
+            var sight = this.sightCollection.get(sightId);
+            sight.save({icon : picture});
         },
 
         onFileRead : function (file, containerId) {

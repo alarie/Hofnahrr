@@ -242,7 +242,9 @@ define([
                 return html;
             });
 
-            Templater.registerHelper('userMay', function () {});
+            Templater.registerHelper('userMay', function (doWhat) {
+                return UserAccessHandler.may(doWhat);
+            });
 
             Templater.registerHelper('languageSelect', function (opts) {
                 var html = '', 
