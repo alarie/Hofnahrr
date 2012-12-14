@@ -1,10 +1,12 @@
 // startup.js
 var deployd = require('deployd'),
     server, 
-    hofnahrr;
+    hofnahrr, 
+    port = process.env.PORT || 8080;
 
+console.log('Creating deployd server...');
 server = deployd({
-    port: process.env.PORT || 8080,
+    port: port,
     env: 'staging',
     db: {
         host: 'localhost',
@@ -22,6 +24,7 @@ hofnahrr = server.createStore('hofnahrr');
 
 hofnahrr.remove(function () {
     // all todos removed
+    console.log('...starting to listen on ' + port);
     server.listen();
 });
 
