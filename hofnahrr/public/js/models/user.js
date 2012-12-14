@@ -1,7 +1,7 @@
 /*global define*/
 define([
-    'underscore', 'backbone'
-], function (_, Backbone) {
+    'underscore', 'backbone', 'settings'
+], function (_, Backbone, settings) {
     'use strict';
 
     var UserModel;
@@ -16,9 +16,11 @@ define([
         },
 
         login : function (data, options) {
-            var url = this.url() + 'login';
+            var url = this.url() + 'login' + '?realm=' + settings.BASE_URL;
             options || (options = {});
-            this.save(data, _.extend({url : url}, options));
+            this.save(data, _.extend({
+                url : url
+            }, options));
         },  
 
         logout : function (options) {

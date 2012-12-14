@@ -184,6 +184,10 @@ define([
         initTemplateHelpers : function () {
             var that = this;
 
+            Templater.registerHelper('settings', function (property) {
+                return settings[property];
+            });
+
             Templater.registerHelper('sightsList', function (options) {
                 var html = '';
                 that.sightCollection.each(function (item) {
