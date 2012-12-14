@@ -107,8 +107,8 @@
 		},
 		"unknown": {
 			"name": "unknown",
-			"type": "string",
-			"typeLabel": "string",
+			"type": "boolean",
+			"typeLabel": "boolean",
 			"required": false,
 			"id": "unknown",
 			"order": 13
