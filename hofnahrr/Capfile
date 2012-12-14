@@ -1,4 +1,4 @@
-require "capistrano/node-deploy"
+# require "capistrano/node-deploy"
 
 set :application, "hofnahrr"
 load 'deploy'
