@@ -1,4 +1,4 @@
-if (!me) {
+if (!this.unknown && !me) {
     cancel("You are not authorized to do that", 401);
 }
 else {    
