@@ -1,5 +1,3 @@
-require 'capistrano/ext/multistage'
-
 default_run_options[:pty] = true
 
 set :application, "Hofnahrr"
