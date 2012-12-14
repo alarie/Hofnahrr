@@ -4,7 +4,7 @@ var deployd = require('deployd'),
     hofnahrr;
 
 server = deployd({
-    port: process.env.PORT || 5000,
+    port: process.env.PORT || 8080,
     env: 'staging',
     db: {
         host: 'localhost',
