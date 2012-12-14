@@ -16,6 +16,7 @@ set :app_environment, "PORT=8080"
 set :node_binary, "usr/bin/node"
 
 # set :node_env, "production"
+set :node_user, "student"
 
 set :upstart_job_name, "hofnahrr"
 
