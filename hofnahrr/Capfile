@@ -1,7 +1,5 @@
 require "capistrano/node-deploy"
 
-
-
 set :application, "hofnahrr"
 load 'deploy'
 # Uncomment if you are using Rails' asset pipeline
