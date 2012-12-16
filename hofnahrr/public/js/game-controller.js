@@ -88,6 +88,9 @@ define([
             this.gameCollection = new GameCollection();
             this.gameCollection.model = GameModel;
             this.gameCollection.url = settings.API.GAMES;
+            this.gameCollection.comparator = function (game) {
+                return game.get('score') * -1;
+            };
             this.gameCollection.fetch();
         },
 
@@ -172,6 +175,7 @@ define([
         onOpenGame : function () {
             this.setLayout('game');
             this.setMainView(this.gameSelectView);
+            this.gameSidebar.empty();
         },
 
         onOpenGameHelp : function () {
@@ -227,11 +231,12 @@ define([
 
             this.currentGame.time = Math.floor((Date.now() - this.time) / 1000);
             this.currentGame.score = this.currentGame.correct * 1000 - this.currentGame.time; // a real score calculation
+            this.currentGame.playername = this.currentUser.attributes.firstname ? this.currentUser.attributes.firstname : 'Unbekannt';
+
             //open modal with current Game model and highscore list
             // this.gameHighscoreView.setModel()
             this.openHighscoreModal();
             this.storeCurrentGame();
-            
         },
 
         openHighscoreModal : function () {
@@ -244,13 +249,14 @@ define([
                     template : tmplModal,
                     modalOptions : {
                         show : false,
-                        backdrop : true
+                        backdrop : 'static'
                     },
                     modalData : {
                         modalClassName : 'orange',
                         modalId : 'game-highscore-modal',
                         modalHeadline : Templater.i18n('game_highscore'),
-                        modalClose : Templater.i18n('modal_close')
+                        modalClose : Templater.i18n('modal_cancel'),
+                        modalSave : Templater.i18n('modal_save')
                     }
                 });
 
@@ -260,6 +266,23 @@ define([
                     .setContentViews([{
                         view : this.gameHighscoreView
                     }]);
+
+                this.highscoreModal.modal.on('hide', function () {
+                    
+                    window.location.hash = 'game/';
+                });
+                this.highscoreModal.on('onSave', function () {
+                    that.highscoreModal.modal.hide();
+                })
+                .on('onDataDismiss', function () {
+                    console.log('datadismiss delete game');
+                    console.log(that.gameCollection);
+                    console.log(that.currentGameModel);
+                    that.currentGameModel.destroy();
+                    that.gameCollection.remove(that.currentGameModel);
+                    console.log(that.currentGameModel);
+                    console.log(that.gameCollection);
+                });
             }
             this.highscoreModal.modal.show();
         },
@@ -278,6 +301,15 @@ define([
             var data = this.visitSightCollection(visitor);
             this.questionCollection.reset(data);
             this.questionCollectionIndex = 1;
+            this.currentGame = {
+                type : 'location', 
+                playerid : 'todo',
+                score : 'score',
+                date : Date.now(),
+                time : 'todo',
+                level : this.level,
+                correct : 0
+            };
         },
 
         createGameHighscoreView : function () {

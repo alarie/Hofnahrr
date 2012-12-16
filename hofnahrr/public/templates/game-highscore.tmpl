@@ -1,8 +1,20 @@
-<h2>Glückwunsch, Du hast das Spiel erfolgreich beendet.</h2>
-<div>Du hast {{score}} Punkte erreicht. soviel Zeit {{time}} sekunden</div>
+<aside>
+	<h4>Highscore-Liste</h4>
+	<table id="game-highscore-list" class="table table-striped">
+		<thead>
+			<th>{{i18n "game_place"}}</th>
+			<th>{{i18n "game_player"}}</th>
+			<th>{{i18n "game_points"}}</th>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</aside>
 
 <div>
-<h4>Highscore-Liste</h4>
-<ol id="game-highscore-list">
-</ol>
+	<h3>Gratulation!</h3>
+	<p>Du hast das Spiel erfolgreich beendet. Du hast <strong>{{score}}</strong> Punkte erreicht und nur <strong>{{time}} Sekunden</strong> dafür benötigt.</p>
+
+	<button class="btn">Facebook</button>
+	<button class="btn">Twitter</button>
 </div>

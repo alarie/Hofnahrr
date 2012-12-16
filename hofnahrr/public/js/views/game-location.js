@@ -28,7 +28,7 @@ define([
 
             this.trigger('game-reset', function (collection) {
                 var sightsMax = collection.length - 1,
-                    numQuestions = parseInt((Math.log(level) + 1) * 3, 10),
+                    numQuestions = 3,
                     sight, rnd,
                     data = [],
                     json,
@@ -38,19 +38,35 @@ define([
                 while (numQuestions) {
                     rnd = parseInt(Math.random() * sightsMax, 10);
                     sight = collection.at(rnd);
-                    json = sight.toJSON();
-                    
-                    data.push({
-                        name : json.name,
-                        location : json.location,
-                        icon : json.icon,
-                        replied : false,
-                        correct : false,
-                        index : i++
-                    });
 
-                    numQuestions -= 1;
+                    if (sight.attributes.speakingId !== '-sight_unknown') {
+                        json = sight.toJSON();
+                        
+                        data.push({
+                            name : json.name,
+                            location : json.location,
+                            icon : json.icon,
+                            replied : false,
+                            joker : false,
+                            index : i++
+                        });
+
+                        numQuestions -= 1;
+                    }
                 }
+
+                //Add Joker question
+                sight = collection.get('unknown');
+                json = sight.toJSON();
+
+                data.push({
+                    name : json.name,
+                    icon : json.icon,
+                    replied : false,
+                    correct : false,
+                    joker : true,
+                    index : i++
+                });
                 
                 return data;
             });
@@ -73,7 +89,7 @@ define([
             // console.log(this.model ? this.model.attributes.location : 'model not set');
 
             if (this.model) {
-            
+
                 this.map = null;
 
                 var osmAttrib = 'Map data © openstreetmap contributors',
@@ -93,15 +109,15 @@ define([
                 //     [settings.CITY_SW_LAT, settings.CITY_SW_LNG],
                 //     [settings.CITY_NE_LAT, settings.CITY_NE_LNG]
                 // ]);
+                
+                if (!this.model.attributes.joker) {
+                    this.addMarker(this.model, false);
 
-                this.addMarker(this.model, false);
-
-                //TODO add random markers
-                for (var i = 0; i < 5; i++) {
-                    this.addMarker(this.model, true);
+                    //TODO add random markers
+                    for (var i = 0; i < 5; i++) {
+                        this.addMarker(this.model, true);
+                    }
                 }
-
-
 
                 // //fix for bug at first load of map / popup or marker is still on wrong position
                 // //http://stackoverflow.com/questions/10762984/leaflet-map-not-displayed-properly-inside-tabbed-panel
