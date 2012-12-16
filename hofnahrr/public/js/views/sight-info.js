@@ -53,7 +53,7 @@ define([
                                 data = page.extract;
                             });
 
-                            data = data.replace(/==([^=]+)==/g, '<h3>$1</h3>');
+                            data = data.replace(/==([^=]+)==/g, '<h5>$1</h5>');
                             data += '<a href="' + wikiLink + '" target="_blank">' + Templater.i18n('app_more') + '</a>';
 
                             $('#wiki-content').html(data);

@@ -235,7 +235,7 @@ input.search-query {
     .container,
     .container-fluid {
         &.padded {
-            padding-top: 38px;
+            padding-top: 60px;
         }
     }
 }
@@ -556,3 +556,5 @@ body .modal.fade.in {
 
 
 @import "game";
+
+@import "sight-mosaic";

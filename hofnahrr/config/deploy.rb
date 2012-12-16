@@ -1,5 +1,3 @@
-require 'capistrano/ext/multistage'
-
 default_run_options[:pty] = true
 
 set :application, "Hofnahrr"
@@ -29,9 +27,6 @@ namespace :deploy do
         settings.gsub!(/BASE_URL\s*:\s*'([^']+)'/m, "BASE_URL : '#{base_url}'")
 
         put(settings, settings_file)
-
-        run "cd /var/www/hofnahrr; dpd current/hofnahrr/app.dpd"
     end
-
 end
 

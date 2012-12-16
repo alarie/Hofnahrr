@@ -265,16 +265,17 @@ define([
         },
 
         storeCurrentGame : function () {            
-            this.currentGameModel = this.gameCollection.create(this.currentGame);
-            // console.log(this.currentGameModel);
-            this.gameHighscoreView.setModel(this.currentGameModel);
-            console.log(this.gameCollection);
-            this.gameHighscoreView.setHighscoreCollection(this.gameCollection);
+            var that = this;
+            this.currentGameModel = this.gameCollection.create(this.currentGame, {
+                success : function () {
+                    that.gameHighscoreView.setModel(that.currentGameModel);
+                    that.gameHighscoreView.setHighscoreCollection(that.gameCollection);
+                }
+            });
         },
 
         onResetGame : function (visitor) {
             var data = this.visitSightCollection(visitor);
-            // console.log(data);
             this.questionCollection.reset(data);
             this.questionCollectionIndex = 1;
         },

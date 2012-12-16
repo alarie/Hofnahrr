@@ -25,13 +25,21 @@
 			"id": "description",
 			"order": 2
 		},
+		"icon": {
+			"name": "icon",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "icon",
+			"order": 3
+		},
 		"category": {
 			"name": "category",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "category",
-			"order": 3
+			"order": 4
 		},
 		"location": {
 			"name": "location",
@@ -39,7 +47,7 @@
 			"typeLabel": "object",
 			"required": false,
 			"id": "location",
-			"order": 4
+			"order": 5
 		},
 		"links": {
 			"name": "links",
@@ -47,7 +55,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "links",
-			"order": 5
+			"order": 6
 		},
 		"tags": {
 			"name": "tags",
@@ -55,7 +63,15 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "tags",
-			"order": 6
+			"order": 7
+		},
+		"mosaic": {
+			"name": "mosaic",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "mosaic",
+			"order": 8
 		},
 		"pictures": {
 			"name": "pictures",
@@ -63,7 +79,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "pictures",
-			"order": 7
+			"order": 9
 		},
 		"language": {
 			"name": "language",
@@ -71,7 +87,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "language",
-			"order": 8
+			"order": 10
 		},
 		"verified": {
 			"name": "verified",
@@ -79,7 +95,7 @@
 			"typeLabel": "boolean",
 			"required": false,
 			"id": "verified",
-			"order": 9
+			"order": 11
 		},
 		"creator": {
 			"name": "creator",
@@ -87,7 +103,15 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "creator",
-			"order": 10
+			"order": 12
+		},
+		"unknown": {
+			"name": "unknown",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "unknown",
+			"order": 13
 		}
 	}
 }

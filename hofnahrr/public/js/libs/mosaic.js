@@ -73,6 +73,7 @@ define([
         img.src = this.spec.url;
         img.onload = function () {
             that._prepareImageForRendering(img);
+            
             that.trigger('image-loaded', this);
         };
     };
@@ -126,7 +127,7 @@ define([
      */
     MosaicRenderer = function (opts, tiles) {
         if (!opts.canvas) {
-            throw new Error('An canvaselement for the renderer ' + 
+            throw new Error('An canvas element for the renderer ' + 
                             'is required');
         }
 
@@ -141,8 +142,8 @@ define([
                   'createTileElement', 
                   'appendTile');
 
-        this.reset();
         this.canvas = this.spec.canvas;
+        this.reset();
         this.canvas.addClass('initializing');
 
         if (tiles) {
@@ -159,29 +160,43 @@ define([
         
 
     // PUBLIC API
+    MosaicRenderer.prototype.toJSON = function () {
+        var json = [];
+        _.each(this.tiles, function (tile) {
+            json.push(tile.spec);
+        });
+        return json;
+    };
+
     MosaicRenderer.prototype.reset = function () {
         this.tiles = [];
         this.activeTiles = [];
+        this.canvas.empty();
         this.trigger('reset');
+        return this;
     };
+
     MosaicRenderer.prototype.addTile = function (imgObj) {
         var that = this,
             tile = this.createTileObject(imgObj),
             tileElem = this.createTileElement(tile);
 
-        this._addTileEventListeners(tile, tileElem);
+        tileElem.css('background-image', 'url(' + tile.get('url') + ')');
+
        
+        this._addTileEventListeners(tile, tileElem);
+
         // make the first active tile the base tile 
         if (tile.get('active') && this.numActiveTiles() === 0) {
             tile.on('image-loaded', function () {
                 that.setBaseTile(tile);
             });
         }
-
         if (tile.get('active')) {
             this.appendTile(tileElem);
             this.activeTiles.push(tile);
         }
+
 
         this.trigger('tile-added', tile);
         this.tiles.push(tile);
@@ -203,10 +218,39 @@ define([
         }
     };
 
+
+    /**
+     * Recalculates size of the images so they fit into the viewport.
+     */
+    MosaicRenderer.prototype._calculateScale = function (img, tile) {
+        var scale = tile.get('scale'),
+            spec = this.spec,
+            width = img.width,
+            height = img.height;
+
+        if (!scale) {
+            scale = 1;
+            if (scale * width > spec.width) {
+                scale =  spec.width / width;
+            }
+
+            if (scale * height > spec.height) {
+                scale = spec.height / (scale * height);
+            }
+        }
+
+        tile.set({
+            scale : scale,
+            x : tile.get('x') + (width - (scale * width)) / 2,
+            y : tile.get('y') + (height - (scale * height)) / 2
+        });
+    };
+
     MosaicRenderer.prototype._addTileEventListeners = function (tile, tileElem) {
         var that = this;
 
-        tile.on('image-loaded', function () {
+        tile.on('image-loaded', function (img) {
+            that._calculateScale(img, tile);
             if (tile.get('active') && that.numActiveTiles() > 0) {
                 that.renderTileImage(tile, tileElem);
             }
@@ -237,6 +281,18 @@ define([
         tileElem.on('mousedown', function () {
             that.trigger('select-tile', tile, tileElem);
         });
+    };
+
+    MosaicRenderer.prototype.removeTileById = function (id) {
+        var match;
+        _.each(this.tiles, function (tile) {
+            if (tile.get('id') === id) {
+                match = tile;
+            }
+        });
+        if (match) {
+            match.trigger('remove-tile');
+        }
     };
 
     MosaicRenderer.prototype._removeTile = function (tile, tileElem) {
@@ -348,23 +404,26 @@ define([
         for (i = 0; i < len; i += 1) {
             this.addTile(imgObjArray[i]);
         }
+
+        return this;
     };
 
 
     MosaicRenderer.prototype.setBaseTile = function (tile) {
         var that = this;
+        
         this.setBaseOffset((this.spec.width - tile.get('width')) / 2, 
                            (this.spec.height - tile.get('height')) / 2);
 
         this.canvas
             .width(this.spec.width)
             .height(this.spec.height)
-            .removeClass('initializing')
             .one(transitionEvent, function () {
                 that.forEachActiveTile(function (tile, i) {
                     tile.trigger('init-tile', i);
                 });
-            });
+            })
+            .removeClass('initializing');
 
     };
 
@@ -377,7 +436,14 @@ define([
     MosaicRenderer.prototype.createTileObject = function (imgObj) {
         imgObj.baseOffsetX = this.spec.baseOffsetX;
         imgObj.baseOffsetY = this.spec.baseOffsetY;
-        var tile = new MosaicTile(imgObj);
+
+        var that = this,
+            tile = new MosaicTile(imgObj);
+
+        tile.on('change', function () {
+            that.trigger('tile-change', tile.spec);
+        });
+
         return tile;
     };
 
@@ -399,7 +465,7 @@ define([
     };
 
     MosaicRenderer.prototype.renderTileImage = function (tile, tileEl, animated) {
-        var scale = tile.get('scale') || 1;
+        var scale = tile.get('scale');
         if (animated) {
             tileEl.addClass('anim-in').one(transitionEvent, function () {
                 tileEl.removeClass('anim-in');
@@ -409,7 +475,6 @@ define([
             'opacity' : tile.get('opacity'),
             'width'     : parseInt(tile.get('width') * scale, 10),
             'height'    : parseInt(tile.get('height') * scale, 10),
-            'background-image': 'url(' + tile.get('url') + ')',
             'transform' : tile.getTransforms(),
             'filter' : tile.get('filter') || 'none'
         });
@@ -604,6 +669,7 @@ define([
                 tile.set({
                     width : width,
                     height : height,
+                    scale : width / origWidth,
                     // Base offset is ignored as the values are just changed
                     // relatively to the base offset.
                     x : origX + (origWidth - width) / 4,

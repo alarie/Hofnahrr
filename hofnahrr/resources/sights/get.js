@@ -19,6 +19,8 @@ else {
                 that.pictures[i].id = name;
             }
         });
-        this.icon = this.pictures[0];
+        if (!this.icon) {
+            this.icon = this.pictures[0];
+        }
     }
 }

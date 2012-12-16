@@ -4,6 +4,10 @@ define([
 ], function (_, Backbone, Templater) {
     'use strict';
 
+    /*
+     * options:
+     *   noRenderOnChange : Prevent rerendering on changing
+     */
     var TemplateView = Backbone.View.extend({
         initialize : function (options) {
             options || (options = {});
@@ -21,7 +25,9 @@ define([
                 this.delegateEvents(this.events);
             }
 
-            if (this.model && this.model instanceof Backbone.Model) {
+            if (this.model && 
+                    this.model instanceof Backbone.Model &&
+                    !options.noRenderOnChange) {
                 this.model.on('change', this.render);
             }
 

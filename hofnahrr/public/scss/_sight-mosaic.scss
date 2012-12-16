@@ -1,0 +1,41 @@
+.mosaic-view {
+    position: relative;
+}
+
+#mosaic-image-select {
+    position: absolute;
+    width: 200px;
+    height: 350px;
+    background-color: white;
+    top:0;
+    right:-200px;
+    z-index: 2000;
+
+    border: 1px solid #cdcdcd;
+    border-left-color: #ababab;
+
+
+    ul {
+        padding-bottom: 30px;
+
+        li {
+            padding: 0px 10px;
+            border-bottom: 1px solid #cdcdcd;
+
+            &.dragged {
+                background-color: rgba($hn-lilac, 0.3);
+            }
+
+            .thumbnail {
+                display: inline-block;
+                border: 0;
+                @include box-shadow(none);
+
+                .caption {
+                    padding: 3px;
+                }
+            }
+        }
+    }
+
+}

@@ -3,5 +3,20 @@ server "192.168.90.45", :app, :web, :db, :primary => true
 set :user, "student"
 set :deploy_to, "/home/student/hofnahrr/production"
 
+set :use_sudo, true
+
 set(:settings_file) { "#{deploy_to}/current/hofnahrr/public/js/settings.js" }
 set(:base_url) { "http://192.168.90.45:8080/" }
+
+
+set :app_command, "hofnahrr/startup.js"
+
+set :app_environment, "PORT=8080"
+
+set :node_binary, "usr/bin/node"
+
+# set :node_env, "production"
+set :node_user, "student"
+
+set :upstart_job_name, "hofnahrr"
+

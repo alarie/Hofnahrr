@@ -21,13 +21,14 @@ define([
 
         reset : function () {
             this.views = [];
-            this.$el.empty();
+            (this.options.listElemSelector ? 
+                this.$(this.options.listElemSelector) :
+                this.$el).empty();
         },
 
         onAdd : function (item) {
             var view = this.createItemView(item); 
             this.appendView(view);
-            view.on('item-selected', this._onItemModelSelected);
             this.views.push(view);
         },
 
@@ -43,16 +44,23 @@ define([
         },
 
         createItemView : function (item) {
-            return new this.itemViewConstructor({
+            var view = new this.itemViewConstructor(_.extend({
                 tagName : 'li',
                 template : this.options.listItemTemplate,
                 model : item
-            });
+            },
+            this.options.listItemOptions  || {}));
+
+            view.on('item-selected', this._onItemModelSelected);
+
+            return view;
         },
 
         appendView : function (view) {
-            this.$el 
-                .append(view.render().el);
+            (this.options.listElemSelector ? 
+                this.$(this.options.listElemSelector) :
+                this.$el)
+                    .append(view.render().el);
         }
     });
 

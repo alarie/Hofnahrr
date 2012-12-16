@@ -184,6 +184,10 @@ define([
         initTemplateHelpers : function () {
             var that = this;
 
+            Templater.registerHelper('settings', function (property) {
+                return settings[property];
+            });
+
             Templater.registerHelper('sightsList', function (options) {
                 var html = '';
                 that.sightCollection.each(function (item) {
@@ -242,7 +246,9 @@ define([
                 return html;
             });
 
-            Templater.registerHelper('userMay', function () {});
+            Templater.registerHelper('userMay', function (doWhat) {
+                return UserAccessHandler.may(doWhat);
+            });
 
             Templater.registerHelper('languageSelect', function (opts) {
                 var html = '', 

@@ -89,7 +89,8 @@ define([
                     'onOpenContainer', 
                     'onNewContainer',
                     'onSearch', 
-                    'onPickOnMap');
+                    'onPickOnMap', 
+                    'onMakeCover');
 
 
             // no sight is selected now
@@ -339,6 +340,7 @@ define([
                         modalClose : Templater.i18n('modal_close'),
                         modalNext : Templater.i18n('sight_add_photos'),
                         modalPrev : Templater.i18n('sights_edit_sight'),
+                        unknownModelId : this.sightCollection.unknownModel.id
                     }
                 });
 
@@ -398,6 +400,12 @@ define([
             this.fileDropView.on('remove-item-from-container', this.onRemovePicturesFromSight);
             this.fileDropView.on('files-edited', this.onEditPicturesOfSight);
             this.fileDropView.on('file-read', this.onFileRead);
+            this.fileDropView.on('make-cover', this.onMakeCover);
+        },
+
+        onMakeCover : function (picture, sightId) {
+            var sight = this.sightCollection.get(sightId);
+            sight.save({icon : picture});
         },
 
         onFileRead : function (file, containerId) {
@@ -447,19 +455,12 @@ define([
         },
 
         onOpenContainer : function (containerId) {
-            var sight;
-            // "unknown"-container
-            if (containerId === '-1') {
-                console.log("Unknown container");
-                this.sightModal.setModel(null);
-                // open picture view
-                this.sightModal.openContentView(1);
+            var sight = this.sightCollection.get(containerId); 
+            if (sight) {
+                this.sightModal.setModel(sight);
             }
-            else {
-                sight = this.sightCollection.get(containerId); 
-                if (sight) {
-                    this.sightModal.setModel(sight);
-                }
+            if (containerId === '-1') {
+                this.sightModal.openContentView(1);
             }
         },
 

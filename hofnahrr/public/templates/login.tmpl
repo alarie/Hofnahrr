@@ -18,7 +18,7 @@
             </div>
             <div class="span6">
                 <h5>{{i18n "app_other_logins"}}</h5>
-                <form class="open-id" action="users/openid-login" method="POST">
+                <form class="open-id" action="users/openid-login?realm={{settings "BASE_URL"}}" method="POST">
                     <label>
                         <input type="radio" name="provider" value="http://www.google.com/accounts/o8/id"/>
                         <a class="immediate" id="google-openid"><img src="img/google.png"></a>
