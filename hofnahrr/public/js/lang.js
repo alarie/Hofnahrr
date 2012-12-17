@@ -12,6 +12,7 @@ define([], function () {
             'app_new' : 'Neu',
             'app_edit' : 'bearbeiten',
             'app_mode' : 'mehr',
+            'app_team' : 'Team',
 
             'sight_name' : 'Name',
             'sight_description' : 'Beschreibung',
@@ -111,6 +112,7 @@ define([], function () {
             'app_new' : 'New',
             'app_edit' : 'edit',
             'app_more' : 'more',
+            'app_team' : 'Team',
 
             'sight_name' : 'Name',
             'sight_description' : 'Description',

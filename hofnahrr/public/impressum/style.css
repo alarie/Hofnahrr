@@ -1,0 +1,120 @@
+*{
+	padding: 0; 
+	margin:0;
+}
+
+body {
+	overflow-y: hidden; 
+	background: #FDFDFD
+}
+
+p{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+	line-height:16px;
+	text-align:left;	
+}
+
+.block {
+	width: 100%;
+	margin-top: -6px; 
+	z-index: 12; 
+	position: relative;}
+
+#site .block {
+	margin-top:-6px; 
+	background: #FDFDFD
+} 
+
+.block-container {
+	width:100%; 
+	z-index: 7;
+}
+.block .block-content {
+	position: relative; 
+	background: #FDFDFD;
+}
+
+.block.active .block-content {
+	background: #FDFDFD
+}
+
+.impressum .block-content .content-impressum { 
+	position: relative;
+}
+
+.impressum .block-content .content-impressum .intro-impressum {
+	padding: 40px 0; 
+	position: relative; 
+	margin:auto;  
+	width: 800px; 
+	text-align: center;
+}
+
+#team .block-content .content-impressum .intro-impressum .col {
+	width: 240px; 
+	margin-left: 20px; 
+	float: left; 
+	position: relative;
+}
+
+#team .block-content .content-impressum .intro-impressum .first-foto {
+	width: 200px; 
+	height: 247px; 
+	overflow: hidden;
+	position: absolute; 
+	top: 5px; 
+	left:5px; 
+	z-index: 10; 
+	display: block
+}
+
+#team .block-content .content-impressum .intro-impressum .fotorahmen { 
+	width: 220px; 
+	height: 267px; 
+	overflow: hidden; 
+	position: relative; 
+}
+
+#team .block-content .content-impressum .intro-impressum .fotoliste {
+	position: absolute; 
+	left: 5px;
+	top:5px; 
+	width: 200px; 
+	height:247px; 
+	overflow: hidden;
+}
+
+#team .block-content .content-impressum .intro-impressum .foto-richtung {
+	position: relative;
+}
+
+img, a {
+	border:none; 
+	text-decoration: none;
+}
+
+/* DIVERS */
+.left {float: left;}
+.right {float: right;}
+.hidden {display: none;}
+
+img, .unselectable {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+
+}
+
+
+#leftRight {
+	position: absolute;
+    background-color: white;
+    color: black;
+}
+
+#info  {float: left; width: 45%;}
+
+.clear {clear: both;}

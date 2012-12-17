@@ -558,3 +558,31 @@ body .modal.fade.in {
 @import "game";
 
 @import "sight-mosaic";
+
+
+
+
+
+
+
+
+
+.team-opener {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    padding: 3px 10px;
+    color: white!important;
+}
+.lilac .team-opener {
+    background-color: rgba($hn_lilac, 0.8);
+}
+.orange .team-opener {
+    background-color: rgba($hn_orange, 0.8);
+}
+.green .team-opener {
+    background-color: rgba($hn_green, 0.8);
+}
+
+@import "impressum";
