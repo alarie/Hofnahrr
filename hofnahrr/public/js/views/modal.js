@@ -31,8 +31,18 @@ define([
 
         events : function () {
             return {
-                'click [data-wizard-action]' : 'onWizardAction'
+                'click [data-wizard-action]' : 'onWizardAction',
+                'click #save' : 'onSave',
+                'click [data-dismiss]' : 'onDataDismiss'
             };
+        },
+
+        onDataDismiss : function () {
+            this.trigger('onDataDismiss');
+        },
+
+        onSave : function () {
+            this.trigger('onSave');
         },
 
         initialize : function () {

@@ -41,6 +41,11 @@ define([
             this.$('#game-progress').empty();
             collection.each(this.onAdd);
             this.setGameProgress({diff : collection.length});
+        },
+
+        empty : function () {
+            this.$('#game-progress').empty();
+            this.$('.progress-summary').empty();
         }
     });
 

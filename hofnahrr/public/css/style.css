@@ -1590,6 +1590,14 @@ body .modal.fade.in {
         float: right;
         color: white; }
 
+#game-highscore-list .active td {
+  background-color: rgba(236, 116, 5, 0.8); }
+
+#game-highscore-modal aside {
+  float: right;
+  margin-left: 1em;
+  min-width: 45%; }
+
 .mosaic-view {
   position: relative; }
 

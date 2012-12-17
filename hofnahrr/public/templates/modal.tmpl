@@ -8,6 +8,8 @@
     </div>
     <div class="modal-footer">
         <button class="btn pull-left" data-dismiss="modal" aria-hidden="true">{{modalClose}}</button>
+        {{#if modalSave}}<button id="save" class="btn btn-primary" aria-hidden="true">{{modalSave}}</button>{{/if}}
+
 <!--        <button class="btn prev" aria-hidden="true">{{modalPrev}}</button>
         <button class="btn next btn-primary">{{modalNext}}</button> -->
         <!--<button data-wizard-action="prev" class="btn">{{modalPrev}}</button>

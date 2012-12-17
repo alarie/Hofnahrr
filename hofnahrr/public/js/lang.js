@@ -88,6 +88,9 @@ define([], function () {
             'game_time_game' : 'Zeitzuordnungsspiel',
             'game_location_game' : 'Ortszuordnungsspiel',
             'game_level' : 'Schwierigkeitsgrad',
+            'game_place' : 'Platz',
+            'game_player' : 'Spieler',
+            'game_points' : 'Punkte',
 
 
             'profile_profile' : 'Profil',

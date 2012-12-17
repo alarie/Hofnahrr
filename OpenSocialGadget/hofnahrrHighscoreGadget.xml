@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Hofnahrr Highscore" height="600px" scaling="false"/>
+  <Content type="html">
+  <![CDATA[
+
+    <link href='http://fonts.googleapis.com/css?family=Scada:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+    
+    <style type="text/css">
+      #hn_content, h1 {
+        width: 100%;
+        color: #333;
+        font-family: 'Scada', 'Arial', sans-serif;
+      }
+
+      #hn_content h1 {
+        font-size: 32px;
+        text-transform: uppercase;
+        font-weight: normal;
+        letter-spacing: 0.08em;
+        color: #EC7405;
+      }
+
+      #hn_highscore {
+        width: 100%;
+        border: 1px solid #EC7405;
+        border-spacing: 0;
+        color: white;
+      }
+      
+      #hn_highscore thead {
+        background-color: #EC7405;
+        text-align: left;
+        color: white;
+      }
+
+      #hn_highscore td, #hn_highscore th {
+        padding: 0.5em;
+        border-right: 1px solid rgba(236, 116, 5, 0.7);
+      }
+
+      #hn_highscore tbody tr:nth-child(even) {
+        background-color: rgba(236, 116, 5, 0.3);
+      }
+
+      #hn_highscore tbody tr:nth-child(odd) {
+        background-color: rgba(236, 116, 5, 0.6);
+      }
+
+      a {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 10px 0px;
+        text-shadow: none;
+        color: white;
+        position: relative;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 10px 20px;
+        line-height: 22px;
+        font-size: 22px;
+        font-weight: normal;
+        background-color: #EC7405;
+        text-decoration: none;
+        display: block;
+      }
+
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+    <div id="hn_content">
+      <h1>Hofnahrr</h1>
+      <table id="hn_highscore">
+        <thead>
+          <tr>
+              <th>Platz</th>
+              <th>Spieler</th>
+              <th>Punkte</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <a href="http://hofnahrr.de:2403/">Trage Dich jetzt auch in die Bestenliste ein!</a>
+    </div>
+    <script type="text/javascript">
+
+    function makeJSONRequest() {    
+      var params = {};
+      params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+      // This URL returns a JSON-encoded string that represents a JavaScript object
+      var url = "http://www.svenadolph.net/Highscore/test";
+      gadgets.io.makeRequest(url, response, params);
+    };
+
+    function response(obj) { 
+      var jsondata = obj.data;
+      var html = "";
+
+      for (var i in jsondata) {
+        var value = jsondata[i],
+            j = ++i;
+        html += "<tr><td>" + j + "</td><td>"      + value.playername + "</td><td>" + value.score + "</td></tr>";
+      }
+             
+      $('#hn_highscore tbody').html(html);
+     };
+
+     gadgets.util.registerOnLoadHandler(makeJSONRequest);
+     </script>
+  ]]>
+  </Content>
+</Module>

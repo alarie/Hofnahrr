@@ -120,3 +120,19 @@
 
     }
 }
+
+#game-highscore-list {
+    .active td{
+        background-color: rgba($hn_orange, 0.8);
+    }
+}
+
+#game-highscore-modal {
+    // width: 900px;
+
+    aside {
+        float: right;
+        margin-left: 1em;
+        min-width: 45%;
+    }
+}
