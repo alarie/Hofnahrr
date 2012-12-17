@@ -28,7 +28,9 @@ define([
             'login' : 'login',
             'logout' : 'logout',
 
-            'tag/:tagname' : 'onChangeTag'
+            'tag/:tagname' : 'onChangeTag',
+
+            'team' : 'team'
         }
     });
 

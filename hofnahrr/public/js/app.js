@@ -12,6 +12,7 @@ define([
 
     'sight-controller',
     'game-controller',
+    'team-controller',
 
     'views/template',
     'views/templated-bridge',
@@ -24,7 +25,7 @@ define([
     'router/hofnahrr',
 
     'text!tmpl/navigation.tmpl',
-    'text!tmpl/modal.tmpl',
+    'text!tmpl/modal.tmpl'
 ], function (
     $, _, Backbone, Templater, lang, DataRetriever, UserAccessHandler,
 
@@ -32,6 +33,7 @@ define([
 
     SightController,
     GameController,
+    TeamController,
 
     TemplateView, TemplatedBridgeView, LoginView, UserFormView, ModalView,
 
@@ -75,6 +77,7 @@ define([
                   'onDeleteUser');
 
         this.layouts = {};
+
 
         this._started = false;
 
@@ -153,6 +156,7 @@ define([
 
             SightController.installTo(this);
             GameController.installTo(this);
+            TeamController.installTo(this);
 
         },
 
@@ -301,6 +305,7 @@ define([
             this.router.on('route:create-new-sight', this.onCreateNewSight);
             this.router.on('route:search', this.onSearch);
             this.router.on('route:profile', this.onOpenProfile);
+            this.router.on('route:team', this.onOpenTeam);
 
 
             this.router.on('route:game', this.onOpenGame);

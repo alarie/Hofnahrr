@@ -1626,3 +1626,53 @@ body .modal.fade.in {
         box-shadow: none; }
         #mosaic-image-select ul li .thumbnail .caption {
           padding: 3px; }
+
+.team-opener {
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  padding: 3px 10px;
+  color: white!important; }
+
+.lilac .team-opener {
+  background-color: rgba(87, 35, 129, 0.8); }
+
+.orange .team-opener {
+  background-color: rgba(236, 116, 5, 0.8); }
+
+.green .team-opener {
+  background-color: rgba(38, 157, 46, 0.8); }
+
+#team.block {
+  width: 100%;
+  position: relative; }
+#team .block-content {
+  position: relative; }
+#team .content-impressum {
+  position: relative; }
+#team .intro-impressum {
+  padding: 40px 0;
+  position: relative;
+  margin: auto;
+  width: 800px;
+  text-align: center; }
+#team .col {
+  width: 240px;
+  margin-left: 20px;
+  float: left;
+  position: relative; }
+#team .clear {
+  clear: both; }
+#team .fotorahmen {
+  width: 200px;
+  height: 247px;
+  display: inline-block;
+  outline: 8px solid transparent;
+  background-image: url(../impressum/bildleiste.jpg); }
+#team .col:nth-child(3n) .fotorahmen {
+  outline-color: #572381; }
+#team .col:nth-child(3n+1) .fotorahmen {
+  outline-color: #ec7405; }
+#team .col:nth-child(3n+2) .fotorahmen {
+  outline-color: #269d2e; }

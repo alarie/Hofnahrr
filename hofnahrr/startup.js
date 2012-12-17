@@ -2,7 +2,8 @@
 var deployd = require('deployd'),
     server, 
     hofnahrr, 
-    port = process.env.PORT || 8080;
+    port = process.env.PORT || 8080,
+    dbport = 27017;
 
 console.log('Creating deployd server...');
 server = deployd({
@@ -10,7 +11,7 @@ server = deployd({
     env: 'staging',
     db: {
         host: 'localhost',
-        port: 27017,
+        port: dbport,
         name: 'hofnahrr',
         credentials: {
             username: 'test',

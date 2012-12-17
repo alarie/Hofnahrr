@@ -1,0 +1,50 @@
+#team {
+    &.block {
+        width: 100%;
+        position: relative;
+    }
+
+    .block-content {
+        position: relative; 
+    }
+
+    .content-impressum { 
+        position: relative;
+    }
+
+    .intro-impressum {
+        padding: 40px 0; 
+        position: relative; 
+        margin:auto;  
+        width: 800px; 
+        text-align: center;
+    }
+
+    .col {
+        width: 240px; 
+        margin-left: 20px; 
+        float: left; 
+        position: relative;
+    }
+
+    .clear {clear: both;}
+
+
+    .fotorahmen {
+        width: 200px; 
+        height: 247px; 
+        display: inline-block;
+        outline: 8px solid transparent;
+        background-image:url(../impressum/bildleiste.jpg);
+    }
+    .col:nth-child(3n) .fotorahmen{
+        outline-color: $hn_lilac;
+    }
+    .col:nth-child(3n+1) .fotorahmen{
+        outline-color: $hn_orange;
+    }
+    .col:nth-child(3n+2) .fotorahmen{
+        outline-color: $hn_green;
+    }
+
+}
