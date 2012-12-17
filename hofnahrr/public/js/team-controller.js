@@ -98,13 +98,13 @@ define([
                     pos;
 
                 if (i === 0) {
-                    that.ctx.fillStyle = 'rgba(87, 35, 129, 0.1)';
+                    that.ctx.fillStyle = 'rgba(38, 157, 46, 0.05)';
                 }
                 else if (i === 1) {
-                    that.ctx.fillStyle = 'rgba(236, 116, 5, 0.1)';
+                    that.ctx.fillStyle = 'rgba(87, 35, 129, 0.05)';
                 }
                 else {
-                    that.ctx.fillStyle = 'rgba(38, 157, 46, 0.1)';
+                    that.ctx.fillStyle = 'rgba(236, 116, 5, 0.05)';
                 }
 
                 if (that.isIn(v1, h1, v2, h2, e)) {
