@@ -262,7 +262,7 @@ define([
 
             Templater.registerHelper('userMay', function (doWhat, opts) {
                 var html = '';
-                if(UserAccessHandler.may(doWhat, that.currentUser)) {
+                if (UserAccessHandler.may(doWhat, that.currentUser)) {
                     html = opts.fn(this);
                 }
                 else {
@@ -368,8 +368,8 @@ define([
                 });
             }
 
-            userModal.setModel(this.currentUser);
-            userModal.modal.show();
+            this.userModal.setModel(this.currentUser);
+            this.userModal.modal.show();
         },
 
         // from now on: stuff that happens on demand 

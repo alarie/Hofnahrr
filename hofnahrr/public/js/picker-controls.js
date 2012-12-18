@@ -85,7 +85,6 @@ define([
         },
 
         onPick : function (e) {
-            console.log(e);
             this.setLocation(e.latlng);
             this.trigger('pick', {
                 lat : e.latlng.lat,

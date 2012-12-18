@@ -77,6 +77,8 @@ define([], function () {
             'picture_edit' : 'Bild bearbeiten',
 
             'modal_close' : 'Schließen',
+            'modal_cancel' : 'Ergebnis verwerfen',
+            'modal_save' : 'Ergebnis speichern',
 
             'login_language' : 'Sprache',
             'login_login' : 'Anmelden',
@@ -97,6 +99,9 @@ define([], function () {
             'game_place' : 'Platz',
             'game_player' : 'Spieler',
             'game_points' : 'Punkte',
+            'game_location_whereis' : 'Wo wurde dieses Foto aufgenommen?',
+            'game_location_unknown_desc' : 'Manchmal wissen wir selber nicht, wo die Bilder hingehören. Helfe uns indem du den Marker auf die richtige stelle ziehst und dann rechts oben "OK" klickst. Solltest du es nicht wissen halb so wild, klicke einfach auf "Abbrechen" und das Spiel geht weiter.',
+            'game_unknownsight_name' : 'Die Jokerfrage',
 
 
             'profile_profile' : 'Profil',
