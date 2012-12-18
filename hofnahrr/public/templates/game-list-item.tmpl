@@ -1,6 +1,7 @@
 <div class="{{#replied}}replied{{/replied}} {{#correct}}correct{{/correct}}">
 {{#joker}}
 	<span class="status pictos">!</span> {{! ! is a ! }}
+	<strong>{{i18n "game_unknownsight_name"}}</strong>
 {{/joker}}
 {{^joker}}
 	{{#replied}}
@@ -10,11 +11,12 @@
 		{{^correct}}
 		    <span class="status pictos">D</span> {{! is a X }}
 		{{/correct}}
+		<strong>{{name}}</strong>
 	{{/replied}}
 	{{^replied}}
 		<span class="status pictos">?</span>
+		<strong>. . .</strong>
 	{{/replied}}
 {{/joker}}
-<strong>{{name}}</strong>
 <span class="index">{{index}}</span>
 </div>

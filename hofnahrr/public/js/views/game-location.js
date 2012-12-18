@@ -4,13 +4,15 @@ define([
     'text!tmpl/game-location.tmpl',
     'libs/leaflet-src',
     'settings',
-    'picker-controls'
+    'picker-controls',
+    'templater'
 ], function (
     GameView,
     tmplLocationGame,
     leaflet,
     settings,
-    PickerControls
+    PickerControls,
+    Templater
 ) {
 
     'use strict';
@@ -202,7 +204,7 @@ define([
                     draggable : 'true'
                 })
                 .addTo(this.map)
-                .bindPopup('Hey drag me to the right position', {
+                .bindPopup(Templater.i18n('game_location_unknown_desc'), {
                     offset: new L.Point(0, -33),
                     closeButton: false
                 })
@@ -211,20 +213,18 @@ define([
             this.map.addControl(pickerCtrls);
 
             pickerCtrls.on('ok', function () {
-                console.log('end Game');
                 var loc = that.pickMarker.getLatLng();
-
                 that.trigger('game-progress', {location: loc, pic: that.model.attributes.picture});
+                that.model.set({replied : true});
             });
 
             pickerCtrls.on('cancel', function (location) {
                 console.log('woas ich nich + end game');
                 that.trigger('game-progress');
+                that.model.set({replied : true});
             });
 
             pickerCtrls.on('pick', function (location) {
-                console.log('set marker to location', location);
-                
                 pickMarker.setLatLng(new L.LatLng(
                     location.lat, 
                     location.lng
