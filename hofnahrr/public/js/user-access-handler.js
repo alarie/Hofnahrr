@@ -13,7 +13,6 @@ define([
     };
 
     UserAccessHandler.prototype.may = function (doWhat, user) {
-        console.log('todo implement user access handler');
         return doWhat && 
             doWhat in this.acl && 
             this.acl[doWhat](user);
@@ -34,7 +33,6 @@ define([
             return userAccessHandler.isRegisteredUser(user);
         },
         'edit_sight' : function (user) {
-            console.log(user);
             return userAccessHandler.isRegisteredUser(user);
         }
     };

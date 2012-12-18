@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, L */
 define([
     'views/game',
     'text!tmpl/game-location.tmpl',
@@ -221,7 +221,6 @@ define([
             pickerCtrls.on('cancel', function (location) {
                 console.log('woas ich nich + end game');
                 that.trigger('game-progress');
-                that.model.set({replied : true});
             });
 
             pickerCtrls.on('pick', function (location) {

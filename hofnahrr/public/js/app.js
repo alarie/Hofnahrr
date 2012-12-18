@@ -184,8 +184,7 @@ define([
 
             this.createRouter();
             this.addEventListeners();
-
-
+console.log("starting");
             Backbone.history.start();
         },
 

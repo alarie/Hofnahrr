@@ -4,7 +4,6 @@ define([
     'templater',
 
     'collections/game-collection',
-    'collections/sight-collection',
     'models/game',
     'models/sight',
 
@@ -29,7 +28,6 @@ define([
     Templater,
 
     GameCollection,
-    SightCollection,
     GameModel,
     SightModel,
 
@@ -63,7 +61,6 @@ define([
             this.createGameViews();
             this.initQuestionCollection();
             this.createGameCollection();
-            this.createSightCollection();
 
             this._gameControllerInstalled = true;
             this.layouts.game = tmplGameLayout;
@@ -80,20 +77,11 @@ define([
                 level : this.level,
                 correct : 0
             };
-
-            console.log('init', this);
         },
 
         initQuestionCollection : function () {
             this.questionCollection = new Backbone.Collection();
             this.questionCollection.on('reset', this.gameSidebar.onAddAll);
-        },
-
-        createSightCollection : function () {
-            this.sightCollection = new SightCollection();
-            this.sightCollection.model = SightModel;
-            this.sightCollection.url = settings.API.SIGHTS;
-            this.sightCollection.fetch();
         },
 
         createGameCollection : function () {
