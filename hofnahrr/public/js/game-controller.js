@@ -101,6 +101,7 @@ define([
             this.createTimeGameView();
             this.createLocationGameView();
             this.createGameHighscoreView();
+            this.createGameStartView();
         },
 
         createGameSidebarView : function () {
@@ -147,6 +148,15 @@ define([
             this.gameSidebar.setGameSelect(this.gameSelectView);
         },
 
+        createGameStartView : function () {
+            var view = new TemplateView({
+                className : 'container padded gamestartview',
+                template : '<h1>' + Templater.i18n('game_headline') + '</h1>'
+            });
+            view.render();
+            this.gameStartView = view;
+        },
+
         createTimeGameView : function () {
             var view = new TimeGameView({
                 className : 'container padded'
@@ -177,7 +187,9 @@ define([
         onOpenGame : function () {
             this.setLayout('game');
             this.gameSidebar.reset();
+            this.setMainView(this.gameStartView);
             this.gameSelectView.$el.slideDown();
+
         },
 
         onOpenGameHelp : function () {

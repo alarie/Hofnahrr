@@ -1,5 +1,5 @@
 .game-select {
-    padding: 20px;
+    padding-top: 10px;
     @include box-sizing(border-box);
 }
 
@@ -118,16 +118,31 @@
     }
 }
 
-.gameoverview {
+.gamestartview {
     background-image: url(../img/bggame.jpg);
     background-repeat: no-repeat;
     background-position: center center; 
     height: 100%;
+
+    h1 {
+        text-align: center;
+        color: $hn_lilac;
+        text-transform: uppercase;
+        font-size: 3em;
+    }
 }
 
 .gameselectview {
+
     .btn {
         width: 100%;
         padding: 0.5em;
+        margin-bottom: 5px;
+    }
+
+    legend {
+        color: white;
+        border-bottom: 1px solid white;
+        margin-bottom: 0;
     }
 }

@@ -92,16 +92,18 @@ define([], function () {
             'game_new_game' : 'Neues Spiel',
             'game_help' : 'Hilfe',
             'game_end' : 'Beenden',
-            'game_select' : 'Spielart',
+            'game_select' : 'Spielauswahl',
             'game_time_game' : 'Zeitzuordnungsspiel',
             'game_location_game' : 'Ortszuordnungsspiel',
-            'game_level' : 'Schwierigkeitsgrad',
+            'game_level_desc' : 'Wähle einen Schwierigkeitsgrad:',
             'game_place' : 'Platz',
             'game_player' : 'Spieler',
             'game_points' : 'Punkte',
             'game_location_whereis' : 'Wo wurde dieses Foto aufgenommen?',
             'game_location_unknown_desc' : 'Manchmal wissen wir selber nicht, wo die Bilder hingehören. Helfe uns indem du den Marker auf die richtige stelle ziehst und dann rechts oben "OK" klickst. Solltest du es nicht wissen halb so wild, klicke einfach auf "Abbrechen" und das Spiel geht weiter.',
             'game_unknownsight_name' : 'Die Jokerfrage',
+            'game_btn_group_label' : 'Starte das Spiel Deiner Wahl:',
+            'game_headline' : 'Das grosse Hofnahrr Spiel',
 
 
             'profile_profile' : 'Profil',
@@ -206,8 +208,11 @@ define([], function () {
             'game_select' : 'Game type',
             'game_time_game' : 'Time game',
             'game_location_game' : 'Location game',
-            'game_level' : 'Level',
-
+            'game_level_desc' : 'Choose the difficulty level:',
+            'game_btn_group_label' : 'Start the game of your choice',
+            'game_unknownsight_name' : 'Joker question',
+            'game_location_unknown_desc' : 'Drag the marker to the according location and press "OK" afterwards.',
+            'game_headline' : 'The Hofnahrr Game',
 
             'profile_profile' : 'Profile',
 
