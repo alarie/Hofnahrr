@@ -107,8 +107,11 @@ define([
 
             this._openedPage = '';
 
+            var that = this;
             this.sightCollection.fetch({
-                success : this.start
+                success : function () {
+                    that.start();
+                }
             });
 
             this.on('layout-set:sight', this.initSightLayout);
@@ -243,7 +246,10 @@ define([
                 view.setCollection(this.sightCollection);
             }
 
-            view.setModel(this.selectedSight);
+            console.log("opening");
+            if (this.selectedSight) {
+                view.setModel(this.selectedSight);
+            }
 
 
             if (!options.noSubpage) {
@@ -274,7 +280,11 @@ define([
                     this.selectedSight = null;
                 }
             }
-            this.sightNav.setModel(this.selectedSight);
+
+            if (this.selectedSight) {
+                console.log(this.selectedSight);
+                this.sightNav.setModel(this.selectedSight);
+            }
         },
 
         onEditSight : function (id) {
