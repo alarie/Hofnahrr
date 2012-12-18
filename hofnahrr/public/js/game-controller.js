@@ -125,7 +125,7 @@ define([
 
         createGameSelectView : function () {
             var view = new TemplateView({
-                className : 'container padded gameoverview',
+                className : 'gameselectview',
                 template : tmplGameSelect,
                 events : {
                     'click .start-game' : function (e) {
@@ -144,6 +144,7 @@ define([
             });
             view.render();
             this.gameSelectView = view;
+            this.gameSidebar.setGameSelect(this.gameSelectView);
         },
 
         createTimeGameView : function () {
@@ -175,9 +176,8 @@ define([
 
         onOpenGame : function () {
             this.setLayout('game');
-            this.setMainView(this.gameSelectView);
-            this.gameSidebar.empty();
-            this.gameSidebar.setGameSelect();
+            this.gameSidebar.reset();
+            this.gameSelectView.$el.slideDown();
         },
 
         onOpenGameHelp : function () {
@@ -187,8 +187,8 @@ define([
         onOpenGamePlay : function (type, level) {
             this.setLayout('game');
             var view = type === 'time' ? 
-                                this.timeGameView : 
-                                this.locationGameView;
+                            this.timeGameView : 
+                            this.locationGameView;
 
             this.time = Date.now();
 
@@ -197,6 +197,8 @@ define([
             view.render();
 
             view.setModel(this.questionCollection.first());
+
+            this.gameSelectView.$el.slideUp();
 
             this.setMainView(view);
         },

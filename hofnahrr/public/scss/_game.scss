@@ -1,16 +1,6 @@
 .game-select {
-    position: absolute;
-
     padding: 20px;
-    height: 300px;
-    width: 600px;
-    left: 50%;
-    margin-left: -300px;
-    top: 50%;
-    margin-top: -150px;
-  
     @include box-sizing(border-box);
-    @include box-shadow(0 0 20px rgba($hn_orange, 0.2));
 }
 
 #gamemap {
