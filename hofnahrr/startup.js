@@ -1,12 +1,12 @@
 // startup.js
 var deployd = require('deployd'),
-    server, 
+    dpd, 
     hofnahrr, 
     port = process.env.PORT || 8080,
     dbport = 27017;
 
 console.log('Creating deployd server...');
-server = deployd({
+dpd = deployd({
     port: port,
     env: 'staging',
     db: {
@@ -21,15 +21,15 @@ server = deployd({
 });
 
 // remove all data in the 'todos' collection
-hofnahrr = server.createStore('hofnahrr');
+hofnahrr = dpd.createStore('hofnahrr');
 
 hofnahrr.remove(function () {
     // all todos removed
     console.log('...starting to listen on ' + port);
-    server.listen();
+    dpd.listen();
 });
 
-server.on('error', function (err) {
+dpd.on('error', function (err) {
     console.error(err);
     process.nextTick(function () { // Give the server a chance to return an error
         process.exit();

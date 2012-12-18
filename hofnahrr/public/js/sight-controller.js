@@ -192,7 +192,7 @@ define([
         onOpenSightMap : function (id) {
             this.sightSubpage = 'map/';
             this.openSightView(id, this.sightMapView, {
-                silent : true, 
+                silent : this.mainView === this.sightMapView, 
                 collection : true
             });
         },
