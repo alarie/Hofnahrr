@@ -2,8 +2,7 @@
 define([
     'underscore',
     'backbone',
-    'templater'
-], function (_, Backbone, Templater) {
+], function (_, Backbone) {
     'use strict';
 
     var SightCollection;
@@ -41,7 +40,7 @@ define([
             else {
                 this.unknownModel = new this.model({
                     unknown : true,
-                    name : Templater.i18n('sight_unknown')
+                    name : 'unknown'
                 });
                 this.unknownModel.url = this.url;
                 this.unknownModel.save(null, {
