@@ -37,14 +37,17 @@
         outline: 8px solid transparent;
         background-image:url(../impressum/bildleiste.jpg);
     }
-    .col:nth-child(3n) .fotorahmen{
+    .col:nth-child(3n-1) .fotorahmen{
         outline-color: $hn_lilac;
+        background-position: (0 * 200px) (-8 * 247px); 
+    }
+    .col:nth-child(3n) .fotorahmen{
+        outline-color: $hn_orange;
+        background-position: (-1 * 200px) (-8 * 247px); 
     }
     .col:nth-child(3n+1) .fotorahmen{
-        outline-color: $hn_orange;
-    }
-    .col:nth-child(3n+2) .fotorahmen{
         outline-color: $hn_green;
+        background-position: (-2 * 200px) (-8 * 247px); 
     }
 
 }
