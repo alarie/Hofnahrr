@@ -80,8 +80,6 @@ define([
                 level : this.level,
                 correct : 0
             };
-
-            console.log('init', this);
         },
 
         initQuestionCollection : function () {
