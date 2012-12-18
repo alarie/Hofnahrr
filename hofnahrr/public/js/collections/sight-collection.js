@@ -9,10 +9,8 @@ define([
 
     SightCollection = Backbone.Collection.extend({
         parse : function (resp) {
-            var index;
+            var index = -1;
             
-            console.log('sven', index);
-
             // check for unknown-model in collection;
             _.each(resp, function (model, i) {
                 if (model.unknown) {
@@ -20,9 +18,9 @@ define([
                 }
             });
 
-            console.log('sven', index);
-
-            this.createUnknownModel(index ? resp.splice(index, 1)[0] : null);
+            this.createUnknownModel(index >= 0 ? 
+                                    resp.splice(index, 1)[0] : 
+                                    null);
 
             return resp;
         },
