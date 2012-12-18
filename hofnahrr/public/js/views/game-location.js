@@ -48,7 +48,7 @@ define([
                         console.log('undefined sight  rndnr', rnd);
                     }
 
-                    if (sight.attributes.speakingId !== '-sight_unknown') {
+                    if (sight.attributes.speakingId !== '-sight_unknown' && sight.attributes.pictures.length > 0) {
                         json = sight.toJSON();
                         pictureRnd = parseInt(Math.random() * json.pictures.length - 1, 10);
                         
