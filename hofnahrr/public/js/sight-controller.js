@@ -246,7 +246,6 @@ define([
                 view.setCollection(this.sightCollection);
             }
 
-            console.log("opening");
             if (this.selectedSight) {
                 view.setModel(this.selectedSight);
             }
@@ -282,7 +281,6 @@ define([
             }
 
             if (this.selectedSight) {
-                console.log(this.selectedSight);
                 this.sightNav.setModel(this.selectedSight);
             }
         },

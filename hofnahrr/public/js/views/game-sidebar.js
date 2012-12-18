@@ -20,30 +20,6 @@ define([
                 Backbone.View;
             this.itemViewData = options.itemViewData || {};
             this.summaryTemplate = Templater.compile(summaryTemplate);
-            this.createGameSelectView();
-        },
-
-        createGameSelectView : function () {
-            var view = new TemplateView({
-                className : 'gameselectview',
-                template : tmplGameSelect,
-                events : {
-                    'click .start-game' : function (e) {
-                        var gameType = $(e.target).hasClass('start-time-game') ?
-                                'time' :
-                                'location',
-                            level = view.$('[name="level"]:checked').val();
-
-                        e.preventDefault();
-                        e.stopPropagation();
-    
-                        window.location.hash = 'game/play/' + gameType + '/' + 
-                            level + '/';
-                    }
-                }
-            });
-            view.render();
-            this.gameSelectView = view;
         },
 
         setGameProgress : function (progressSummaryData) {
@@ -74,8 +50,12 @@ define([
         },
 
         setGameSelect : function (view) {
-            this.empty();
-            this.$('.progress-summary').append(this.gameSelectView.el);
+            this.$('.game-select').empty().append(view.el);
+        },
+
+        reset : function () {
+            this.$('.progress-summary').empty();
+            this.$('#game-progress').empty();
         }
 
 

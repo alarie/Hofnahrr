@@ -184,7 +184,6 @@ define([
 
             this.createRouter();
             this.addEventListeners();
-console.log("starting");
             Backbone.history.start();
         },
 
@@ -214,13 +213,11 @@ console.log("starting");
             });
 
             Templater.registerHelper('getRandomPictureThumb', function () {
-                console.log('pics', this);
                 return (this.pictures && this.pictures.length) ?
                     this.pictures[0].thumb : 'none';
             });
 
             Templater.registerHelper('carousel', function (all, active, options) {
-                console.log(all, active);
                 var i = 0, html = '';
                 _.each(all, function (itm) {
                     if (i === active) {
