@@ -7,31 +7,36 @@
     <p class="navbar-text"><a class="login">{{i18n "login_signup"}}</a></p>
     <div class="login-form hide container-fluid">
         <div class="row-fluid">
-            <!--<div class="span6">
-                <h5>{{i18n "app_login"}}</h5>
-                <form class="">
-                    <label class="control-label" for="login-name">{{i18n "login_name"}}</label>
-                    <input class="span12" type="text" id="login-name" name="username" value="{{username}}">
-                    <label class="control-label" for="login-password">{{i18n "login_password"}}</label>
-                    <input class="span12" type="password" id="login-password" name="password" value="{{password}}">
-                    <button class="pull-right btn btn-primary">{{i18n "login_login"}}</button>
-                </form>
-            </div>-->
             <div class="span6">
-                <h5>{{i18n "app_other_logins"}}</h5>
-                <form class="open-id" action="users/openid-login?realm={{settings "BASE_URL"}}" method="POST">
-                    <label>
-                        <input type="radio" name="provider" value="http://www.google.com/accounts/o8/id"/>
-                        <a class="immediate" id="google-openid"><img src="img/google.png"></a>
-                    </label>
-                    <!--
-                    <label>
-                        <input type="radio" name="provider" value="http://flickr.com/" />
-                        <a id="google-openid"><img src="img/google.png"></a>
-                        <input class="immediate" type="text" name="username" placeholder="flickr username" />
-                    </label>
-                    -->
-                </form>
+                <div class="container-fluid">
+                    <h4>{{i18n "app_hofnharr_login"}}</h4>
+                    <form class="">
+                        <b>{{i18n "app_coming_soon"}}</b>
+                        <label class="control-label" for="login-name">{{i18n "login_name"}}</label>
+                        <input disabled class="span12" type="text" id="login-name" name="username" value="{{username}}">
+                        <label  class="control-label" for="login-password">{{i18n "login_password"}}</label>
+                        <input disabled class="span12" type="password" id="login-password" name="password" value="{{password}}">
+                        <input type="submit" disabled class="pull-right btn btn-primary" value="{{i18n "login_login"}}" />
+                    </form>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="container-fluid">
+                    <h4>{{i18n "app_other_logins"}}</h4>
+                    <form class="open-id" action="users/openid-login?realm={{settings "BASE_URL"}}" method="POST">
+                        <label>
+                            <input class="checkbox-helper" type="radio" name="provider" value="http://www.google.com/accounts/o8/id"/>
+                            <a class="immediate" id="google-openid"><img src="img/google.png"></a>
+                        </label>
+                        <!--
+                        <label>
+                            <input type="radio" name="provider" value="http://flickr.com/" />
+                            <a id="google-openid"><img src="img/google.png"></a>
+                            <input class="immediate" type="text" name="username" placeholder="flickr username" />
+                        </label>
+                        -->
+                    </form>
+                </div>
             </div>
         </div>
     </div>
