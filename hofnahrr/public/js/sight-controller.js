@@ -6,6 +6,7 @@ define([
     'collections/sight-collection',
     'models/sight',
     'models/file',
+    'user-access-handler',
 
     'settings',
 
@@ -38,6 +39,7 @@ define([
     SightCollection,
     SightModel, 
     FileModel,
+    UserAccessHandler,
 
     settings,
 
@@ -192,7 +194,7 @@ define([
         onOpenSightMap : function (id) {
             this.sightSubpage = 'map/';
             this.openSightView(id, this.sightMapView, {
-                silent : true, 
+                silent : this.mainView === this.sightMapView, 
                 collection : true
             });
         },
@@ -276,9 +278,14 @@ define([
         },
 
         onEditSight : function (id) {
-            this.setSelectedSight(id);
-            if (this.selectedSight) {
-                this.openModal(this.selectedSight);
+            if (UserAccessHandler.may('edit_sight', this.currentUser)) {
+                this.setSelectedSight(id);
+                if (this.selectedSight) {
+                    this.openModal(this.selectedSight);
+                }
+            }
+            else {
+                this.trigger('login-required');
             }
         },
 

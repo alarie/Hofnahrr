@@ -87,6 +87,10 @@ define([
         // create the HofnahrrRouter instance
         //this.createRouter();
         //this.addEventListeners();
+        
+        this.on('login-required', function () {
+            alert('Please login');
+        });
 
 
         $('body').on('click', '.toggle-sidebar', this.onToggleSidebar);
@@ -245,19 +249,26 @@ define([
             });
 
             Templater.registerHelper('userIsLoggedIn', function () {
-                return !!that.currentUser.id;
+                return UserAccessHandler.isRegisteredUser(that.currentUser);
             });
 
             Templater.registerHelper('isAdmin', function (obj, opts) {
                 var html = '';
-                if (that.currentUser.id && that.currentUser.get('isAdmin')) {
+                if (UserAccessHandler.isAdmin(that.currentUser)) {
                     html += opts.fn(obj);
                 }
                 return html;
             });
 
-            Templater.registerHelper('userMay', function (doWhat) {
-                return UserAccessHandler.may(doWhat);
+            Templater.registerHelper('userMay', function (doWhat, opts) {
+                var html = '';
+                if(UserAccessHandler.may(doWhat, that.currentUser)) {
+                    html = opts.fn(this);
+                }
+                else {
+                    html = opts.inverse(this);
+                }
+                return html;
             });
 
             Templater.registerHelper('languageSelect', function (opts) {

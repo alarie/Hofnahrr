@@ -1,5 +1,9 @@
 {{#if speakingId}}
-<a class="pull-right" href="#sight/{{speakingId}}/edit/"><i class="pictos">p</i> {{i18n "sight_edit"}}</a>
+{{#userMay "edit_sight"}}
+    <a class="pull-right" href="#sight/{{speakingId}}/edit/"><i class="pictos">p</i> {{i18n "sight_edit"}}</a>
+{{else}}
+    <p class="navbar-text pull-right">{{i18n "app_login_to_edit_sight"}}</p>
+{{/userMay}}
 <ul class="nav nav-tabs">
     <li>
         <a href="#sight/{{speakingId}}/map/"><i class="pictos">@</i> {{i18n "sight_map"}}</a>

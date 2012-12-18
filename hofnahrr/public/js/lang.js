@@ -13,6 +13,8 @@ define([], function () {
             'app_edit' : 'bearbeiten',
             'app_mode' : 'mehr',
             'app_team' : 'Team',
+            'app_login_to_create_sight' : 'Anmelden um Sehenswürdigkeit zu erstellen',
+            'app_login_to_edit_sight' : 'Anmelden um Sehenswürdigkeit zu bearbeiten',
 
             'sight_name' : 'Name',
             'sight_description' : 'Beschreibung',
@@ -119,6 +121,8 @@ define([], function () {
             'app_edit' : 'edit',
             'app_more' : 'more',
             'app_team' : 'Team',
+            'app_login_to_create_sight' : 'Login to create sight',
+            'app_login_to_edit_sight' : 'Login to edit sight',
 
             'sight_name' : 'Name',
             'sight_description' : 'Description',

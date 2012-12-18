@@ -5,11 +5,8 @@ define([
     'use strict';
 
     var UserAccessHandler,
-        acl = {
-            'edit_mosaic' : function (user) {
-                return user && user.id;
-            }
-        };
+        userAccessHandler,
+        acl;
 
     UserAccessHandler = function (acl) {
         this.acl = acl || {};
@@ -19,11 +16,31 @@ define([
         console.log('todo implement user access handler');
         return doWhat && 
             doWhat in this.acl && 
-            this.acl[doWhat](user.attributes);
+            this.acl[doWhat](user);
+    };
+    UserAccessHandler.prototype.isRegisteredUser = function (user) {
+        return !!(user && user.id);
+    };
+
+    UserAccessHandler.prototype.isAdmin = function (user) {
+        return !!(user && user.id && user.get('isAdmin'));
     };
 
     _.extend(UserAccessHandler.prototype, Backbone.Events);
 
-    return new UserAccessHandler(acl);
+
+    acl = {
+        'edit_mosaic' : function (user) {
+            return userAccessHandler.isRegisteredUser(user);
+        },
+        'edit_sight' : function (user) {
+            console.log(user);
+            return userAccessHandler.isRegisteredUser(user);
+        }
+    };
+
+    userAccessHandler = new UserAccessHandler(acl);
+
+    return userAccessHandler;
 });
 

@@ -1,12 +1,13 @@
 {{#if id}}
-<p class="navbar-text pull-right">
+<p class="navbar-text">
     Hiho {{firstname}}. [<a class="logout">{{i18n "login_logout"}}</a>]
 </p>    
 {{else}}
     <a class="green login">{{i18n "login_login"}}</a>
+    <p class="navbar-text"><a class="login">{{i18n "login_signup"}}</a></p>
     <div class="login-form hide container-fluid">
         <div class="row-fluid">
-            <div class="span6">
+            <!--<div class="span6">
                 <h5>{{i18n "app_login"}}</h5>
                 <form class="">
                     <label class="control-label" for="login-name">{{i18n "login_name"}}</label>
@@ -15,7 +16,7 @@
                     <input class="span12" type="password" id="login-password" name="password" value="{{password}}">
                     <button class="pull-right btn btn-primary">{{i18n "login_login"}}</button>
                 </form>
-            </div>
+            </div>-->
             <div class="span6">
                 <h5>{{i18n "app_other_logins"}}</h5>
                 <form class="open-id" action="users/openid-login?realm={{settings "BASE_URL"}}" method="POST">
@@ -34,7 +35,4 @@
             </div>
         </div>
     </div>
-<p class="navbar-text pull-right">
- <a class="login">{{i18n "login_signup"}}</a>
-</p>
 {{/if}}

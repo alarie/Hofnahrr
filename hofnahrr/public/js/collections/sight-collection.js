@@ -2,15 +2,14 @@
 define([
     'underscore',
     'backbone',
-    'templater'
-], function (_, Backbone, Templater) {
+], function (_, Backbone) {
     'use strict';
 
     var SightCollection;
 
     SightCollection = Backbone.Collection.extend({
         parse : function (resp) {
-            var index;
+            var index = -1;
             
             // check for unknown-model in collection;
             _.each(resp, function (model, i) {
@@ -19,8 +18,9 @@ define([
                 }
             });
 
-            this.createUnknownModel((typeof index !== 'undefined') ? resp.splice(index, 1)[0] : null);
-
+            this.createUnknownModel(index >= 0 ? 
+                                    resp.splice(index, 1)[0] : 
+                                    null);
             return resp;
         },
 
@@ -42,7 +42,7 @@ define([
             else {
                 this.unknownModel = new this.model({
                     unknown : true,
-                    name : Templater.i18n('sight_unknown')
+                    name : 'unknown'
                 });
                 this.unknownModel.url = this.url;
                 this.unknownModel.save(null, {

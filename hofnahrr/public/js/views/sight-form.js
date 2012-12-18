@@ -139,7 +139,21 @@ define([
                 placement : 'right',
                 trigger : 'hover'
             });
-        }
+
+            if (!this.model || this.model.get('unknown')) {
+                this.disableForm();
+            }
+            else {
+                this.enableForm();
+            }
+        },
+        disableForm : function () {
+            this.$('input, textarea, button').attr('disabled', 'disabled');
+        },
+
+        enableForm : function () {
+            this.$('input, textarea, button').removeAttr('disabled');
+        },
     });
 
 
