@@ -137,7 +137,7 @@ define([
 
         createGameSelectView : function () {
             var view = new TemplateView({
-                className : 'container padded',
+                className : 'container padded gameoverview',
                 template : tmplGameSelect,
                 events : {
                     'click .start-game' : function (e) {
@@ -189,6 +189,7 @@ define([
             this.setLayout('game');
             this.setMainView(this.gameSelectView);
             this.gameSidebar.empty();
+            this.gameSidebar.setGameSelect();
         },
 
         onOpenGameHelp : function () {
@@ -249,7 +250,7 @@ define([
             if (!serverPic.locations) {
                 serverPic.locations = [];
             }
-            
+
             serverPic.locations.push(piclocation);
             unknownSight.save();
         },

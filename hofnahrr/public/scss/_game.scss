@@ -81,11 +81,6 @@
             }
 
             .replied {
-                // background-color: rgba($hn_red, 0.7);
-                // color: $hn_red;
-                // .index {
-                //     background-color: $hn_red;
-                // }
                 opacity: 0.8;
                 .status {
                     color: $hn_red;
@@ -93,11 +88,6 @@
             }
 
             .correct {
-                // background-color: rgba($hn_green, 0.7);
-                // color: $hn_green;
-                // .index {
-                //     background-color: $hn_green;
-                // }
                 .status {
                     color: $hn_green;
                 }
@@ -136,4 +126,11 @@
         margin-left: 1em;
         min-width: 45%;
     }
+}
+
+.gameoverview {
+    background-image: url(../img/bggame.jpg);
+    background-repeat: no-repeat;
+    background-position: center center; 
+    height: 100%;
 }

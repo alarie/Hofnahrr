@@ -1610,6 +1610,12 @@ body .modal.fade.in {
   margin-left: 1em;
   min-width: 45%; }
 
+.gameoverview {
+  background-image: url(../img/bggame.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%; }
+
 .mosaic-view {
   position: relative; }
 
