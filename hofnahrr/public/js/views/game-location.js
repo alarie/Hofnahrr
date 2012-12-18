@@ -48,7 +48,8 @@ define([
                             icon : json.icon,
                             replied : false,
                             joker : false,
-                            index : i++
+                            index : i++,
+                            pictures : json.pictures
                         });
 
                         numQuestions -= 1;
@@ -59,13 +60,15 @@ define([
                 sight = collection.get('unknown');
                 json = sight.toJSON();
 
+                //todo refactor copied code from line 45
                 data.push({
                     name : json.name,
                     icon : json.icon,
                     replied : false,
                     correct : false,
                     joker : true,
-                    index : i++
+                    index : i++,
+                    pictures : json.pictures
                 });
                 
                 return data;
@@ -117,6 +120,8 @@ define([
                     for (var i = 0; i < 5; i++) {
                         this.addMarker(this.model, true);
                     }
+                } else {
+                    console.log('SHOW JOKER UI ELEMENTS');
                 }
 
                 // //fix for bug at first load of map / popup or marker is still on wrong position
