@@ -990,6 +990,12 @@ i.pictos {
 .picker-controls {
   padding: 5px; }
 
+.orange .leaflet-popup-content-wrapper {
+  color: #ec7405 !important;
+  border-color: #ec7405 !important; }
+.orange .leaflet-popup-tip {
+  border-color: #ec7405 !important; }
+
 .leaflet-popup .leaflet-popup-content {
   margin: 10px; }
   .leaflet-popup .leaflet-popup-content .banner {
@@ -1548,7 +1554,8 @@ body .modal.fade.in {
   -moz-background-clip: padding;
   background-clip: padding-box;
   overflow: auto;
-  color: #ec7405; }
+  color: #ec7405;
+  padding: 0px 10px 10px 10px; }
   #questioncontainer img {
     float: left;
     margin-right: 10px; }

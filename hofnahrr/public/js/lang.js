@@ -71,6 +71,8 @@ define([], function () {
             'picture_edit' : 'Bild bearbeiten',
 
             'modal_close' : 'Schließen',
+            'modal_cancel' : 'Ergebnis verwerfen',
+            'modal_save' : 'Ergebnis speichern',
 
             'login_language' : 'Sprache',
             'login_login' : 'Anmelden',
@@ -91,6 +93,7 @@ define([], function () {
             'game_place' : 'Platz',
             'game_player' : 'Spieler',
             'game_points' : 'Punkte',
+            'game_location_whereis' : 'Wo wurde dieses Foto aufgenommen?',
 
 
             'profile_profile' : 'Profil',

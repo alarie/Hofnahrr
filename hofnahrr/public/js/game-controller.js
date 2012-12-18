@@ -4,7 +4,9 @@ define([
     'templater',
 
     'collections/game-collection',
+    'collections/sight-collection',
     'models/game',
+    'models/sight',
 
     'settings',
 
@@ -27,7 +29,9 @@ define([
     Templater,
 
     GameCollection,
+    SightCollection,
     GameModel,
+    SightModel,
 
     settings,
 
@@ -59,6 +63,7 @@ define([
             this.createGameViews();
             this.initQuestionCollection();
             this.createGameCollection();
+            this.createSightCollection();
 
             this._gameControllerInstalled = true;
             this.layouts.game = tmplGameLayout;
@@ -82,6 +87,13 @@ define([
         initQuestionCollection : function () {
             this.questionCollection = new Backbone.Collection();
             this.questionCollection.on('reset', this.gameSidebar.onAddAll);
+        },
+
+        createSightCollection : function () {
+            this.sightCollection = new SightCollection();
+            this.sightCollection.model = SightModel;
+            this.sightCollection.url = settings.API.SIGHTS;
+            this.sightCollection.fetch();
         },
 
         createGameCollection : function () {
@@ -159,6 +171,7 @@ define([
             var view = new LocationGameView();
             view.on('game-progress', this.onGameProgress, this);
             view.on('game-reset', this.onResetGame);
+            // view.on('game-add-pic-location', this.onAddPicLocation, this);
             this.locationGameView = view;
         },
 
@@ -199,7 +212,7 @@ define([
             this.setMainView(view);
         },
 
-        onGameProgress : function () {
+        onGameProgress : function (options) {
 
             var percentage = this.questionCollectionIndex / this.questionCollection.length * 100,
                 progressSummaryData = {length : this.questionCollection.length, index : this.questionCollectionIndex, diff : this.questionCollection.length - this.questionCollectionIndex, percentage : percentage};
@@ -215,12 +228,35 @@ define([
 
             }
 
+            if (options) {
+                //piclocation abspeichern
+                this.storePicLocation(options);
+            }
+
+        },
+
+        storePicLocation : function (options) {
+            var that = this,
+                location = options.location,
+                pic = options.pic,
+                piclocation = {playerid: this.currentUser.attributes.id, location: {lat: location.lat, lng: location.lng}},
+                //hinzufügen zu unknwon sight
+                unknownSight = this.sightCollection.get('unknown'),
+                serverPic = _.find(unknownSight.attributes.pictures, function (pic) {
+                    return pic.id === this.id;
+                }, pic);
+
+            if (!serverPic.locations) {
+                serverPic.locations = [];
+            }
+            
+            serverPic.locations.push(piclocation);
+            unknownSight.save();
         },
 
         onEndOfGame : function () {
             console.log('end of game!!!');
             //open highscore modal / collection auslesen
-
             //create game object pass it to highscore view
 
             this.questionCollection.forEach(function (item) {
@@ -234,8 +270,9 @@ define([
             this.currentGame.playername = this.currentUser.attributes.firstname ? this.currentUser.attributes.firstname : 'Unbekannt';
 
             //open modal with current Game model and highscore list
-            // this.gameHighscoreView.setModel()
             this.openHighscoreModal();
+
+
             this.storeCurrentGame();
         },
 

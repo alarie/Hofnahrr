@@ -12,8 +12,6 @@ define([
         parse : function (resp) {
             var index;
             
-            console.log('sven', index);
-
             // check for unknown-model in collection;
             _.each(resp, function (model, i) {
                 if (model.unknown) {
@@ -21,9 +19,7 @@ define([
                 }
             });
 
-            console.log('sven', index);
-
-            this.createUnknownModel(index ? resp.splice(index, 1)[0] : null);
+            this.createUnknownModel((typeof index !== 'undefined') ? resp.splice(index, 1)[0] : null);
 
             return resp;
         },
