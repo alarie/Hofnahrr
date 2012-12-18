@@ -21,7 +21,6 @@ define([
             this.createUnknownModel(index >= 0 ? 
                                     resp.splice(index, 1)[0] : 
                                     null);
-
             return resp;
         },
 

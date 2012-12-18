@@ -12,6 +12,17 @@
     padding: 5px;
 }
 
+.orange {
+    .leaflet-popup-content-wrapper {
+        color: $hn_orange !important;
+        border-color: $hn_orange !important;
+    }
+    
+    .leaflet-popup-tip {
+        border-color: $hn_orange !important;
+    }
+}
+
 .leaflet-popup {
     .leaflet-popup-content {
         margin: 10px;

@@ -3,12 +3,14 @@ define([
     'views/game',
     'text!tmpl/game-location.tmpl',
     'libs/leaflet-src',
-    'settings'
+    'settings',
+    'picker-controls'
 ], function (
     GameView,
     tmplLocationGame,
     leaflet,
-    settings
+    settings,
+    PickerControls
 ) {
 
     'use strict';
@@ -32,15 +34,21 @@ define([
                     sight, rnd,
                     data = [],
                     json,
-                    i = 1;
+                    i = 1,
+                    pictureRnd;
 
 
                 while (numQuestions) {
                     rnd = parseInt(Math.random() * sightsMax, 10);
                     sight = collection.at(rnd);
 
+                    if (!sight) {
+                        console.log('undefined sight  rndnr', rnd);
+                    }
+
                     if (sight.attributes.speakingId !== '-sight_unknown') {
                         json = sight.toJSON();
+                        pictureRnd = parseInt(Math.random() * json.pictures.length - 1, 10);
                         
                         data.push({
                             name : json.name,
@@ -49,7 +57,7 @@ define([
                             replied : false,
                             joker : false,
                             index : i++,
-                            pictures : json.pictures
+                            picture : json.pictures[pictureRnd]
                         });
 
                         numQuestions -= 1;
@@ -60,7 +68,11 @@ define([
                 sight = collection.get('unknown');
                 json = sight.toJSON();
 
-                //todo refactor copied code from line 45
+                //choose RndPicture
+                pictureRnd = parseInt(Math.random() * json.pictures.length - 1, 10);
+                console.log('sven', rnd);
+
+                //todo refactor / copied code from line 45
                 data.push({
                     name : json.name,
                     icon : json.icon,
@@ -68,7 +80,7 @@ define([
                     correct : false,
                     joker : true,
                     index : i++,
-                    pictures : json.pictures
+                    picture : json.pictures[pictureRnd]
                 });
                 
                 return data;
@@ -98,7 +110,8 @@ define([
                 var osmAttrib = 'Map data © openstreetmap contributors',
                     cmUrl = 'http://{s}.tile.cloudmade.com/77aace98a9ec425f8f2cb228c484f71f/997/256/{z}/{x}/{y}.png',
                     osm = new L.TileLayer(cmUrl, {minZoom: 8, maxZoom: 18, attribution: osmAttrib}),
-                    pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG);
+                    pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG),
+                    i;
 
                 this.map = new L.Map(this.$('#gamemap')[0], {
                     center: pos,
@@ -117,11 +130,12 @@ define([
                     this.addMarker(this.model, false);
 
                     //TODO add random markers
-                    for (var i = 0; i < 5; i++) {
+                    for (i = 0; i < 5; i++) {
                         this.addMarker(this.model, true);
                     }
                 } else {
                     console.log('SHOW JOKER UI ELEMENTS');
+                    this.preparePicker(this.model);
                 }
 
                 // //fix for bug at first load of map / popup or marker is still on wrong position
@@ -153,10 +167,8 @@ define([
                     .addTo(this.map)
                     .on('click', function (e) {
                         if (e.target._leaflet_id === that.resultId) {
-                            console.log("RICHTIG!!!");
                             correct = true;
                         } else {
-                            console.log("FALSCH!");
                             correct = false;
                         }
                         //show result
@@ -166,9 +178,6 @@ define([
 
                 if (!randomLocation) {
                     this.resultId = marker._leaflet_id;
-                    console.log(item.attributes.name, item.attributes.location);
-
-                    console.log('new render solution: ' + this.resultId);
                 }
             }
         },
@@ -180,6 +189,62 @@ define([
                 iconAnchor : new L.Point(10, 41)
             });
             return icon;
+        },
+
+        preparePicker : function (model) {
+            var that = this,
+                pickerCtrls = new PickerControls(),
+                pickMarker = L.marker(new L.LatLng(
+                    settings.CITY_LAT, 
+                    settings.CITY_LNG
+                ), {
+                    icon : that.createIcon(model),
+                    draggable : 'true'
+                })
+                .addTo(this.map)
+                .bindPopup('Hey drag me to the right position', {
+                    offset: new L.Point(0, -33),
+                    closeButton: false
+                })
+                .openPopup();
+
+            this.map.addControl(pickerCtrls);
+
+            pickerCtrls.on('ok', function () {
+                console.log('end Game');
+                var loc = that.pickMarker.getLatLng();
+
+                that.trigger('game-progress', {location: loc, pic: that.model.attributes.picture});
+            });
+
+            pickerCtrls.on('cancel', function (location) {
+                console.log('woas ich nich + end game');
+                that.trigger('game-progress');
+            });
+
+            pickerCtrls.on('pick', function (location) {
+                console.log('set marker to location', location);
+                
+                pickMarker.setLatLng(new L.LatLng(
+                    location.lat, 
+                    location.lng
+                ));
+            });
+
+            pickMarker.on('dragend', function (event) {
+                var e = {};
+                e.latlng = event.target.getLatLng();
+                that.map.fireEvent('click', e);
+            });
+
+            that.pickMarker = pickMarker;
+            that.pickerCtrls = pickerCtrls;
+
+            return this;
+        },
+
+        destroyPicker : function () {
+            this.map.removeControl(this.pickerCtrls);
         }
     });
 
