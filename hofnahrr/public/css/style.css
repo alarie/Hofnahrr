@@ -1922,6 +1922,11 @@ body .modal.fade.in {
   background-position: center center;
   height: 100%; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003129}}
+.gameselectview .btn {
+  width: 100%;
+  padding: 0.5em; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-mosaic\.scss}line{font-family:\000031}}
 .mosaic-view {
   position: relative; }
