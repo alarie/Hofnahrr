@@ -1896,18 +1896,18 @@ body .modal.fade.in {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\0000383}}
       .orange #sidebar ul li .replied {
         opacity: 0.8; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\0000385}}
         .orange #sidebar ul li .replied .status {
           color: #d80000; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\0000391}}
       .orange #sidebar ul li .correct .status {
         color: #269d2e; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\0000396}}
       .orange #sidebar ul li .status {
         display: inline-block;
         padding: 10px 10px;
         font-size: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003102}}
       .orange #sidebar ul li .index {
         background-color: #ec7405;
         position: relative;
@@ -1915,15 +1915,22 @@ body .modal.fade.in {
         float: right;
         color: white; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003116}}
 #game-highscore-list .active td {
   background-color: rgba(236, 116, 5, 0.8); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003134}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003124}}
 #game-highscore-modal aside {
   float: right;
   margin-left: 1em;
   min-width: 45%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_game\.scss}line{font-family:\00003131}}
+.gameoverview {
+  background-image: url(../img/bggame.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/simonschmidt\/Dropbox\/Projekte\/Hofnahrr\/hofnahrr\/public\/scss\/_sight-mosaic\.scss}line{font-family:\000031}}
 .mosaic-view {
