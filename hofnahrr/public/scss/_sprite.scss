@@ -14,6 +14,13 @@
     @include sprite();
     background-position: -21px 0; 
 }
+@mixin sprite_logo_green {
+    background-position: -21px -192px !important;
+}
+@mixin sprite_logo_orange {
+    background-position: -21px -96px;
+}
+
 @mixin sprite_pin { 
     width: 20px; 
     height: 41px; 
