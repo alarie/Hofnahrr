@@ -78,11 +78,9 @@ define([
 
         this.layouts = {};
 
-
         this._started = false;
 
         this.createUser();
-
 
         // create the HofnahrrRouter instance
         //this.createRouter();
@@ -92,12 +90,10 @@ define([
             alert('Please login');
         });
 
-
         $('body').on('click', '.toggle-sidebar', this.onToggleSidebar);
 
         this.currentUser.isLoggedIn(this.onUserLoggedIn, 
                                     this.onUserNotLoggedIn);
-        
     };
 
     AppController.prototype = {
@@ -180,6 +176,8 @@ define([
         start : function () {
             this.initTemplateHelpers();
             this.createViews();
+
+            this.trigger('app-started');
 
 
             this.createRouter();
@@ -283,6 +281,7 @@ define([
                 return html;
             });
 
+            console.log('helpers created');
         },
 
         createViews : function () {
@@ -360,7 +359,7 @@ define([
 
 
                 userModal.modal.on('hide', function () {
-                    that.router.navigate('sight');
+                    that.router.navigate('sight/');
                 });
             }
 

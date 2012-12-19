@@ -28,12 +28,14 @@ define([
                 this.onSearchChanged(e);
             //}
         },
+
         onSearchChanged : function (e) {
             window.location.hash = 'search/' + e.target.value;
         },
 
         appendView : function (view) {
-            this.$el.find('ul')
+            this.$el
+                .find('ul')
                 //.find('ul #sight-list-header')
                 //.after(view.render().el);
                 .append(view.render().el);

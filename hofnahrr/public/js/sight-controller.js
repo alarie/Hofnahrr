@@ -114,6 +114,11 @@ define([
                 }
             });
 
+            this.on('app-started', function () {
+                that.listView.render();
+                that.sightCollection.reset(this.sightCollection.models);
+            });
+
             this.on('layout-set:sight', this.initSightLayout);
         },
 
@@ -178,7 +183,8 @@ define([
             this.listView = new SightListView({
                 template : tmplSightsList,
                 listItemTemplate : tmplSightLink
-            }).render();
+            });
+            console.log("created sight list view");
         },
 
         appendSightListView : function () {
