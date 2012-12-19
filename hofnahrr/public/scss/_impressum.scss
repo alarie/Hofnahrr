@@ -5,6 +5,10 @@
     padding: 50px;
 }
 
+.logogreen .image{
+    @include sprite_logo_green();
+}
+
 #team {
     &.block {
         width: 100%;

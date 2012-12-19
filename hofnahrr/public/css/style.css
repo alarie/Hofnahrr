@@ -1625,7 +1625,7 @@ body .modal.fade.in {
   background-position: center center;
   height: 100%; }
   .gamestartview h1 {
-    text-align: center;
+    text-align: left;
     color: #572381;
     text-transform: uppercase;
     font-size: 3em; }
@@ -1690,6 +1690,9 @@ body .modal.fade.in {
   cursor: url("http://images.cursornation.com/food-cursors/breakfast-food-cursors/breakfast-cursor-11.ani");
   height: 100%;
   padding: 50px; }
+
+.logogreen .image {
+  background-position: -21px -192px !important; }
 
 #team.block {
   width: 100%;
