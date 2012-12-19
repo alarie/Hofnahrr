@@ -33,25 +33,25 @@ define([
 
 
             // debugging canvas
-            //{
-                //var c = $('<canvas/>'),
-                    //w = $('body').outerWidth(true),
-                    //h = $('body').outerHeight(true);
+            {
+                var c = $('<canvas/>'),
+                    w = $('body').outerWidth(true),
+                    h = $('body').outerHeight(true);
 
-                //c.css({
-                    //width : w,
-                    //height : h,
-                    //top : 0,
-                    //left: 0,
-                    //position: 'absolute',
-                    //zIndex : -1
-                //});
+                c.css({
+                    width : w,
+                    height : h,
+                    top : 0,
+                    left: 0,
+                    position: 'absolute',
+                    zIndex : -1
+                });
 
-                //$('body').append(c);
+                $('body').append(c);
 
-                //c.attr({height : h, width: w});
-                //this.ctx = c[0].getContext('2d');
-            //}
+                c.attr({height : h, width: w});
+                this.ctx = c[0].getContext('2d');
+            }
 
             $('body').on('mousemove', this.setBackgroundImage);
         },
@@ -74,9 +74,9 @@ define([
                     (e.pageY > top) && 
                     (e.pageY < bottom);
 
-            //if (hit) {
-                //this.ctx.fillRect(left, top, right - left, bottom - top);
-            //}
+            if (hit) {
+                this.ctx.fillRect(left, top, right - left, bottom - top);
+            }
             return hit;
         },
 
@@ -87,7 +87,7 @@ define([
                 hMax = $('body').outerWidth(true),
                 vMax = $('body').outerHeight(true);
 
-            //this.ctx.clearRect(0, 0, hMax, vMax);
+            this.ctx.clearRect(0, 0, hMax, vMax);
 
             $('#team .col').each(function (i) {
                 var imageData = that.getImageData(this),
@@ -97,15 +97,17 @@ define([
                     v2 = v1 + imageData.height,
                     pos;
 
-                //if (i === 0) {
-                    //that.ctx.fillStyle = 'rgba(38, 157, 46, 0.05)';
-                //}
-                //else if (i === 1) {
-                    //that.ctx.fillStyle = 'rgba(87, 35, 129, 0.05)';
-                //}
-                //else {
-                    //that.ctx.fillStyle = 'rgba(236, 116, 5, 0.05)';
-                //}
+                {
+                    if (i === 0) {
+                        that.ctx.fillStyle = 'rgba(87, 35, 129, 0.2)';
+                    }
+                    else if (i === 1) {
+                        that.ctx.fillStyle = 'rgba(236, 116, 5, 0.2)';
+                    }
+                    else {
+                        that.ctx.fillStyle = 'rgba(38, 157, 46, 0.2)';
+                    }
+                }
 
                 if (that.isIn(v1, h1, v2, h2, e)) {
                     pos = -8 * imageHeight;

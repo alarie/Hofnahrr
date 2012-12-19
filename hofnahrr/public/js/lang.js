@@ -11,7 +11,7 @@ define([], function () {
 
             'app_new' : 'Neu',
             'app_edit' : 'bearbeiten',
-            'app_mode' : 'mehr',
+            'app_more' : 'mehr',
             'app_team' : 'Team',
             'app_login' : 'Login',
             'app_hofnharr_login' : 'Hofnahrr-Login',
@@ -62,6 +62,7 @@ define([], function () {
 
 
             'picture_manager' : 'Fotomanager',
+            'picture_make_cover' : 'Als Cover verwenden',
             'picture_add_pictures' : 'Bilder hinzufügen',
             'picture_name' : 'Name',
             'picture_description' : 'Beschreibung',
@@ -177,6 +178,7 @@ define([], function () {
             'sight_wikipedia' : 'Wikipedia',
 
             'picture_manager' : 'Picture manager',
+            'picture_make_cover' : 'Use as cover',
             'picture_add_pictures' : 'Add pictures',
             'picture_name' : 'Name',
             'picture_description' : 'Description',

@@ -13,7 +13,8 @@ define([
             location : {},
             tags : [],
             links : [],
-            pictures : []
+            pictures : [],
+            mosaic : []
         },
 
         addImage : function (file, options) {
