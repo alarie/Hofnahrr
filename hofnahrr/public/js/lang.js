@@ -105,6 +105,7 @@ define([], function () {
             'game_unknownsight_name' : 'Die Jokerfrage',
             'game_btn_group_label' : 'Starte das Spiel Deiner Wahl:',
             'game_headline' : 'Das grosse Hofnahrr Spiel',
+            'game_highscore' : 'Highscore',
 
 
             'profile_profile' : 'Profil',
@@ -215,6 +216,7 @@ define([], function () {
             'game_unknownsight_name' : 'Joker question',
             'game_location_unknown_desc' : 'Drag the marker to the according location and press "OK" afterwards.',
             'game_headline' : 'The Hofnahrr Game',
+            'game_highscore' : 'Highscore',
 
             'profile_profile' : 'Profile',
 

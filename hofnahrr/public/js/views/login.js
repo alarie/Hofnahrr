@@ -45,6 +45,7 @@ define([
             this.$('.login-form')
                 .removeClass('hide');
         },
+
         onShowSignup : function () {
             this.$('form')
                 .addClass('hide')
