@@ -104,7 +104,7 @@ define([], function () {
             'game_location_unknown_desc' : 'Manchmal wissen wir selber nicht, wo die Bilder hingehören. Helfe uns indem du den Marker auf die richtige stelle ziehst und dann rechts oben "OK" klickst. Solltest du es nicht wissen halb so wild, klicke einfach auf "Abbrechen" und das Spiel geht weiter.',
             'game_unknownsight_name' : 'Die Jokerfrage',
             'game_btn_group_label' : 'Starte das Spiel Deiner Wahl:',
-            'game_headline' : 'Das grosse Hofnahrr Spiel',
+            'game_headline' : 'Das grosse Hofna<span class="fg-orange">h</span>rr Spiel',
             'game_highscore' : 'Highscore',
 
 

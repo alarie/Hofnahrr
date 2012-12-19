@@ -1628,7 +1628,8 @@ body .modal.fade.in {
     text-align: left;
     color: #572381;
     text-transform: uppercase;
-    font-size: 3em; }
+    font-size: 3em;
+    font-weight: normal; }
 
 .gameselectview .btn {
   width: 100%;
