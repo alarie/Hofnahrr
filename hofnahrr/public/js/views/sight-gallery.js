@@ -17,7 +17,7 @@ define([
 
     SightGalleryView = TemplatedBridgeView.extend({
         tagname : 'div',
-        className : 'container padded',
+        className : 'container-fluid padded',
         template : tmplSightGallery,
 
         afterRender : function () {
