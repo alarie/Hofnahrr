@@ -22,14 +22,18 @@ define([
             _.bindAll(this, 'setHighscoreCollection');
         },
 
+        /**
+         * Displays a highscore list. Highlights the current highscore in the list
+         * if it is under the top 5 or adds it to the end of the list.
+         * @param {Backbone.Collection} collection is a highscorecollection in the
+         *  game controlled it is called gamecollection.
+         */
 		setHighscoreCollection : function (collection) {
 			var i = 1,
 				trClass = '';
 				
 			this.$('#game-highscore-list tbody').empty();
 
-			console.log(collection.indexOf(this.model));
-			
 			_.each(collection.first(5), function (item) {
 				trClass = item.cid === this.model.cid ? ' class="active" ' : '';
 				this.$('#game-highscore-list tbody')
