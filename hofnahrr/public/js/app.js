@@ -48,12 +48,23 @@ define([
 
 
 
-    /* some global stuff*/
-
+    /* 
+    * To make all browsers that support WebIntents work simultanously, map the
+    * make the API consistent
+    */
     window.Intent = window.Intent || window.WebKitIntent;
     window.navigator.startActivity = window.navigator.startActivity || window.navigator.webkitStartActivity;
     window.intent = window.intent || window.webkitIntent;
     
+    /**
+     * @class
+     * @static
+     * Singleton AppController. Provides all functinality for syncing data and
+     * initializing global views and layouts. 
+     * Controllers for different parts of tha app (e.g. the GameController or
+     * the SightController) are being mixed into this controller (thus they are
+     * using the same this-reference!). 
+     */
     var AppController;
 
     AppController = function () {
@@ -76,27 +87,35 @@ define([
                   'onUpdateUser', 
                   'onDeleteUser');
 
+        // contains the various layouts for various controllers
         this.layouts = {};
 
         this._started = false;
 
         this.createUser();
-
-        // create the HofnahrrRouter instance
-        //this.createRouter();
-        //this.addEventListeners();
         
+        // Register a global controller event handler, that listens on
+        // 'login-required' events.
         this.on('login-required', function () {
             alert('Please login');
         });
-
+        
         $('body').on('click', '.toggle-sidebar', this.onToggleSidebar);
 
+        // Register handlers for once the user has been logged in (or not)
         this.currentUser.isLoggedIn(this.onUserLoggedIn, 
                                     this.onUserNotLoggedIn);
     };
 
     AppController.prototype = {
+        /**
+         * Set the layout for the current page. If the desired layout is the
+         * same as the current one, no changes will be made. Otherwise name
+         * will be looked up in the layouts-hash and made the current layout.
+         * Once the layout has been set, the event layout-set:<name> will be
+         * triggered.
+         * @param {String} name Name of the layout to be used.
+         */
         setLayout : function (name) {
             if (this.currentLayout !== name) {
                 $('body').removeClass('lilac green orange');
@@ -107,14 +126,23 @@ define([
             }
         },
 
+        /**
+         * Toggles the sidebar if it exists.
+         */
         onToggleSidebar : function () {
             $('body').toggleClass('sidebar-visible');
         },
 
+        /**
+         * Appends the secondary nav view to the page.
+         */
         appendSecondaryNavView : function (view) {
             $('#secondary-nav').empty().append(view.el);
         },
 
+        /**
+         * Creates the currentUser model.
+         */
         createUser : function () {
             // create a new UserModel
             this.currentUser = new UserModel({}, {
@@ -122,6 +150,9 @@ define([
             });
         },
 
+        /**
+         * Creates the app router.
+         */
         createRouter : function () {
             this.router = new HofnahrrRouter();
         },
@@ -132,11 +163,17 @@ define([
                 id : 'user',
                 model : this.currentUser
             });
+
+            // In case the currentUser-model changes, reflect those changes
+            // onto the view.
             this.currentUser.on('change', this.loginView.render);
+
+            // Bind actions in the login view to this controller.
             this.loginView.on('login-user', this.onLogin);
             this.loginView.on('signup-user', this.onSignup);
             this.loginView.on('logout-user', this.onLogout);
 
+            // Add the view to the DOM.
             $('#main-nav').append(this.loginView.render().el);
         },
 
@@ -147,6 +184,11 @@ define([
             this.userFormView.on('delete-user', this.onDeleteUser);
         },
 
+        /**
+         * Sets the users language and installs the additional
+         * controllers.
+         * TODO installing those countrollers could be made on demand.
+         */
         onUserLoggedIn : function () {
             this.setUserLanguage();
 
@@ -160,6 +202,10 @@ define([
 
         },
 
+        /**
+         * Sets the language in the templater based on the currentUsers
+         * settings
+         */
         setUserLanguage : function () {
             var l = null;
             if (this.currentUser && 
@@ -169,29 +215,43 @@ define([
             }
         },
 
+        /**
+         * In case the user is not logged in.
+         * TODO Check if some special treatment i necessary. Currently it 
+         * looks good without.
+         */
         onUserNotLoggedIn : function () {
             this.onUserLoggedIn();
         },
 
+        /**
+         * Starts the app. First all template helpers will be initialized, then 
+         * the views will be created. Then creates and starts the router.
+         * Triggers the 'app-started' event.
+         */
         start : function () {
             this.initTemplateHelpers();
             this.createViews();
 
             this.trigger('app-started');
 
-
             this.createRouter();
             this.addEventListeners();
             Backbone.history.start();
         },
 
+        /** 
+         * Register some template helpers, that can be used within templates.
+         */ 
         initTemplateHelpers : function () {
             var that = this;
 
+            // Allows access to the settings hash
             Templater.registerHelper('settings', function (property) {
                 return settings[property];
             });
 
+            // Access the list of sights.
             Templater.registerHelper('sightsList', function (options) {
                 var html = '';
                 that.sightCollection.each(function (item) {
@@ -200,6 +260,7 @@ define([
                 return html;
             });
 
+            // Check whether location is set
             Templater.registerHelper('hasLocation', function () {
                 return this.location && this.location.latitude && this.location.longitude;
             });
@@ -232,6 +293,8 @@ define([
                 return (items || []).join(', ');
             });
 
+            // Helper for image intents. Shows button only if intents exixt in
+            // current browser.
             Templater.registerHelper('imageEditIntent', function (opts) {
                 return (window.Intent || window.intent) ? 
                     '<button class="btn edit-image">' + Templater.i18n('app_edit') + '</button>' : 
@@ -297,6 +360,10 @@ define([
             console.log("detele");
         },
 
+        /**
+         * Register all navigation events on the router. Map the events to
+         * ebent handlers withon this controller.
+         */
         addEventListeners : function () {
             // routing events 
             // CALL Backbone.history.start() ONLY AFTER THIS SETUP
@@ -328,6 +395,13 @@ define([
                 .append((Templater.compile(navigationTmpl))());
         },
 
+        /**
+         * In case the userModal does not exist yet, create it on the fly. It
+         * will be saved then for later uses, so it won't have to be created
+         * again. 
+         * It is accessible through this#userModal.
+         * Sets the current user as the model for the modal and displays it.
+         */
         onOpenProfile : function () {
             var that = this,
                 userModal;
@@ -349,10 +423,12 @@ define([
                 });
 
                 this.userModal = userModal;
+                // create the userFormView for editing user data.
                 this.createUserFormView();
 
                 userModal
                     .render()
+                    // set the content of the modal to the userForm view.
                     .setContentViews([{
                         view : this.userFormView
                     }]);
@@ -388,6 +464,13 @@ define([
         },
 
 
+        /**
+         * Sets the page's main view. This is the largest content container on
+         * the screen. Detaches old views first, so their event handlers won't 
+         * be destroyd.
+         * @param {Backbone.View} view The view that should be rendered into
+         * the main container (#page-container).
+         */
         setMainView : function (view) {
             if (this.mainView) {
                 this.mainView.$el.detach();
