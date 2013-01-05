@@ -30,7 +30,7 @@ define([
             };
         },
         tagname : 'div',
-        className : 'container padded',
+        className : 'container-fluid padded',
         template : tmplSightMosaic,
 
         initialize : function () {
