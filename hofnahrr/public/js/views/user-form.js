@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file user-form.js
+ * @description View for managing user data.
+ */
+
 define([
     'underscore',
     'data-retriever',

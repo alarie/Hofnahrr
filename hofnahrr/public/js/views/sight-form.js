@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file sight-form.js
+ * @description Contains the logic for editing a sight.
+ */
+
 define([
     'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore',

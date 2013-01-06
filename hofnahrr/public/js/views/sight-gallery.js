@@ -1,4 +1,11 @@
 /*global define*/
+
+/**
+ * @file sight-gallery.js
+ * @description Contains the logic for displaying the gallery of images of a
+ * sight.
+ */
+
 define([
     'jam/bootstrap-sass/js/bootstrap-carousel',
     'underscore', 'backbone', 

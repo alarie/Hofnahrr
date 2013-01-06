@@ -1,4 +1,11 @@
 /*global define*/
+
+/**
+ * @file list-item.js
+ * @description Simple view for rendering list items in a list. May be handed a
+ * template to use to render the item.
+ */
+
 define([
     'underscore', 'views/template'
 ], function (_, TemplateView) {

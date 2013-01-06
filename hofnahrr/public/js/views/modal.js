@@ -1,4 +1,12 @@
 /*global define*/
+
+/**
+ * @file modal.js
+ * @description Defines a Modal. Modals can be used to display content in a
+ * window ontop of the main content.
+ */
+
+
 define([
     'jam/bootstrap-sass/js/bootstrap-modal',
     'underscore',
@@ -6,6 +14,7 @@ define([
 ], function ($, _, TemplateView) {
     'use strict';
 
+    // add functions to bootstrap api.
     $.fn.modal.Constructor.prototype.minimize = function () {
         this.isShown = false;
         $.support.transition && this.$element.hasClass('fade') ?

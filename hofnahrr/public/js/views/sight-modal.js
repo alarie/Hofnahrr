@@ -1,4 +1,12 @@
 /*global define*/
+
+/**
+ * @file sight-list.js
+ * @description Extends the ModalView and allows a bit more complicated Modal.
+ * Used for the window where new modals can be created and existing ones can be
+ * edited.
+ */
+
 define([
     'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore', 'backbone', 

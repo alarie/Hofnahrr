@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file sight-list.js
+ * @description Defines the view used to render the sidebar of sights.
+ */
+
 define([
     'underscore',
     'views/list',

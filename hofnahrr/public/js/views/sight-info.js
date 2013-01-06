@@ -1,4 +1,11 @@
 /*global define*/
+
+/**
+ * @file sight-info.js
+ * @description Contains the logic for the sight info tab. Mainly that logic is
+ * that of fetching content from wikipedia.
+ */
+
 define([
     'jquery',
     'underscore',
@@ -32,7 +39,6 @@ define([
                         }
                     }
                 });
-                console.log("query", query);
 
                 if (query) {
                     // TODO set lang

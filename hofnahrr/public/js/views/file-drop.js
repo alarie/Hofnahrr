@@ -1,4 +1,15 @@
 /*global define*/
+
+/**
+ * @file file-drop.js
+ * @description This file contains a FileView for rendering a single file as
+ * well as a FileDropView. The later is being used to provide functionality for
+ * dropping files into the browser window.
+ * Also a FileFormView is defined in here which is being used to allow editing
+ * of a file (metadata only).
+ */
+
+
 define([
     'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore', 
@@ -8,7 +19,16 @@ define([
     'templater',
     'helpers/file-handler',
     'data-retriever'
-], function ($, _, Backbone, TemplateView, TemplatedBridgeView, Templater, FileHandler, DataRetriever) {
+], function (
+    $, 
+    _, 
+    Backbone, 
+    TemplateView, 
+    TemplatedBridgeView, 
+    Templater, 
+    FileHandler, 
+    DataRetriever) {
+
     'use strict';
 
     var FileDropView, FileView, FileFormView;

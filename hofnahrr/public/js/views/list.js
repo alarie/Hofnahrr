@@ -1,4 +1,11 @@
 /*global define*/
+
+/**
+ * @file list.js
+ * @description Defines a ListView. This view can be used to render
+ * Backbone.Collection instances.
+ */
+
 define([
     'underscore',
     'views/template',
@@ -6,8 +13,12 @@ define([
 ], function (_, TemplateView, ListItemView) {
     'use strict';
 
+
     var ListView;
 
+    /**
+     * @class ListView
+     */
     ListView = TemplateView.extend({
         initialize : function () {
             TemplateView.prototype.initialize.apply(this, arguments);
@@ -43,6 +54,11 @@ define([
             this.trigger('item-selected', model);
         },
 
+        /**
+         * Creates the view for an item in the collection. Overwrite for custom
+         * behaviour.
+         * @param {Object} item The Item for which a view shall be created.
+         */
         createItemView : function (item) {
             var view = new this.itemViewConstructor(_.extend({
                 tagName : 'li',
@@ -56,6 +72,12 @@ define([
             return view;
         },
 
+        /**
+         * Adds an item's view to this view. Can be overwritten for a custom
+         * behaviour.
+         * @param {Backbone.View} view The view of a new item that should be
+         * added to this view.
+         */
         appendView : function (view) {
             (this.options.listElemSelector ? 
                 this.$(this.options.listElemSelector) :

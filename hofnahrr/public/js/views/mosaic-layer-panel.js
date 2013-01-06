@@ -1,4 +1,13 @@
 /*global define*/
+
+/**
+ * @file mosaic-layer-view.js
+ * @description Contains MosaicLayerView and MosaicLayerPanelView. The first
+ * one extends a ListItemView, the later a ListView.
+ * MosaicLayerPanelView provides functionality to sort layers by drag and drop #
+ * and enable/disable layers.
+ */
+
 define([
     'underscore',
     'views/list',

@@ -1,4 +1,15 @@
 /*global define */
+
+/**
+ * @file bridge.js
+ * @description
+ * Defines views that can swap their models. Thus instead of one view per model
+ * it is possible to use the same view for several models. For example often
+ * just one detail view is needed for a list of models, as there can be
+ * displayd only one of the models in detail. In that case the detail view
+ * could be an instance of a BridgeView.
+ */
+
 define(['underscore', 'backbone'], function (_, Backbone) { 
     /** @ignore */
     var BridgeView = Backbone.View.extend(

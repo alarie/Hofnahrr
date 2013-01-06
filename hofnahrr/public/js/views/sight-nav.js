@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file sight-nav.js
+ * @description Handles the navigation between the sight tabs.
+ */
+
 define([
     'views/templated-bridge' 
 ], function (TemplatedBridge) {

@@ -1,4 +1,11 @@
 /*global define*/
+
+/**
+ * @file template.js
+ * @description Simple base class that takes a template and renders it.
+ * Interpolates the template witha a model if available.
+ */
+
 define([
     'underscore', 'backbone', 'templater'
 ], function (_, Backbone, Templater) {

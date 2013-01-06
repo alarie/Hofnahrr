@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file picture-form.js
+ * @description Defines a view for editing picture meta data.
+ */
+
 define([
     'underscore', 
     'views/templated-bridge',

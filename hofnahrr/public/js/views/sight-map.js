@@ -1,4 +1,13 @@
 /*global define, L*/
+
+/**
+ * @file sight-map.js
+ * @description Defines the view used to render the map of sights.
+ * This view can also be used to render the sight picker when creating new
+ * sights.
+ */
+
+
 define([
     'underscore', 'backbone',
     'views/templated-bridge',

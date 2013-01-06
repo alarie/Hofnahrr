@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file login.js
+ * @description Defines the view used to login users.
+ */
+
 define([
     'jam/bootstrap-sass/js/bootstrap-dropdown',
     'underscore',

@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file sight-list-item.js
+ * TODO merge with ListItemView
+ */
+
 define([
     'underscore', 'views/list-item'
 ], function (_, ListItemView) {

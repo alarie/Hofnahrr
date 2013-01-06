@@ -1,4 +1,11 @@
 /*global define*/
+
+/**
+ * @file templated-bridge.js
+ * @description Mixes the TemplateView class with the BridgeView class, thus
+ * making both advantages available in one class.
+ */
+
 define([
     'underscore',
     'views/bridge',
