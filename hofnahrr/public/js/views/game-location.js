@@ -27,6 +27,10 @@ define([
             GameView.prototype.initialize.apply(this, arguments);
         },
 
+        /**
+         * Creates a new set of questions based on the sight collection.
+         * Called in the game controller by the visitor.
+         */
         recalculateGame : function () {
             var level = this.level;
 
@@ -39,7 +43,8 @@ define([
                     i = 1,
                     pictureRnd;
 
-
+                // creates questioncollection based on the sightcollection
+                // called within game controller
                 while (numQuestions) {
                     rnd = parseInt(Math.random() * sightsMax, 10);
                     sight = collection.at(rnd);
@@ -67,13 +72,14 @@ define([
                 }
 
                 //Add Joker question
+                //pictures without a location are stored in the sight 'unknown'. Thes pics are used in
+                //the joker question.
                 sight = collection.get('unknown');
                 json = sight.toJSON();
 
                 //choose RndPicture
                 pictureRnd = parseInt(Math.random() * json.pictures.length - 1, 10);
-                console.log('sven', rnd);
-
+                
                 //todo refactor / copied code from line 45
                 data.push({
                     name : json.name,
@@ -89,6 +95,9 @@ define([
             });
         },
 
+        /**
+         * Gets position of the passed model
+         */
         _getPosition : function (model) {
             var location,
                 // pos = new L.LatLng(settings.CITY_LAT, settings.CITY_LNG);
@@ -101,6 +110,9 @@ define([
             return pos;
         },
 
+        /**
+         * Called after the view is rendered. Inserts the map in the page.
+         */
         afterRender : function () {
             
             // console.log(this.model ? this.model.attributes.location : 'model not set');
@@ -131,7 +143,6 @@ define([
                 if (!this.model.attributes.joker) {
                     this.addMarker(this.model, false);
 
-                    //TODO add random markers
                     for (i = 0; i < 5; i++) {
                         this.addMarker(this.model, true);
                     }
@@ -146,6 +157,13 @@ define([
             }
         },
 
+        /**
+         * Adds a marker to the map
+         * params
+         * @param {Backbone.Model} item: the model for which the marker is created
+         * @param {boolean} randomLocation: indicates if the location of the item 
+         *      should be used or a random location within the city bounds  
+         */
         addMarker : function (item, randomLocation) {
             var marker,
             //creating a copy of item.attribute.location not a reference, gues there is a better way to do it, see _getLocation method sight map
@@ -183,6 +201,10 @@ define([
                 }
             }
         },
+
+        /**
+         * Creates an icon for the marker
+         */
         createIcon : function (item) {
             var icon = L.divIcon({
                 className : 'map-pin ',
@@ -193,6 +215,10 @@ define([
             return icon;
         },
 
+        /**
+         * Adds a Locationpicker to the map.
+         * Used during the joker question.
+         */
         preparePicker : function (model) {
             var that = this,
                 pickerCtrls = new PickerControls(),
@@ -242,6 +268,9 @@ define([
             return this;
         },
 
+        /**
+         * Removes Locationpicker from the map
+         */
         destroyPicker : function () {
             this.map.removeControl(this.pickerCtrls);
         }

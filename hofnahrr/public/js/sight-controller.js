@@ -68,6 +68,11 @@ define([
 ) {
     'use strict';
 
+    /**
+     * @class
+     * Provides functionality for the sight section 
+     * Is mixed into the AppController.
+     */
     var SightController;
 
     SightController = {
@@ -126,6 +131,9 @@ define([
             this.listView.filter(query);
         },
 
+        /**
+         * Starts creation of all views needed
+         */
         createSightViews : function () {
             this.createSightSecondaryNavView();
             this.createSightListView();
@@ -135,6 +143,11 @@ define([
             this.createSightGalleryView();
         },
 
+        /**
+         * Creates sight collection.
+         * The collection contains all sights available and is synced with the 
+         * server.
+         */
         createSightCollection : function () {
             // create a new Sight Collection
             this.sightCollection = new SightCollection();
@@ -146,6 +159,10 @@ define([
             this.sightCollection.on('reset', this.listView.onAddAll);
         },
 
+        /**
+         * Creates secondary navigation. Buttons of the navigation are Map, 
+         * Mosaik, Gallery and Info
+         */
         createSightSecondaryNavView : function () {
             var data = {}; 
 
@@ -159,6 +176,10 @@ define([
             .render();
         },
 
+        /**
+         * Creates view that displays information, e.g. the description, of the
+         * active sight.
+         */
         createSightInfoView : function () {
             this.sightInfoView = new SightInfoView({
                 tagName : 'div',
@@ -167,39 +188,63 @@ define([
             });
         },
 
+        /**
+         * Creates view that displays the map.
+         */
         createSightMapView : function () {
             this.sightMapView = new SightMapView();
         },
 
+        /**
+         * Creates view that displays the picture mosaic of the active sight.
+         */
         createSightMosaicView : function () {
             this.sightMosaicView = new SightMosaicView();
         },
 
+        /**
+         * Creates view that displays a gallery with pictures of the sight.
+         */
         createSightGalleryView : function () {
             this.sightGalleryView = new SightGalleryView();
         },
 
+        /**
+         * Creates view that displays all sights in a list in the sidebar.
+         */
         createSightListView : function () {
             this.listView = new SightListView({
                 template : tmplSightsList,
                 listItemTemplate : tmplSightLink
             });
-            console.log("created sight list view");
+            // console.log("created sight list view");
         },
 
+        /**
+         * Appends list of sights to the sidebar.
+         */
         appendSightListView : function () {
             $('#sidebar').empty().append(this.listView.el);
         },
 
+        /**
+         * Called when a sight is opened, as default the map view is opened.
+         */
         onOpenSight : function (id) {
             this.onOpenSightMap(id);        
         },
 
+        /**
+         * Opens the info view of the sight.
+         */
         onOpenSightInfo : function (id) {
             this.sightSubpage = 'info/';
             this.openSightView(id, this.sightInfoView);
         },
 
+        /**
+         * Opens the map view of the sight
+         */
         onOpenSightMap : function (id) {
             this.sightSubpage = 'map/';
             this.openSightView(id, this.sightMapView, {
@@ -208,20 +253,36 @@ define([
             });
         },
 
+        /**
+         * Opens the gallery view of the sight
+         */
         onOpenSightGallery : function (id) {
             this.sightSubpage = 'gallery/';
             this.openSightView(id, this.sightGalleryView);
         },
 
+        /**
+         * Opens mosaic view of the sight.
+         */
         onOpenSightMosaic : function (id) {
             this.sightSubpage = 'mosaic/';
             this.openSightView(id, this.sightMosaicView);
         },
 
+        /**
+         * Opens map view of the sight
+         */
         onShowSightMap : function () {
             this.onOpenSightMap();
         },
 
+        /**
+         * Adds the selected view to the page.
+         * @params sightId is the id of a sight
+         * @params view is the view inserted in the page
+         * @params options contains additional information needed by the 
+         *  view
+         */
         openSightView : function (sightId, view, options) {
             options || (options = {});
 
@@ -262,12 +323,21 @@ define([
             }
         },
 
+        /**
+         * Initializes the general sight layout.
+         */
         initSightLayout : function () {
             $('body').addClass('lilac');
             this.appendSightListView();
             this.appendSecondaryNavView(this.sightNav);
         },
 
+        /**
+         * Sets the current sight. If no id is provided it sets the current 
+         * sight to a random sight.
+         * @params id is the id of a sight
+         * @params options
+         */
         setSelectedSight : function (id, options) {
             options || (options = {});
             if (id) {
@@ -291,6 +361,11 @@ define([
             }
         },
 
+        /**
+         * Called when a sight should be edited. Checks if the user is 
+         * authorized.
+         * @params id of a sight
+         */
         onEditSight : function (id) {
             if (UserAccessHandler.may('edit_sight', this.currentUser)) {
                 this.setSelectedSight(id);
@@ -303,17 +378,27 @@ define([
             }
         },
 
+        /**
+         * Called when a new sight is created.
+         */
         onCreateNewSight : function () {
             this.setSelectedSight(null);
             this.openModal(null);
         },
 
+        /**
+         * Show a modal of the current sight.
+         */
         openModal : function (sight) {
             this.createSightModal();
             this.sightModal.setModel(sight);
             this.sightModal.modal.show();
         },
 
+        /**
+         * Updates or creates a new sight.
+         * @param data of the sight
+         */
         onCreateSight : function (data) {
             var that = this, sight;
             if (data.id) {
@@ -335,6 +420,10 @@ define([
             }
         },
 
+        /**
+         * Destroys passed sight
+         * @params id of a sight
+         */
         onDeleteSight : function (id) {
             if (window.confirm(Templater.i18n('sight_confirm_delete'))) {
                 var sight = this.sightCollection.get(id);
@@ -342,6 +431,9 @@ define([
             }
         },
 
+        /**
+         * Creates modal that allows to edit a sight.
+         */
         createSightModal : function () {
             var that = this,
                 sightModal;
@@ -397,6 +489,9 @@ define([
             }
         },
 
+        /**
+         * Creates form to edit a sight.
+         */
         createSightFormView : function () {
             // early return if view exists already
             if (this.sightFormView) {
@@ -410,6 +505,9 @@ define([
             this.sightFormView.on('pick-on-map', this.onPickOnMap);
         },
 
+        /**
+         * Creates view for uploading images.
+         */
         createFileDropView : function () {
             this.fileDropView = new FileDropView({
                 tagName : 'div',
@@ -424,10 +522,16 @@ define([
             this.fileDropView.on('make-cover', this.onMakeCover);
         },
 
+        /**
+         * Sets the cover / icon of a sight.
+         * @params picture url of the picture
+         * @params sightId is the id of a sight
+         */
         onMakeCover : function (picture, sightId) {
             var sight = this.sightCollection.get(sightId);
             sight.save({icon : picture});
         },
+
 
         onFileRead : function (file, containerId) {
             var sight = this.sightCollection.get(containerId),
@@ -443,7 +547,10 @@ define([
 
             fileModel.upload(file);
         },
-
+        
+        /**
+         * Adds several pictures to a sight.
+         */
         onAddPicturesToSight : function (pictures, sightId) {
             var sight = this.sightCollection.get(sightId);
             if (pictures && sight) {
@@ -453,6 +560,9 @@ define([
             }
         },
 
+        /**
+         * Removes a picture from a sight.
+         */
         onRemovePicturesFromSight : function (pictureId, sightId) {
             var sight = this.sightCollection.get(sightId);
             if (pictureId && sight) {
@@ -492,6 +602,9 @@ define([
             }
         },
 
+        /**
+         * Displays map view and a picker to add a location to a sight. 
+         */
         onPickOnMap : function (onPick, onCancel) {
             // open map sight
             var that = this,
