@@ -1,4 +1,11 @@
 /*global define*/
+
+/**
+ * @file game.js
+ * @description This file contains a GameView which is the baseclass 
+ * for the different game modes.
+ */
+
 define([
     'backbone',
     'views/templated-bridge'

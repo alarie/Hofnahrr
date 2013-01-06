@@ -1,3 +1,8 @@
+/**
+ * @file game-highscore.js
+ * @description this file contains a GameHighscoreView for rendering all highscores.
+ */
+
 define([
 	'underscore',
 	'backbone',
