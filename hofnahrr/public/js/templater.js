@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file templater.js
+ * @description Simple wrapper around Handlebars.
+ */
+
 define([
     'extended-handlebars'
 ], function (Handlebars) {
