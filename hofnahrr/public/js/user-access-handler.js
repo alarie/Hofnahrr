@@ -1,4 +1,11 @@
 /*global define*/
+
+/**
+ * @file usar-access-handler.js
+ * @description Defines a class that can be used to determine what a user may
+ * do and what not.
+ */
+
 define([
     'underscore', 'backbone'    
 ], function (_, Backbone) {

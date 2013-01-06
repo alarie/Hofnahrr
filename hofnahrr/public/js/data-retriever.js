@@ -1,4 +1,16 @@
 define([], function () {
+
+    /**
+     * @class DataRetriever allows retrieving data from a HTML form
+     * automatically.
+     * @constructor
+     * @description 
+     * @param {Object} opts Hash that takes two properties:
+     * 1. el: jQuery object containing the element in which the input fields
+     * should be collected
+     * 2. useBool: Defines whether a boolean value should be used for
+     * checkboxes. If not, their value attribute will be used.
+     */
     var DataRetriever = function (opts) {
         opts || (opts = {});
         if (!opts.el) {
@@ -95,6 +107,9 @@ define([], function () {
                 return data;
             };
 
+        /**
+         * @public
+         */
         this.getData = function (inputName) {
             var hash = {},
                 data,

@@ -1,4 +1,10 @@
 /*global define */
+
+/** 
+ * @file extended-handlebars.js
+ * @description Extends Handlebars API.
+ */
+
 define(['handlebars'], function (Handlebars) {
 
     Handlebars.initLang = function (lang) {
