@@ -16,12 +16,8 @@ set :deploy_via, :remote_cache
 set :stages, ["dev", "production"]
 set :default_stage, "dev"
 
-
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-#
 namespace :deploy do
-    task :restart, :roles => :web do
+    task :update_settings do
         settings = capture("cat #{settings_file}")
 
         settings.gsub!(/BASE_URL\s*:\s*'([^']+)'/m, "BASE_URL : '#{base_url}'")
@@ -29,4 +25,13 @@ namespace :deploy do
         put(settings, settings_file)
     end
 end
+after "deploy:update", "deploy:update_settings"
+
+namespace :deploy do
+    task :change_current_path do
+        set :current_path, "#{current_path}/hofnahrr"
+        puts "current_path is now #{current_path}"
+    end
+end
+ after "deploy:create_symlink", "deploy:change_current_path"
 
