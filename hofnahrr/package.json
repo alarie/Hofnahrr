@@ -8,6 +8,6 @@
             ""
         ]
     , "dependencies" : {
-        "deployd"     : "*"
+        //"deployd"     : "*"
     }
 }
