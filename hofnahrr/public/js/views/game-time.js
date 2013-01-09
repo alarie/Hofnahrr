@@ -1,4 +1,11 @@
 /*global define*/
+/**
+ * @file game-time.js
+ * @description This file contains a TimeGameView for rendering the elements 
+ * for the time assigning game. This game mode is not implemented yet, therefore 
+ * this is only a dummy view.
+ */
+
 define([
     'views/game',
     'text!tmpl/time-game.tmpl'

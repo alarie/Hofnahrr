@@ -1,4 +1,10 @@
 /*global define*/
+
+/**
+ * @file game-sidebar.js
+ * @description This file contains a GameSidebarView which renders the Sidebar element in the game section.
+ */
+
 define([
     'underscore',
     'backbone',

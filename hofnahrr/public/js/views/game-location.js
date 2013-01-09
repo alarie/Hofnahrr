@@ -1,4 +1,11 @@
 /*global define, L */
+
+/**
+ * @file game-location.js
+ * @description This file contains a LocationGameView which renders the 
+ * elements of the location assigning game 
+ */
+
 define([
     'views/game',
     'text!tmpl/game-location.tmpl',
