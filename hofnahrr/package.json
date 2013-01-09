@@ -1,10 +1,13 @@
 {
     "private": true
-  , "name":         "hofnahrr"
-  , "description":  "Just a sample"
-  , "version":      "0.0.1"
-  , "main":         "./public/"
-  , "authors": [
-        ""
-    ]
+    , "name":         "hofnahrr"
+    , "description":  "Just a sample"
+    , "version":      "0.0.1"
+    , "main":         "startup.js"
+    , "authors": [
+            ""
+        ]
+    , "dependencies" : {
+        "deployd"     : "*"
+    }
 }

@@ -21,13 +21,18 @@ dpd = deployd({
 });
 
 // remove all data in the 'todos' collection
-hofnahrr = dpd.createStore('hofnahrr');
+//hofnahrr = dpd.createStore('hofnahrr');
 
-hofnahrr.remove(function () {
+//hofnahrr.remove(function () {
     // all todos removed
-    console.log('...starting to listen on ' + port);
-    dpd.listen();
-});
+    
+
+// Start right away, don't flush the store before
+console.log('...starting to listen on ' + port);
+dpd.listen();
+
+
+//});
 
 dpd.on('error', function (err) {
     console.error(err);
