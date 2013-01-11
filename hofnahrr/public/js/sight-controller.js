@@ -68,6 +68,8 @@ define([
 ) {
     'use strict';
 
+    SightModel.setDefaultLocation(settings.CITY_LAT, settings.CITY_LNG);
+
     /**
      * @class
      * Provides functionality for the sight section 

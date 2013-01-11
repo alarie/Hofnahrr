@@ -17,6 +17,10 @@ define([
             mosaic : []
         },
 
+        initialize : function () {
+            _.defaults(this.attributes.location, SightModel.defaultLocation);
+        },
+
         addImage : function (file, options) {
             var name, pictures, picture;
 
@@ -112,6 +116,13 @@ define([
             return location && location.latitude && location.longitude ?
                 location : 
                 null;
+        }
+    }, {
+        setDefaultLocation : function (lat, lng) {
+            SightModel.defaultLocation = {
+                latitude : lat,
+                longitude : lng
+            };
         }
     });
 
