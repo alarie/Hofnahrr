@@ -251,7 +251,8 @@ define([
             this.sightSubpage = 'map/';
             this.openSightView(id, this.sightMapView, {
                 silent : this.mainView === this.sightMapView, 
-                collection : true
+                collection : true,
+                useUnknownSight : true
             });
         },
 
@@ -317,6 +318,11 @@ define([
 
             if (this.selectedSight) {
                 view.setModel(this.selectedSight);
+            }
+            else {
+                if (options.useUnknownSight) {
+                    view.setModel(this.sightCollection.get('unknown'));
+                }
             }
 
 
