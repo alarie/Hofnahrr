@@ -14,8 +14,8 @@ dpd = deployd({
         port: dbport,
         name: 'hofnahrr',
         credentials: {
-            username: 'test',
-            password: 'secret'
+            username: '',
+            password: ''
         }
     }
 });

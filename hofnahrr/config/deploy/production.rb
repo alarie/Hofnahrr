@@ -16,3 +16,10 @@ set :upstart_job_name, "hofnahrr"
 
 set :app_command, "startup.js"
 set :app_environment, "PORT=8080"
+
+namespace :deploy do
+    task :del do
+        sudo "rm -rf #{release_path}/node_modules/deployd"
+    end
+end
+after "deploy:create_symlink", "deploy:del"

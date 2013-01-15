@@ -28,20 +28,6 @@ namespace :deploy do
 end
 after "deploy:update", "deploy:update_settings"
 
-#namespace :deploy do
-    #task :change_current_path do
-        #set :current_path, "#{current_path}/hofnahrr"
-        #puts "current_path is now #{current_path}"
-    #end
-#end
-#after "deploy:create_symlink", "deploy:change_current_path"
-
-namespace :deploy do
-    task :del do
-        sudo "rm -rf #{release_path}/node_modules/deployd"
-    end
-end
-after "deploy:create_symlink", "deploy:del"
 
 namespace :node do 
     task :kill_stupid_symlink do
