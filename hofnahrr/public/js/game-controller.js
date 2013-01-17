@@ -147,12 +147,18 @@ define([
          * The view displays e.g. the exit button
          */
         createGameSecondaryNavView : function () {
-            var data = {}; 
+            var data = {},
+                GameNavView = TemplateView.extend({
+                    template : tmplGameNav,
+                    hideNewGameButton : function (progressSummaryData) {
+                        this.$('#newgame').addClass("hide");
+                    },
+                    showNewGameButton : function (progressSummaryData) {
+                        this.$('#newgame').removeClass("hide");
+                    }
+                });
 
-            this.gameNav = new TemplateView({
-                template : tmplGameNav
-            })
-            .render();
+            this.gameNav = new GameNavView().render();
         },
 
         /*
@@ -241,7 +247,7 @@ define([
         },
 
         /**
-         * Called when the game section is called. Adds the needed
+         * Called when the game section (landing page) is called. Adds the needed
          * views to the surface.
          */
         onOpenGame : function () {
@@ -249,7 +255,7 @@ define([
             this.gameSidebar.reset();
             this.setMainView(this.gameStartView);
             this.gameSelectView.$el.slideDown();
-
+            this.gameNav.hideNewGameButton();
         },
 
         /**
@@ -282,6 +288,7 @@ define([
                 view.setModel(this.questionCollection.first());
                 this.gameSelectView.$el.slideUp();
                 this.setMainView(view);
+                this.gameNav.showNewGameButton();
             } else {
                 window.location.hash = 'game/';
                 alert('Hey there there are no sights you could play with!!!');
