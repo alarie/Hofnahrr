@@ -1,0 +1,69 @@
+2013/01/17 17:55:43 INFO  - jmeter.util.JMeterUtils: Setting Locale to de_DE 
+2013/01/17 17:55:43 INFO  - jmeter.util.JMeterUtils: Could not find resources for 'de_DE', using 'de' 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: Loading user properties from: C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests\apache-jmeter-2.8\bin\user.properties 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: Loading system properties from: C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests\apache-jmeter-2.8\bin\system.properties 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: Copyright (c) 1998-2012 The Apache Software Foundation 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: Version 2.8 r1393162 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: java.version=1.7.0_09 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: os.name=Windows 7 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: os.arch=amd64 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: os.version=6.1 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: file.encoding=Cp1252 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: Default Locale=Deutsch (Deutschland) 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: JMeter  Locale=Deutsch (Deutschland) 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: JMeterHome=C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests\apache-jmeter-2.8 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: user.dir  =C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests\apache-jmeter-2.8\bin 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: PWD       =C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests\apache-jmeter-2.8\bin 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: IP: 192.168.0.101 Name: Sven-Notebook FullName: Sven-Notebook 
+2013/01/17 17:55:43 INFO  - jmeter.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties 
+2013/01/17 17:55:44 INFO  - jmeter.engine.util.CompoundVariable: Note: Function class names must contain the string: '.functions.' 
+2013/01/17 17:55:44 INFO  - jmeter.engine.util.CompoundVariable: Note: Function class names must not contain the string: '.gui.' 
+2013/01/17 17:55:44 INFO  - jmeter.gui.action.LookAndFeelCommand: Using look and feel: javax.swing.plaf.metal.MetalLookAndFeel [Metal, CrossPlatform] 
+2013/01/17 17:55:45 INFO  - jmeter.util.BSFTestElement: Registering JMeter version of JavaScript engine as work-round for BSF-22 
+2013/01/17 17:55:46 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Cannot find .className property for htmlParser, using default 
+2013/01/17 17:55:46 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/html is  
+2013/01/17 17:55:46 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for application/xhtml+xml is  
+2013/01/17 17:55:46 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for application/xml is  
+2013/01/17 17:55:46 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/xml is  
+2013/01/17 17:55:46 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser 
+2013/01/17 17:55:46 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Reuse SSL session context on subsequent iterations: true 
+2013/01/17 17:55:46 INFO  - jmeter.protocol.oauth.control.gui.OAuthSamplerGui: Resource org.apache.jmeter.protocol.oauth.resources.messages is loaded for locale de_DE 
+2013/01/17 17:55:47 INFO  - jmeter.samplers.SampleResult: Note: Sample TimeStamps are START times 
+2013/01/17 17:55:47 INFO  - jmeter.samplers.SampleResult: sampleresult.default.encoding is set to ISO-8859-1 
+2013/01/17 17:55:47 INFO  - jmeter.samplers.SampleResult: sampleresult.useNanoTime=true 
+2013/01/17 17:55:47 INFO  - jmeter.samplers.SampleResult: sampleresult.nanoThreadSleep=5000 
+2013/01/17 17:56:01 INFO  - jmeter.services.FileServer: Default base='C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests\apache-jmeter-2.8\bin' 
+2013/01/17 17:56:01 INFO  - jmeter.gui.action.Load: Loading file: C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests\hofnahrr.jmx 
+2013/01/17 17:56:01 INFO  - jmeter.services.FileServer: Set new base='C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests' 
+2013/01/17 17:56:02 INFO  - jmeter.save.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2 
+2013/01/17 17:56:02 INFO  - jmeter.save.SaveService: Using SaveService properties file encoding UTF-8 
+2013/01/17 17:56:02 INFO  - jmeter.save.SaveService: Using SaveService properties file version 1382180 
+2013/01/17 17:56:02 INFO  - jmeter.save.SaveService: Using SaveService properties version 2.3 
+2013/01/17 17:56:02 INFO  - jmeter.save.SaveService: All converter versions present and correct 
+2013/01/17 17:56:02 INFO  - jmeter.protocol.http.control.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_ 
+2013/01/17 17:56:02 INFO  - jmeter.services.FileServer: Set new base='C:\Users\Sven\Dropbox\Semester2\Praktikum Programmieren\jmeter Tests' 
+2013/01/17 17:56:06 INFO  - jmeter.engine.StandardJMeterEngine: Listeners will be started after enabling running version 
+2013/01/17 17:56:06 INFO  - jmeter.engine.StandardJMeterEngine: To revert to the earlier behaviour, define jmeterengine.startlistenerslater=false 
+2013/01/17 17:56:06 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2013/01/17 17:56:06 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2013/01/17 17:56:06 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2013/01/17 17:56:06 INFO  - jmeter.engine.StandardJMeterEngine: Starting 1 threads for group Thread Group. 
+2013/01/17 17:56:06 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2013/01/17 17:56:06 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 1 ramp-up 1 perThread 1000.0 delayedStart=false 
+2013/01/17 17:56:06 INFO  - jmeter.threads.JMeterThread: jmeterthread.startearlier=true (see jmeter.properties) 
+2013/01/17 17:56:06 INFO  - jmeter.threads.JMeterThread: Running PostProcessors in forward order 
+2013/01/17 17:56:06 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2013/01/17 17:56:06 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2013/01/17 17:56:06 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2013/01/17 17:56:06 INFO  - jmeter.protocol.http.sampler.HTTPHCAbstractImpl: Local host = Sven-Notebook 
+2013/01/17 17:56:06 INFO  - jmeter.protocol.http.sampler.HTTPHC4Impl: HTTP request retry count = 1 
+2013/01/17 17:56:06 INFO  - jmeter.protocol.http.sampler.HTTPHC4Impl: Setting up HTTPS TrustAll scheme 
+2013/01/17 17:56:06 INFO  - jmeter.util.JsseSSLManager: Using default SSL protocol: TLS 
+2013/01/17 17:56:06 INFO  - jmeter.util.JsseSSLManager: SSL session context: per-thread 
+2013/01/17 17:56:07 INFO  - jmeter.util.SSLManager: JmeterKeyStore Location:  type JKS 
+2013/01/17 17:56:07 INFO  - jmeter.util.SSLManager: KeyStore created OK 
+2013/01/17 17:56:07 WARN  - jmeter.util.SSLManager: Keystore file not found, loading empty keystore 
+2013/01/17 17:56:11 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2013/01/17 17:56:11 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2013/01/17 17:56:11 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
