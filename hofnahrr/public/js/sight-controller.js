@@ -469,7 +469,6 @@ define([
                 this.createSightFormView();
                 this.createFileDropView();
 
-
                 sightModal
                     .render()
                     .setContentViews([{
@@ -481,7 +480,6 @@ define([
                         trigger : 'click .show-file-browser',
                         className : 'wide'
                     }]);
-
 
                 sightModal.on('add-items-to-container', this.onAddPicturesToSight);
                 sightModal.on('open-container', this.onOpenContainer);

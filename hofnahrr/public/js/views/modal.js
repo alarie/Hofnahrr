@@ -32,8 +32,7 @@ define([
         this.isShown = true;
     };
 
-    var Modal,
-        transitionEvents = 'transitionend webkitTransitionEnd oTransitionEnd oTransitionend';
+    var Modal;
 
     Modal = TemplateView.extend({
         className : 'animated-turn',
@@ -187,9 +186,11 @@ define([
         },
 
         openContentView : function (selected) {
-
             selected || (selected = 0);
-            if (selected >= 0 && selected < this.contentViews.length) {
+            if (selected >= 0 && 
+                selected < this.contentViews.length && 
+                this.selectedView !== selected) {
+
                 var opts = this.contentViews[selected],
                     view = opts.view;
 
