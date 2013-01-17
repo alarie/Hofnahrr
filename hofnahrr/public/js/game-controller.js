@@ -277,11 +277,15 @@ define([
             view.setLevel(level);
             view.render();
 
-            view.setModel(this.questionCollection.first());
-
-            this.gameSelectView.$el.slideUp();
-
-            this.setMainView(view);
+            console.log('qc', this.questionCollection.length);
+            if (this.questionCollection.length > 0) {
+                view.setModel(this.questionCollection.first());
+                this.gameSelectView.$el.slideUp();
+                this.setMainView(view);
+            } else {
+                window.location.hash = 'game/';
+                alert('Hey there there are no sights you could play with!!!');
+            }
         },
 
         /**
@@ -432,6 +436,7 @@ define([
          * Resets all data used for the game.
          */
         onResetGame : function (visitor) {
+            console.log('in onResetGame');
             var data = this.visitSightCollection(visitor);
             this.questionCollection.reset(data);
             this.questionCollectionIndex = 1;
