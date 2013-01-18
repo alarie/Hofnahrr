@@ -48,19 +48,22 @@ define([
                     data = [],
                     json,
                     i = 1,
+                    j = 0,
                     pictureRnd;
 
                 // creates questioncollection based on the sightcollection
-                // called within game controller
-                while (numQuestions) {
-                    rnd = parseInt(Math.random() * sightsMax, 10);
-                    sight = collection.at(rnd);
+                // called within game controller                
+                _.shuffle(collection);
+                
+                while (numQuestions && j < collection.length) {
+
+                    // rnd = parseInt(Math.random() * sightsMax, 10);
+                    // console.log(rnd);
+                    sight = collection.at(j);
 
                     if (!sight) {
-                        console.log('undefined sight  rndnr', rnd);
-                    }
-
-                    if (sight.attributes.speakingId !== '-sight_unknown' && sight.attributes.pictures.length > 0) {
+                        console.log('error undefined sight  rndnr');
+                    } else if (sight.attributes.speakingId !== '-sight_unknown' && sight.attributes.pictures.length > 0) {
                         json = sight.toJSON();
                         pictureRnd = parseInt(Math.random() * json.pictures.length - 1, 10);
                         
@@ -76,6 +79,8 @@ define([
 
                         numQuestions -= 1;
                     }
+
+                    j++;
                 }
 
                 //Add Joker question
@@ -84,19 +89,21 @@ define([
                 sight = collection.get('unknown');
                 json = sight.toJSON();
 
-                //choose RndPicture
-                pictureRnd = parseInt(Math.random() * json.pictures.length - 1, 10);
-                
-                //todo refactor / copied code from line 45
-                data.push({
-                    name : json.name,
-                    icon : json.icon,
-                    replied : false,
-                    correct : false,
-                    joker : true,
-                    index : i++,
-                    picture : json.pictures[pictureRnd]
-                });
+                if (json.pictures.length > 0) {
+                    //choose RndPicture
+                    pictureRnd = parseInt(Math.random() * json.pictures.length - 1, 10);
+                    
+                    //todo refactor / copied code from line 45
+                    data.push({
+                        name : json.name,
+                        icon : json.icon,
+                        replied : false,
+                        correct : false,
+                        joker : true,
+                        index : i++,
+                        picture : json.pictures[pictureRnd]
+                    });
+                }
                 
                 return data;
             });

@@ -147,12 +147,18 @@ define([
          * The view displays e.g. the exit button
          */
         createGameSecondaryNavView : function () {
-            var data = {}; 
+            var data = {},
+                GameNavView = TemplateView.extend({
+                    template : tmplGameNav,
+                    hideNewGameButton : function (progressSummaryData) {
+                        this.$('#newgame').addClass("hide");
+                    },
+                    showNewGameButton : function (progressSummaryData) {
+                        this.$('#newgame').removeClass("hide");
+                    }
+                });
 
-            this.gameNav = new TemplateView({
-                template : tmplGameNav
-            })
-            .render();
+            this.gameNav = new GameNavView().render();
         },
 
         /*
@@ -241,7 +247,7 @@ define([
         },
 
         /**
-         * Called when the game section is called. Adds the needed
+         * Called when the game section (landing page) is called. Adds the needed
          * views to the surface.
          */
         onOpenGame : function () {
@@ -249,7 +255,7 @@ define([
             this.gameSidebar.reset();
             this.setMainView(this.gameStartView);
             this.gameSelectView.$el.slideDown();
-
+            this.gameNav.hideNewGameButton();
         },
 
         /**
@@ -277,11 +283,16 @@ define([
             view.setLevel(level);
             view.render();
 
-            view.setModel(this.questionCollection.first());
-
-            this.gameSelectView.$el.slideUp();
-
-            this.setMainView(view);
+            console.log('qc', this.questionCollection.length);
+            if (this.questionCollection.length > 0) {
+                view.setModel(this.questionCollection.first());
+                this.gameSelectView.$el.slideUp();
+                this.setMainView(view);
+                this.gameNav.showNewGameButton();
+            } else {
+                window.location.hash = 'game/';
+                alert('Hey there there are no sights you could play with!!!');
+            }
         },
 
         /**
@@ -432,6 +443,7 @@ define([
          * Resets all data used for the game.
          */
         onResetGame : function (visitor) {
+            console.log('in onResetGame');
             var data = this.visitSightCollection(visitor);
             this.questionCollection.reset(data);
             this.questionCollectionIndex = 1;
