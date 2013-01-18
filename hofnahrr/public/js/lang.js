@@ -20,6 +20,7 @@ define([], function () {
             'app_login_to_edit_sight' : 'Anmelden um Sehenswürdigkeit zu bearbeiten',
             'app_coming_soon' : 'Demnächst!',
 
+            'sight_confirm_delete' : 'Soll die Sehenswürdigkeit wirklich gelöscht werden?',
             'sight_name' : 'Name',
             'sight_description' : 'Beschreibung',
             'sights_sights' : 'Sehenswürdigkeiten',
@@ -59,6 +60,8 @@ define([], function () {
             'sight_info' : 'Info',
             'sight_meta' : 'Weitere Informationen',
             'sight_wikipedia' : 'Wikipedia',
+
+            'sight_success' : 'Erledigt!',
 
 
             'picture_manager' : 'Fotomanager',
@@ -138,6 +141,7 @@ define([], function () {
             'app_login_to_edit_sight' : 'Login to edit sight',
             'app_coming_soon' : 'Coming Soon!',
 
+            'sight_confirm_delete' : 'Do you really want to delete this sight?',
             'sight_name' : 'Name',
             'sight_description' : 'Description',
             'sights_sights' : 'Sights',
@@ -177,6 +181,8 @@ define([], function () {
             'sight_info' : 'Info',
             'sight_meta' : 'Further information',
             'sight_wikipedia' : 'Wikipedia',
+
+            'sight_success' : 'Done!',
 
             'picture_manager' : 'Picture manager',
             'picture_make_cover' : 'Use as cover',

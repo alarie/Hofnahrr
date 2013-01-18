@@ -74,6 +74,21 @@ a {
     }
 }
 
+.btn.loading {
+    &:after,
+    &::after,
+    & + i {
+        background-image:url(../img/ajax-loader.gif);
+        background-position: left center;
+        background-repeat: no-repeat;
+        padding-left:40px;
+    }
+
+    & + i {
+        display: inline-block;
+    }
+}
+
 input.search-query {
     @include border-radius(0);
     border:0;

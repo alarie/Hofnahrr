@@ -57,21 +57,19 @@ define([
             }
         },
 
-        add : function (models) {
+        add : function (models, options) {
             var index = this.length + 1,
                 that = this;
 
-            Backbone.Collection.prototype.add.apply(this, arguments);
-
             _.each(models, function (model) {
-                // TODO handle new items
-                if (model.id) {
-                    that.get(model.id).set({
-                        index : index
-                    });
+                // exists, so don't create index
+                if (!that.get(model.id)) {
+                    model.index = index;
                     index += 1;
                 }
             });
+
+            Backbone.Collection.prototype.add.call(this, models, options);
 
             return this;
         }

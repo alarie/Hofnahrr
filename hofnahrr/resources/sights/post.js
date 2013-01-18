@@ -1,4 +1,5 @@
 console.log(this);
+delete this.index;
 if (this.unknown || me) {
     if (typeof this.unknown === 'undefined' || this.unknown === false) {
         this.unknown = false;

@@ -47,11 +47,13 @@ define([
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
             this.bubble = new SightMapBubbleView();
 
+
             _.bindAll(this, 'addMarker');
         },
 
         setCollection : function (collection) {
             this.collection = collection;
+            collection.on('add', this.addMarker);
         },
 
         setModel : function (model) {

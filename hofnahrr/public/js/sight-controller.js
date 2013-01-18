@@ -415,14 +415,17 @@ define([
                     sight.save(data, {
                         success : function () {
                             that.sightFormView.render();
+                            that.sightFormView.setStatus('submit', 'success');
                         }
                     });
                 }
             }
             else {
+                data.
                 this.sightCollection.create(data, {
                     success : function () {
                         that.sightFormView.setModel(null);
+                        that.sightFormView.setStatus('submit', 'success');
                     }
                 });
             }

@@ -41,11 +41,14 @@ define([
         initialize : function () {
             TemplatedBridgeView.prototype.initialize.apply(this, arguments);
             _.bindAll(this, 'onSubmit', 'onSightPickOnMap');
+            this.state = {};
         },
 
         onSightPickOnMap : function (e) {
             var that = this,
                 orig = this.model ? this.model.get('location') : {};
+
+            this.model.set(this._getFormData());
 
             e.preventDefault();
             e.stopPropagation();
@@ -98,31 +101,53 @@ define([
 
         onSubmit : function (e) {
             e.preventDefault();
+            this._saveForm();
+        },
 
-            if (e.target.checkValidity()) {
-                var origData,
-                    data = (new DataRetriever({
-                        useBool : true,
-                        el : $(e.target)
-                    })).getData();
+        _getFormData : function () {
+            var data = (new DataRetriever({
+                useBool : true,
+                el : this.$('form')
+            })).getData();
 
-                data.location = {
-                    latitude : data.lat,
-                    longitude : data.lng
-                };
-                data.tags = data.tags.split(',');
-                data.links = data.links.split(',');
+            data.location = {
+                latitude : data.lat,
+                longitude : data.lng
+            };
+            data.tags = data.tags.split(',');
+            data.links = data.links.split(',');
 
-                delete data.lat;
-                delete data.lng;
+            delete data.lat;
+            delete data.lng;
+
+            return data;
+        },
+
+        _saveForm : function () {
+            var form = this.$('form')[0],
+                origData,
+                data;
+
+            if (form.checkValidity()) {
+                data = this._getFormData();
 
                 origData = this.model ? this.model.toJSON() : {};
 
                 _.extend(origData, data);
 
+                this.setStatus('submit', 'loading');
+
                 this.trigger('create-sight', origData);
             }
 
+        },
+
+        setStatus : function (target, status) {
+            this.state[target] = status;
+            target = this.$('[type="' + target + '"]');
+            if (status === 'success') {
+                target.addClass('success').next('i').text(Templater.i18n('sight_success'));
+            }
         },
 
         onDelete : function (e) {
@@ -152,7 +177,13 @@ define([
             else {
                 this.enableForm();
             }
+
+            var that = this;
+            _.each(this.state, function (state, target) {
+                that.setStatus(target, state);
+            });
         },
+
         disableForm : function () {
             this.$('input, textarea, button').attr('disabled', 'disabled');
         },
