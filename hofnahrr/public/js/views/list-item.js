@@ -22,7 +22,8 @@ define([
 
         initialize : function () {
             TemplateView.prototype.initialize.apply(this, arguments);
-            _.bindAll(this, '_onItemSelected');
+            _.bindAll(this, '_onItemSelected', 'remove');
+            this.model.on('destroy', this.remove);
         },
 
         _onItemSelected : function () {

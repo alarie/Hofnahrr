@@ -10,10 +10,10 @@
 define([
     'jam/bootstrap-sass/js/bootstrap-popover',
     'underscore', 'backbone', 
-    'views/template', 
+    'views/list-item', 
     'views/modal', 
     'templater'
-], function ($, _, Backbone, TemplateView, ModalView, Templater) {
+], function ($, _, Backbone, ListItemView, ModalView, Templater) {
     'use strict';
 
     var SightModalView;
@@ -42,7 +42,7 @@ define([
         },
 
         onAdd : function (model) {
-            var view = new TemplateView({
+            var view = new ListItemView({
                 template : this.options.listItemTemplate,
                 tagName : 'li',
                 className : 'nav-item hover-tools-trigger',

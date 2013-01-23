@@ -85,9 +85,9 @@ define([
             var resp = xhr.responseText,
                 contentType = xhr.getResponseHeader('content-type');
 
-            //if (contentType === 'application/json') {
+            if (contentType === 'application/json') {
                 resp = JSON.parse(resp);
-            //}
+            }
 
             return resp;
         },

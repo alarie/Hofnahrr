@@ -53,6 +53,7 @@ define([], function () {
             'sight_pick_on_map' : 'Auf der Karte auswählen',
             'sight_pick_on_map_help' : 'Zum auswählen des Orts dieser Sehenswürdigkeit wird dieser Dialog geschlossen und die Karte angezeigt. Nachdem der Ort auf der Karte festgelegt wurde, wird dieser Dialog wieder angezeigt.',
             'sight_verified' : 'freigegeben',
+            'sight_select_sight' : 'Bitte Sehenswürdigkeit auswählen.',
 
             'sight_map' : 'Karte',
             'sight_gallery' : 'Galerie',
@@ -174,6 +175,7 @@ define([], function () {
             'sight_pick_on_map' : 'Pick on map',
             'sight_pick_on_map_help' : 'In order to pick the location of this sight, this dialogue will be closed and a map will be displayed. Once the location was picked on the map, this dialogue will be displayed again.',
             'sight_verified' : 'verified',
+            'sight_select_sight' : 'Please select sight',
 
             'sight_map' : 'Map',
             'sight_gallery' : 'Gallery',

@@ -54,7 +54,7 @@ define([
         },
 
         initialize : function () {
-            _.bindAll(this, 'onWizardAction');
+            _.bindAll(this, 'onWizardAction', 'onModelDeleted');
 
             _.defaults((this.options.modalOptions || {}), {
                 backdrop : true,
@@ -228,7 +228,18 @@ define([
         },
 
         setModel : function (model) {
+            if (this.model) {
+                this.model.off('destroy', this.onModelDeleted);
+            }
+
             this.model = model;
+            this.model.on('destroy', this.onModelDeleted);
+
+            this.updateModal();
+        },
+
+        onModelDeleted : function () {
+            this.model = null; 
             this.updateModal();
         },
 

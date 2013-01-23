@@ -421,7 +421,6 @@ define([
                 }
             }
             else {
-                data.
                 this.sightCollection.create(data, {
                     success : function () {
                         that.sightFormView.setModel(null);
@@ -439,6 +438,8 @@ define([
             if (window.confirm(Templater.i18n('sight_confirm_delete'))) {
                 var sight = this.sightCollection.get(id);
                 sight.destroy();
+                sight = this.sightCollection.at(0);
+                this.setSelectedSight(sight.id);
             }
         },
 
@@ -493,6 +494,7 @@ define([
 
                 this.sightCollection.on('add', sightModal.onAdd);
                 this.sightCollection.on('reset', sightModal.onAddAll);
+                this.sightCollection.on('destory', sightModal.onDestroy);
                 sightModal.onAddAll(this.sightCollection);
 
             }

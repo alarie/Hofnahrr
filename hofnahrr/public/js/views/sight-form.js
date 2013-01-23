@@ -171,7 +171,10 @@ define([
                 trigger : 'hover'
             });
 
-            if (!this.model || this.model.get('unknown')) {
+            if (!this.model) {
+                this.$el.html('<h2>' + Templater.i18n('sight_select_sight') + '</h2>');
+            }
+            else if (this.model.get('unknown')) {
                 this.disableForm();
             }
             else {
