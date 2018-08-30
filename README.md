@@ -18,7 +18,7 @@ Eingesetzte Technologien
 
 ### Testing ###
 * [Testem](https://github.com/airportyh/testem)
-* [Jasmin](http://pivotal.github.com/jasmine/)
+* [Jasmin](https://jasmine.github.io/)
 
 ### SCSS ###
 * [SCSS](http://sass-lang.com/)
